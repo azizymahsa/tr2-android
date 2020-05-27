@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,7 +18,7 @@
         <View
             android:id="@+id/spaceTop"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_80dp"/>
+            android:layout_height="@dimen/_80dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -38,7 +37,7 @@
                     android:layout_width="@dimen/_150dp"
                     android:layout_height="@dimen/_150dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_logo_main_traap"/>
+                    android:src="@drawable/ic_logo_main_traap" />
 
                 <TextView
                     android:id="@+id/tv2"
@@ -83,7 +82,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+        >
             <!--llPin-->
             <LinearLayout
                 android:id="@+id/llPin"
@@ -92,14 +92,39 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <TextView
-                    android:id="@+id/tvPhoneNumber"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:textColor="@color/textColorSecondary"
-                    android:textSize="@dimen/textSize_14dp" />
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="+"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/textSize_14dp" />
+
+                    <TextView
+                        android:id="@+id/tvPhoneNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/textSize_14dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="شماره تلفن همراه شما: "
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/textSize_14dp" />
+                </LinearLayout>
+
 
                 <com.alimuzaffar.lib.pin.PinEntryEditText
                     android:id="@+id/codeView"
@@ -119,6 +144,7 @@
                     app:pinLineColors="@color/textColorSecondary" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -136,6 +162,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:orientation="horizontal">
+
                     <EditText
                         android:id="@+id/etCountryName"
                         android:layout_width="match_parent"
@@ -178,6 +205,7 @@
                         android:id="@+id/rlCountryCode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
+
                         <TextView
                             android:layout_width="@dimen/_10dp"
                             android:layout_height="wrap_content"
@@ -185,7 +213,8 @@
                             android:textColor="@color/textColorSecondary"
                             android:textSize="@dimen/textSize_18dp"
                             android:text="+"
-                            android:layout_centerVertical="true"/>
+                            android:layout_centerVertical="true" />
+
                         <EditText
                             android:id="@+id/etCountryCode"
                             android:layout_width="wrap_content"
@@ -253,21 +282,22 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="20" />
-            <com.traap.traapapp.utilities.ClearableEditText
-                android:id="@+id/etInviteCode"
-                android:layout_width="0dp"
-                android:layout_weight="100"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:hint="@string/enter_invite_code"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:maxLength="11"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/textColorSecondary"
-                android:textSize="@dimen/textSize_18dp" />
+
+                <com.traap.traapapp.utilities.ClearableEditText
+                    android:id="@+id/etInviteCode"
+                    android:layout_width="0dp"
+                    android:layout_weight="100"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:hint="@string/enter_invite_code"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/textSize_18dp" />
 
                 <Space
                     android:layout_width="0dp"
@@ -305,6 +335,7 @@
                     android:layout_weight="40" />
 
             </LinearLayout>
+
             <TextView
                 android:id="@+id/tvChangeNumber"
                 android:layout_width="@dimen/_100dp"
@@ -361,68 +392,74 @@
                 android:orientation="horizontal"
                 android:visibility="visible">
 
-                            <LinearLayout
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="right"
+                        android:text="صحت اطلاعات وارد شده را تایید می نمایم."
+                        android:textColor="@color/_title_black"
+                        android:textSize="@dimen/textSize_12dp"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end|center"
+                        android:gravity="end|center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom|end"
+                            android:text="استفاده را می پذیرم."
+                            android:textColor="@color/_title_black"
+                            android:textSize="@dimen/textSize_12dp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center"
+                            android:gravity="end|center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txtCondition"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginBottom="5dp"
-                                    android:gravity="right"
-                                    android:text="صحت اطلاعات وارد شده را تایید می نمایم."
-                                    android:textColor="@color/_title_black"
-                                    android:textSize="@dimen/textSize_12dp"
-                                    android:visibility="gone"/>
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:layout_gravity="end|center"
-                                    android:gravity="end|center">
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:gravity="bottom|end"
+                                android:text="@string/login_condition_under_line"
+                                android:textAppearance="@style/IranSansBold"
+                                android:textColor="#000"
+                                android:padding="1dp"
+                                android:textSize="@dimen/textSize_12dp" />
 
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="bottom|end"
-                                        android:text="استفاده را می پذیرم."
-                                        android:textColor="@color/_title_black"
-                                        android:textSize="@dimen/textSize_12dp" />
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="end|center"
-                                        android:gravity="end|center"
-                                        android:orientation="vertical">
-                                        <TextView
-                                            android:id="@+id/txtCondition"
-                                            android:layout_width="wrap_content"
-                                            android:layout_weight="1"
-                                            android:layout_height="wrap_content"
-                                            android:gravity="bottom|end"
-                                            android:text="@string/login_condition_under_line"
-                                            android:textAppearance="@style/IranSansBold"
-                                            android:textColor="#000"
-                                            android:padding="1dp"
-                                            android:textSize="@dimen/textSize_12dp" />
-                                        <View
-                                            android:layout_width="0dp"
-                                            android:layout_weight="1"
-                                            android:layout_height="1dp"
-                                            android:background="#000" />
-                                    </LinearLayout>
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:text="با ثبت نام در تراپ، "
-                                        android:textColor="@color/_title_black"
-                                        android:textSize="@dimen/textSize_12dp"/>
-                                </LinearLayout>
-
-
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="1dp"
+                                android:background="#000" />
                         </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="با ثبت نام در تراپ، "
+                            android:textColor="@color/_title_black"
+                            android:textSize="@dimen/textSize_12dp" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -440,6 +477,6 @@
         android:text="کد تایید برای شما ارسال خواهد شد."
         android:textColor="@color/textColorSecondary"
         android:textSize="@dimen/textSize_12dp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </RelativeLayout>

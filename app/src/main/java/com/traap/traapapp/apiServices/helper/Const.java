@@ -7,11 +7,11 @@ public class Const
     public static final boolean TEST = false;
 
     //-----------------------------------------------------------------------------
-    public final static String BASEURL = "http://5.253.25.117:9000/";     //developing
+   // public final static String BASEURL = "http://5.253.25.117:9000/";     //developing
    // public final static String BASEURL = "http:/stage-rest.traap.com/";     //developing
 //    public final static String BASEURL = "http://5.253.25.117:5000/";     //pre Live
   //  public final static String BASEURL = "http://79.175.146.58:8000/";     //pre Live
- //   public final static String BASEURL = "https://restapp.traap.com/";   //Live
+    public final static String BASEURL = "https://restapp.traap.com/";   //Live
 
     private static final String SubBASEURL = "api/";
     //-----------------------------------------------------------------------------
@@ -201,7 +201,6 @@ public class Const
     public final static String Get_DETAIL_SURVEY = SubBASEURL + "v1/survey/{id}/";
     public final static String TECHS = SubBASEURL + "v1/team/techs/";
     public final static String CUPS = SubBASEURL + "v1/team/cups/";
-    public final static String SEACRHTECHS = SubBASEURL + "v1/team/techs/";
 
 
 }
