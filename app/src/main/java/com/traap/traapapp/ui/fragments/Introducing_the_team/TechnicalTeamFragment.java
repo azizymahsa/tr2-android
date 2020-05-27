@@ -4,16 +4,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.topPlayers.Result;
 import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.PositionInLeaguesAdapter;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.TechnicalTeamAdapter;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.TopPlayersAdapter;
+import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
@@ -27,11 +30,19 @@ import androidx.recyclerview.widget.RecyclerView;
  * Reza Nejati <reza.n.j.t.i@gmail.com>
  * Copyright © 2017
  */
-public class TechnicalTeamFragment extends BaseFragment
+public class TechnicalTeamFragment extends BaseFragment implements TechnicalTeamAdapter.TechnicalTeamEvent
 {
     private View rootView;
     private RecyclerView rv;
     private NestedScrollView nested;
+    private MainActionView mainView;
+
+
+    public TechnicalTeamFragment(MainActionView mainView)
+    {
+        super();
+        this.mainView=mainView;
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -71,7 +82,7 @@ public class TechnicalTeamFragment extends BaseFragment
                     if (response.info.statusCode==200)
                     {
 
-                        rv.setAdapter(new TechnicalTeamAdapter(response.data.getResults()));
+                        rv.setAdapter(new TechnicalTeamAdapter(response.data.getResults(),TechnicalTeamFragment.this));
 
 
 
@@ -104,6 +115,13 @@ public class TechnicalTeamFragment extends BaseFragment
                 }catch (Exception e){}
             }
         },"coach",true,null);
+
+    }
+
+    @Override
+    public void TechnicalTeamClick(Result result)
+    {
+        mainView.onHeadCoach(result.getId());
 
     }
 }

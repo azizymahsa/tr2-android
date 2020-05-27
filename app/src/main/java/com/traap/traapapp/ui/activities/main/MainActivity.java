@@ -949,6 +949,14 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
     }
 
+    @Override
+    public void onHeadCoach(Integer coachId)
+    {
+        setFragment(HeadCoachFragment.newInstance(this,coachId));
+        replaceFragment(getFragment(), "HeadCoachFragment");
+
+    }
+
     public void onPackSimCard(Integer status)
     {
         isMainFragment = false;
