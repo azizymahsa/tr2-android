@@ -65,16 +65,13 @@ public class SurveyDetailAdapter extends RecyclerView.Adapter<SurveyDetailAdapte
 
         if (info.isMandatory()){
 
-         //   holder.tvQuestion.setText(info.getQuery()+"<font color=red>" + " *");
+            String styledText = info.getQuery()+" <font color='red'>*</font>";
+            holder.tvQuestion.setText(Html.fromHtml(styledText), TextView.BufferType.SPANNABLE);
+
         }else {
             holder.tvQuestion.setText(info.getQuery());
 
         }
-
-       /* String styledText = " <font color='red'>تراپ</font>، اپلیکیشن هواداران باشگاه تراکتور";
-        tvTraapTitle.setText(Html.fromHtml(styledText), TextView.BufferType.SPANNABLE);*/
-      /*  myTextView.setText(Html.fromHtml(text + "<font color=white>" + CepVizyon.getPhoneCode() + "</font><br><br>"
-                + getText(R.string.currentversion) + CepVizyon.getLicenseText()));*/
 
         if(info.getQuestionType()==1||info.getQuestionType()==2){
             adapter = new SurveyDetailRadioGroupAdapter(info.getQuestionType(),info.getOptions());

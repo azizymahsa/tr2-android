@@ -14,7 +14,8 @@ public class Option
     @SerializedName("answer_option")
     @Expose
     private String answerOption;
-
+    @Expose
+    private Boolean isCheck=false;
     public Integer getId() {
         return id;
     }
@@ -31,4 +32,13 @@ public class Option
         this.answerOption = answerOption;
     }
 
+    public Boolean getCheck()
+    {
+        return isCheck;
+    }
+
+    public void setCheck(Boolean check)
+    {
+        isCheck = check;
+    }
 }
