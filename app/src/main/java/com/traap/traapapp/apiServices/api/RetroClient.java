@@ -126,7 +126,11 @@ import com.traap.traapapp.apiServices.model.spectatorInfo.GetSpectatorListRespon
 import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
 import com.traap.traapapp.apiServices.model.survey.SurveyDetailResponse;
+import com.traap.traapapp.apiServices.model.techs.GetTechsIdResponse;
 import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
+import com.traap.traapapp.apiServices.model.survey.listSurvey.SurveyListResponse;
+import com.traap.traapapp.apiServices.model.survey.putSurvey.PutSurveyRequest;
+import com.traap.traapapp.apiServices.model.survey.putSurvey.PutSurveyResponse;
 import com.traap.traapapp.apiServices.model.tourism.bus.getMessageBus.request.BusSendMessage;
 import com.traap.traapapp.apiServices.model.tourism.bus.getPaymentBus.request.RequestBusPayment;
 import com.traap.traapapp.apiServices.model.tourism.flight.payment.request.FlightPaymentRequest;
@@ -139,6 +143,7 @@ import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
 import com.traap.traapapp.apiServices.model.withdrawWallet.WithdrawWalletRequest;
 import com.traap.traapapp.apiServices.model.withdrawWallet.WithdrawWalletResponse;
 
+import lombok.Generated;
 import okhttp3.MultipartBody;
 import retrofit2.Response;
 import retrofit2.http.Body;
@@ -218,6 +223,15 @@ public interface RetroClient
     @GET(Const.TECHS)
     Single<Response<WebServiceClass<TopPlayerResponse>>> getSearchTech(
             @Query("search") String role__code_name);
+
+    @PUT(Const.Get_DETAIL_SURVEY)
+    Single<Response<WebServiceClass<PutSurveyResponse>>> putSurvey(
+            @Path("id") Integer surveyId,
+            @Body PutSurveyRequest request);
+
+    @GET(Const.Get_LIST_SURVEY)
+    Single<Response<WebServiceClass<SurveyListResponse>>> getSurveyList(
+            );
 
 
     /*photos*/
@@ -773,5 +787,9 @@ public interface RetroClient
     Single<Response<WebServiceClass<TractorTeamResponse>>> traktor();
     @GET(Const.CUPS)
     Single<Response<WebServiceClass<CupResponse>>> cup();
+
+    @GET(Const.TECHS_ID)
+    Single<Response<WebServiceClass<GetTechsIdResponse>>> getTechsId(
+            @Path("id") Integer id);
 
 }

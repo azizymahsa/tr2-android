@@ -4,37 +4,39 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.model.survey.Option;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by MahtabAzizi on 5/5/2020.
  */
 public class SurveyDetailRadioGroupAdapter extends RecyclerView.Adapter<SurveyDetailRadioGroupAdapter.SurveyDetailViewHolder>{
 
-   // List<Modal_Product_List> prescriptionProducts;
+    private  List<Option> optionsList;
+    private Integer questionType;
    public int mSelectedItem = -1;
+    private int lastSelectedPosition = -1;
+    ArrayList<SurveyDetailRadioGroupAdapter.SurveyDetailViewHolder> myViewHolders = new ArrayList<>();
 
 
-   /* public SurveyDetailRadioGroupAdapter(List<Modal_Product_List> prescriptionListProd) {
+    public SurveyDetailRadioGroupAdapter(Integer questionType, List<Option> options)
+    {
+        this.questionType=questionType;
+        this.optionsList=options;
+    }
 
-        if (prescriptionListProd == null) {
-            throw new IllegalArgumentException(
-                    "PrescriptionProductList must not be null");
-        }
-        this.prescriptionProducts = prescriptionListProd;
-    }*/
-
-    public SurveyDetailRadioGroupAdapter() {
-
-      /*  if (prescriptionListProd == null) {
-            throw new IllegalArgumentException(
-                    "PrescriptionProductList must not be null");
-        }
-        this.prescriptionProducts = prescriptionListProd;*/
+    public ArrayList<SurveyDetailViewHolder> getMyViewHolders()
+    {
+        return myViewHolders;
     }
 
     @Override
@@ -50,39 +52,77 @@ public class SurveyDetailRadioGroupAdapter extends RecyclerView.Adapter<SurveyDe
 
     @Override
     public void onBindViewHolder(
-            SurveyDetailViewHolder viewHolder, int position) {
-      /*  Modal_Product_List modelMedicine = prescriptionProducts.get(position);
+            SurveyDetailViewHolder viewHolder, int position)
+    {
+        myViewHolders.add(position, viewHolder);
 
-               viewHolder.mRadio.setChecked(i == mSelectedItem);
-*/
+
+        Option option = optionsList.get(position);
+
+        if (questionType == 1)
+        {
+            viewHolder.radioButton.setText(option.getAnswerOption());
+            viewHolder.radioButton.setVisibility(View.VISIBLE);
+            viewHolder.checkBox.setVisibility(View.GONE);
+
+            viewHolder.radioButton.setChecked(lastSelectedPosition == position);
+
+
+        } else if (questionType==2)
+        {
+            viewHolder.checkBox.setText(option.getAnswerOption());
+            viewHolder.checkBox.setTag(option.getId());
+            viewHolder.radioButton.setVisibility(View.GONE);
+            viewHolder.checkBox.setVisibility(View.VISIBLE);
+            viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+            {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+                {
+                    optionsList.get(position).setCheck(isChecked);
+
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        //return prescriptionProducts.size();
-        return 2;
+        return
+                optionsList.size();
     }
 
     public final  class SurveyDetailViewHolder
             extends RecyclerView.ViewHolder {
 
 
-        RadioButton radioButton;
+        public RadioButton radioButton;
+        public CheckBox checkBox;
 
         public SurveyDetailViewHolder(View itemView) {
             super(itemView);
 
             radioButton = (RadioButton) itemView.findViewById(R.id.radioButton);
+            checkBox=(CheckBox) itemView.findViewById(R.id.checkBox);
 
-            View.OnClickListener clickListener = new View.OnClickListener() {
+
+            radioButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mSelectedItem = getAdapterPosition();
+                    lastSelectedPosition = getAdapterPosition();
+                    optionsList.get(lastSelectedPosition).setCheck(true);
+                    for (int i = 0; i <optionsList.size() ; i++)
+                    {
+                        if (i!=lastSelectedPosition){
+                            optionsList.get(i).setCheck(false);
+
+                        }
+                    }
+
                     notifyDataSetChanged();
+
                 }
-            };
-            itemView.setOnClickListener(clickListener);
-            radioButton.setOnClickListener(clickListener);
+            });
         }
     }
 }

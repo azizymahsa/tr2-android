@@ -38,11 +38,56 @@
             android:id="@+id/nested"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/llEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_30dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_weight="1.5"
+                    android:gravity="center"
+                    android:textColor="@color/textColorPrimary"
+                    android:textSize="@dimen/textSize_16dp"
+                    android:text="کاربر گرامی، در حال حاضر نظرسنجی برای نمایش وجود ندارد."/>
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/llFill"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:visibility="gone"
                 android:layout_marginBottom="@dimen/_20dp"
                 android:orientation="vertical">
                 <LinearLayout
@@ -66,6 +111,7 @@
 
 
                             <TextView
+                                android:id="@+id/tvTitleFill"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="right"
@@ -86,7 +132,6 @@
                     android:id="@+id/tvQestionOne"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/_20dp"
                     android:layout_marginStart="@dimen/_20dp"
                     android:layout_marginEnd="@dimen/_20dp"
                     android:gravity="right"
@@ -201,6 +246,7 @@
 
                 </LinearLayout>
             </LinearLayout>
+</LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 </RelativeLayout>

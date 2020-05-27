@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="208dp"
+            android:background="@drawable/background_main_header" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent">
+
+            <include layout="@layout/toolbar_back" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nested"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/toolbar"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingBottom="16dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_45sdp">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/card"
+                            style="@style/Widget.MaterialComponents.CardView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:elevation="3dp"
+                            android:translationZ="1dp"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="3dp"
+                            app:cardMaxElevation="5dp"
+                            app:cardUseCompatPadding="true"
+                            app:contentPadding="8dp"
+                            app:strokeColor="@color/borderColorGray">
+                            <ImageView
+                                android:id="@+id/btnShareTicket"
+                                android:layout_width="@dimen/_35dp"
+                                android:layout_height="@dimen/_35dp"
+                                android:background="@drawable/button_small_border"
+                                app:srcCompat="@drawable/ic_share"
+                                android:padding="@dimen/_5sdp"
+                                android:tint="@color/shadowColor"
+                                android:foreground="?attr/selectableItemBackground"
+                                />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_70sdp"
+                                android:visibility="visible">
+
+                                <View
+                                    android:id="@+id/v1"
+                                    android:layout_marginTop="@dimen/_10dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0.5dp"
+                                    android:layout_below="@+id/llTeamDetails"
+                                    android:background="@color/textHint"
+                                    app:layout_constraintTop_toBottomOf="@+id/llTeamDetails"/>
+                                <com.google.android.material.tabs.TabLayout
+                                    android:id="@+id/tabLayout"
+                                    style="@style/TabLayoutStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="48dp"
+                                    android:layout_gravity="center"
+
+                                    android:layout_below="@+id/v1"
+                                    android:layout_centerHorizontal="true"
+                                    app:tabBackground="@drawable/tab_background"
+                                    app:tabGravity="center"
+                                    app:tabIndicatorHeight="0dp"
+                                    android:layout_marginRight="@dimen/_10dp"
+                                    android:layout_marginLeft="@dimen/_10dp"
+                                    app:tabMode="scrollable"
+                                    app:tabTextColor="@drawable/tab_text_color" />
+
+                                <View
+                                    android:id="@+id/v2"
+                                    android:layout_below="@+id/tabLayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0.5dp"
+                                    android:background="@color/textHint"
+                                    />
+
+
+                                <com.traap.traapapp.utilities.WrapContentHeightViewPager
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/view_pager"
+                                    android:layout_below="@+id/v2"
+                                    app:layout_constraintTop_toBottomOf="@+id/v2"/>
+                                <FrameLayout
+                                    android:id="@+id/child_fragment_container"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="gone"
+                                    />
+
+
+
+                            </RelativeLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlImageProfile"
+                        android:layout_width="@dimen/_120sdp"
+                        android:layout_height="@dimen/_120sdp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true">
+
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/imgProfile"
+                            android:layout_width="@dimen/_120sdp"
+                            android:layout_height="@dimen/_120sdp"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:elevation="3dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ic_user_default"
+                            android:visibility="visible"
+                            app:riv_border_color="@color/borderColorGray"
+                            app:riv_border_width="2dip"
+                            app:riv_corner_radius="30dip"
+                            app:riv_mutate_background="true"
+                            app:riv_oval="true"
+                            app:riv_tile_mode="clamp" />
+
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:orientation="vertical">
+
+
+
+            </LinearLayout>
+
+
+        <include
+            layout="@layout/loading"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -841,7 +841,7 @@ public class Utility
             intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
             CustomTabsIntent customTabsIntent = intentBuilder.build();
 
-            customTabsIntent.intent.putExtra(android.provider.Browser.EXTRA_HEADERS, headers);
+            customTabsIntent.intent.putExtra(Browser.EXTRA_HEADERS, headers);
 
             customTabsIntent.launchUrl(context, uri);
 
