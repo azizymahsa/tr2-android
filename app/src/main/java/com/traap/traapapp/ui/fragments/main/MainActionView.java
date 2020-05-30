@@ -111,4 +111,5 @@ public interface MainActionView extends BaseView
     void onIntroduceTeam();
     void onCompationTeam();
     void onHeadCoach(Integer coachId);
+    void onMediaPlayersFragment();
 }

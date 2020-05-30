@@ -88,6 +88,7 @@ import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.competitions.CompationsFragment;
+import com.traap.traapapp.ui.fragments.galleryIntroPlayer.MediaPlayersFragment;
 import com.traap.traapapp.ui.fragments.gateWay.WalletFragment;
 import com.traap.traapapp.ui.fragments.headCoach.HeadCoachFragment;
 import com.traap.traapapp.ui.fragments.inviteFriend.InviteFriendsFragment;
@@ -955,6 +956,12 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     {
         setFragment(HeadCoachFragment.newInstance(this,coachId));
         replaceFragment(getFragment(), "HeadCoachFragment");
+
+    }
+
+    @Override
+    public void onMediaPlayersFragment()
+    {
 
     }
 
@@ -2802,14 +2809,14 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     {
         if (isVisible)
         {
-            Animation animation = AnimationUtils.loadAnimation(this, R.anim.movedown);
-            findViewById(R.id.llBottomNavigation).startAnimation(animation);
+         //   Animation animation = AnimationUtils.loadAnimation(this, R.anim.movedown);
+        //    findViewById(R.id.llBottomNavigation).startAnimation(animation);
             findViewById(R.id.llBottomNavigation).setVisibility(View.GONE);
         }
         else
         {
-            Animation animation = AnimationUtils.loadAnimation(this, R.anim.moveup);
-            findViewById(R.id.llBottomNavigation).startAnimation(animation);
+          //  Animation animation = AnimationUtils.loadAnimation(this, R.anim.moveup);
+         //   findViewById(R.id.llBottomNavigation).startAnimation(animation);
             findViewById(R.id.llBottomNavigation).setVisibility(View.VISIBLE);
         }
 //        showDebugToast(this, "Keyboard Visibility: " + isVisible);

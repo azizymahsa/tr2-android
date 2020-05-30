@@ -50,7 +50,6 @@ public class MediaPlayersFragment extends BaseFragment implements MediaAdapter.O
     private View rootView;
     private MainActionView mainView;
 
-    private Toolbar mToolbar;
     private TextView tvUserName, tvHeaderPopularNo;
     private TextView txtPic, txtVideo;
 
@@ -63,7 +62,6 @@ public class MediaPlayersFragment extends BaseFragment implements MediaAdapter.O
 
     private MediaPosition mediaPosition;
     private int myMediaType;
-    private View rlShirt;
 
     public MediaPlayersFragment()
     {
@@ -96,22 +94,7 @@ public class MediaPlayersFragment extends BaseFragment implements MediaAdapter.O
     {
         rootView = inflater.inflate(R.layout.fragment_media_player, container, false);
 
-        mToolbar = rootView.findViewById(R.id.toolbar);
 
-        mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
-//        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
-        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> getActivity().onBackPressed());
-//        mToolbar.findViewById(R.id.flLogoToolbar).setOnClickListener(rootView -> mainView.backToMainFragment());
-        mToolbar.findViewById(R.id.flLogoToolbar).setOnClickListener(rootView -> getActivity().onBackPressed());
-        tvUserName = mToolbar.findViewById(R.id.tvUserName);
-        tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
-        TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
-        tvTitle.setText("گالری عکس و فیلم");
-        rlShirt = mToolbar.findViewById(R.id.rlShirt);
-
-        rlShirt.setOnClickListener(v -> startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), MyProfileActivity.class), 100));
-        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
-        tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
         txtPic = rootView.findViewById(R.id.txtPic);
         txtVideo = rootView.findViewById(R.id.txtVideo);
         txtPic.setOnClickListener(this);

@@ -4,186 +4,46 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:id="@+id/llRoot"
     android:foreground="?attr/selectableItemBackground"
     android:gravity="center|right"
-    android:layout_marginTop="@dimen/_10dp">
-
+    android:layout_marginTop="@dimen/_20dp">
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_50dp"
-        android:orientation="horizontal"
-        android:gravity="center|right">
-
-        <LinearLayout
-            android:id="@+id/llEdit"
-            android:layout_width="0dp"
-            android:layout_weight="100"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center|left">
-
-            <ImageView
-                android:layout_width="@dimen/_20dp"
-                android:layout_height="@dimen/_20dp"
-                app:srcCompat="@drawable/delete_comment"
-                android:foreground="?attr/selectableItemBackground"
-                android:layout_marginLeft="@dimen/_10dp" />
-
-            <ImageView
-                android:layout_width="@dimen/_20dp"
-                android:layout_height="@dimen/_20dp"
-                app:srcCompat="@drawable/edit_comment"
-                android:foreground="?attr/selectableItemBackground"
-                android:layout_marginLeft="@dimen/_10dp" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="100"
-            android:layout_height="wrap_content"
-            android:gravity="center|right"
-            android:text="چهارشنبه 18 دی 1398"
-            android:textColor="@color/warmGray"
-            android:textSize="@dimen/textSize_12dp" />
-
-        <View
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"
-            android:background="@color/warmGray"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center|right"
-            android:text="امیر حسینی"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/textSize_12dp" />
-
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/imgProfile"
-            android:layout_width="@dimen/_40dp"
-            android:layout_height="@dimen/_40dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/test_player"
-            android:visibility="visible"
-            app:riv_border_color="@color/borderColorGray"
-            app:riv_border_width="2dip"
-            app:riv_corner_radius="30dip"
-            app:riv_mutate_background="true"
-            app:riv_oval="true"
-            app:riv_tile_mode="clamp" />
-
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center|right"
-        android:layout_marginTop="@dimen/_10dp"
-        android:text="بازیکنان بی تعصب بازی کردند فوتبال باید کمی غیرت  داشته باشه و من جنگندگی رو امروز در تیم ندیدم"
-        android:layout_marginRight="10dp"
-        android:textColor="@color/black"
-        android:layout_marginLeft="@dimen/_10dp"
-
-        android:textSize="@dimen/textSize_14dp" />
-
-    <LinearLayout
-        android:layout_marginTop="@dimen/_10dp"
-
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_50dp"
-        android:orientation="horizontal"
-        android:gravity="center|right">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="100"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center|left">
-            <RelativeLayout
-                android:layout_width="@dimen/_30dp"
-                android:layout_height="@dimen/_30dp">
-                <ImageView
-                    android:layout_width="@dimen/_20dp"
-                    android:layout_height="@dimen/_20dp"
-                    app:srcCompat="@drawable/like_coach"
-                    android:layout_centerInParent="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    />
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="@dimen/_30dp"
-                    android:background="@color/warmGray"
-                    android:rotation="50"
-                    android:layout_centerInParent="true"
-                    />
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center|right"
-                android:text="45"
-                android:textColor="@color/warmGray"
-                android:textSize="@dimen/textSize_12dp" />
-
-            <RelativeLayout
-                android:layout_width="@dimen/_30dp"
-                android:layout_height="@dimen/_30dp">
-                <ImageView
-                    android:layout_width="@dimen/_20dp"
-                    android:layout_height="@dimen/_20dp"
-                    app:srcCompat="@drawable/like_coach"
-                    android:layout_centerInParent="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    />
-
-            </RelativeLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center|right"
-                android:text="50"
-                android:textColor="@color/warmGray"
-                android:textSize="@dimen/textSize_12dp" />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="100"
-                android:layout_height="wrap_content"
-                android:gravity="center|right"
-                android:text="پاسخ"
-                android:textColor="@color/warmGray"
-                android:layout_marginRight="5dp"
-                android:textSize="@dimen/textSize_12dp" />
-
-            <ImageView
-                android:layout_width="@dimen/_10dp"
-                android:layout_height="@dimen/_10dp"
-                app:srcCompat="@drawable/reply"
-                android:foreground="?attr/selectableItemBackground"
-                android:layout_marginRight="@dimen/_20dp" />
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-    <LinearLayout
+        android:id="@+id/llUserComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginRight="@dimen/_20dp">
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50dp"
             android:orientation="horizontal"
             android:gravity="center|right">
+
+            <LinearLayout
+                android:id="@+id/llEdit"
+                android:layout_width="0dp"
+                android:layout_weight="100"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center|left">
+
+                <ImageView
+                    android:id="@+id/ivDelete"
+                    android:layout_width="@dimen/_20dp"
+                    android:layout_height="@dimen/_20dp"
+                    app:srcCompat="@drawable/delete_comment"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_marginLeft="@dimen/_10dp" />
+
+                <ImageView
+                    android:id="@+id/ivEdit"
+                    android:layout_width="@dimen/_20dp"
+                    android:layout_height="@dimen/_20dp"
+                    app:srcCompat="@drawable/edit_comment"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_marginLeft="@dimen/_10dp" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="0dp"
@@ -205,20 +65,173 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center|right"
-                android:text="سپهر"
+                android:text="امیر حسینی"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize_12dp" />
 
 
             <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imgProfile"
                 android:layout_width="@dimen/_40dp"
                 android:layout_height="@dimen/_40dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_user"
+                android:src="@drawable/test_player"
                 android:visibility="visible"
                 app:riv_border_color="@color/borderColorGray"
-                app:riv_border_width="2dip"
+                app:riv_border_width="1dip"
+                app:riv_corner_radius="30dip"
+                app:riv_mutate_background="true"
+                app:riv_oval="true"
+                app:riv_tile_mode="clamp" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|right"
+            android:layout_marginTop="@dimen/_10dp"
+            android:text="بازیکنان بی تعصب بازی کردند فوتبال باید کمی غیرت  داشته باشه و من جنگندگی رو امروز در تیم ندیدم"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="@dimen/_10dp"
+
+            android:textSize="@dimen/textSize_14dp" />
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center|right">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="100"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center|left">
+                <RelativeLayout
+                    android:layout_width="@dimen/_30dp"
+                    android:layout_height="@dimen/_30dp">
+                    <ImageView
+                        android:layout_width="@dimen/_20dp"
+                        android:layout_height="@dimen/_20dp"
+                        app:srcCompat="@drawable/like_coach"
+                        android:layout_centerInParent="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        />
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="@dimen/_30dp"
+                        android:background="@color/warmGray"
+                        android:rotation="50"
+                        android:layout_centerInParent="true"
+                        />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|right"
+                    android:text="45"
+                    android:textColor="@color/warmGray"
+                    android:textSize="@dimen/textSize_12dp" />
+
+                <RelativeLayout
+                    android:layout_width="@dimen/_30dp"
+                    android:layout_height="@dimen/_30dp"
+                    android:layout_marginLeft="5dp">
+                    <ImageView
+                        android:layout_width="@dimen/_20dp"
+                        android:layout_height="@dimen/_20dp"
+                        app:srcCompat="@drawable/like_coach"
+                        android:layout_centerInParent="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        />
+
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|right"
+                    android:text="50"
+                    android:textColor="@color/warmGray"
+                    android:textSize="@dimen/textSize_12dp" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="100"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|right"
+                    android:text="پاسخ"
+                    android:textColor="@color/warmGray"
+                    android:layout_marginRight="5dp"
+                    android:textSize="@dimen/textSize_12dp" />
+
+                <ImageView
+                    android:layout_width="@dimen/_10dp"
+                    android:layout_height="@dimen/_10dp"
+                    app:srcCompat="@drawable/reply"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_marginRight="@dimen/_20dp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/llReply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="@dimen/_30dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50dp"
+            android:orientation="horizontal"
+            android:gravity="center|right">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="100"
+                android:layout_height="wrap_content"
+                android:gravity="center|right"
+                android:text="چهارشنبه 18 دی 1398"
+                android:textColor="@color/warmGray"
+                android:textSize="@dimen/textSize_10dp" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/warmGray"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center|right"
+                android:text="سپهر"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize_10dp" />
+
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="@dimen/_30dp"
+                android:layout_height="@dimen/_30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/test_coach"
+                android:visibility="visible"
+                app:riv_border_color="@color/borderColorGray"
+                app:riv_border_width="1dip"
                 app:riv_corner_radius="30dip"
                 app:riv_mutate_background="true"
                 app:riv_oval="true"
@@ -231,17 +244,18 @@
             android:layout_height="wrap_content"
             android:gravity="center|right"
             android:layout_marginTop="@dimen/_10dp"
-            android:text=".بازی بسیار زیبایی بود "
+            android:text="بازی بسیار زیبایی بود. "
             android:layout_marginRight="10dp"
             android:textColor="@color/black"
             android:layout_marginLeft="@dimen/_10dp"
 
-            android:textSize="@dimen/textSize_14dp" />
+            android:textSize="@dimen/textSize_12dp" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:id="@+id/llReply">
+            android:gravity="center|left"
+           >
 
             <RelativeLayout
                 android:layout_width="@dimen/_30dp"
@@ -272,7 +286,8 @@
 
             <RelativeLayout
                 android:layout_width="@dimen/_30dp"
-                android:layout_height="@dimen/_30dp">
+                android:layout_height="@dimen/_30dp"
+                android:layout_marginLeft="5dp">
                 <ImageView
                     android:layout_width="@dimen/_20dp"
                     android:layout_height="@dimen/_20dp"
@@ -290,7 +305,119 @@
                 android:textColor="@color/warmGray"
                 android:textSize="@dimen/textSize_12dp" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50dp"
+            android:orientation="horizontal"
+            android:gravity="center|right">
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="100"
+                android:layout_height="wrap_content"
+                android:gravity="center|right"
+                android:text="چهارشنبه 18 دی 1398"
+                android:textColor="@color/warmGray"
+                android:textSize="@dimen/textSize_10dp" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/warmGray"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center|right"
+                android:text="سپهر"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize_10dp" />
+
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="@dimen/_30dp"
+                android:layout_height="@dimen/_30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_user_default"
+                android:visibility="visible"
+                app:riv_border_color="@color/borderColorGray"
+                app:riv_border_width="1dip"
+                app:riv_corner_radius="30dip"
+                app:riv_mutate_background="true"
+                app:riv_oval="true"
+                app:riv_tile_mode="clamp" />
+
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|right"
+            android:layout_marginTop="@dimen/_10dp"
+            android:text="من هم موافقم سپهرو باید بزنیم. "
+            android:layout_marginRight="10dp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="@dimen/_10dp"
+
+            android:textSize="@dimen/textSize_12dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center|left"
+            >
+
+            <RelativeLayout
+                android:layout_width="@dimen/_30dp"
+                android:layout_height="@dimen/_30dp">
+                <ImageView
+                    android:layout_width="@dimen/_20dp"
+                    android:layout_height="@dimen/_20dp"
+                    app:srcCompat="@drawable/like_coach"
+                    android:layout_centerInParent="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="@dimen/_30dp"
+                    android:background="@color/warmGray"
+                    android:rotation="50"
+                    android:layout_centerInParent="true"
+                    />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center|right"
+                android:text="45"
+                android:textColor="@color/warmGray"
+                android:textSize="@dimen/textSize_12dp" />
+
+            <RelativeLayout
+                android:layout_width="@dimen/_30dp"
+                android:layout_height="@dimen/_30dp"
+                android:layout_marginLeft="5dp">
+                <ImageView
+                    android:layout_width="@dimen/_20dp"
+                    android:layout_height="@dimen/_20dp"
+                    app:srcCompat="@drawable/like_coach"
+                    android:layout_centerInParent="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    />
+
+            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center|right"
+                android:text="50"
+                android:textColor="@color/warmGray"
+                android:textSize="@dimen/textSize_12dp" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
