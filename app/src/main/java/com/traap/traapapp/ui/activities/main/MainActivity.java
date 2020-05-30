@@ -389,8 +389,8 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                         setCheckedBNV(bottomNavigationView, 0);
                         isMainFragment = false;
 //                        setFragment(MediaPlayersFragment.newInstance(MediaPosition.News, this));
-                      //  setFragment(MediaFragment.newInstance(MediaPosition.News, this));
-                        setFragment(HeadCoachFragment.newInstance(this));
+                        setFragment(MediaFragment.newInstance(MediaPosition.News, this));
+                       // setFragment(HeadCoachFragment.newInstance(this));
                         replaceFragment(getFragment(), "mediaFragment");
                     }
                     break;
