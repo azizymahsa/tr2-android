@@ -9,10 +9,12 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.topPlayers.Result;
 import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.CurrentPlayersAdapter;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.TopPlayersAdapter;
+import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
@@ -26,12 +28,19 @@ import androidx.recyclerview.widget.RecyclerView;
  * Reza Nejati <reza.n.j.t.i@gmail.com>
  * Copyright © 2017
  */
-public class CurrentPlayersFragment extends BaseFragment
+public class CurrentPlayersFragment extends BaseFragment implements CurrentPlayersAdapter.CurrentPlayerEvent
 {
     private View rootView;
     private RecyclerView rv;
     private NestedScrollView nested;
+    private MainActionView mainView;
 
+
+    public CurrentPlayersFragment(MainActionView mainView)
+    {
+        super();
+        this.mainView=mainView;
+    }
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
@@ -70,7 +79,7 @@ public class CurrentPlayersFragment extends BaseFragment
                     if (response.info.statusCode==200)
                     {
 
-                        rv.setAdapter(new CurrentPlayersAdapter(response.data.getResults()));
+                        rv.setAdapter(new CurrentPlayersAdapter(response.data.getResults(),CurrentPlayersFragment.this));
 
 
 
@@ -103,6 +112,13 @@ public class CurrentPlayersFragment extends BaseFragment
                 }catch (Exception e){}
             }
         },"player",true,null);
+
+    }
+
+    @Override
+    public void CurrentPlayerClick(Result result)
+    {
+        mainView.onHeadCoach(result.getId(),"معرفی بازیکن");
 
     }
 }

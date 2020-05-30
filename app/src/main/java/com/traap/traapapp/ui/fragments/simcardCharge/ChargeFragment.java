@@ -2081,7 +2081,7 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void onHeadCoach(Integer coachId)
+    public void onHeadCoach(Integer coachId,String title)
     {
 
     }
