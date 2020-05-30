@@ -8,7 +8,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.topPlayers.Result;
+import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
 
 import java.util.List;
 
@@ -19,13 +22,17 @@ public class CurrentPlayersAdapter extends RecyclerView.Adapter<CurrentPlayersAd
 {
     private Context context;
     private List<Result> results;
+    private CurrentPlayerEvent teamEvent;
 
 
-    public CurrentPlayersAdapter(List<Result> results)
+    public CurrentPlayersAdapter(List<Result> results,CurrentPlayerEvent teamEvent)
     {
         this.results=results;
+        this.teamEvent=teamEvent;
 
     }
+
+
 
 
     @Override
@@ -61,7 +68,10 @@ public class CurrentPlayersAdapter extends RecyclerView.Adapter<CurrentPlayersAd
         holder.tvPlayer.setText(results.get(position).getPersianFirstName()+" "+results.get(position).getPersianLastName());
         holder.tvAttendance.setText(results.get(position).getSeasons()+" فصل");
         holder.tvGoals.setText(results.get(position).getClubGoals()+" گل");
-
+        holder.llRoot.setOnClickListener(v ->
+        {
+            teamEvent.CurrentPlayerClick(results.get(position));
+        });
     }
 
 
@@ -74,6 +84,7 @@ public class CurrentPlayersAdapter extends RecyclerView.Adapter<CurrentPlayersAd
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
+        private LinearLayout llRoot;
         private LinearLayout llHeader, llItem;
         private TextView tvRate, tvGoals, tvAttendance, tvPlayer;
 
@@ -81,6 +92,7 @@ public class CurrentPlayersAdapter extends RecyclerView.Adapter<CurrentPlayersAd
         public ViewHolder(View v)
         {
             super(v);
+            llRoot=v.findViewById(R.id.llRoot);
             llHeader = v.findViewById(R.id.llHeader);
             llItem = v.findViewById(R.id.llItem);
             tvRate = v.findViewById(R.id.tvRate);
@@ -90,6 +102,8 @@ public class CurrentPlayersAdapter extends RecyclerView.Adapter<CurrentPlayersAd
 
         }
     }
-
+    public interface CurrentPlayerEvent{
+        void CurrentPlayerClick(Result result);
+    }
 
 }

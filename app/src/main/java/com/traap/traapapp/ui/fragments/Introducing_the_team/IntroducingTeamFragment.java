@@ -265,7 +265,7 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
     {
         adapter = new IntroduceFragmentPagerAdapter(getChildFragmentManager());
 
-        adapter.addFrag("بازیکنان فعلی", new CurrentPlayersFragment());
+        adapter.addFrag("بازیکنان فعلی", new CurrentPlayersFragment(mainView));
         adapter.addFrag("کادر فنی", new TechnicalTeamFragment(mainView));
         adapter.addFrag("برترین بازیکن ها", new TopPlayersFragment());
         adapter.addFrag("جایگاه در لیگ ها", new PositionInLeaguesFragment());
@@ -384,7 +384,7 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
     @Override
     public void onPlayerSearchClick(Result result)
     {
-        mainView.onHeadCoach(result.getId());
+        mainView.onHeadCoach(result.getId(),"معرفی سرمربی");
 
 
     }
