@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -22,11 +23,13 @@ public class PlayerSearchAdapter extends RecyclerView.Adapter<PlayerSearchAdapte
     private Context context;
     private List<Result> results;
     private Activity activity;
+    private PlayerSearchAdapterEvent event;
 
 
-    public PlayerSearchAdapter(List<Result> results, Activity activity)
+    public PlayerSearchAdapter(List<Result> results, Activity activity,PlayerSearchAdapterEvent event)
     {
         this.results=results;
+        this.event=event;
 
     }
 
@@ -46,6 +49,10 @@ public class PlayerSearchAdapter extends RecyclerView.Adapter<PlayerSearchAdapte
 
         holder.tvName.setText(results.get(position).getRole()+" - "+results.get(position).getPersianFirstName()+" "+results.get(position).getPersianLastName());
         //Glide.with(activity).load(results.get(position).).into(ivTeamLogo);
+        holder.llRoot.setOnClickListener(v ->
+        {
+            event.onPlayerSearchClick(results.get(position));
+        });
 
     }
 
@@ -61,6 +68,7 @@ public class PlayerSearchAdapter extends RecyclerView.Adapter<PlayerSearchAdapte
     {
         private TextView tvName;
         private ImageView ivPhoto;
+        private LinearLayout llRoot;
 
 
         public ViewHolder(View v)
@@ -68,10 +76,15 @@ public class PlayerSearchAdapter extends RecyclerView.Adapter<PlayerSearchAdapte
             super(v);
             tvName=v.findViewById(R.id.tvName);
             ivPhoto=v.findViewById(R.id.ivPhoto);
+            llRoot=v.findViewById(R.id.llRoot);
 
 
         }
     }
+    public interface PlayerSearchAdapterEvent{
+        void onPlayerSearchClick(Result result);
+
+}
 
 
 }

@@ -50,7 +50,7 @@ import static com.traap.traapapp.utilities.Utility.changeFontInViewGroup;
  * Reza Nejati <reza.n.j.t.i@gmail.com>
  * Copyright © 2017
  */
-public class IntroducingTeamFragment extends BaseFragment
+public class IntroducingTeamFragment extends BaseFragment implements PlayerSearchAdapter.PlayerSearchAdapterEvent
 {
 
     private View rootView;
@@ -68,7 +68,7 @@ public class IntroducingTeamFragment extends BaseFragment
     private TextView tvCreateDate,tvTeamAddress,tvPhone,tvEmail;
     private ImageView ivTeamLogo;
     private List<Result> getResults= new ArrayList<>();
-    private  Handler handler ;
+    private  Handler handler;
 
 
     public IntroducingTeamFragment()
@@ -185,7 +185,7 @@ public class IntroducingTeamFragment extends BaseFragment
         blTeam.setAdapter(new TeamPhotoAdapter());
         blTeam.setAutoPlaying(true);
         ViewCompat.setNestedScrollingEnabled(rvSearch, true);
-        playerSearchAdapter=new PlayerSearchAdapter(getResults,getActivity());
+        playerSearchAdapter=new PlayerSearchAdapter(getResults,getActivity(),this);
         rvSearch.setAdapter(playerSearchAdapter);
 
     }
@@ -380,4 +380,12 @@ public class IntroducingTeamFragment extends BaseFragment
         },name);
 
 }
+
+    @Override
+    public void onPlayerSearchClick(Result result)
+    {
+        mainView.onHeadCoach(result.getId());
+
+
+    }
 }

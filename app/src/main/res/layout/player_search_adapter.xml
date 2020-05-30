@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:gravity="center|right"
-    android:layout_marginTop="@dimen/_10dp">
+    android:layout_marginTop="@dimen/_10dp"
+    android:id="@+id/llRoot">
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"

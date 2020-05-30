@@ -56,6 +56,7 @@ public class ProfileHeadCoahFragment extends BaseFragment
 
     public void setData(GetTechsIdResponse headProfileData)
     {
+
         tvNameFa.setText(headProfileData.getPersianFirstName()+headProfileData.getPersianLastName());
         tvNameEn.setText(headProfileData.getEnglishFirstName()+headProfileData.getEnglishLastName());
         tvBirthday.setText(headProfileData.getBirthday());
