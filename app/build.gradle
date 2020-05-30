@@ -101,7 +101,7 @@ android {
 
 
         //----------------------lottie start-----------------
-        implementation 'com.airbnb.android:lottie:2.7.0'
+        implementation 'com.airbnb.android:lottie:3.0.7'
         //----------------------lottie end-------------------
 
         //----------------------intro guide view start-----------------
