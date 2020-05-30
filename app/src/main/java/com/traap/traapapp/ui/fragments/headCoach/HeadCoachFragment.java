@@ -86,23 +86,25 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     private LinearLayout llSendComment;
     private CommentAdapter commentAdapter;
     private Boolean isEdit=false;
+    private String title="";
 
     public void setCoachId(Integer coachId)
     {
         this.coachId = coachId;
     }
 
-    public static HeadCoachFragment newInstance(MainActionView mainView, Integer coachId)
+    public static HeadCoachFragment newInstance(MainActionView mainView, Integer coachId,String title)
     {
         HeadCoachFragment f = new HeadCoachFragment();
-        f.setMainView(mainView);
+        f.setMainView(mainView,title);
         f.setCoachId(coachId);
         return f;
     }
 
-    private void setMainView(MainActionView mainView)
+    private void setMainView(MainActionView mainView,String title)
     {
         this.mainView = mainView;
+        this.title = title;
     }
 
     public HeadCoachFragment()
@@ -172,7 +174,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
 
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
             TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
-            tvTitle.setText("معرفی سرمربی");
+            tvTitle.setText(title);//("معرفی سرمربی");
             mToolbar.findViewById(R.id.imgBack).setOnClickListener(v -> mainView.backToMainFragment());
 
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
