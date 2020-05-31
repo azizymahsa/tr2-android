@@ -34,6 +34,7 @@ import com.traap.traapapp.apiServices.model.editUser.sendCodeReq.SendCodeReq;
 import com.traap.traapapp.apiServices.model.editUser.sendCodeRes.SendCodeRes;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesRequest;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesResponse;
+import com.traap.traapapp.apiServices.model.getAllCompations.ResponseAllCompations;
 import com.traap.traapapp.apiServices.model.getAllMenuServices.response.GetAllMenuResponse;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.ForgetPasswordWalletResponse;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessRequest;
@@ -232,8 +233,9 @@ public interface RetroClient
     @GET(Const.Get_LIST_SURVEY)
     Single<Response<WebServiceClass<SurveyListResponse>>> getSurveyList(
             );
-
-
+    /*Compations*/
+    @GET(Const.Get_All_Compations)
+    Single<Response<WebServiceClass<ResponseAllCompations>>> getAllCompations();
     /*photos*/
     @GET(Const.Get_Main_Photo)
     Single<Response<WebServiceClass<MainPhotoResponse>>> getMainPhotos();

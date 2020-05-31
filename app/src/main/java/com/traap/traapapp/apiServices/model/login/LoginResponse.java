@@ -11,7 +11,7 @@ public class LoginResponse {
 
     @SerializedName("data")
     @Expose
-    private Data data;
+    private ResponseAllCompations data;
 
 
     public GlobalResponse getInfo() {
@@ -22,11 +22,11 @@ public class LoginResponse {
         this.info = info;
     }
 
-    public Data getData() {
+    public ResponseAllCompations getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(ResponseAllCompations data) {
         this.data = data;
     }*/
 }

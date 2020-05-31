@@ -207,4 +207,8 @@ public class Const
     public final static String TECHS_ID=SubBASEURL+"v1/team/techs/{id}/";
 
 
+    //compation
+    public final static String Get_All_Compations=SubBASEURL+"v1/competition/";
+
+
 }
