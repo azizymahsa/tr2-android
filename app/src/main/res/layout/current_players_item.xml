@@ -4,6 +4,7 @@
     android:layout_height="@dimen/_50dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
+    android:id="@+id/llRoot"
     android:gravity="center|right">
 
     <LinearLayout
