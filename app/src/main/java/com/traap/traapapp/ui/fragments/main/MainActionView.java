@@ -110,6 +110,6 @@ public interface MainActionView extends BaseView
     void onShowLast5PastMatch(Integer teamLiveScoreId);
     void onIntroduceTeam();
     void onCompationTeam();
-    void onHeadCoach(Integer coachId);
+    void onHeadCoach(Integer coachId,String title);
     void onMediaPlayersFragment();
 }

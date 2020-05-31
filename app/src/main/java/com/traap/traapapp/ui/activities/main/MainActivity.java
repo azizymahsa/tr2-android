@@ -390,7 +390,8 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                         setCheckedBNV(bottomNavigationView, 0);
                         isMainFragment = false;
 //                        setFragment(MediaPlayersFragment.newInstance(MediaPosition.News, this));
-                        setFragment(MediaFragment.newInstance(MediaPosition.News, this));
+                         setFragment(MediaFragment.newInstance(MediaPosition.News, this));
+                       // setFragment(HeadCoachFragment.newInstance(this));
                         replaceFragment(getFragment(), "mediaFragment");
                     }
                     break;
@@ -810,6 +811,15 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 replaceFragment(getFragment(), "SupportFragment");
                 break;
             }
+            case 54 :  //نظرسنجی
+            {
+
+                isMainFragment = false;
+                setFragment(SurveyFragment.newInstance(this));
+                replaceFragment(getFragment(), "SurveyFragment");
+                break;
+            }
+
             case 100:{
                 onIntroduceTeam();
 
@@ -952,9 +962,9 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void onHeadCoach(Integer coachId)
+    public void onHeadCoach(Integer coachId,String title)
     {
-        setFragment(HeadCoachFragment.newInstance(this,coachId));
+        setFragment(HeadCoachFragment.newInstance(this,coachId,title));
         replaceFragment(getFragment(), "HeadCoachFragment");
 
     }
