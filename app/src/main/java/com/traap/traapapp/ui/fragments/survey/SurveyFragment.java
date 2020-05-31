@@ -430,7 +430,7 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
                             showError(getContext(), "خطا در دریافت اطلاعات از سرور!");
                         } else
                         {
-                            showAlertSuccess(getContext(),"پاسخ نظرسنجی شما با موفقیت ثبت شد.","",true);
+                             showAlertSuccess(getContext(),"پاسخ نظرسنجی شما با موفقیت ثبت شد.","",true);
 
                             //  showAlert(getContext(), R.string.networkErrorMessage, R.string.networkError);
                         }
