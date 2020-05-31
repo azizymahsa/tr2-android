@@ -23,6 +23,11 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.generator.SingletonService;
+import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.getAllCompations.ResponseAllCompations;
+import com.traap.traapapp.apiServices.model.getAllCompations.Result;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.LeagueTableParent;
@@ -40,6 +45,7 @@ import com.traap.traapapp.ui.fragments.matchSchedule.NextMatchesFragment;
 import com.traap.traapapp.ui.fragments.matchSchedule.PastMatchesFragment;
 import com.traap.traapapp.utilities.CustomViewPager;
 import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.Tools;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -61,12 +67,13 @@ public class CompationsFragment extends BaseFragment implements LeagueTableActio
     private Toolbar mToolbar;
     private CustomViewPager viewPager;
     private TextView tvTitle, tvUserName, tvPopularPlayer;
-    List<MatchItem> pastMatchesList, nextMatchesList;
+    List<MatchItem> deActiveCompations, activeCompations;
     private View imgBack, imgMenu;
     private ArrayList<MatchItem> matchBuyable;
     private Integer selectedTab;
 
     private MatchScheduleParent parent;
+
     public static CompationsFragment newInstance(MainActionView mainView)
     {
         CompationsFragment f = new CompationsFragment();
@@ -113,7 +120,7 @@ public class CompationsFragment extends BaseFragment implements LeagueTableActio
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        selectedTab =0;
+        selectedTab = 0;
      /* //  selectedTab = getArguments().getInt("selectedTab", 0);
 
       //  matchBuyable = getArguments().getParcelableArrayList("MatchList");
@@ -152,25 +159,66 @@ public class CompationsFragment extends BaseFragment implements LeagueTableActio
 
     private void sendRequest()
     {
-        pastMatchesList = new ArrayList<>();
-        nextMatchesList = new ArrayList<>();
-       /* for (int i = 0; i < matchBuyable.size(); i++)
+        deActiveCompations = new ArrayList<>();
+        activeCompations = new ArrayList<>();
+        requestGetAllCompations();
+        Logger.e("-+MatchSchedule+-", "past: " + deActiveCompations.size() + ", next: " + activeCompations.size());
+
+    }
+
+    private void requestGetAllCompations()
+    {
+        SingletonService.getInstance().getSurveyDetailService().getAllCompations(new OnServiceStatus<WebServiceClass<ResponseAllCompations>>()
         {
-            if (matchBuyable.get(i).getDateTimeNow() >= matchBuyable.get(i).getMatchDatetime())
+            @Override
+            public void onReady(WebServiceClass<ResponseAllCompations> response)
             {
-                pastMatchesList.add(matchBuyable.get(i));
+                try
+                {
+                    List<Result> activeCompations = new ArrayList<>();
+                    List<Result> deActiveCompations = new ArrayList<>();
 
+                    if (response.info.statusCode == 200)
+                    {
+                        for (int i = 0; i < response.data.getResults().size(); i++)
+                        {
+                            Result surveyList = response.data.getResults().get(i);
+                            if (surveyList.getIsActive())
+                            {
+                                activeCompations.add(surveyList);
+
+                            } else
+                            {
+                                deActiveCompations.add(surveyList);
+
+                            }
+                        }
+                        setPager(deActiveCompations, activeCompations);
+
+                    } else
+                    {
+
+                    }
+                } catch (Exception e)
+                {
+                    e.getMessage();
+                }
             }
-            else
+
+            @Override
+            public void onError(String message)
             {
-                nextMatchesList.add(matchBuyable.get(i));
-
+                hideLoading();
+                if (!Tools.isNetworkAvailable(getActivity()))
+                {
+                    Logger.e("-OnError-", "Error: " + message);
+                    showError(getContext(), "خطا در دریافت اطلاعات از سرور!");
+                } else
+                {
+                    showAlert(getContext(), R.string.networkErrorMessage, R.string.networkError);
+                }
             }
-        }*/
-
-        Logger.e("-+MatchSchedule+-", "past: " + pastMatchesList.size() + ", next: " + nextMatchesList.size());
-
-        setPager(pastMatchesList, nextMatchesList);
+        });
     }
 
     private void initView()
@@ -217,24 +265,25 @@ public class CompationsFragment extends BaseFragment implements LeagueTableActio
 
                 @Override
                 public void onTabUnselected(TabLayout.Tab tab)
-                { }
+                {
+                }
 
                 @Override
                 public void onTabReselected(TabLayout.Tab tab)
-                { }
+                {
+                }
             });
 
             sendRequest();
 
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             Logger.d("--Exception--", e.getMessage());
         }
 
     }
 
-    private void setPager(List<MatchItem> pastMatchesList, List<MatchItem> nextMatchesList)
+    private void setPager(List<Result> deActive, List<Result> active)
     {
         viewPager = rootView.findViewById(R.id.viewPager);
         List<String> titleList = new ArrayList<>(3);
@@ -245,8 +294,8 @@ public class CompationsFragment extends BaseFragment implements LeagueTableActio
         SamplePagerAdapter adapter = new SamplePagerAdapter(
                 getFragmentManager(),
                 titleList,
-                pastMatchesList,
-                nextMatchesList
+                deActive,
+                active
 
         );
         viewPager.setAdapter(adapter);
@@ -308,7 +357,7 @@ public class CompationsFragment extends BaseFragment implements LeagueTableActio
 
     private class SamplePagerAdapter extends FragmentStatePagerAdapter
     {
-        private List<MatchItem> pastMatchesList, nextMatchesList;
+        private List<Result> deActiveCompations, activeCompations;
         private List<String> titleList;
 
         private Context context = SingletonContext.getInstance().getContext();
@@ -316,13 +365,13 @@ public class CompationsFragment extends BaseFragment implements LeagueTableActio
         @SuppressLint("WrongConstant")
         public SamplePagerAdapter(@NonNull FragmentManager fm,
                                   List<String> titleList,
-                                  List<MatchItem> pastMatchesList,
-                                  List<MatchItem> nextMatchesList)
+                                  List<Result> activeCompations,
+                                  List<Result> deActiveCompations)
         {
             super(fm, 0);
             this.titleList = titleList;
-            this.pastMatchesList = pastMatchesList;
-            this.nextMatchesList = nextMatchesList;
+            this.deActiveCompations = deActiveCompations;
+            this.activeCompations = activeCompations;
         }
 
         @Nullable
@@ -331,6 +380,8 @@ public class CompationsFragment extends BaseFragment implements LeagueTableActio
         {
             return titleList.get(position);
         }
+
+
 
         @NonNull
         @Override
@@ -346,19 +397,21 @@ public class CompationsFragment extends BaseFragment implements LeagueTableActio
                             TrapConfig.TRACTOR_LIVE_SCORE_ID,
                             CompationsFragment.this
                     );*/
-                    return DeActiveMatchesFragment.newInstance(nextMatchesList, mainView);
+                    return ActiveMatchesFragment.newInstance(activeCompations, mainView);
 
                 }
                 case 1:
                 {
 //                    Prefs.putInt("selectedTab", 2);
-                    return WinMatchesFragment.newInstance(nextMatchesList, mainView);
+                    return DeActiveMatchesFragment.newInstance(deActiveCompations, mainView);
+
+                  //  return WinMatchesFragment.newInstance(activeCompations, mainView);
 
                 }
                /* case 2:
                 {
 //                    Prefs.putInt("selectedTab", 1);
-                    return PastMatchesFragment.newInstance(pastMatchesList, mainView);
+                    return PastMatchesFragment.newInstance(deActiveCompations, mainView);
 
                 }*/
                 default:
@@ -419,7 +472,7 @@ public class CompationsFragment extends BaseFragment implements LeagueTableActio
     public void onDestroy()
     {
         super.onDestroy();
-        Log.e("testt","onDestroy");
+        Log.e("testt", "onDestroy");
         EventBus.getDefault().unregister(this);
     }
 }
