@@ -49,7 +49,7 @@ public class MyFireBaseMessagingService extends FirebaseMessagingService
         {
             return;
         }
-        Logger.e(TAG, "From: " + remoteMessage.getFrom() + " Message : " + remoteMessage + " Data : " + remoteMessage.getData());
+        Logger.e(TAG, "From: " + remoteMessage.getFrom() + " Message : " + remoteMessage + " ResponseAllCompations : " + remoteMessage.getData());
 
         if (remoteMessage.getNotification() != null)
         {

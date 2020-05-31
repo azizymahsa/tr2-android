@@ -4,17 +4,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.model.getAllCompations.Result;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.enums.MatchScheduleParent;
 import com.traap.traapapp.enums.PredictPosition;
 import com.traap.traapapp.ui.adapters.compations.CompationsAdapter;
+import com.traap.traapapp.ui.adapters.compations.CompationsDeActiveAdapter;
 import com.traap.traapapp.ui.adapters.leagues.DataBean;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -25,19 +29,22 @@ import java.util.List;
 /**
  * Created by MahsaAzizi on 05/16/2020.
  */
-public class ActiveMatchesFragment extends BaseFragment implements CompationsAdapter.ItemClickListener
+public class ActiveMatchesFragment extends BaseFragment implements CompationsDeActiveAdapter.ItemClickListener
 {
     private MainActionView mainActionView;
-    private List<MatchItem> nextMatchesList = new ArrayList<>();
+    private List<Result> nextMatchesList = new ArrayList<>();
     private View rootView;
 
 
     /*scroll view*/
     public List<DataBean> data = new ArrayList<>();
     private RecyclerView recyclerView;
-    private CompationsAdapter mAdapter;
+    private CompationsDeActiveAdapter mAdapter;
+    private TextView textView;
+    private LinearLayout lnrText, lnrlist;
 
-    public static ActiveMatchesFragment newInstance(List<MatchItem> nextMatchesList, MainActionView mainActionView)
+
+    public static ActiveMatchesFragment newInstance(List<Result> nextMatchesList, MainActionView mainActionView)
     {
         ActiveMatchesFragment fragment = new ActiveMatchesFragment();
         Bundle args = new Bundle();
@@ -47,7 +54,7 @@ public class ActiveMatchesFragment extends BaseFragment implements CompationsAda
         return fragment;
     }
 
-    private void setData(List<MatchItem> nextMatchesList)
+    private void setData(List<Result> nextMatchesList)
     {
         this.nextMatchesList = nextMatchesList;
     }
@@ -57,7 +64,9 @@ public class ActiveMatchesFragment extends BaseFragment implements CompationsAda
         try
         {
             recyclerView = rootView.findViewById(R.id.rclPast);
-
+            textView = rootView.findViewById(R.id.textView);
+            lnrText = rootView.findViewById(R.id.lnrText);
+            lnrlist = rootView.findViewById(R.id.lnrlist);
         } catch (Exception e)
         {
 
@@ -89,35 +98,34 @@ public class ActiveMatchesFragment extends BaseFragment implements CompationsAda
     {
 
 
-        mAdapter = new CompationsAdapter(MatchScheduleParent.NextResultFragment, nextMatchesList, getContext(), this);
-        recyclerView.setAdapter(mAdapter);
+        if (nextMatchesList != null)
+            if (nextMatchesList.size() > 0)
+            {
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new CompationsAdapter(MatchScheduleParent.NextResultFragment, nextMatchesList, getActivity(), this);
-        recyclerView.setAdapter(mAdapter);
+
+                lnrText.setVisibility(View.GONE);
+                lnrlist.setVisibility(View.VISIBLE);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                mAdapter = new CompationsDeActiveAdapter(MatchScheduleParent.NextResultFragment, nextMatchesList, getActivity(), this);
+                recyclerView.setAdapter(mAdapter);
+            } else
+            {
+                lnrText.setVisibility(View.VISIBLE);
+                lnrlist.setVisibility(View.GONE);
+            }
     }
 
 
     @Override
-    public void onItemClick(View view, int position, MatchItem matchItem)
+    public void onItemClick(View view, int position, Result matchItem)
     {
-        mainActionView.getBuyEnable(() ->
-        {
-           /* btnBuyTicket.revertAnimation();
-            btnBuyTicket.setClickable(true);*/
-        });
-        /*BuyTicketsFragment pastResultFragment =  BuyTicketsFragment.newInstance(mainActionView, matchItem);;
 
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();*/
     }
 
     @Override
-    public void onItemPredictClick(View view, int position, MatchItem matchItem)
+    public void onItemPredictClick(View view, int position, Result matchItem)
     {
-//        PredictFragment pastResultFragment = PredictFragment.newInstance(mainActionView, matchItem.getId(), matchItem.getIsPredict());
-//
-//        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
-        mainActionView.onPredict(PredictPosition.PredictResult, matchItem.getId(), matchItem.getIsPredict());
+
     }
 
     @Override
