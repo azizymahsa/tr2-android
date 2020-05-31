@@ -810,6 +810,15 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 replaceFragment(getFragment(), "SupportFragment");
                 break;
             }
+            case 54 :  //نظرسنجی
+            {
+
+                isMainFragment = false;
+                setFragment(SurveyFragment.newInstance(this));
+                replaceFragment(getFragment(), "SurveyFragment");
+                break;
+            }
+
             case 100:{
                 onIntroduceTeam();
 
