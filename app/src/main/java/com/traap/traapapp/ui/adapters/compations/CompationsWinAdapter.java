@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.model.getAllCompations.Result;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.MatchScheduleParent;
 
@@ -24,11 +25,11 @@ public class CompationsWinAdapter extends RecyclerView.Adapter<CompationsWinAdap
     private LayoutInflater mInflater;
     private MatchScheduleParent parent;
 
-    private List<MatchItem> pastMatchesList = new ArrayList<>();
+    private List<Result> pastMatchesList = new ArrayList<>();
     private View view;
     private ItemClickListener mClickListener;
 
-    public CompationsWinAdapter(MatchScheduleParent parent, List<MatchItem> pastMatchesList, Context context, ItemClickListener mClickListener)
+    public CompationsWinAdapter(MatchScheduleParent parent, List<Result> pastMatchesList, Context context, ItemClickListener mClickListener)
     {
         this.pastMatchesList = pastMatchesList;
         this.mContext = context;
@@ -279,9 +280,9 @@ public class CompationsWinAdapter extends RecyclerView.Adapter<CompationsWinAdap
                     if (mClickListener != null)
                     {
                         mClickListener.onItemLogoTeamClick(view,
-                                pastMatchesList.get(getAdapterPosition()).getTeamHome().getLivescoreId(),
-                                pastMatchesList.get(getAdapterPosition()).getTeamHome().getLogo(),
-                                pastMatchesList.get(getAdapterPosition()).getTeamHome().getName()
+                                pastMatchesList.get(getAdapterPosition()).getId(),
+                                pastMatchesList.get(getAdapterPosition()).getImage(),
+                                pastMatchesList.get(getAdapterPosition()).getTitle()
 
                         );
                     }
@@ -290,9 +291,9 @@ public class CompationsWinAdapter extends RecyclerView.Adapter<CompationsWinAdap
                     if (mClickListener != null)
                     {
                         mClickListener.onItemLogoTeamClick(view,
-                                pastMatchesList.get(getAdapterPosition()).getTeamAway().getLivescoreId(),
-                                pastMatchesList.get(getAdapterPosition()).getTeamAway().getLogo(),
-                                pastMatchesList.get(getAdapterPosition()).getTeamAway().getName()
+                                pastMatchesList.get(getAdapterPosition()).getId(),
+                                pastMatchesList.get(getAdapterPosition()).getImage(),
+                                pastMatchesList.get(getAdapterPosition()).getTitle()
 
                         );
                     }
@@ -305,9 +306,9 @@ public class CompationsWinAdapter extends RecyclerView.Adapter<CompationsWinAdap
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener
     {
-        void onItemClick(View view, int position, MatchItem matchItem);
+        void onItemClick(View view, int position, Result matchItem);
 
-        void onItemPredictClick(View view, int position, MatchItem matchItem);
+        void onItemPredictClick(View view, int position, Result matchItem);
 
         void onItemLogoTeamClick(View view, Integer id, String logo, String name);
     }

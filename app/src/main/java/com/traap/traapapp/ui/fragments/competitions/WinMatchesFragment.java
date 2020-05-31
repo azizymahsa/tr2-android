@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.model.getAllCompations.Result;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.enums.MatchScheduleParent;
@@ -29,7 +30,7 @@ import java.util.List;
 public class WinMatchesFragment extends BaseFragment implements CompationsWinAdapter.ItemClickListener
 {
     private MainActionView mainActionView;
-    private List<MatchItem> nextMatchesList = new ArrayList<>();
+    private List<Result> nextMatchesList = new ArrayList<>();
     private View rootView;
 
 
@@ -38,7 +39,7 @@ public class WinMatchesFragment extends BaseFragment implements CompationsWinAda
     private RecyclerView recyclerView;
     private CompationsWinAdapter mAdapter;
 
-    public static WinMatchesFragment newInstance(List<MatchItem> nextMatchesList, MainActionView mainActionView)
+    public static WinMatchesFragment newInstance(List<Result> nextMatchesList, MainActionView mainActionView)
     {
         WinMatchesFragment fragment = new WinMatchesFragment();
         Bundle args = new Bundle();
@@ -48,7 +49,7 @@ public class WinMatchesFragment extends BaseFragment implements CompationsWinAda
         return fragment;
     }
 
-    private void setData(List<MatchItem> nextMatchesList)
+    private void setData(List<Result> nextMatchesList)
     {
         this.nextMatchesList = nextMatchesList;
     }
@@ -100,7 +101,7 @@ public class WinMatchesFragment extends BaseFragment implements CompationsWinAda
 
 
     @Override
-    public void onItemClick(View view, int position, MatchItem matchItem)
+    public void onItemClick(View view, int position, Result matchItem)
     {
         mainActionView.getBuyEnable(() ->
         {
@@ -113,12 +114,12 @@ public class WinMatchesFragment extends BaseFragment implements CompationsWinAda
     }
 
     @Override
-    public void onItemPredictClick(View view, int position, MatchItem matchItem)
+    public void onItemPredictClick(View view, int position, Result matchItem)
     {
 //        PredictFragment pastResultFragment = PredictFragment.newInstance(mainActionView, matchItem.getId(), matchItem.getIsPredict());
 //
 //        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
-        mainActionView.onPredict(PredictPosition.PredictResult, matchItem.getId(), matchItem.getIsPredict());
+        mainActionView.onPredict(PredictPosition.PredictResult, matchItem.getId(), matchItem.getIsActive());
     }
 
     @Override

@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/_200dp"
+    android:layout_gravity="center"
     android:layout_margin="5dp"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="5dp">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/background_disable_rec"
     android:orientation="vertical"
-    android:padding="@dimen/_10dp">
+    >
+    <ImageView
+        android:id="@+id/lnrBaseBack"
 
-
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:scaleType="fitXY"
+        android:visibility="visible"
+        android:src="@drawable/ic_support" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,289 +32,315 @@
         android:orientation="vertical"
         android:padding="5dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="جمعه 23 اسفند 1398"
-            android:textColor="#484848"
-            android:textSize="@dimen/textSize_14dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="جمعه 23 اسفند 1398"
-            android:textColor="#484848"
-            android:textSize="@dimen/textSize_12dp" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_100dp"
-        android:orientation="horizontal"
-        android:padding="5dp">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-             android:src="@drawable/ic_support"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center|start"
-            android:text="جمعه 23 اسفند 1398"
-            android:textColor="@color/red"
-            android:textSize="@dimen/textSize_12dp" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="vertical"
-        android:padding="@dimen/_10dp"
-        android:visibility="gone">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvStadiumname"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:text="ورزشگاه تختی"
-                    android:textColor="#484848"
-                    android:textSize="@dimen/_10sdp" />
-
-                <TextView
-                    android:id="@+id/tvLeageName"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="right|center"
-                    android:text="لیگ برتر"
-                    android:textColor="#484848"
-                    android:textSize="@dimen/_10sdp" />
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="@dimen/_30dp"
-                android:layout_height="@dimen/_30dp"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:padding="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/icon_match" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@drawable/shadow_b"
-            android:backgroundTint="@color/_disable_color" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
+            android:gravity="end"
+            android:orientation="vertical"
             android:padding="5dp">
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:orientation="horizontal"
+               >
             <TextView
-                android:id="@+id/tvDate"
+                android:id="@+id/txtTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="جمعه 23 اسفند 1398"
+                android:text=""
                 android:textColor="#484848"
-                android:textSize="@dimen/_10sdp"
+                android:textSize="@dimen/textSize_16dp"
                 android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="➤"
+                    android:textColor="#484848"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:textStyle="bold"
+                    android:rotation="180"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#484848"
+                android:textSize="@dimen/textSize_12dp" />
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_80dp"
-            android:layout_below="@+id/llHeaderWeekNo"
-            android:orientation="horizontal">
+            android:layout_height="@dimen/_100dp"
+            android:orientation="horizontal"
+            android:padding="5dp">
 
-            <RelativeLayout
+            <ImageView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3">
+                android:layout_weight="1"
+                android:gravity="center"
+                android:visibility="invisible"
+                android:src="@drawable/ic_support" />
 
-                <RelativeLayout
-                    android:id="@+id/rlGuest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center_horizontal">
-
-                    <ImageView
-                        android:id="@+id/imgGuest"
-                        android:layout_width="@dimen/_60dp"
-                        android:layout_height="@dimen/_50dp"
-                        android:layout_centerHorizontal="true"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/img_tractor" />
-
-                    <TextView
-                        android:id="@+id/tvAway"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/imgGuest"
-                        android:layout_centerHorizontal="true"
-                        android:gravity="right"
-                        android:text="میهمان"
-                        android:textColor="@color/textColorSecondary"
-                        android:textSize="@dimen/textSize_12dp" />
-
-                </RelativeLayout>
-
-            </RelativeLayout>
-
-            <RelativeLayout
+            <TextView
                 android:layout_width="0dp"
+                android:visibility="invisible"
                 android:layout_height="match_parent"
-                android:layout_weight="2">
-
-                <ImageView
-                    android:id="@+id/imgCenter"
-                    android:layout_width="@dimen/_35sdp"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/ic_soccer2" />
-
-                <TextView
-                    android:id="@+id/tvMatchResult"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:text="0 : 0"
-                    android:textColor="@color/textColorSecondary"
-                    android:textSize="@dimen/textSize_20dp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
-
-                <ProgressBar
-                    android:id="@+id/progress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3">
-
-                <RelativeLayout
-                    android:id="@+id/rlHost"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:gravity="center_horizontal">
-
-                    <ImageView
-                        android:id="@+id/imgHost"
-                        android:layout_width="@dimen/_60dp"
-                        android:layout_height="@dimen/_50dp"
-                        android:layout_centerHorizontal="true"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/img_tractor" />
-
-                    <TextView
-                        android:id="@+id/tvHome"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/imgHost"
-                        android:layout_centerHorizontal="true"
-                        android:gravity="left"
-                        android:text="میزبان"
-                        android:textColor="@color/textColorSecondary"
-                        android:textSize="@dimen/textSize_12dp" />
-
-                </RelativeLayout>
-
-            </RelativeLayout>
-
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:text="مهلت شرکت تا 23 خرداد"
+                android:textColor="@color/red"
+                android:textSize="@dimen/textSize_12dp" />
         </LinearLayout>
 
+
         <LinearLayout
-            android:id="@+id/lnrBuyEnable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:layout_margin="5dp"
+            android:orientation="vertical"
+            android:padding="@dimen/_10dp"
+            android:visibility="gone">
 
-            <!-- <TextView
-                 android:id="@+id/tvPredictResult"
-                 android:layout_width="0dp"
-                 android:layout_height="wrap_content"
-                 android:layout_gravity="center"
-                 android:layout_marginStart="@dimen/_5dp"
-                 android:layout_marginEnd="@dimen/_5dp"
-                 android:layout_weight="0.8"
-                 android:background="@drawable/background_border_a"
-                 android:gravity="center"
-                 android:text=" پیش بینی نتیجه"
-                 android:textColor="@color/textColorPrimary"
-                 android:textSize="@dimen/_10sdp" />-->
-            <TextView
-                android:id="@+id/tvPredictResult"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_35dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_5dp"
-                android:layout_marginEnd="@dimen/_5dp"
-                android:layout_weight="0.8"
-                android:background="@drawable/background_border_red"
-                android:gravity="center"
-                android:text=" پیش بینی"
-                android:textColor="@color/textColorTitle"
-                android:textSize="@dimen/_10sdp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvBuyTicket"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_35dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_5dp"
-                android:layout_marginEnd="@dimen/_5dp"
-                android:layout_weight="0.8"
-                android:background="@drawable/background_border_red"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvStadiumname"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="ورزشگاه تختی"
+                        android:textColor="#484848"
+                        android:textSize="@dimen/_10sdp" />
+
+                    <TextView
+                        android:id="@+id/tvLeageName"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="right|center"
+                        android:text="لیگ برتر"
+                        android:textColor="#484848"
+                        android:textSize="@dimen/_10sdp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/_30dp"
+                    android:layout_height="@dimen/_30dp"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:padding="8dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_match" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/shadow_b"
+                android:backgroundTint="@color/_disable_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="خرید بلیت "
-                android:textColor="@color/textColorTitle"
-                android:textSize="@dimen/_10sdp" />
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="جمعه 23 اسفند 1398"
+                    android:textColor="#484848"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_80dp"
+                android:layout_below="@+id/llHeaderWeekNo"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3">
+
+                    <RelativeLayout
+                        android:id="@+id/rlGuest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center_horizontal">
+
+                        <ImageView
+                            android:id="@+id/imgGuest"
+                            android:layout_width="@dimen/_60dp"
+                            android:layout_height="@dimen/_50dp"
+                            android:layout_centerHorizontal="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/img_tractor" />
+
+                        <TextView
+                            android:id="@+id/tvAway"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imgGuest"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="right"
+                            android:text="میهمان"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="@dimen/textSize_12dp" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <ImageView
+                        android:id="@+id/imgCenter"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_soccer2" />
+
+                    <TextView
+                        android:id="@+id/tvMatchResult"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:text="0 : 0"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/textSize_20dp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                    <ProgressBar
+                        android:id="@+id/progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3">
+
+                    <RelativeLayout
+                        android:id="@+id/rlHost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:gravity="center_horizontal">
+
+                        <ImageView
+                            android:id="@+id/imgHost"
+                            android:layout_width="@dimen/_60dp"
+                            android:layout_height="@dimen/_50dp"
+                            android:layout_centerHorizontal="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/img_tractor" />
+
+                        <TextView
+                            android:id="@+id/tvHome"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imgHost"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="left"
+                            android:text="میزبان"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="@dimen/textSize_12dp" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnrBuyEnable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <!-- <TextView
+                     android:id="@+id/tvPredictResult"
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="center"
+                     android:layout_marginStart="@dimen/_5dp"
+                     android:layout_marginEnd="@dimen/_5dp"
+                     android:layout_weight="0.8"
+                     android:background="@drawable/background_border_a"
+                     android:gravity="center"
+                     android:text=" پیش بینی نتیجه"
+                     android:textColor="@color/textColorPrimary"
+                     android:textSize="@dimen/_10sdp" />-->
+                <TextView
+                    android:id="@+id/tvPredictResult"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_35dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_5dp"
+                    android:layout_marginEnd="@dimen/_5dp"
+                    android:layout_weight="0.8"
+                    android:background="@drawable/background_border_red"
+                    android:gravity="center"
+                    android:text=" پیش بینی"
+                    android:textColor="@color/textColorTitle"
+                    android:textSize="@dimen/_10sdp" />
+
+                <TextView
+                    android:id="@+id/tvBuyTicket"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_35dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/_5dp"
+                    android:layout_marginEnd="@dimen/_5dp"
+                    android:layout_weight="0.8"
+                    android:background="@drawable/background_border_red"
+                    android:gravity="center"
+                    android:text="خرید بلیت "
+                    android:textColor="@color/textColorTitle"
+                    android:textSize="@dimen/_10sdp" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout></androidx.cardview.widget.CardView>

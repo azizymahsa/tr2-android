@@ -20,11 +20,11 @@
                 android:layout_height="104dp"
                 android:background="@drawable/background_main_header" />
 
-<!--            <RelativeLayout-->
-<!--                android:id="@+id/header"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="104dp"-->
-<!--                android:background="@drawable/img_header_background" />-->
+            <!--            <RelativeLayout-->
+            <!--                android:id="@+id/header"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="104dp"-->
+            <!--                android:background="@drawable/img_header_background" />-->
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -50,14 +50,45 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/lnrText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="کاربر گرامی، در حال حاضر مسابقه ای برای نمایش وجود ندارد."
+                    android:textColor="@color/red_day"
+                    android:layout_marginTop="@dimen/_80dp"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/lnrlist"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
                     android:layout_marginBottom="@dimen/_10dp"
                     android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="با پاسخ دادن به سوالات مسابقات، برنده جوایز ویژه تراپ شوید."
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="@dimen/_10dp"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:textStyle="bold" />
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rclPast"
                         android:layout_width="match_parent"

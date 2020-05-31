@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.model.getAllCompations.Result;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.enums.LeagueTableParent;
 import com.traap.traapapp.enums.MatchScheduleParent;
@@ -28,7 +31,7 @@ import java.util.List;
 public class DeActiveMatchesFragment extends BaseFragment implements CompationsDeActiveAdapter.ItemClickListener
 {
     private MainActionView mainActionView;
-    private List<MatchItem> nextMatchesList = new ArrayList<>();
+    private List<Result> nextMatchesList = new ArrayList<>();
     private View rootView;
 
 
@@ -36,8 +39,10 @@ public class DeActiveMatchesFragment extends BaseFragment implements CompationsD
     public List<DataBean> data = new ArrayList<>();
     private RecyclerView recyclerView;
     private CompationsDeActiveAdapter mAdapter;
+    private TextView textView;
+    private LinearLayout lnrText, lnrlist;
 
-    public static DeActiveMatchesFragment newInstance(List<MatchItem> nextMatchesList, MainActionView mainActionView)
+    public static DeActiveMatchesFragment newInstance(List<Result> nextMatchesList, MainActionView mainActionView)
     {
         DeActiveMatchesFragment fragment = new DeActiveMatchesFragment();
         Bundle args = new Bundle();
@@ -47,7 +52,7 @@ public class DeActiveMatchesFragment extends BaseFragment implements CompationsD
         return fragment;
     }
 
-    private void setData(List<MatchItem> nextMatchesList)
+    private void setData(List<Result> nextMatchesList)
     {
         this.nextMatchesList = nextMatchesList;
     }
@@ -57,7 +62,9 @@ public class DeActiveMatchesFragment extends BaseFragment implements CompationsD
         try
         {
             recyclerView = rootView.findViewById(R.id.rclPast);
-
+            textView = rootView.findViewById(R.id.textView);
+            lnrText = rootView.findViewById(R.id.lnrText);
+            lnrlist = rootView.findViewById(R.id.lnrlist);
         } catch (Exception e)
         {
 
@@ -89,17 +96,29 @@ public class DeActiveMatchesFragment extends BaseFragment implements CompationsD
     {
 
 
-        mAdapter = new CompationsDeActiveAdapter(MatchScheduleParent.NextResultFragment, nextMatchesList, getContext(), this);
-        recyclerView.setAdapter(mAdapter);
+        //  mAdapter = new CompationsDeActiveAdapter(MatchScheduleParent.NextResultFragment, nextMatchesList, getContext(), this);
+        //recyclerView.setAdapter(mAdapter);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new CompationsDeActiveAdapter(MatchScheduleParent.NextResultFragment, nextMatchesList, getActivity(), this);
-        recyclerView.setAdapter(mAdapter);
+        if (nextMatchesList != null)
+            if (nextMatchesList.size() > 0)
+            {
+
+
+                lnrText.setVisibility(View.GONE);
+                lnrlist.setVisibility(View.VISIBLE);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                mAdapter = new CompationsDeActiveAdapter(MatchScheduleParent.NextResultFragment, nextMatchesList, getActivity(), this);
+                recyclerView.setAdapter(mAdapter);
+            } else
+            {
+                lnrText.setVisibility(View.VISIBLE);
+                lnrlist.setVisibility(View.GONE);
+            }
     }
 
 
     @Override
-    public void onItemClick(View view, int position, MatchItem matchItem)
+    public void onItemClick(View view, int position, Result matchItem)
     {
         mainActionView.getBuyEnable(() ->
         {
@@ -112,12 +131,12 @@ public class DeActiveMatchesFragment extends BaseFragment implements CompationsD
     }
 
     @Override
-    public void onItemPredictClick(View view, int position, MatchItem matchItem)
+    public void onItemPredictClick(View view, int position, Result matchItem)
     {
 //        PredictFragment pastResultFragment = PredictFragment.newInstance(mainActionView, matchItem.getId(), matchItem.getIsPredict());
 //
 //        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
-        mainActionView.onPredict(PredictPosition.PredictResult, matchItem.getId(), matchItem.getIsPredict());
+        mainActionView.onPredict(PredictPosition.PredictResult, matchItem.getId(), matchItem.getIsActive());
     }
 
     @Override
@@ -126,8 +145,7 @@ public class DeActiveMatchesFragment extends BaseFragment implements CompationsD
         if (id == 0)
         {
             showToast(getActivity(), "متاسفانه اطلاعاتی برای نمایش وجود ندارد.", 0);
-        }
-        else
+        } else
         {
             Prefs.putInt("selectedTab", 2);
             mainActionView.openPastResultFragment(LeagueTableParent.MatchScheduleFragment, "0", false, id.toString(), logo, title);

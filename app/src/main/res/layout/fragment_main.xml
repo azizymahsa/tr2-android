@@ -293,7 +293,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:visibility="gone">
+                        android:visibility="visible">
 
                         <RelativeLayout
                             android:id="@+id/rlF3"
@@ -331,16 +331,18 @@
 
                             <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentBottom="true"
                                 android:layout_marginEnd="4dp"
                                 android:layout_marginBottom="4dp"
-                                android:gravity="start"
-                                android:text="بزودی..."
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/textColorTitle"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:text="مسابقات"
+                                 />
 
 
                         </RelativeLayout>
