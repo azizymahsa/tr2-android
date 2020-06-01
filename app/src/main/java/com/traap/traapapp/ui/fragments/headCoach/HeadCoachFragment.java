@@ -282,7 +282,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
                     headProfileData = response.data;
                    // if (headProfileData.getIs_favorite())
                   //  {
-                        btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.g_yellow));
+                        btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.maryGold));
                    // } else
                   //  {
                         btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.shadowColor));
@@ -480,7 +480,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
             btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.shadowColor));
        // } else
        // {
-            btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.g_yellow));
+            btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.maryGold));
 
        // }
         RequestSetFavoritePlayer requestSetFavoritePlayer=new RequestSetFavoritePlayer();
@@ -500,7 +500,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
 
                     if (response.info.statusCode == 200)
                     {
-                        btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.g_yellow));
+                        btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.maryGold));
 
                         showAlertSuccess(getContext(),response.info.message,"",false);
 
