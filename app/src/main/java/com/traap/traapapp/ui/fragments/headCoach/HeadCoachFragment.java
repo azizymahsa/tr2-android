@@ -24,7 +24,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 import com.google.android.material.tabs.TabLayout;
@@ -78,6 +77,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     private GetTechsIdResponse headProfileData;
     private RoundedImageView imgProfile;
     private ProfileHeadCoahFragment profileHeadCoahFragment;
+    private HistoryHeadCoachFragment historyHeadCoachFragment;
     private RecyclerView rvComment;
     private View btnShare, llInfoFromShare, llGallery;
     private ImageView btnFavorit;
@@ -333,7 +333,9 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
         rootView = inflater.inflate(R.layout.fragment_head_coach, container, false);
 
         initViews();
-        profileHeadCoahFragment = new ProfileHeadCoahFragment();
+        profileHeadCoahFragment =new ProfileHeadCoahFragment();
+        historyHeadCoachFragment=new HistoryHeadCoachFragment();
+        historyHeadCoachFragment.setCoachId(coachId);
         getTechsId();
         initViewPager();
 
@@ -376,8 +378,8 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
        /* adapter.addFrag("امتیازات", new CurrentPlayersFragment());
         adapter.addFrag("اتفاقات مهم", new TechnicalTeamFragment());
         adapter.addFrag("قراردادها", new TopPlayersFragment());*/
-        adapter.addFrag("سابقه", new PositionInLeaguesFragment());
-        adapter.addFrag("مشخصات", profileHeadCoahFragment);
+        adapter.addFrag("سابقه", historyHeadCoachFragment);
+        adapter.addFrag("مشخصات",profileHeadCoahFragment);
 
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(2);
