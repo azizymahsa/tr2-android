@@ -2,12 +2,14 @@ package com.traap.traapapp.ui.activities.mySupport;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -17,6 +19,9 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -46,6 +51,7 @@ public class MySupportActivity extends BaseActivity implements MyPredictActionVi
 
     private NestedScrollView scrollView;
     private CardView cardPoints;
+    private ImageView imgPic;
 
     private RecyclerView recyclerView;
 
@@ -79,6 +85,7 @@ public class MySupportActivity extends BaseActivity implements MyPredictActionVi
         tvAllPredictCount = findViewById(R.id.tvAllPredictCount);
         tvTruePredictCount = findViewById(R.id.tvTruePredictCount);
         tvYourRate = findViewById(R.id.tvYourRate);
+        imgPic = findViewById(R.id.imgPic);
 
         cardPoints = findViewById(R.id.cardPoints);
         scrollView = findViewById(R.id.nested);
@@ -131,7 +138,16 @@ public class MySupportActivity extends BaseActivity implements MyPredictActionVi
             tvAllPredictCount.setText("بازیکن مورد علاقه " );
             tvTruePredictCount.setText(response.data.getPlayer().getPersianFirstName()+" "+response.data.getPlayer().getPersianLastName());
             tvYourRate.setText(response.data.getPlayer().getRole());
+           // Glide
+            try
+            {
+                Glide.with(getApplicationContext()).load(Uri.parse(response.data.getPlayer().getImage())).into(imgPic);
+            }
+            catch (NullPointerException e)
+            {
+                Glide.with(getApplicationContext()).load(R.drawable.img_failure).into(imgPic);
 
+            }
          //   recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
          //   recyclerView.setAdapter(new MyPredictAdapter(this, response.data.getMyPredictResults(), this));
         }

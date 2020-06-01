@@ -280,14 +280,14 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
                 {
 
                     headProfileData = response.data;
-                   // if (headProfileData.getIs_favorite())
-                  //  {
+                    if (headProfileData.getIs_favorite())
+                    {
                         btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.maryGold));
-                   // } else
-                  //  {
+                    } else
+                    {
                         btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.shadowColor));
 
-                    //}
+                    }
                     profileHeadCoahFragment.setData(headProfileData);
 
                 } else
@@ -475,15 +475,15 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     private void sendRequestFavorit()
     {
 //movaghati
-     //   if (headProfileData.getIs_favorite())
-       // {
+        if (headProfileData.getIs_favorite())
+        {
             btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.shadowColor));
-       // } else
-       // {
+        } else
+        {
             btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.maryGold));
 
-       // }
-        RequestSetFavoritePlayer requestSetFavoritePlayer=new RequestSetFavoritePlayer();
+        }
+        RequestSetFavoritePlayer requestSetFavoritePlayer = new RequestSetFavoritePlayer();
 
         requestSetFavoritePlayer.setPlayerId(coachId);
         pb.setVisibility(View.VISIBLE);
@@ -502,7 +502,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
                     {
                         btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.maryGold));
 
-                        showAlertSuccess(getContext(),response.info.message,"",false);
+                        showAlertSuccess(getContext(), response.info.message, "", false);
 
                     } else
                     {
@@ -534,7 +534,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
                 {
                 }
             }
-        },requestSetFavoritePlayer);
+        }, requestSetFavoritePlayer);
     }
 
     @Override
