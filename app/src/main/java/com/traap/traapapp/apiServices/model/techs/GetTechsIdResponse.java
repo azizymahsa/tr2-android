@@ -50,6 +50,19 @@ public class GetTechsIdResponse
     @SerializedName("national_goals")
     @Expose
     private Integer nationalGoals;
+    @SerializedName("is_favorite")
+    @Expose
+    private Boolean is_favorite;
+
+    public Boolean getIs_favorite()
+    {
+        return is_favorite;
+    }
+
+    public void setIs_favorite(Boolean is_favorite)
+    {
+        this.is_favorite = is_favorite;
+    }
 
     public Integer getId() {
         return id;

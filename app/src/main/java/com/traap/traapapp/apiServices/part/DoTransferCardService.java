@@ -8,6 +8,8 @@ import com.traap.traapapp.apiServices.model.doTransferCard.request.DoTransferReq
 import com.traap.traapapp.apiServices.model.doTransferCard.response.DoTransferResponse;
 import com.traap.traapapp.apiServices.model.getReport.request.GetReportRequest;
 import com.traap.traapapp.apiServices.model.getReport.response.GetReportResponse;
+import com.traap.traapapp.apiServices.model.techs.GetTechsIdResponse;
+import com.traap.traapapp.apiServices.model.techs.RequestSetFavoritePlayer;
 
 /**
  * Created by Javad.Abadi on 1/2/2019.
@@ -34,6 +36,11 @@ public class DoTransferCardService extends BasePart
     public void getReport(OnServiceStatus<WebServiceClass<GetReportResponse>> listener, GetReportRequest req)
     {
         start(getServiceGenerator().createService().getReport(req), listener);
+    }
+
+    public void potFavoritPlayer(OnServiceStatus<WebServiceClass<GetTechsIdResponse>> listener, RequestSetFavoritePlayer req)
+    {
+        start(getServiceGenerator().createService().potFavoritPlayer(req), listener);
     }
 
 

@@ -130,6 +130,7 @@ import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
 import com.traap.traapapp.apiServices.model.survey.SurveyDetailResponse;
 import com.traap.traapapp.apiServices.model.techs.GetTechsIdResponse;
+import com.traap.traapapp.apiServices.model.techs.RequestSetFavoritePlayer;
 import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
 import com.traap.traapapp.apiServices.model.survey.listSurvey.SurveyListResponse;
 import com.traap.traapapp.apiServices.model.survey.putSurvey.PutSurveyRequest;
@@ -222,7 +223,8 @@ public interface RetroClient
             @Query("role__code_name") String role__code_name,
             @Query("is_present") Boolean is_present,
             @Query("tech_staff__is_featured") Boolean tech_staff__is_featured
-           );
+    );
+
     @GET(Const.TECHS)
     Single<Response<WebServiceClass<TopPlayerResponse>>> getSearchTech(
             @Query("search") String role__code_name);
@@ -234,10 +236,12 @@ public interface RetroClient
 
     @GET(Const.Get_LIST_SURVEY)
     Single<Response<WebServiceClass<SurveyListResponse>>> getSurveyList(
-            );
+    );
+
     /*Compations*/
     @GET(Const.Get_All_Compations)
     Single<Response<WebServiceClass<ResponseAllCompations>>> getAllCompations();
+
     /*photos*/
     @GET(Const.Get_Main_Photo)
     Single<Response<WebServiceClass<MainPhotoResponse>>> getMainPhotos();
@@ -789,6 +793,7 @@ public interface RetroClient
 
     @GET(Const.traktor)
     Single<Response<WebServiceClass<TractorTeamResponse>>> traktor();
+
     @GET(Const.CUPS)
     Single<Response<WebServiceClass<CupResponse>>> cup();
 
@@ -796,6 +801,9 @@ public interface RetroClient
     Single<Response<WebServiceClass<GetTechsIdResponse>>> getTechsId(
             @Path("id") Integer id);
 
+    @POST(Const.Post_Favorite)
+    Single<Response<WebServiceClass<GetTechsIdResponse>>> potFavoritPlayer(
+            @Body RequestSetFavoritePlayer request);
 
     @POST(Const.Post_Answer)
     Single<Response<WebServiceClass<PutSurveyResponse>>> putAnswerQu(
@@ -803,7 +811,7 @@ public interface RetroClient
             @Body RequestSetAnswer request);
 
 
-  @GET(Const.Get_All_Questions)
+    @GET(Const.Get_All_Questions)
     Single<Response<WebServiceClass<ResponseGetQuestions>>> getAllQuestions(
             @Path("id") Integer id);
 

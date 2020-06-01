@@ -211,6 +211,7 @@ public class Const
     public final static String Get_All_Compations=SubBASEURL+"v1/competition/";
     public final static String Get_All_Questions=SubBASEURL+"v1/competition/{id}/";
     public final static String Post_Answer=SubBASEURL+"v1/competition/{id}/answers/";
-
+    //favorite player interview
+    public final static String Post_Favorite=SubBASEURL+"v1/team/techs/fan_page/";
 
 }

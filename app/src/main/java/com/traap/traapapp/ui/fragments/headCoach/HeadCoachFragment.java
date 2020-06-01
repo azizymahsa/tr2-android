@@ -35,6 +35,7 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.techs.GetTechsIdResponse;
+import com.traap.traapapp.apiServices.model.techs.RequestSetFavoritePlayer;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
@@ -98,15 +99,15 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
         this.coachId = coachId;
     }
 
-    public static HeadCoachFragment newInstance(MainActionView mainView, Integer coachId, String title,boolean flagFavorite)
+    public static HeadCoachFragment newInstance(MainActionView mainView, Integer coachId, String title, boolean flagFavorite)
     {
         HeadCoachFragment f = new HeadCoachFragment();
-        f.setMainView(mainView, title,flagFavorite);
+        f.setMainView(mainView, title, flagFavorite);
         f.setCoachId(coachId);
         return f;
     }
 
-    private void setMainView(MainActionView mainView, String title,boolean flagFavorite)
+    private void setMainView(MainActionView mainView, String title, boolean flagFavorite)
     {
         this.mainView = mainView;
         this.title = title;
@@ -234,12 +235,14 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
             view_pager = rootView.findViewById(R.id.view_pager);
             imgProfile = rootView.findViewById(R.id.imgProfile);
             btnShare = rootView.findViewById(R.id.btnShare);
-            btnFavorit = rootView.findViewById(R.id.btnShare);
+            btnFavorit = rootView.findViewById(R.id.btnFavorit);
             btnShare.setOnClickListener(this);
             btnFavorit.setOnClickListener(this);
-            if(flagFavorite){
+            if (flagFavorite)
+            {
                 btnFavorit.setVisibility(View.VISIBLE);
-            }else{
+            } else
+            {
                 btnFavorit.setVisibility(View.GONE);
 
             }
@@ -277,8 +280,14 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
                 {
 
                     headProfileData = response.data;
-                    //  Glide.with(getActivity()).load(response.data.getImage()).into(imgProfile);
+                   // if (headProfileData.getIs_favorite())
+                  //  {
+                        btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.g_yellow));
+                   // } else
+                  //  {
+                        btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.shadowColor));
 
+                    //}
                     profileHeadCoahFragment.setData(headProfileData);
 
                 } else
@@ -465,7 +474,67 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
 
     private void sendRequestFavorit()
     {
-        btnFavorit.setColorFilter(ContextCompat.getColor(getContext(), R.color.g_yellow), android.graphics.PorterDuff.Mode.MULTIPLY);
+//movaghati
+     //   if (headProfileData.getIs_favorite())
+       // {
+            btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.shadowColor));
+       // } else
+       // {
+            btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.g_yellow));
+
+       // }
+        RequestSetFavoritePlayer requestSetFavoritePlayer=new RequestSetFavoritePlayer();
+
+        requestSetFavoritePlayer.setPlayerId(coachId);
+        pb.setVisibility(View.VISIBLE);
+        SingletonService.getInstance().doTransferCardService().potFavoritPlayer(new OnServiceStatus<WebServiceClass<GetTechsIdResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<GetTechsIdResponse> response)
+            {
+                pb.setVisibility(View.GONE);
+
+
+                try
+                {
+
+                    if (response.info.statusCode == 200)
+                    {
+                        btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.g_yellow));
+
+                        showAlertSuccess(getContext(),response.info.message,"",false);
+
+                    } else
+                    {
+                        btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.shadowColor));
+
+                    }
+                } catch (Exception e)
+                {
+
+                }
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                pb.setVisibility(View.GONE);
+                try
+                {
+
+                    if (Tools.isNetworkAvailable(getActivity()))
+                    {
+                        Logger.e("-OnError-", "Error: " + message);
+                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                    } else
+                    {
+                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    }
+                } catch (Exception e)
+                {
+                }
+            }
+        },requestSetFavoritePlayer);
     }
 
     @Override
