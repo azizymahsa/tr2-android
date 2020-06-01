@@ -84,6 +84,7 @@ import com.traap.traapapp.apiServices.model.mainPhotos.MainPhotoResponse;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.media.category.TypeCategory;
+import com.traap.traapapp.apiServices.model.mySupportProfile.ResponseMySupport;
 import com.traap.traapapp.apiServices.model.news.archive.NewsArchiveListByIdResponse;
 import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategoryResponse;
 import com.traap.traapapp.apiServices.model.news.details.getComment.response.GetNewsCommentResponse;
@@ -640,6 +641,9 @@ public interface RetroClient
 
     @GET(Const.GET_MY_PREDICTS)
     Single<Response<WebServiceClass<MyPredictResponse>>> getMyPredict();
+
+    @GET(Const.GET_MY_Supportes)
+    Single<Response<WebServiceClass<ResponseMySupport>>> getMySupports();
 
 
     @GET(Const.GET_PREDICT_ENABLE)

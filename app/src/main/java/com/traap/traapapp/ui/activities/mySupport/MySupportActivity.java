@@ -22,6 +22,7 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.lottery.Winner;
+import com.traap.traapapp.apiServices.model.mySupportProfile.ResponseMySupport;
 import com.traap.traapapp.apiServices.model.predict.getMyPredict.MyPredictResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.ui.activities.lotteryWinnerList.LotteryWinnerDetailsActivity;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MySupportActivity extends BaseActivity implements MyPredictActionView, PredictResultActionView,
-        OnServiceStatus<WebServiceClass<MyPredictResponse>>, MyPredictAdapter.OnItemClickListener
+        OnServiceStatus<WebServiceClass<ResponseMySupport>>, MyPredictAdapter.OnItemClickListener
 {
     private Toolbar mToolbar;
     private TextView tvUserName, tvHeaderPopularNo;
@@ -107,11 +108,11 @@ public class MySupportActivity extends BaseActivity implements MyPredictActionVi
     private void getData()
     {
         showLoading();
-        SingletonService.getInstance().getPredictService().getMyPredictService(this);
+        SingletonService.getInstance().getPredictService().getMySupportsService(this);
     }
 
     @Override
-    public void onReady(WebServiceClass<MyPredictResponse> response)
+    public void onReady(WebServiceClass<ResponseMySupport> response)
     {
         hideLoading();
         if (response == null || response.data == null)
@@ -126,13 +127,13 @@ public class MySupportActivity extends BaseActivity implements MyPredictActionVi
         }
         else
         {
-            tvPointScore.setText(String.valueOf(response.data.getBundle().getBalance()));
-            tvAllPredictCount.setText("تعداد پیش بینی های شرکت کننده: " + response.data.getBundle().getAllMyPredictions());
-            tvTruePredictCount.setText("تعداد پیش بینی های درست: " + response.data.getBundle().getMyPredictionsTrue());
-            tvYourRate.setText("رتبه شما: " + response.data.getBundle().getMyRank());
+            tvPointScore.setText(String.valueOf(response.data.getScore()));
+            tvAllPredictCount.setText("بازیکن مورد علاقه " );
+            tvTruePredictCount.setText(response.data.getPlayer().getPersianFirstName()+" "+response.data.getPlayer().getPersianLastName());
+            tvYourRate.setText(response.data.getPlayer().getRole());
 
-            recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
-            recyclerView.setAdapter(new MyPredictAdapter(this, response.data.getMyPredictResults(), this));
+         //   recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+         //   recyclerView.setAdapter(new MyPredictAdapter(this, response.data.getMyPredictResults(), this));
         }
     }
 

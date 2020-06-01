@@ -100,7 +100,7 @@
                                 android:layout_height="match_parent"
                                 android:orientation="vertical"
                                 android:gravity="center"
-                                android:background="@drawable/background_border_white_full"
+                                android:background="@drawable/test_player"
                                 android:padding="2dp">
 
                                 <TextView
@@ -159,7 +159,9 @@
                             android:id="@+id/recyclerView"
                             android:layout_marginTop="8dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+
+                            android:visibility="gone"/>
 
                     </LinearLayout>
 
