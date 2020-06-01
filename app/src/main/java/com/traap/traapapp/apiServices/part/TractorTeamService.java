@@ -8,6 +8,7 @@ import com.traap.traapapp.apiServices.model.techHistory.GetTechsHistoryResponse;
 import com.traap.traapapp.apiServices.model.techs.GetTechsIdResponse;
 import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
 import com.traap.traapapp.apiServices.model.tractorTeam.TractorTeamResponse;
+import com.traap.traapapp.ui.fragments.competitions.QuestionCompationFragment;
 
 /**
  * Authors:
@@ -51,6 +52,11 @@ public class TractorTeamService extends BasePart
     public void getTechsId(Integer id,OnServiceStatus<WebServiceClass<GetTechsIdResponse>> listener)
     {
         start(getServiceGenerator().createService().getTechsId(id), listener);
+    }
+
+public void getQuestionCompation(Integer id, QuestionCompationFragment listener)
+    {
+        start(getServiceGenerator().createService().getAllQuestions(id), listener);
     }
 
     public void getTechsHistory(Integer id, OnServiceStatus<WebServiceClass<GetTechsHistoryResponse>> listener){

@@ -1983,6 +1983,13 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
+    public void onMainQuestionClick(Integer idQuest)
+    {
+
+    }
+
+
+    @Override
     public void openPastResultFragment(LeagueTableParent parent, String matchId, Boolean isPredictable, String teamId, String imageLogo, String logoTitle)
     {
 

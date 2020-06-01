@@ -120,14 +120,8 @@ public class DeActiveMatchesFragment extends BaseFragment implements CompationsD
     @Override
     public void onItemClick(View view, int position, Result matchItem)
     {
-        mainActionView.getBuyEnable(() ->
-        {
-           /* btnBuyTicket.revertAnimation();
-            btnBuyTicket.setClickable(true);*/
-        });
-        /*BuyTicketsFragment pastResultFragment =  BuyTicketsFragment.newInstance(mainActionView, matchItem);;
+        mainActionView.onMainQuestionClick(matchItem.getId());
 
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();*/
     }
 
     @Override
@@ -136,19 +130,19 @@ public class DeActiveMatchesFragment extends BaseFragment implements CompationsD
 //        PredictFragment pastResultFragment = PredictFragment.newInstance(mainActionView, matchItem.getId(), matchItem.getIsPredict());
 //
 //        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
-        mainActionView.onPredict(PredictPosition.PredictResult, matchItem.getId(), matchItem.getIsActive());
+       // mainActionView.onPredict(PredictPosition.PredictResult, matchItem.getId(), matchItem.getIsActive());
     }
 
     @Override
     public void onItemLogoTeamClick(View view, Integer id, String logo, String title)
     {
-        if (id == 0)
+       /* if (id == 0)
         {
             showToast(getActivity(), "متاسفانه اطلاعاتی برای نمایش وجود ندارد.", 0);
         } else
         {
             Prefs.putInt("selectedTab", 2);
             mainActionView.openPastResultFragment(LeagueTableParent.MatchScheduleFragment, "0", false, id.toString(), logo, title);
-        }
+        }*/
     }
 }

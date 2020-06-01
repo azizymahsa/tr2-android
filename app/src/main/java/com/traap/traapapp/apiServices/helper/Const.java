@@ -211,6 +211,8 @@ public class Const
 
     //compation
     public final static String Get_All_Compations=SubBASEURL+"v1/competition/";
+    public final static String Get_All_Questions=SubBASEURL+"v1/competition/{id}/";
+    public final static String Post_Answer=SubBASEURL+"v1/competition/{id}/answers/";
 
 
 }
