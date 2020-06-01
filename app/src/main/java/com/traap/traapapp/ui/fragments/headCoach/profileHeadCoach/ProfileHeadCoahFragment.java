@@ -4,36 +4,29 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.traap.traapapp.R;
-import com.traap.traapapp.apiServices.generator.SingletonService;
-import com.traap.traapapp.apiServices.listener.OnServiceStatus;
-import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.cup.CupResponse;
+
 import com.traap.traapapp.apiServices.model.techs.GetTechsIdResponse;
 import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.PositionInLeaguesAdapter;
-import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.utilities.Logger;
-import com.traap.traapapp.utilities.Tools;
+
+import com.traap.traapapp.utilities.Utility;
 
 /**
  * Created by MahtabAzizi on 5/26/2020.
  */
-public class ProfileHeadCoahFragment extends BaseFragment
+public class ProfileHeadCoahFragment extends BaseFragment implements View.OnClickListener
 {
     private GetTechsIdResponse headProfileData;
     private View rootView;
     private NestedScrollView nested;
     public static Integer height;
-    private TextView tvNameFa,tvNameEn,tvBirthday,tvJoin,tvLeave,tvNumberTshirt,tvStartDate,tvFeet,tvNationalGoals,tvClubGoals,tvEducation;
+    private TextView tvNameFa,tvNameEn,tvBirthday,tvJoin,tvLeave,tvNumberTshirt
+            ,tvStartDate,tvFeet,tvNationalGoals,tvClubGoals,tvEducation,tvDesc,tvLinkAddress;
 
 
     public ProfileHeadCoahFragment()
@@ -57,12 +50,13 @@ public class ProfileHeadCoahFragment extends BaseFragment
     public void setData(GetTechsIdResponse headProfileData)
     {
 
+        this.headProfileData=headProfileData;
         tvNameFa.setText(headProfileData.getPersianFirstName()+headProfileData.getPersianLastName());
         tvNameEn.setText(headProfileData.getEnglishFirstName()+headProfileData.getEnglishLastName());
         tvBirthday.setText(headProfileData.getBirthday());
         tvClubGoals.setText(headProfileData.getClubGoals().toString());
-       /* if (headProfileData.getEducation()!=null)
-            tvEducation.setText(headProfileData.getEducation());*/
+        if (headProfileData.getEducation()!=null)
+            tvEducation.setText(headProfileData.getEducation());
         if (headProfileData.getFeet()==1){
 
             tvFeet.setText("راست");
@@ -80,8 +74,10 @@ public class ProfileHeadCoahFragment extends BaseFragment
         tvJoin.setText(headProfileData.getJoinedDate());
         tvLeave.setText(headProfileData.getLeavedDate());
         tvNationalGoals.setText(headProfileData.getNationalGoals().toString());
-        tvNumberTshirt.setText("");
+        tvNumberTshirt.setText(headProfileData.getNumber().toString());
         tvStartDate.setText("");
+        tvDesc.setText(headProfileData.getDescription());
+        tvLinkAddress.setText("ادامه مطلب: "+headProfileData.getWiki());
     }
 
     @Override
@@ -104,12 +100,26 @@ public class ProfileHeadCoahFragment extends BaseFragment
         tvNationalGoals=rootView.findViewById(R.id.tvNationalGoals);
         tvClubGoals=rootView.findViewById(R.id.tvClubGoals);
         tvEducation=rootView.findViewById(R.id.tvEducation);
+        tvLinkAddress=rootView.findViewById(R.id.tvLinkAddress);
+        tvLinkAddress.setOnClickListener(this);
+        tvDesc=rootView.findViewById(R.id.tvDesc);
+
 
         ViewCompat.setNestedScrollingEnabled(nested,false);
     }
 
 
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId()){
+            case R.id.tvLinkAddress:
 
+                Utility.openUrlCustomTab(this.getActivity(), headProfileData.getWiki());
+
+                break;
+        }
+    }
 }
 
 

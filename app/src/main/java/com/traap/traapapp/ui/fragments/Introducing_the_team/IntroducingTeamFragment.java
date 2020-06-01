@@ -210,7 +210,6 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
             public void afterTextChanged(Editable s)
             {
 
-
                 if (etSearchText.getText().toString().length() > 2)
                 {
                     cvSearch.setVisibility(View.VISIBLE);

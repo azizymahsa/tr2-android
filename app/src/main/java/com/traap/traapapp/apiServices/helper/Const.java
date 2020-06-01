@@ -1,6 +1,8 @@
 package com.traap.traapapp.apiServices.helper;
 
 
+import com.androidnetworking.common.ANRequest;
+
 public class Const
 {
     public static final boolean MOCK = false;
@@ -205,7 +207,7 @@ public class Const
     public final static String CUPS = SubBASEURL + "v1/team/cups/";
 
     public final static String TECHS_ID=SubBASEURL+"v1/team/techs/{id}/";
-
+    public final static String TECHS_HISTORY=SubBASEURL+"v1/team/techs/{id}/history/";
 
     //compation
     public final static String Get_All_Compations=SubBASEURL+"v1/competition/";
