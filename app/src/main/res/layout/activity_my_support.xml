@@ -92,7 +92,7 @@
                             app:contentPadding="2dp"
                             app:cardElevation="3dp"
                             app:cardUseCompatPadding="false"
-                            app:cardCornerRadius="@dimen/point_card_radius"
+                            app:cardCornerRadius="@dimen/_10dp"
                             app:cardMaxElevation="5dp">
 
                             <ImageView
