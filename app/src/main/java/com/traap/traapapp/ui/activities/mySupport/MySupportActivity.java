@@ -138,8 +138,7 @@ public class MySupportActivity extends BaseActivity implements MyPredictActionVi
             tvAllPredictCount.setText("بازیکن مورد علاقه " );
             tvTruePredictCount.setText(response.data.getPlayer().getPersianFirstName()+" "+response.data.getPlayer().getPersianLastName());
             tvYourRate.setText(response.data.getPlayer().getRole());
-           // Glide
-            try
+            /*try
             {
                 Glide.with(getApplicationContext()).load(Uri.parse(response.data.getPlayer().getImage())).into(imgPic);
             }
@@ -147,9 +146,9 @@ public class MySupportActivity extends BaseActivity implements MyPredictActionVi
             {
                 Glide.with(getApplicationContext()).load(R.drawable.img_failure).into(imgPic);
 
-            }
-         //   recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
-         //   recyclerView.setAdapter(new MyPredictAdapter(this, response.data.getMyPredictResults(), this));
+                //Picasso.with(mContext).load(R.drawable.img_failure).into(image);
+            }*/
+
         }
     }
 
