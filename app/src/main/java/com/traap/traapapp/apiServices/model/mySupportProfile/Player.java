@@ -1,13 +1,13 @@
-package com.traap.traapapp.apiServices.model.techs;
 
+package com.traap.traapapp.apiServices.model.mySupportProfile;
+
+import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by MahtabAzizi on 5/27/2020.
- */
-public class GetTechsIdResponse
+public class Player implements Serializable
 {
+
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -50,29 +50,22 @@ public class GetTechsIdResponse
     @SerializedName("national_goals")
     @Expose
     private Integer nationalGoals;
-    @SerializedName("is_favorite")
-    @Expose
-    private Boolean is_favorite;
-
-    public Boolean getIs_favorite()
-    {
-        return is_favorite;
-    }
-
-    public void setIs_favorite(Boolean is_favorite)
-    {
-        this.is_favorite = is_favorite;
-    }
-    @SerializedName("number")
-    @Expose
-    private Integer number;
     @SerializedName("wiki")
     @Expose
     private String wiki;
+    @SerializedName("yellow_card")
+    @Expose
+    private Integer yellowCard;
+    @SerializedName("red_card")
+    @Expose
+    private Integer redCard;
+    @SerializedName("number")
+    @Expose
+    private Integer number;
     @SerializedName("description")
     @Expose
     private String description;
-
+    private final static long serialVersionUID = -7048558484739839214L;
 
     public Integer getId() {
         return id;
@@ -186,33 +179,44 @@ public class GetTechsIdResponse
         this.nationalGoals = nationalGoals;
     }
 
-    public Integer getNumber()
-    {
-        return number;
-    }
-
-    public void setNumber(Integer number)
-    {
-        this.number = number;
-    }
-
-    public String getWiki()
-    {
+    public String getWiki() {
         return wiki;
     }
 
-    public void setWiki(String wiki)
-    {
+    public void setWiki(String wiki) {
         this.wiki = wiki;
     }
 
-    public String getDescription()
-    {
+    public Integer getYellowCard() {
+        return yellowCard;
+    }
+
+    public void setYellowCard(Integer yellowCard) {
+        this.yellowCard = yellowCard;
+    }
+
+    public Integer getRedCard() {
+        return redCard;
+    }
+
+    public void setRedCard(Integer redCard) {
+        this.redCard = redCard;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
+
 }
