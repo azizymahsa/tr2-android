@@ -10,18 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
+
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 import com.google.android.material.tabs.TabLayout;
@@ -64,18 +67,19 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
 {
     private View rootView;
     private Toolbar mToolbar;
-    private View  rlShirt, imgMenu, imgBack;
+    private View rlShirt, imgMenu, imgBack;
     private MainActionView mainView;
     private TextView tvUserName, tvPopularPlayer;
     private TabLayout tabLayout;
     private com.traap.traapapp.utilities.WrapContentHeightViewPager view_pager;
     private IntroduceFragmentPagerAdapter adapter;
-    private Integer coachId=4;
+    private Integer coachId = 4;
     private GetTechsIdResponse headProfileData;
     private RoundedImageView imgProfile;
     private ProfileHeadCoahFragment profileHeadCoahFragment;
     private RecyclerView rvComment;
-    private View btnShare,llInfoFromShare,llGallery;
+    private View btnShare, llInfoFromShare, llGallery;
+    private ImageView btnFavorit;
     private NestedScrollView nested;
     private LinearLayout llCoach;
     private FrameLayout flFragment;
@@ -85,26 +89,28 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     private AppCompatEditText etComment;
     private LinearLayout llSendComment;
     private CommentAdapter commentAdapter;
-    private Boolean isEdit=false;
-    private String title="";
+    private Boolean isEdit = false;
+    private String title = "";
+    private boolean flagFavorite = false;
 
     public void setCoachId(Integer coachId)
     {
         this.coachId = coachId;
     }
 
-    public static HeadCoachFragment newInstance(MainActionView mainView, Integer coachId,String title)
+    public static HeadCoachFragment newInstance(MainActionView mainView, Integer coachId, String title,boolean flagFavorite)
     {
         HeadCoachFragment f = new HeadCoachFragment();
-        f.setMainView(mainView,title);
+        f.setMainView(mainView, title,flagFavorite);
         f.setCoachId(coachId);
         return f;
     }
 
-    private void setMainView(MainActionView mainView,String title)
+    private void setMainView(MainActionView mainView, String title,boolean flagFavorite)
     {
         this.mainView = mainView;
         this.title = title;
+        this.flagFavorite = flagFavorite;
     }
 
     public HeadCoachFragment()
@@ -112,14 +118,13 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     }
 
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-     //   EventBus.getDefault().register(this);
+        //   EventBus.getDefault().register(this);
     }
+
     @Override
     public void onResume()
     {
@@ -130,12 +135,14 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
         {
             if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP)
             {
-                if (flFragment.getVisibility()==View.VISIBLE){
+                if (flFragment.getVisibility() == View.VISIBLE)
+                {
                     llCoach.setVisibility(View.VISIBLE);
                     btnShare.setVisibility(View.VISIBLE);
                     flFragment.setVisibility(View.GONE);
-                }else{
-                  getActivity().onBackPressed();
+                } else
+                {
+                    getActivity().onBackPressed();
 
                 }
                 return true;
@@ -148,7 +155,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     {
         try
         {
-          //  showLoading();
+            //  showLoading();
 
             //toolbar
             mToolbar = rootView.findViewById(R.id.toolbar);
@@ -160,15 +167,15 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
             llSendComment = rootView.findViewById(R.id.llSendComment);
             btnSendCommentCoach = rootView.findViewById(R.id.btnSendCommentCoach);
 
-            coachCommentList.add(new CoachCommentModel("",false));
-            coachCommentList.add(new CoachCommentModel("",false));
-            coachCommentList.add(new CoachCommentModel("",false));
-            coachCommentList.add(new CoachCommentModel("",false));
-            coachCommentList.add(new CoachCommentModel("",false));
-            coachCommentList.add(new CoachCommentModel("",false));
+            coachCommentList.add(new CoachCommentModel("", false));
+            coachCommentList.add(new CoachCommentModel("", false));
+            coachCommentList.add(new CoachCommentModel("", false));
+            coachCommentList.add(new CoachCommentModel("", false));
+            coachCommentList.add(new CoachCommentModel("", false));
+            coachCommentList.add(new CoachCommentModel("", false));
 
             rvComment = rootView.findViewById(R.id.rvComment);
-            commentAdapter=new CommentAdapter(coachCommentList,this);
+            commentAdapter = new CommentAdapter(coachCommentList, this);
             rvComment.setAdapter(commentAdapter);
 
 
@@ -198,11 +205,13 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
             FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
             flLogoToolbar.setOnClickListener(v ->
             {
-                if (flFragment.getVisibility()==View.VISIBLE){
+                if (flFragment.getVisibility() == View.VISIBLE)
+                {
                     llCoach.setVisibility(View.VISIBLE);
                     btnShare.setVisibility(View.VISIBLE);
                     flFragment.setVisibility(View.GONE);
-                }else{
+                } else
+                {
                     mainView.backToMainFragment();
 
                 }
@@ -223,11 +232,19 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
 
             tabLayout = rootView.findViewById(R.id.tabLayout);
             view_pager = rootView.findViewById(R.id.view_pager);
-            imgProfile=rootView.findViewById(R.id.imgProfile);
-            btnShare=rootView.findViewById(R.id.btnShare);
+            imgProfile = rootView.findViewById(R.id.imgProfile);
+            btnShare = rootView.findViewById(R.id.btnShare);
+            btnFavorit = rootView.findViewById(R.id.btnShare);
             btnShare.setOnClickListener(this);
-            llInfoFromShare=rootView.findViewById(R.id.llInfoFromShare);
-            llGallery=rootView.findViewById(R.id.llGallery);
+            btnFavorit.setOnClickListener(this);
+            if(flagFavorite){
+                btnFavorit.setVisibility(View.VISIBLE);
+            }else{
+                btnFavorit.setVisibility(View.GONE);
+
+            }
+            llInfoFromShare = rootView.findViewById(R.id.llInfoFromShare);
+            llGallery = rootView.findViewById(R.id.llGallery);
             llGallery.setOnClickListener(this);
             btnSendCommentCoach.setOnClickListener(this);
             ViewCompat.setNestedScrollingEnabled(rvComment, true);
@@ -235,7 +252,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
 
             FragmentManager childFragMan = getChildFragmentManager();
             FragmentTransaction childFragTrans = childFragMan.beginTransaction();
-            MediaPlayersFragment fragB =MediaPlayersFragment.newInstance(null,mainView);
+            MediaPlayersFragment fragB = MediaPlayersFragment.newInstance(null, mainView);
             childFragTrans.add(R.id.flFragment, fragB);
             childFragTrans.commit();
         } catch (Exception e)
@@ -243,10 +260,12 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
             e.getMessage();
         }
     }
-    private void getTechsId(){
+
+    private void getTechsId()
+    {
 
         pb.setVisibility(View.VISIBLE);
-        SingletonService.getInstance().tractorTeamService().getTechsId(coachId,new OnServiceStatus<WebServiceClass<GetTechsIdResponse>>()
+        SingletonService.getInstance().tractorTeamService().getTechsId(coachId, new OnServiceStatus<WebServiceClass<GetTechsIdResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<GetTechsIdResponse> response)
@@ -254,41 +273,43 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
                 pb.setVisibility(View.GONE);
 
 
-                if (response.info.statusCode==200)
-                    {
+                if (response.info.statusCode == 200)
+                {
 
-                        headProfileData=response.data;
-                      //  Glide.with(getActivity()).load(response.data.getImage()).into(imgProfile);
+                    headProfileData = response.data;
+                    //  Glide.with(getActivity()).load(response.data.getImage()).into(imgProfile);
 
-                        profileHeadCoahFragment.setData(headProfileData);
+                    profileHeadCoahFragment.setData(headProfileData);
 
-                    }else{
-                        showToast(getActivity(), response.info.message, R.color.red);
+                } else
+                {
+                    showToast(getActivity(), response.info.message, R.color.red);
 
-                    }
                 }
+            }
 
             @Override
             public void onError(String message)
             {
                 pb.setVisibility(View.GONE);
-                try{
+                try
+                {
 
                     if (Tools.isNetworkAvailable(getActivity()))
                     {
                         Logger.e("-OnError-", "Error: " + message);
                         showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
-                    }
-                    else
+                    } else
                     {
                         showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
                     }
-                }catch (Exception e){}
+                } catch (Exception e)
+                {
+                }
             }
         });
 
     }
-
 
 
     @Override
@@ -303,7 +324,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
         rootView = inflater.inflate(R.layout.fragment_head_coach, container, false);
 
         initViews();
-        profileHeadCoahFragment =new ProfileHeadCoahFragment();
+        profileHeadCoahFragment = new ProfileHeadCoahFragment();
         getTechsId();
         initViewPager();
 
@@ -347,7 +368,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
         adapter.addFrag("اتفاقات مهم", new TechnicalTeamFragment());
         adapter.addFrag("قراردادها", new TopPlayersFragment());*/
         adapter.addFrag("سابقه", new PositionInLeaguesFragment());
-        adapter.addFrag("مشخصات",profileHeadCoahFragment);
+        adapter.addFrag("مشخصات", profileHeadCoahFragment);
 
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(2);
@@ -360,6 +381,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
         super.onAttach(context);
 
     }
+
     @Subscribe
     public void getHeaderContent(HeaderModel headerModel)
     {
@@ -377,6 +399,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
     @Override
     public void onDetach()
     {
@@ -391,31 +414,37 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
             case R.id.btnShare:
                 new ScreenShot(llInfoFromShare, getActivity(), false, "برای ارسال، اخذ این مجوز الزامی است.");
                 break;
+            case R.id.btnFavorit:
+                sendRequestFavorit();
+                break;
             case R.id.llGallery:
                 llCoach.setVisibility(View.GONE);
                 btnShare.setVisibility(View.GONE);
                 flFragment.setVisibility(View.VISIBLE);
-                nested.scrollTo(0,0);
+                nested.scrollTo(0, 0);
                 break;
             case R.id.btnSendCommentCoach:
-                if (TextUtils.isEmpty(etComment.getText().toString())){
+                if (TextUtils.isEmpty(etComment.getText().toString()))
+                {
                     etComment.setError("لطفا نظر خود را وارد نمایید.");
                     return;
 
                 }
                 btnSendCommentCoach.setEnabled(false);
                 btnSendCommentCoach.startAnimation();
-                hideSoftKeyboard(rootView,rootView.getContext());
+                hideSoftKeyboard(rootView, rootView.getContext());
                 new Handler().postDelayed(new Runnable()
                 {
                     @Override
                     public void run()
                     {
-                        if (isEdit){
+                        if (isEdit)
+                        {
                             coachCommentList.get(0).setComment(etComment.getText().toString());
                             commentAdapter.notifyItemChanged(0);
-                        }else{
-                            coachCommentList.add(0,new CoachCommentModel(etComment.getText().toString(),true));
+                        } else
+                        {
+                            coachCommentList.add(0, new CoachCommentModel(etComment.getText().toString(), true));
                             commentAdapter.notifyItemInserted(0);
                         }
 
@@ -425,7 +454,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
                         llSendComment.setVisibility(View.GONE);
 
                     }
-                },2000);
+                }, 2000);
 
 
                 break;
@@ -434,19 +463,24 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
 
     }
 
+    private void sendRequestFavorit()
+    {
+        btnFavorit.setColorFilter(ContextCompat.getColor(getContext(), R.color.g_yellow), android.graphics.PorterDuff.Mode.MULTIPLY);
+    }
+
     @Override
     public void onDeleteCommentAdapter(Integer position)
     {
         coachCommentList.remove(0);
         commentAdapter.notifyItemRemoved(0);
         llSendComment.setVisibility(View.VISIBLE);
-        isEdit=false;
+        isEdit = false;
     }
 
     @Override
     public void onEditCommentAdapter(Integer position)
     {
-        isEdit=true;
+        isEdit = true;
         llSendComment.setVisibility(View.VISIBLE);
         etComment.setText(coachCommentList.get(position).getComment());
 

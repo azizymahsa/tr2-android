@@ -80,6 +80,17 @@
                             android:tint="@color/shadowColor"
                             android:foreground="?attr/selectableItemBackground" />
 
+                        <ImageView
+                            android:id="@+id/btnFavorit"
+                            android:layout_width="@dimen/_35dp"
+                            android:layout_height="@dimen/_35dp"
+                            android:background="@drawable/button_small_border"
+                            android:foreground="?attr/selectableItemBackground"
+                            android:padding="@dimen/_5sdp"
+                            android:layout_gravity="right"
+                            android:tint="@color/shadowColor"
+                            app:srcCompat="@drawable/ic_star" />
+
                         <LinearLayout
                             android:id="@+id/llCoach"
 

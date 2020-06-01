@@ -964,9 +964,9 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void onHeadCoach(Integer coachId,String title)
+    public void onHeadCoach(Integer coachId,String title,boolean flagFavorit)
     {
-        setFragment(HeadCoachFragment.newInstance(this,coachId,title));
+        setFragment(HeadCoachFragment.newInstance(this,coachId,title,flagFavorit));
         replaceFragment(getFragment(), "HeadCoachFragment");
 
     }
