@@ -62,6 +62,7 @@ import com.traap.traapapp.apiServices.model.getMyBill.GetMyBillResponse;
 import com.traap.traapapp.apiServices.model.getPackageIrancell.response.GetPackageIrancellResponse;
 import com.traap.traapapp.apiServices.model.getPackageMci.response.GetPackageMciResponse;
 import com.traap.traapapp.apiServices.model.getPackageMci.response.request.GetPackageMciRequest;
+import com.traap.traapapp.apiServices.model.getQuestionCompat.ResponseGetQuestions;
 import com.traap.traapapp.apiServices.model.getReport.request.GetReportRequest;
 import com.traap.traapapp.apiServices.model.getReport.response.GetReportResponse;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
@@ -121,6 +122,7 @@ import com.traap.traapapp.apiServices.model.profile.putProfile.request.SendProfi
 import com.traap.traapapp.apiServices.model.profile.putProfile.response.SendProfileResponse;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationRequest;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationResponse;
+import com.traap.traapapp.apiServices.model.setAnswerQuestions.RequestSetAnswer;
 import com.traap.traapapp.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
 import com.traap.traapapp.apiServices.model.shetacForgotPass2.request.ShetacForgotPass2Request;
 import com.traap.traapapp.apiServices.model.spectatorInfo.GetSpectatorListResponse;
@@ -792,6 +794,17 @@ public interface RetroClient
 
     @GET(Const.TECHS_ID)
     Single<Response<WebServiceClass<GetTechsIdResponse>>> getTechsId(
+            @Path("id") Integer id);
+
+
+    @POST(Const.Post_Answer)
+    Single<Response<WebServiceClass<PutSurveyResponse>>> putAnswerQu(
+            @Path("id") Integer surveyId,
+            @Body RequestSetAnswer request);
+
+
+  @GET(Const.Get_All_Questions)
+    Single<Response<WebServiceClass<ResponseGetQuestions>>> getAllQuestions(
             @Path("id") Integer id);
 
 }

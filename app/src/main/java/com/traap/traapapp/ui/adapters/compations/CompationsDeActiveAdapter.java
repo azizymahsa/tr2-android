@@ -121,6 +121,7 @@ public class CompationsDeActiveAdapter extends RecyclerView.Adapter<CompationsDe
 
             rlGuest.setOnClickListener(this);
             rlHost.setOnClickListener(this);
+            lnrBaseBack.setOnClickListener(this);
 
         }
 
@@ -130,7 +131,7 @@ public class CompationsDeActiveAdapter extends RecyclerView.Adapter<CompationsDe
         {
             switch (v.getId())
             {
-                case R.id.tvBuyTicket:
+                case R.id.lnrBaseBack:
                     if (mClickListener != null)
                     {
                         mClickListener.onItemClick(view, getAdapterPosition(), pastMatchesList.get(getAdapterPosition()));

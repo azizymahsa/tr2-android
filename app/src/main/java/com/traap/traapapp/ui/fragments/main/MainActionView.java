@@ -82,6 +82,7 @@ public interface MainActionView extends BaseView
     void onVideosFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition);
 
     void onMainVideoClick();
+    void onMainQuestionClick(Integer idQuest);
 
     void openPastResultFragment(LeagueTableParent parent, String matchId, Boolean isPredictable, String teamId, String imageLogo, String logoTitle);
 

@@ -95,6 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10dp"
                     android:layout_marginBottom="@dimen/_10dp"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <Space
@@ -117,7 +118,8 @@
                                 android:gravity="right"
                                 android:text=" کاربر گرامی، با پاسخ دادن به سوالات نظر سنجی می توانید از امتیاز بهره مند شوید."
                                 android:textColor="@color/returnButtonColor"
-                                android:textSize="@dimen/textSize_14dp" />
+                                android:textSize="@dimen/textSize_14dp"
+                             />
 
                     </LinearLayout>
 
