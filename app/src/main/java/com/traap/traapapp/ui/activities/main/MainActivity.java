@@ -88,6 +88,7 @@ import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.competitions.CompationsFragment;
+import com.traap.traapapp.ui.fragments.competitions.QuestionCompationFragment;
 import com.traap.traapapp.ui.fragments.galleryIntroPlayer.MediaPlayersFragment;
 import com.traap.traapapp.ui.fragments.gateWay.WalletFragment;
 import com.traap.traapapp.ui.fragments.headCoach.HeadCoachFragment;
@@ -133,7 +134,8 @@ import com.traap.traapapp.utilities.Tools;
 import com.yandex.metrica.push.YandexMetricaPush;
 
 public class MainActivity extends BaseMainActivity implements MainActionView, MenuDrawerFragment.FragmentDrawerListener,
-        OnServiceStatus<WebServiceClass<GetMenuResponse>>, KeyboardUtils.SoftKeyboardToggleListener
+        OnServiceStatus
+                <WebServiceClass<GetMenuResponse>>, KeyboardUtils.SoftKeyboardToggleListener
         , SelectPositionFragment.OnListFragmentInteractionListener
 {
     private Boolean isMainFragment = true;
@@ -805,7 +807,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 // showToast(this, "ارتباط با پشتیبانی", R.color.green);
                 isMainFragment = false;
 
-                //setFragment(SurveyFragment.newInstance(this));
+                //setFragment(QuestionCompationFragment.newInstance(this));
                 setFragment(SupportFragment.newInstance(this));
 
                 replaceFragment(getFragment(), "SupportFragment");
@@ -816,7 +818,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
                 isMainFragment = false;
                 setFragment(SurveyFragment.newInstance(this));
-                replaceFragment(getFragment(), "SurveyFragment");
+                replaceFragment(getFragment(), "QuestionCompationFragment");
                 break;
             }
 
@@ -2048,6 +2050,14 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             }
         }));
         replaceFragment(getFragment(), "videosMainFragment");
+    }
+
+    @Override
+    public void onMainQuestionClick(Integer idQuees)
+    {
+        isMainFragment = false;
+        setFragment(QuestionCompationFragment.newInstance(this,idQuees));
+        replaceFragment(getFragment(), "QuestionCompationFragment");
     }
 
     @Override

@@ -119,7 +119,7 @@ public class ActiveMatchesFragment extends BaseFragment implements CompationsDeA
     @Override
     public void onItemClick(View view, int position, Result matchItem)
     {
-
+        mainActionView.onMainQuestionClick(matchItem.getId());
     }
 
     @Override
@@ -134,8 +134,7 @@ public class ActiveMatchesFragment extends BaseFragment implements CompationsDeA
         if (id == 0)
         {
             showToast(getActivity(), "متاسفانه اطلاعاتی برای نمایش وجود ندارد.", 0);
-        }
-        else
+        } else
         {
             Prefs.putInt("selectedTab", 2);
             mainActionView.openPastResultFragment(LeagueTableParent.MatchScheduleFragment, "0", false, id.toString(), logo, title);

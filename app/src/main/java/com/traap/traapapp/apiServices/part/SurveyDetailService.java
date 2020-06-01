@@ -4,6 +4,7 @@ import com.traap.traapapp.apiServices.generator.ServiceGenerator;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getAllCompations.ResponseAllCompations;
+import com.traap.traapapp.apiServices.model.setAnswerQuestions.RequestSetAnswer;
 import com.traap.traapapp.apiServices.model.survey.SurveyDetailResponse;
 import com.traap.traapapp.apiServices.model.survey.listSurvey.SurveyListResponse;
 import com.traap.traapapp.apiServices.model.survey.putSurvey.PutSurveyRequest;
@@ -34,7 +35,10 @@ public class SurveyDetailService extends BasePart
 
         start(getServiceGenerator().createService().putSurvey(id,request),listener);
     }
+    public void putAnswerQu(Integer id, RequestSetAnswer request , OnServiceStatus<WebServiceClass<PutSurveyResponse>> listener){
 
+        start(getServiceGenerator().createService().putAnswerQu(id,request),listener);
+    }
     public void getSurveyList(OnServiceStatus<WebServiceClass<SurveyListResponse>> listener)
     {
         start(getServiceGenerator().createService().getSurveyList(),listener);
