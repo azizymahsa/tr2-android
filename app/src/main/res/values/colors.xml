@@ -82,6 +82,7 @@
     <color name="kellyGreen">#00a537</color>
 
     <color name="shadowColor">#bbb</color>
+    <color name="maryGold">#ffc107</color>
     <color name="navigationBarColor">#d5282e</color>
     <color name="backgroundNewsTitle">#8B000000</color>
     <color name="buttonArrowColor">#fff</color>

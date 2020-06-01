@@ -2088,10 +2088,12 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void onHeadCoach(Integer coachId,String title)
+    public void onHeadCoach(Integer coachId, String title, boolean flagFavorite)
     {
 
     }
+
+
 
     @Override
     public void onMediaPlayersFragment()

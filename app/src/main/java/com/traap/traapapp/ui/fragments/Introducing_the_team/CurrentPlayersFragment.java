@@ -118,7 +118,7 @@ public class CurrentPlayersFragment extends BaseFragment implements CurrentPlaye
     @Override
     public void CurrentPlayerClick(Result result)
     {
-        mainView.onHeadCoach(result.getId(),"معرفی بازیکن");
+        mainView.onHeadCoach(result.getId(),"معرفی بازیکن",true);
 
     }
 }

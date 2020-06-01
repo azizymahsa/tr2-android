@@ -121,7 +121,7 @@ public class TechnicalTeamFragment extends BaseFragment implements TechnicalTeam
     @Override
     public void TechnicalTeamClick(Result result)
     {
-        mainView.onHeadCoach(result.getId(),"معرفی سر مربی");
+        mainView.onHeadCoach(result.getId(),"معرفی سر مربی",false);
 
     }
 }

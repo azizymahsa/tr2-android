@@ -4,6 +4,7 @@ import com.traap.traapapp.apiServices.generator.ServiceGenerator;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
+import com.traap.traapapp.apiServices.model.mySupportProfile.ResponseMySupport;
 import com.traap.traapapp.apiServices.model.predict.getMyPredict.MyPredictResponse;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
@@ -35,6 +36,11 @@ public class GetPredictService extends BasePart
     public void getMyPredictService(OnServiceStatus<WebServiceClass<MyPredictResponse>> listener)
     {
         start(getServiceGenerator().createService().getMyPredict(), listener);
+    }
+
+    public void getMySupportsService(OnServiceStatus<WebServiceClass<ResponseMySupport>> listener)
+    {
+        start(getServiceGenerator().createService().getMySupports(), listener);
     }
 
     public void getRulsStadium(Integer id , OnServiceStatus<WebServiceClass<ResponseStadiumRules>> listener)
