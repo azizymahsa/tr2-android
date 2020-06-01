@@ -210,7 +210,6 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
             public void afterTextChanged(Editable s)
             {
 
-
                 if (etSearchText.getText().toString().length() > 2)
                 {
                     cvSearch.setVisibility(View.VISIBLE);
@@ -393,8 +392,8 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
     {
 
         if (result.getRole().contains("مربی"))
-            mainView.onHeadCoach(result.getId());
-        mainView.onHeadCoach(result.getId(),"معرفی سرمربی");
+           // mainView.onHeadCoach(result.getId(),result.getPersianFirstName()+" "+result.getPersianLastName());
+          mainView.onHeadCoach(result.getId(),"معرفی سرمربی");
 
 
     }

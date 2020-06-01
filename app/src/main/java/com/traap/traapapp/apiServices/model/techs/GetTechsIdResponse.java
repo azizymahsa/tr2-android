@@ -41,15 +41,25 @@ public class GetTechsIdResponse
     @SerializedName("birthday")
     @Expose
     private String birthday;
-   /* @SerializedName("education")
+    @SerializedName("education")
     @Expose
-    private String education;*/
+    private String education;
     @SerializedName("club_goals")
     @Expose
     private Integer clubGoals;
     @SerializedName("national_goals")
     @Expose
     private Integer nationalGoals;
+    @SerializedName("number")
+    @Expose
+    private Integer number;
+    @SerializedName("wiki")
+    @Expose
+    private String wiki;
+    @SerializedName("description")
+    @Expose
+    private String description;
+
 
     public Integer getId() {
         return id;
@@ -139,13 +149,13 @@ public class GetTechsIdResponse
         this.birthday = birthday;
     }
 
-   /* public String getEducation() {
+    public String getEducation() {
         return education;
     }
 
     public void setEducation(String education) {
         this.education = education;
-    }*/
+    }
 
     public Integer getClubGoals() {
         return clubGoals;
@@ -161,5 +171,35 @@ public class GetTechsIdResponse
 
     public void setNationalGoals(Integer nationalGoals) {
         this.nationalGoals = nationalGoals;
+    }
+
+    public Integer getNumber()
+    {
+        return number;
+    }
+
+    public void setNumber(Integer number)
+    {
+        this.number = number;
+    }
+
+    public String getWiki()
+    {
+        return wiki;
+    }
+
+    public void setWiki(String wiki)
+    {
+        this.wiki = wiki;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
     }
 }

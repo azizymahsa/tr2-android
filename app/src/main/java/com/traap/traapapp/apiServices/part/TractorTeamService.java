@@ -4,6 +4,7 @@ import com.traap.traapapp.apiServices.generator.ServiceGenerator;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.cup.CupResponse;
+import com.traap.traapapp.apiServices.model.techHistory.GetTechsHistoryResponse;
 import com.traap.traapapp.apiServices.model.techs.GetTechsIdResponse;
 import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
 import com.traap.traapapp.apiServices.model.tractorTeam.TractorTeamResponse;
@@ -52,5 +53,8 @@ public class TractorTeamService extends BasePart
         start(getServiceGenerator().createService().getTechsId(id), listener);
     }
 
+    public void getTechsHistory(Integer id, OnServiceStatus<WebServiceClass<GetTechsHistoryResponse>> listener){
+        start(getServiceGenerator().createService().getTechsHistory(id),listener);
+    }
 
 }

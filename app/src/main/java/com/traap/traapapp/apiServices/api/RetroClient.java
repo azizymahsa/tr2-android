@@ -127,6 +127,7 @@ import com.traap.traapapp.apiServices.model.spectatorInfo.GetSpectatorListRespon
 import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
 import com.traap.traapapp.apiServices.model.survey.SurveyDetailResponse;
+import com.traap.traapapp.apiServices.model.techHistory.GetTechsHistoryResponse;
 import com.traap.traapapp.apiServices.model.techs.GetTechsIdResponse;
 import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
 import com.traap.traapapp.apiServices.model.survey.listSurvey.SurveyListResponse;
@@ -792,6 +793,10 @@ public interface RetroClient
 
     @GET(Const.TECHS_ID)
     Single<Response<WebServiceClass<GetTechsIdResponse>>> getTechsId(
+            @Path("id") Integer id);
+
+    @GET(Const.TECHS_HISTORY)
+    Single<Response<WebServiceClass<GetTechsHistoryResponse>>> getTechsHistory(
             @Path("id") Integer id);
 
 }
