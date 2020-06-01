@@ -65,11 +65,10 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
     private ProgressBar pdSearch;
     private PlayerSearchAdapter playerSearchAdapter;
     private RecyclerView rvSearch;
-    private TextView tvCreateDate,tvTeamAddress,tvPhone,tvEmail;
+    private TextView tvCreateDate, tvTeamAddress, tvPhone, tvEmail;
     private ImageView ivTeamLogo;
-    private List<Result> getResults= new ArrayList<>();
-    private  Handler handler;
-
+    private List<Result> getResults = new ArrayList<>();
+    private Handler handler;
 
     public IntroducingTeamFragment()
     {
@@ -185,7 +184,7 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
         blTeam.setAdapter(new TeamPhotoAdapter());
         blTeam.setAutoPlaying(true);
         ViewCompat.setNestedScrollingEnabled(rvSearch, true);
-        playerSearchAdapter=new PlayerSearchAdapter(getResults,getActivity(),this);
+        playerSearchAdapter = new PlayerSearchAdapter(getResults, getActivity(), this);
         rvSearch.setAdapter(playerSearchAdapter);
 
     }
@@ -216,19 +215,20 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
                 {
                     cvSearch.setVisibility(View.VISIBLE);
                     pdSearch.setVisibility(View.VISIBLE);
-                    if (handler!=null)
+                    if (handler != null)
                         handler.removeCallbacksAndMessages(null);
 
                     handler = new Handler();
-                    handler.postDelayed(() -> search(etSearchText.getText().toString()),500);
+                    handler.postDelayed(() -> search(etSearchText.getText().toString()), 500);
 
 
-                } else if (etSearchText.getText().toString().length() ==0){
+                } else if (etSearchText.getText().toString().length() == 0)
+                {
                     cvSearch.setVisibility(View.GONE);
                     pdSearch.setVisibility(View.GONE);
                     playerSearchAdapter.notifyDataSetChanged();
                     getResults.clear();
-                    if (handler!=null)
+                    if (handler != null)
                         handler.removeCallbacksAndMessages(null);
                 }
 
@@ -251,12 +251,7 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
         productDataModels.add(new ProductDataModel(1,"test"));
         PlayerSearchAdapter adapter = new PlayerSearchAdapter(getActivity(), R.layout.player_search_adapter, productDataModels);
 
-
-
-
-
         etSearchText.setAdapter( adapter);
-
         etSearchText.setDropDownBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.background_border_main));
 
     }*/
@@ -293,10 +288,11 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
             {
 
 
-                try {
+                try
+                {
                     mainView.hideLoading();
 
-                    if (response.info.statusCode==200)
+                    if (response.info.statusCode == 200)
                     {
                         tvCreateDate.setText(response.data.getCreateDate());
                         tvTeamAddress.setText(response.data.getAddress());
@@ -306,12 +302,14 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
                         Glide.with(getActivity()).load(response.data.getLogo()).into(ivTeamLogo);
 
 
-                    }else {
+                    } else
+                    {
 
                         showToast(getActivity(), response.info.message, R.color.red);
 
                     }
-                } catch (Exception e) {
+                } catch (Exception e)
+                {
                     showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
                 }
 
@@ -320,29 +318,34 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
             @Override
             public void onError(String message)
             {
-                try{
+                try
+                {
                     mainView.hideLoading();
 
                     if (Tools.isNetworkAvailable(getActivity()))
                     {
                         Logger.e("-OnError-", "Error: " + message);
                         showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
-                    }
-                    else
+                    } else
                     {
                         showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
                     }
-                }catch (Exception e){}
+                } catch (Exception e)
+                {
+                }
 
             }
         });
     }
 
-    public void search(String name){
-        if (getResults.size()>0){
+    public void search(String name)
+    {
+        if (getResults.size() > 0)
+        {
             rvSearch.setVisibility(View.VISIBLE);
             getResults.clear();
-        }else{
+        } else
+        {
             cvSearch.setVisibility(View.VISIBLE);
 
             pdSearch.setVisibility(View.VISIBLE);
@@ -355,19 +358,23 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
             @Override
             public void onReady(WebServiceClass<TopPlayerResponse> response)
             {
-                try {
+                try
+                {
                     mainView.hideLoading();
 
-                    if (response.info.statusCode==200)
+                    if (response.info.statusCode == 200)
                     {
                         getResults.addAll(response.data.getResults());
                         playerSearchAdapter.notifyDataSetChanged();
                         pdSearch.setVisibility(View.GONE);
                         rvSearch.setVisibility(View.VISIBLE);
-                    }else{
+                    } else
+                    {
 
                     }
-                }catch (Exception e){}
+                } catch (Exception e)
+                {
+                }
 
             }
 
@@ -377,13 +384,16 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
                 pdSearch.setVisibility(View.GONE);
                 rvSearch.setVisibility(View.VISIBLE);
             }
-        },name);
+        }, name);
 
-}
+    }
 
     @Override
     public void onPlayerSearchClick(Result result)
     {
+
+        if (result.getRole().contains("مربی"))
+            mainView.onHeadCoach(result.getId());
         mainView.onHeadCoach(result.getId(),"معرفی سرمربی");
 
 

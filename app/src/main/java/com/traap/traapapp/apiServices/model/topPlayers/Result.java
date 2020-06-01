@@ -36,6 +36,19 @@ public class Result {
     @SerializedName("birthday")
     @Expose
     private String birthday;
+    @SerializedName("image")
+    @Expose
+    private String image;
+
+    public String getImage()
+    {
+        return image;
+    }
+
+    public void setImage(String image)
+    {
+        this.image = image;
+    }
 
     public Integer getId() {
         return id;

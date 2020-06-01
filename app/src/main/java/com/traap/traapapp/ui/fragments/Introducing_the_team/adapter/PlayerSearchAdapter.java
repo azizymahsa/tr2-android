@@ -30,6 +30,7 @@ public class PlayerSearchAdapter extends RecyclerView.Adapter<PlayerSearchAdapte
     {
         this.results=results;
         this.event=event;
+        this.activity=activity;
 
     }
 
@@ -48,7 +49,7 @@ public class PlayerSearchAdapter extends RecyclerView.Adapter<PlayerSearchAdapte
     {
 
         holder.tvName.setText(results.get(position).getRole()+" - "+results.get(position).getPersianFirstName()+" "+results.get(position).getPersianLastName());
-        //Glide.with(activity).load(results.get(position).).into(ivTeamLogo);
+        Glide.with(activity).load(results.get(position).getImage()).into(holder.ivPhoto);
         holder.llRoot.setOnClickListener(v ->
         {
             event.onPlayerSearchClick(results.get(position));
