@@ -1610,7 +1610,7 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
     }
 
     @Override
-    public void onHeadCoach(Integer coachId,String title)
+    public void onHeadCoach(Integer coachId, String title, boolean flagFavorite)
     {
 
     }

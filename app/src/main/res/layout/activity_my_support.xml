@@ -92,36 +92,21 @@
                             app:contentPadding="2dp"
                             app:cardElevation="3dp"
                             app:cardUseCompatPadding="false"
-                            app:cardCornerRadius="@dimen/point_card_radius"
+                            app:cardCornerRadius="@dimen/_10dp"
                             app:cardMaxElevation="5dp">
 
-                            <LinearLayout
+                            <ImageView
+                                android:id="@+id/imgPic"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:orientation="vertical"
                                 android:gravity="center"
-                                android:background="@drawable/background_border_white_full"
+                                android:src="@drawable/test_player"
                                 android:padding="2dp">
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="@dimen/point_text_height"
-                                    android:textStyle="bold"
-                                    android:layout_centerInParent="true"
-                                    android:textColor="@color/textColorTitle"
-                                    android:textSize="@dimen/_48sdp"
-                                    android:text=" "/>
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:textColor="@color/textColorTitle"
-                                    android:textStyle="bold"
-                                    android:textSize="@dimen/_20sdp"
-                                    android:text=" "/>
 
-                            </LinearLayout>
+                            </ImageView>
 
                         </androidx.cardview.widget.CardView>
 
@@ -159,7 +144,9 @@
                             android:id="@+id/recyclerView"
                             android:layout_marginTop="8dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+
+                            android:visibility="gone"/>
 
                     </LinearLayout>
 
