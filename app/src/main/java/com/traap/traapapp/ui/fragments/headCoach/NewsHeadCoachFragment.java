@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
@@ -16,23 +17,23 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.techHistory.GetTechsHistoryResponse;
-import com.traap.traapapp.ui.adapters.headTech.HistoryTechsAdapter;
+import com.traap.traapapp.apiServices.model.techs.news.GetTechNewsResponse;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
 /**
- * Created by MahtabAzizi on 6/1/2020.
+ * Created by MahtabAzizi on 6/2/2020.
  */
-public class HistoryHeadCoachFragment extends BaseFragment
+public class NewsHeadCoachFragment extends BaseFragment
 {
     private Integer coachId;
     private View rootView;
     private RecyclerView rv;
     private NestedScrollView nested;
     public static Integer height;
-
+    private TextView tvDesc;
 
 
     public void setCoachId(Integer coachId)
@@ -49,8 +50,8 @@ public class HistoryHeadCoachFragment extends BaseFragment
             return rootView;
 
         }
-        rootView = inflater.inflate(R.layout.history_head_coach_fragment, container, false);
-        getCup();
+        rootView = inflater.inflate(R.layout.news_head_coach_fragment, container, false);
+        getNews();
         return rootView;
     }
 
@@ -72,21 +73,23 @@ public class HistoryHeadCoachFragment extends BaseFragment
         rv=rootView.findViewById(R.id.rv);
         nested=rootView.findViewById(R.id.nested);
         ViewCompat.setNestedScrollingEnabled(nested,false);
+        tvDesc=rootView.findViewById(R.id.tvDesc);
     }
-    public void getCup(){
+    public void getNews(){
 
-        SingletonService.getInstance().tractorTeamService().getTechsHistory(coachId,new OnServiceStatus<WebServiceClass<GetTechsHistoryResponse>>()
+        SingletonService.getInstance().tractorTeamService().getTechNews(coachId,new OnServiceStatus<WebServiceClass<GetTechNewsResponse>>()
         {
             @Override
-            public void onReady(WebServiceClass<GetTechsHistoryResponse> response)
+            public void onReady(WebServiceClass<GetTechNewsResponse> response)
             {
                 try
                 {
                     if (response.info.statusCode==200)
                     {
 
-                        rv.setAdapter(new HistoryTechsAdapter(response.data.getResults()));
+                     //   rv.setAdapter(new HistoryTechsAdapter(response.data.getResults()));
 
+                        tvDesc.setText(response.data.getResults().get(1).getSubtitle());
 
                     }else{
                         showToast(getActivity(), response.info.message, R.color.red);
@@ -120,5 +123,3 @@ public class HistoryHeadCoachFragment extends BaseFragment
 
     }
 }
-
-

@@ -6,6 +6,7 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.cup.CupResponse;
 import com.traap.traapapp.apiServices.model.techHistory.GetTechsHistoryResponse;
 import com.traap.traapapp.apiServices.model.techs.GetTechsIdResponse;
+import com.traap.traapapp.apiServices.model.techs.news.GetTechNewsResponse;
 import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
 import com.traap.traapapp.apiServices.model.tractorTeam.TractorTeamResponse;
 import com.traap.traapapp.ui.fragments.competitions.QuestionCompationFragment;
@@ -63,4 +64,7 @@ public void getQuestionCompation(Integer id, QuestionCompationFragment listener)
         start(getServiceGenerator().createService().getTechsHistory(id),listener);
     }
 
+    public void getTechNews(Integer id, OnServiceStatus<WebServiceClass<GetTechNewsResponse>> listener){
+        start(getServiceGenerator().createService().getTechNews(id),listener);
+    }
 }
