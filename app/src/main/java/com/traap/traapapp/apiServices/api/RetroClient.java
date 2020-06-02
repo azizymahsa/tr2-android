@@ -133,6 +133,7 @@ import com.traap.traapapp.apiServices.model.survey.SurveyDetailResponse;
 import com.traap.traapapp.apiServices.model.techHistory.GetTechsHistoryResponse;
 import com.traap.traapapp.apiServices.model.techs.GetTechsIdResponse;
 import com.traap.traapapp.apiServices.model.techs.RequestSetFavoritePlayer;
+import com.traap.traapapp.apiServices.model.techs.news.GetTechNewsResponse;
 import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
 import com.traap.traapapp.apiServices.model.survey.listSurvey.SurveyListResponse;
 import com.traap.traapapp.apiServices.model.survey.putSurvey.PutSurveyRequest;
@@ -822,6 +823,10 @@ public interface RetroClient
 
     @GET(Const.Get_All_Questions)
     Single<Response<WebServiceClass<ResponseGetQuestions>>> getAllQuestions(
+            @Path("id") Integer id);
+
+    @GET(Const.Get_Tech_News)
+    Single<Response<WebServiceClass<GetTechNewsResponse>>> getTechNews(
             @Path("id") Integer id);
 
 }

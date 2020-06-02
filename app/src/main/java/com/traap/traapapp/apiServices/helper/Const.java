@@ -203,11 +203,13 @@ public class Const
     public final static String Get_DETAIL_SURVEY = SubBASEURL + "v1/survey/{id}/";
     public final static String Get_LIST_SURVEY = SubBASEURL + "v1/survey/";
 
+    //headTechs
     public final static String TECHS = SubBASEURL + "v1/team/techs/";
     public final static String CUPS = SubBASEURL + "v1/team/cups/";
 
     public final static String TECHS_ID=SubBASEURL+"v1/team/techs/{id}/";
     public final static String TECHS_HISTORY=SubBASEURL+"v1/team/techs/{id}/history/";
+    public final static String Get_Tech_News=SubBASEURL+"v1/news/{id}/tech_staff/";
 
     //compation
     public final static String Get_All_Compations=SubBASEURL+"v1/competition/";
