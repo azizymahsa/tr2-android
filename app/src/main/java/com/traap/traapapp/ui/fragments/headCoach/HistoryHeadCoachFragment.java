@@ -1,48 +1,56 @@
-package com.traap.traapapp.ui.fragments.Introducing_the_team;
+package com.traap.traapapp.ui.fragments.headCoach;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.traap.traapapp.R;
-import com.traap.traapapp.apiServices.generator.SingletonService;
-import com.traap.traapapp.apiServices.listener.OnServiceStatus;
-import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.topPlayers.Result;
-import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
-import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.PositionInLeaguesAdapter;
-import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.TechnicalTeamAdapter;
-import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.TopPlayersAdapter;
-import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.utilities.Logger;
-import com.traap.traapapp.utilities.Tools;
+import android.view.ViewTreeObserver;
 
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.generator.SingletonService;
+import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.techHistory.GetTechsHistoryResponse;
+import com.traap.traapapp.ui.adapters.headTech.HistoryTechsAdapter;
+import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.Tools;
+
 /**
- * Authors:
- * Reza Nejati <reza.n.j.t.i@gmail.com>
- * Copyright © 2017
+ * Created by MahtabAzizi on 6/1/2020.
  */
-public class TechnicalTeamFragment extends BaseFragment implements TechnicalTeamAdapter.TechnicalTeamEvent
+public class HistoryHeadCoachFragment extends BaseFragment
 {
+    private MainActionView mainView;
+    private Integer coachId;
     private View rootView;
     private RecyclerView rv;
     private NestedScrollView nested;
-    private MainActionView mainView;
+    public static Integer height;
 
 
-    public TechnicalTeamFragment(MainActionView mainView)
+    /*public HistoryHeadCoachFragment(MainActionView mainView, Integer coachId)
     {
-        super();
+        HeadCoachFragment f = new HeadCoachFragment();
+        f.setMainView(mainView,title);
+        f.setCoachId(coachId);
+        return f;
+
+        this.coachId = coachId;
         this.mainView=mainView;
     }
+*/
+    public void setCoachId(Integer coachId)
+    {
+        this.coachId = coachId;
+    }
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -52,8 +60,8 @@ public class TechnicalTeamFragment extends BaseFragment implements TechnicalTeam
             return rootView;
 
         }
-        rootView = inflater.inflate(R.layout.technical_team_fragment, container, false);
-        getTechnicalTeams();
+        rootView = inflater.inflate(R.layout.history_head_coach_fragment, container, false);
+        getCup();
         return rootView;
     }
 
@@ -62,6 +70,13 @@ public class TechnicalTeamFragment extends BaseFragment implements TechnicalTeam
     {
         super.onActivityCreated(savedInstanceState);
         initView();
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                rootView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                height=rv.getHeight();
+            }
+        });
     }
 
     private void initView(){
@@ -69,21 +84,19 @@ public class TechnicalTeamFragment extends BaseFragment implements TechnicalTeam
         nested=rootView.findViewById(R.id.nested);
         ViewCompat.setNestedScrollingEnabled(nested,false);
     }
+    public void getCup(){
 
-    public void getTechnicalTeams(){
-
-        SingletonService.getInstance().tractorTeamService().getTech(new OnServiceStatus<WebServiceClass<TopPlayerResponse>>()
+        SingletonService.getInstance().tractorTeamService().getTechsHistory(coachId,new OnServiceStatus<WebServiceClass<GetTechsHistoryResponse>>()
         {
             @Override
-            public void onReady(WebServiceClass<TopPlayerResponse> response)
+            public void onReady(WebServiceClass<GetTechsHistoryResponse> response)
             {
                 try
                 {
                     if (response.info.statusCode==200)
                     {
 
-                        rv.setAdapter(new TechnicalTeamAdapter(response.data.getResults(),TechnicalTeamFragment.this));
-
+                        rv.setAdapter(new HistoryTechsAdapter(response.data.getResults()));
 
 
                     }else{
@@ -114,14 +127,7 @@ public class TechnicalTeamFragment extends BaseFragment implements TechnicalTeam
                     }
                 }catch (Exception e){}
             }
-        },"coach",true,null);
-
-    }
-
-    @Override
-    public void TechnicalTeamClick(Result result)
-    {
-        mainView.onHeadCoach(result.getId(),"معرفی سر مربی",false);
+        });
 
     }
 }
