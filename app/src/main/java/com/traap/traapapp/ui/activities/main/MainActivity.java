@@ -118,6 +118,7 @@ import com.traap.traapapp.ui.fragments.predict.predictResult.PredictResultResult
 import com.traap.traapapp.ui.fragments.simcardCharge.ChargeFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
 import com.traap.traapapp.ui.fragments.simcardPack.PackFragment;
+import com.traap.traapapp.ui.fragments.suggestions.SuggestionsFragment;
 import com.traap.traapapp.ui.fragments.support.SupportFragment;
 import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.fragments.survey.SurveyFragment;
@@ -788,14 +789,24 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
                 break;
             }
+            case 92: //انتقادات و پیشنهادات
+            {
+                isMainFragment = false;
+
+                setFragment(SuggestionsFragment.newInstance(this));
+                replaceFragment(getFragment(), "SuggestionsFragment");
+                break;
+            }
             case 91: //درباره ما
             {
                 isMainFragment = false;
 
                 setFragment(AboutFragment.newInstance(this));
                 replaceFragment(getFragment(), "aboutFragment");
+
                 break;
             }
+
             case 88: //تنظیمات
             {
 //                showToast(this, "تنظیمات", R.color.green);
