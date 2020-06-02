@@ -393,7 +393,7 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
     {
 
         if (result.getRole().contains("مربی"))
-            mainView.onHeadCoach(result.getId());
+          //  mainView.onHeadCoach(result.getId(),result.getPersianFirstName()+" "+result.getPersianLastName());
         mainView.onHeadCoach(result.getId(),"معرفی سرمربی");
 
 
