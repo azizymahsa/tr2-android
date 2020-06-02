@@ -99,7 +99,7 @@ import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
 import smartdevelop.ir.eram.showcaseviewlib.GuideView;
 import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
 
-public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, MainServiceModelAdapter.OnItemClickListener,BanerServiceModelAdapter.OnItemClickListener,
+public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, MainServiceModelAdapter.OnItemClickListener, BanerServiceModelAdapter.OnItemClickListener,
 //        FlightReservationData, BusLockSeat, HotelReservationData,
         View.OnClickListener, MainSliderAdapter.OnSliderItemClickListener
         , OnServiceStatus<WebServiceClass<MachListResponse>>, CountDownTimerView, OnAnimationEndListener
@@ -115,7 +115,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private NestedScrollView nestedScroll;
     private RecyclerView rcFavoriteServices, recyclerViewBaner, sliderRecyclerView;
     //    private MultiSnapRecyclerView rcFavoriteServices;
-    private LinearLayoutManager layoutManager,layoutManagerBanner, sliderLayoutManager;
+    private LinearLayoutManager layoutManager, layoutManagerBanner, sliderLayoutManager;
     private MainServiceModelAdapter adapter;
     private BanerServiceModelAdapter banerServiceModelAdapter;
     private int favoriteServicesCount = 0;
@@ -1027,7 +1027,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
                 break;
             }
-
+            //معرفی تیم
             case R.id.rlF4:
             {
                 mainView.onIntroduceTeam();
