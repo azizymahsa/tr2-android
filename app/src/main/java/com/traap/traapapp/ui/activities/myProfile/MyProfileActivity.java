@@ -33,6 +33,7 @@ import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.ui.fragments.suggestions.SuggestionsFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
@@ -143,6 +144,7 @@ public class MyProfileActivity extends BaseActivity
 
         rlMyFavorite.setOnClickListener(v ->
         {
+          //  startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), SuggestionsFragment.class), 100);
 
         });
         tvInviteCode.setOnClickListener(v ->
