@@ -55,6 +55,8 @@
     <string name="enter_expire_year">لطفا سال انقضا کارت را وارد کنید.</string>
     <string name="select_position_tiitle">انتخاب از روی نقشه استادیوم:</string>
     <string name="_confirm_next">تایید و مرحله بعد</string>
+    <string name="suggestions_text">اﻧﺘﻘﺎدات و ﭘﯿﺸﻨﮫﺎدات ﺷﻤﺎ ﻋﺰﯾﺰان در ﺑﮫﺒﻮد ﻋﻤﻠﮑﺮد ﻣﺎ ﺗﺎﺛﯿﺮ ﺑﺴﺰاﯾﯽ
+.اﯾﻔﺎ ﻣﯽ ﮐﻨﺪ، ﻟﺬا ﺧﻮاھﺸﻤﻨﺪ اﺳﺖ ﻧﻈﺮات ﺧﻮد را ﺑﺮای ﻣﺎ ارﺳﺎل ﻧﻤﺎﯾﯿﺪ</string>
     <string name="_confirm_peyment">تایید و پرداخت</string>
     <string name="buy_ticket_description">کاربر گرامی، خرید با موفقیت انجام شد. </string>
     <string name="buy_ticket_description_2">همراه داشتن کارت ملی برای همه افراد جهت ورود به ورزشگاه الزامی می باشد. </string>
