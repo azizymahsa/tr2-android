@@ -136,6 +136,7 @@ public class Const
 
     //DeleteProfile
     public final static String DELETE_PROFILE_Send_Code = SubBASEURL + "v1/user/deactivate/send_code/";
+    public final static String DELETE_PROFILE_Verify_Code = SubBASEURL + "v1/user/deactivate/verify/";
 
 
     //Transaction

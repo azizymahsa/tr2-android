@@ -726,6 +726,11 @@ public interface RetroClient
             @Body com.traap.traapapp.apiServices.model.editUser.verifyReq.VerifyRequest request
     );
 
+    @POST(Const.DELETE_PROFILE_Verify_Code)
+    Single<Response<WebServiceClass<com.traap.traapapp.apiServices.model.editUser.verifyRes.VerifyResponse>>> deleteUserVerifyCode(
+            @Body com.traap.traapapp.apiServices.model.editUser.verifyReq.VerifyRequest request
+    );
+
     @POST(Const.Get_send_code_change_user)
     Single<Response<WebServiceClass<SendCodeRes>>> sendCodeEditUser(
             @Body SendCodeReq request

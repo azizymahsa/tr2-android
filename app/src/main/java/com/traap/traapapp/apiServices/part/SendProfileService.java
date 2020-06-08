@@ -48,7 +48,7 @@ public class SendProfileService extends BasePart {
 
     public void deleteProfileSendCode(OnServiceStatus<WebServiceClass<DeleteProfileResponse>> listener)
     {
-        start(getServiceGenerator().createService().deleteProfilePhoto(), listener);
+        start(getServiceGenerator().createService().deleteProfileSendCode(), listener);
     }
    // @Mock(jsonName = "send_code_response_edit_user", response = SendCodeRes.class)
     public void sendCodeEditUser(SendCodeReq SendCodeReq, OnServiceStatus<WebServiceClass<SendCodeRes>> listener) {
@@ -58,5 +58,10 @@ public class SendProfileService extends BasePart {
     //@Mock(jsonName = "vrify_response_edit_user", response = VerifyResponse.class)
     public void editUserVerify(VerifyRequest SendCodeReq, OnServiceStatus<WebServiceClass<VerifyResponse>> listener) {
         start(getServiceGenerator().createService().editUserVerify(SendCodeReq), listener);
+    }
+
+    public void deleteUserVerifyCode(VerifyRequest SendCodeReq, OnServiceStatus<WebServiceClass<VerifyResponse>> listener)
+    {
+        start(getServiceGenerator().createService().deleteUserVerifyCode(SendCodeReq), listener);
     }
 }

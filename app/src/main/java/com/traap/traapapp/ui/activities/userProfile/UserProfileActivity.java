@@ -81,6 +81,7 @@ import com.traap.traapapp.models.CountryCodeModel;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.SearchCountryActivity;
+import com.traap.traapapp.ui.activities.deleteUser.UserDeleteVerifyActivity;
 import com.traap.traapapp.ui.activities.editUser.UserEditVerifyActivity;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
@@ -106,19 +107,19 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         OnAnimationEndListener, OnServiceStatus<WebServiceClass<GetProfileResponse>>, DatePickerDialog.OnDateSetListener
 {
     private Toolbar mToolbar;
-    private CircularProgressButton btnConfirm, btnConfirmEditMobile;
-    private ClearableEditText etFirstName, etLastName, etFirstNameUS, etLastNameUS, etEmail, etNationalCode, etNickName;
+    private CircularProgressButton btnConfirm, btnConfirmEditMobile,btnEditNumDelete,btnDeleteUser;
+    private ClearableEditText etFirstName, etLastName, etFirstNameUS, etLastNameUS, etEmail, etNationalCode, etNickName,tvMobileDelete;
     private ClearableEditText etPopularPlayer, tvMobileNew;
     private TextView tvMenu, tvUserName, tvHeaderPopularNo, txtphoneLast;
     private EditText tvBirthDay;
     private Spinner spinnerGender;
     private FloatingActionButton fabCapture;
-    private ImageView imgProfile, imgBirthdayReset, imgBirthdaySet, imgEditMobile;
+    private ImageView imgProfile, imgBirthdayReset, imgBirthdaySet, imgEditMobile,imgDeleteUser;
     private AVLoadingIndicatorView progressImageProfile;
 
     private SlidingUpPanelLayout slidingUpPanelLayout;
     private RelativeLayout rlSelectImage, rlDeleteImage;
-    private LinearLayout lnrEdits, lnrEditMobileOne;
+    private LinearLayout lnrEdits, lnrEditMobileOne,lnrDeleteMobileOne;
 
     private Animation animHideButton, animShowButton;
 
@@ -142,7 +143,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     private MultipartBody.Part part;
     private MaskedEditText tvMobileEdit;
-    private EditText etCountryName, etCountryCode;
+    private EditText etCountryName, etCountryCode,etCountryCodeDelete,etCountryNameDelete;
     private ArrayList<CountryCodeModel> countryCodeModels = new ArrayList<>();
     private TextWatcher textWatcher;
 
@@ -226,6 +227,44 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                         }
                 );
 
+        RxTextView.textChangeEvents(etCountryCodeDelete)
+
+                .subscribe(e ->
+                        {
+                            Observable.fromIterable(countryCodeModels)
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribeOn(Schedulers.computation())
+                                    .filter(x ->
+                                    {
+                                        return x.getDialCode().equals("+" + e.getText().toString());
+                                    })
+                                    .toList()
+                                    .subscribe(new SingleObserver<List<CountryCodeModel>>()
+                                    {
+                                        @Override
+                                        public void onSubscribe(Disposable d)
+                                        {
+                                        }
+
+                                        @Override
+                                        public void onSuccess(List<CountryCodeModel> codeModels)
+                                        {
+                                            if (codeModels.size() > 0)
+                                            {
+                                                etCountryNameDelete.setText(codeModels.get(0).getName());
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e)
+                                        {
+                                        }
+                                    });
+
+                        }
+                );
+
 
     }
 
@@ -247,6 +286,8 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.nested);
         btnConfirm = findViewById(R.id.btnConfirm);
         btnConfirmEditMobile = findViewById(R.id.btnConfirmEditMobile);
+        btnEditNumDelete = findViewById(R.id.btnEditNumDelete);
+        btnDeleteUser = findViewById(R.id.btnDeleteUser);
 //        btnConfirm.setText("ارسال اطلاعات کاربری");
 
         progressImageProfile = findViewById(R.id.progressImageProfile);
@@ -259,10 +300,12 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         imgBirthdaySet = findViewById(R.id.imgBirthdaySet);
         imgProfile = findViewById(R.id.imgProfile);
         imgEditMobile = findViewById(R.id.imgEditMobile);
+        imgDeleteUser = findViewById(R.id.imgDeleteUser);
         fabCapture = findViewById(R.id.fabCapture);
         spinnerGender = findViewById(R.id.spinnerGender);
         tvBirthDay = findViewById(R.id.tvBirthDay);
         etNickName = findViewById(R.id.etNickName);
+        tvMobileDelete = findViewById(R.id.tvMobileDelete);
         etFirstName = findViewById(R.id.etFirstName);
         tvMobileEdit = findViewById(R.id.tvMobileEdit);
         etLastName = findViewById(R.id.etLastName);
@@ -304,6 +347,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         /*newLayer*/
         txtphoneLast = findViewById(R.id.txtphoneLast);
         lnrEditMobileOne = findViewById(R.id.lnrEditMobileOne);
+        lnrDeleteMobileOne = findViewById(R.id.lnrDeleteMobileOne);
 
         FrameLayout flLogoToolbar = findViewById(R.id.flLogoToolbar);
 
@@ -329,7 +373,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         tvMobileEdit.setText(Prefs.getString("Country_Code", "") + " " + Prefs.getString("mobile", ""));
         etFirstName.requestFocus();
         etCountryCode = findViewById(R.id.etCountryCode);
+        etCountryCodeDelete = findViewById(R.id.etCountryCodeDelete);
         etCountryName = findViewById(R.id.etCountryName);
+        etCountryNameDelete = findViewById(R.id.etCountryNameDelete);
         etCountryName.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -376,7 +422,19 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         {
 
 
-            updateMobileUI();
+            updateMobileUIEdite();
+        });
+        btnEditNumDelete.setOnClickListener(v ->
+        {
+
+            lnrDeleteMobileOne.setVisibility(View.GONE);
+            updateMobileUIEdite();
+        });
+        imgDeleteUser.setOnClickListener(v ->
+        {
+
+
+            updateMobileUIDelete();
         });
         btnConfirm.setOnClickListener(v ->
         {
@@ -385,6 +443,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
             uploadProfileData();
         });
+
 
         findViewById(R.id.rlBirthDay).setOnClickListener(v ->
         {
@@ -449,7 +508,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
     }
 
-    private void updateMobileUI()
+    private void updateMobileUIEdite()
     {
         lnrEdits.setVisibility(View.GONE);
         lnrEditMobileOne.setVisibility(View.VISIBLE);
@@ -517,6 +576,118 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             }
         });
 
+    }
+    private void updateMobileUIDelete()
+    {
+        lnrEdits.setVisibility(View.GONE);
+        lnrDeleteMobileOne.setVisibility(View.VISIBLE);
+        btnDeleteUser.setOnClickListener(v ->
+        {
+
+            try
+            {
+
+                if (TextUtils.isEmpty(tvMobileDelete.getText().toString().trim()))
+                {
+                    showError(UserProfileActivity.this, "لطفا شماره موبایل خود را وارد کنید.");
+                    return;
+
+                }
+                if (TextUtils.isEmpty(etCountryCodeDelete.getText().toString().trim()))
+                {
+                    showError(UserProfileActivity.this, "لطفا کد کشور را وارد نمایید.");
+                    return;
+
+                }
+                if (!etCountryCodeDelete.getText().toString().trim().equals(Prefs.getString("Country_Code", "")))
+                {
+                    showError(UserProfileActivity.this, "لطفا کد کشور را درست وارد نمایید.");
+                    return;
+
+                }
+                if (etCountryCodeDelete.getText().toString().equals("98") && tvMobileDelete.getText().toString().trim().length() != 10)
+                {
+                    showError(UserProfileActivity.this, "لطفا شماره تلفن همراه خود را صحیح وارد نمایید.");
+                    return;
+
+                } else if (!etCountryCodeDelete.getText().toString().equals("98"))
+                {
+
+                    if (!(tvMobileDelete.getText().toString().trim().length() >= 9 && tvMobileDelete.getText().toString().trim().length() <= 11))
+                    {
+                        showError(UserProfileActivity.this, "لطفا شماره تلفن همراه خود را صحیح وارد نمایید.");
+                        return;
+
+                    }
+
+
+                }
+                String phone = "";
+                if (etCountryCodeDelete.getText().toString().equals("98"))
+                    phone = "0" + tvMobileDelete.getText().toString().trim();
+                else
+                    phone = tvMobileDelete.getText().toString().trim();
+
+                btnDeleteUser.startAnimation();
+                btnDeleteUser.setClickable(false);
+                callSendSmsDelete(phone);
+
+            } catch (Exception e)
+            {
+
+            }
+        });
+
+    }
+
+    private void callSendSmsDelete(String mobileNum)
+    {
+        progressImageProfile.setVisibility(View.VISIBLE);
+
+       if(tvMobileDelete.getText().toString().trim().equals(Prefs.getString("mobile", ""))){
+
+            SingletonService.getInstance().sendProfileService().deleteProfileSendCode( new OnServiceStatus<WebServiceClass<DeleteProfileResponse>>()
+            {
+                @Override
+                public void onReady(WebServiceClass<DeleteProfileResponse> response)
+                {
+                    progressImageProfile.setVisibility(View.GONE);
+                    btnDeleteUser.revertAnimation();
+                    btnDeleteUser.setClickable(true);
+                    try
+                    {
+                        if (response.info.statusCode != 200)
+                        {
+                            showError(UserProfileActivity.this, response.info.message);
+                        } else
+                        {
+
+                            Intent intent = new Intent(UserProfileActivity.this, UserDeleteVerifyActivity.class);
+                            intent.putExtra("mobileLast", etCountryCode.getText().toString()+" "+ tvMobileNew.getText().toString().trim()); //Optional parameters
+                            startActivityForResult(intent, 55);
+                        }
+                    } catch (Exception e)
+                    {
+                    }
+
+                }
+
+                @Override
+                public void onError(String message)
+                {
+                    progressImageProfile.setVisibility(View.GONE);
+                    btnDeleteUser.revertAnimation();
+                    btnDeleteUser.setClickable(true);
+                    showError(UserProfileActivity.this, "خطای ارتباط با سرور!");
+                }
+            });
+       }else{
+           progressImageProfile.setVisibility(View.GONE);
+           btnDeleteUser.revertAnimation();
+           btnDeleteUser.setClickable(true);
+           showError(UserProfileActivity.this, "شماره همراه وارد شده با شماره کاربری شما هم خوانی ندارد!");
+
+       }
     }
 
     private void callSendSms(String mobileNum)
