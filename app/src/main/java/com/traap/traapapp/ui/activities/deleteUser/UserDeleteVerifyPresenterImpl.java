@@ -1,6 +1,5 @@
-package com.traap.traapapp.ui.activities.editUser;
+package com.traap.traapapp.ui.activities.deleteUser;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -12,30 +11,20 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.alimuzaffar.lib.pin.PinEntryEditText;
-import com.google.gson.Gson;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-
 import com.traap.traapapp.apiServices.model.editUser.verifyReq.VerifyRequest;
 import com.traap.traapapp.apiServices.model.editUser.verifyRes.Profile;
 import com.traap.traapapp.apiServices.model.editUser.verifyRes.VerifyResponse;
-
 import com.traap.traapapp.conf.TrapConfig;
-import com.traap.traapapp.singleton.SingletonContext;
-
 import com.traap.traapapp.ui.base.GoToActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.ArrayList;
 import java.util.UUID;
 
 import static com.traap.traapapp.ui.base.BaseActivity.showAlert;
@@ -46,11 +35,10 @@ import static com.traap.traapapp.ui.base.BaseActivity.showAlert;
 /**
  * Created by Mahsa.Azizi
  */
-public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, View.OnClickListener
-{
+public class UserDeleteVerifyPresenterImpl implements UserDeleteVerifyPresenter, View.OnClickListener {
     private Context appContext;
     private Context activityContext;
-    private UserEditVerifyView loginView;
+    private UserDeleteVerifyView loginView;
     /* private SendActiveCodeImpl sendActiveCode;
      private ConfirmActiveCodeImpl activeCode;*/
     private EditText mobileNumber;
@@ -62,13 +50,13 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
     private Intent intent;
 
 
-    public UserEditVerifyPresenterImpl(Context appContext, Context activityContext, UserEditVerifyView loginView)
+    public UserDeleteVerifyPresenterImpl(Context appContext, Context activityContext, UserDeleteVerifyView loginView)
     {
         this.loginView = loginView;
 
         this.appContext = appContext;
         this.activityContext = activityContext;
-        countDownTimer = new com.traap.traapapp.ui.activities.editUser.CountDownTimerResendCode(startTime, interval, loginView);
+        countDownTimer = new com.traap.traapapp.ui.activities.deleteUser.CountDownTimerResendCode(startTime, interval, loginView);
         // EventBus.getDefault().register(this);
         countDownTimer.start();
     }
@@ -129,28 +117,10 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
     {
         VerifyRequest request = new VerifyRequest();
 
-        // request.setUsername(Prefs.getString("mobileLast", ""));
-        if (Prefs.getString("Country_Code", "").equals("98") && Prefs.getString("mobile", "").length() == 10)
-        {
-            request.setUsername("0" + Prefs.getString("mobile", ""));
-        } else
-        {
-            request.setUsername(Prefs.getString("mobile", ""));
-
-        }
-        request.setCountry_code(Prefs.getString("Country_Code", ""));
         request.setCode(codeView.getText().toString());
-        request.setDeviceType(TrapConfig.AndroidDeviceType);
-        request.setImei(UUID.randomUUID().toString());
-        request.setDeviceModel(Build.BRAND + "-" + Build.MODEL);
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((Activity) activityContext).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
-        request.setScreenSizeHeight(String.valueOf(displayMetrics.heightPixels));
-        request.setScreenSizeWidth(String.valueOf(displayMetrics.widthPixels));
         //new Gson().toJson(request);
-        SingletonService.getInstance().sendProfileService().editUserVerify(request, new OnServiceStatus<WebServiceClass<VerifyResponse>>()
+        SingletonService.getInstance().sendProfileService().deleteUserVerifyCode(request, new OnServiceStatus<WebServiceClass<VerifyResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<VerifyResponse> response)
@@ -159,21 +129,10 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
                 {
                     if (response.info.statusCode == 200)
                     {
-                        setProfileData(response);
+                      //  setProfileData(response);
                         loginView.hideLoading();
-                        Prefs.putString("profileImage", response.data.getProfile().getPhoto());
 
-                        Prefs.putInt("popularPlayer", response.data.getProfile().getPopularPlayer() == 0 ? 12 : response.data.getProfile().getPopularPlayer());
-                          Prefs.putString("mobile", Prefs.getString("mobileLast", ""));
-                        // Prefs.putString("gds_token",  response.data. getProfile().getGds_token());
-
-                        //  Prefs.putString("bimeh_call_back",  response.data. getProfile().getBimeh_call_back());
-                        //  Prefs.putString("bimeh_api_key",  response.data. getProfile().getBimeh_api_key());
-                        //  Prefs.putString("bimeh_token",  response.data. getProfile().getBimeh_token());
-                        //  Prefs.putString("bimeh_base_url",  response.data. getProfile().getBimeh_base_url());
-
-                        // Prefs.putString("alopark_token",  response.data. getProfile().getAlopark_token());
-                        showAlertSuccess(activityContext, "تغییر ﺷﻤﺎره ﺗﻠﻔﻦ ﻫﻤﺮاه و اﻧﺘﻘﺎل اﻃﻼﻋﺎت ﺑﺎ ﻣﻮﻓﻘﯿﺖ اﻧﺠﺎم ﺷﺪ .", "", true);
+                        showAlertSuccess(activityContext, "حساب کاربری شما با موفقیت حذف شد .", "", true);
                     } else
                     {
                         codeView.setText("");
@@ -227,10 +186,10 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
                 if (finish)
                 {
                     // ((Activity) context).onBackPressed();
-                    //loginView.onButtonActions(true, GoToActivity.MainActivity);
+                   loginView.onButtonActions(true, GoToActivity.MainActivity);
                     // Intent returnIntent = new Intent();
                     // ((Activity) context).setResult(Activity.RESULT_OK,returnIntent);
-                    loginView.onButtonActions(true, GoToActivity.MainActivity);
+                    //loginView.onButtonActions(true, GoToActivity.MainActivity);
                     // ((Activity) context).finish();
 
                     // ((Activity) context).getParent().finish();
@@ -248,60 +207,18 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
         dialog.show(((Activity) context).getFragmentManager(), "dialog");
     }
 
-    private void setProfileData(WebServiceClass<VerifyResponse> response)
-    {
-
-        try
-        {
-            Prefs.putString("accessToken", "Bearer " + response.data.getAccess());
-
-            Profile profile = response.data.getProfile();
-            Prefs.putString("firstName", profile.getFirstName());
-            Prefs.putString("lastName", profile.getLastName());
-            Prefs.putString("FULLName", profile.getFirstName() + " " + profile.getLastName());
-            Prefs.putString("nickName", profile.getEnglishName());
-            if (profile.getBirthday() != null)
-            {
-                Prefs.putString("birthday", profile.getBirthday().toString());
-            }
-            if (profile.getPopularPlayer() != null)
-            {
-                Prefs.putInt("popularPlayer", profile.getPopularPlayer() == 0 ? 12 : profile.getPopularPlayer());
-            }
-            Prefs.putString("nationalCode", profile.getNationalCode());
-            Prefs.putString("keyInvite", profile.getKeyInvite());
-        } catch (Exception e)
-        {
-
-            e.getMessage();
-        }
-    }
-
-    public void sendMobileRequest()
-    {
-       /* loginView.showLoading();
-
-        UserEditVerifyRequest request = new UserEditVerifyRequest();
-        request.setUsername(mobileNumber.getText().toString());
-        Prefs.putString("mobile", mobileNumber.getText().toString());
-        SingletonService.getInstance().getLoginService().login(this, request);
-*/
 
 
-    }
 
     @Override
     public void onResume()
     {
-        //loginView.onButtonActions(false, null);
         countDownTimer.start();
-        //  loginView.hideLoading();
     }
 
     @Override
     public void onDestroy()
     {
-        //  EventBus.getDefault().unregister(this);
         countDownTimer.cancel();
 
 
@@ -343,49 +260,6 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
 
     }
 
-   /* @Override
-    public void onReady(WebServiceClass<LoginResponse> response)
-    {
-        try{
-            if (response != null)
-            {
-                loginView.onButtonActions(false, null);
-                countDownTimer.start();
-                loginView.hideLoading();
-
-            }
-            else
-            {
-                MessageAlertDialog dialog = new MessageAlertDialog((Activity) activityContext, "",
-                        "خطایی رخ داده است.",
-                        MessageAlertDialog.TYPE_ERROR);
-                dialog.show(((Activity)activityContext).getFragmentManager(), "dialog");
-                loginView.hideLoading();
-            }
-        }catch (Exception e){}
-
-
-    }
-
-
-    @Override
-    public void onError(String message)
-    {
-        loginView.hideLoading();
-        if (Tools.isNetworkAvailable((Activity) activityContext))
-        {
-            Logger.e("-OnError-", "Error: " + message);
-            MessageAlertDialog dialog = new MessageAlertDialog((Activity) activityContext, "",
-                    "خطا در دریافت اطلاعات از سرور!",
-                    MessageAlertDialog.TYPE_ERROR);
-            dialog.show(((Activity)activityContext).getFragmentManager(), "dialog");
-
-        }
-        else
-        {
-            showAlert(activityContext, R.string.networkErrorMessage, R.string.networkError);
-        }
-    }*/
 
 
 }

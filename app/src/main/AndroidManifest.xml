@@ -41,6 +41,10 @@
             android:configChanges="keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.activities.deleteUser.UserDeleteVerifyActivity"
+            android:configChanges="keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.activities.news.details.NewsDetailsActivity"
             android:configChanges="keyboardHidden"
             android:screenOrientation="portrait" />
