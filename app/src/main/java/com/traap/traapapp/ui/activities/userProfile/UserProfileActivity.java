@@ -453,7 +453,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
     {
         lnrEdits.setVisibility(View.GONE);
         lnrEditMobileOne.setVisibility(View.VISIBLE);
-        txtphoneLast.setText("شماره تلفن همراه قبلی: " + Prefs.getString("mobile", ""));
+        txtphoneLast.setText("شماره تلفن همراه قبلی: " + Prefs.getString("Country_Code","")+ Prefs.getString("mobile", ""));
         btnConfirmEditMobile.setOnClickListener(v ->
         {
 
@@ -524,7 +524,9 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         progressImageProfile.setVisibility(View.VISIBLE);
         SendCodeReq sendCodeReq = new SendCodeReq();
         sendCodeReq.setUsername(mobileNum);
-        Prefs.putString("mobileLast",etCountryCode.getText().toString()+" "+ tvMobileNew.getText().toString().trim());
+        sendCodeReq.setCountry_code(etCountryCode.getText().toString());
+      //  Prefs.putString("mobileLast",etCountryCode.getText().toString()+" "+ tvMobileNew.getText().toString().trim());
+        Prefs.putString("mobileLast", tvMobileNew.getText().toString().trim());
         SingletonService.getInstance().sendProfileService().sendCodeEditUser(sendCodeReq, new OnServiceStatus<WebServiceClass<SendCodeRes>>()
         {
             @Override
@@ -541,7 +543,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
                     } else
                     {
                         // showToast(UserProfileActivity.this, response.info.message, R.color.green);
-                       /* Intent myIntent = new Intent(UserProfileActivity.this, UserEditVerifyActivity.class);
+                       /* Intent myIntent = new Intent(UserProfileActivity.this, UserDeleteVerifyActivity.class);
                         myIntent.putExtra("mobileLast", mobileNum); //Optional parameters
                         startActivity(myIntent);*/
                         Intent intent = new Intent(UserProfileActivity.this, UserEditVerifyActivity.class);

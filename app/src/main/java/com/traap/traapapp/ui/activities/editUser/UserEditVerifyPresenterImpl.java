@@ -46,7 +46,8 @@ import static com.traap.traapapp.ui.base.BaseActivity.showAlert;
 /**
  * Created by Mahsa.Azizi
  */
-public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, View.OnClickListener {
+public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, View.OnClickListener
+{
     private Context appContext;
     private Context activityContext;
     private UserEditVerifyView loginView;
@@ -61,7 +62,8 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
     private Intent intent;
 
 
-    public UserEditVerifyPresenterImpl(Context appContext, Context activityContext, UserEditVerifyView loginView) {
+    public UserEditVerifyPresenterImpl(Context appContext, Context activityContext, UserEditVerifyView loginView)
+    {
         this.loginView = loginView;
 
         this.appContext = appContext;
@@ -72,9 +74,12 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btnConfirm: {
+    public void onClick(View view)
+    {
+        switch (view.getId())
+        {
+            case R.id.btnConfirm:
+            {
 
 
                /* if (view.getTag().equals("mobile")) {
@@ -97,31 +102,43 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
                             .check();
                 } else {*/
 
-                    if (TextUtils.isEmpty(codeView.getText().toString())) {
-                        loginView.showErrorMessage("لطفا کد فعال سازی را وارد نمایید.", this.getClass().getSimpleName(), false);
-                        return;
-                    }
-                    loginView.showLoading();
-                    sendVerifyRequest();
+                if (TextUtils.isEmpty(codeView.getText().toString()))
+                {
+                    loginView.showErrorMessage("لطفا کد فعال سازی را وارد نمایید.", this.getClass().getSimpleName(), false);
+                    return;
+                }
+                loginView.showLoading();
+                sendVerifyRequest();
 
 
-               // }
+                // }
                 break;
             }
         }
     }
 
-    public void verifyRequest() {
+    public void verifyRequest()
+    {
         loginView.showLoading();
         countDownTimer.cancel();
         //loginView.hideLoading();
         sendVerifyRequest();
     }
 
-    private void sendVerifyRequest() {
+    private void sendVerifyRequest()
+    {
         VerifyRequest request = new VerifyRequest();
 
-        request.setUsername(Prefs.getString("mobileLast", ""));
+        // request.setUsername(Prefs.getString("mobileLast", ""));
+        if (Prefs.getString("Country_Code", "").equals("98") && Prefs.getString("mobile", "").length() == 10)
+        {
+            request.setUsername("0" + Prefs.getString("mobile", ""));
+        } else
+        {
+            request.setUsername(Prefs.getString("mobile", ""));
+
+        }
+        request.setCountry_code(Prefs.getString("Country_Code", ""));
         request.setCode(codeView.getText().toString());
         request.setDeviceType(TrapConfig.AndroidDeviceType);
         request.setImei(UUID.randomUUID().toString());
@@ -133,27 +150,32 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
         request.setScreenSizeHeight(String.valueOf(displayMetrics.heightPixels));
         request.setScreenSizeWidth(String.valueOf(displayMetrics.widthPixels));
         //new Gson().toJson(request);
-    SingletonService.getInstance().sendProfileService().editUserVerify(request, new OnServiceStatus<WebServiceClass<VerifyResponse>>() {
+        SingletonService.getInstance().sendProfileService().editUserVerify(request, new OnServiceStatus<WebServiceClass<VerifyResponse>>()
+        {
             @Override
-            public void onReady(WebServiceClass<VerifyResponse> response) {
-                try {
-                    if (response.info.statusCode == 200) {
+            public void onReady(WebServiceClass<VerifyResponse> response)
+            {
+                try
+                {
+                    if (response.info.statusCode == 200)
+                    {
                         setProfileData(response);
                         loginView.hideLoading();
-                        Prefs.putString("profileImage", response.data. getProfile().getPhoto());
+                        Prefs.putString("profileImage", response.data.getProfile().getPhoto());
 
-                        Prefs.putInt("popularPlayer", response.data. getProfile().getPopularPlayer() == 0 ? 12 : response.data. getProfile().getPopularPlayer());
-                        Prefs.putString("mobile", Prefs.getString("mobileLast", ""));
-                       // Prefs.putString("gds_token",  response.data. getProfile().getGds_token());
+                        Prefs.putInt("popularPlayer", response.data.getProfile().getPopularPlayer() == 0 ? 12 : response.data.getProfile().getPopularPlayer());
+                          Prefs.putString("mobile", Prefs.getString("mobileLast", ""));
+                        // Prefs.putString("gds_token",  response.data. getProfile().getGds_token());
 
-                      //  Prefs.putString("bimeh_call_back",  response.data. getProfile().getBimeh_call_back());
-                      //  Prefs.putString("bimeh_api_key",  response.data. getProfile().getBimeh_api_key());
-                      //  Prefs.putString("bimeh_token",  response.data. getProfile().getBimeh_token());
-                      //  Prefs.putString("bimeh_base_url",  response.data. getProfile().getBimeh_base_url());
+                        //  Prefs.putString("bimeh_call_back",  response.data. getProfile().getBimeh_call_back());
+                        //  Prefs.putString("bimeh_api_key",  response.data. getProfile().getBimeh_api_key());
+                        //  Prefs.putString("bimeh_token",  response.data. getProfile().getBimeh_token());
+                        //  Prefs.putString("bimeh_base_url",  response.data. getProfile().getBimeh_base_url());
 
-                       // Prefs.putString("alopark_token",  response.data. getProfile().getAlopark_token());
-                        showAlertSuccess(activityContext,"تغییر ﺷﻤﺎره ﺗﻠﻔﻦ ﻫﻤﺮاه و اﻧﺘﻘﺎل اﻃﻼﻋﺎت ﺑﺎ ﻣﻮﻓﻘﯿﺖ اﻧﺠﺎم ﺷﺪ .","",true);
-                    } else {
+                        // Prefs.putString("alopark_token",  response.data. getProfile().getAlopark_token());
+                        showAlertSuccess(activityContext, "تغییر ﺷﻤﺎره ﺗﻠﻔﻦ ﻫﻤﺮاه و اﻧﺘﻘﺎل اﻃﻼﻋﺎت ﺑﺎ ﻣﻮﻓﻘﯿﺖ اﻧﺠﺎم ﺷﺪ .", "", true);
+                    } else
+                    {
                         codeView.setText("");
                         MessageAlertDialog dialog = new MessageAlertDialog((Activity) activityContext, "",
                                 response.info.message,
@@ -161,7 +183,8 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
                         dialog.show(((Activity) activityContext).getFragmentManager(), "dialog");
                         loginView.hideLoading();
                     }
-                } catch (Exception e) {
+                } catch (Exception e)
+                {
                     MessageAlertDialog dialog = new MessageAlertDialog((Activity) activityContext, "",
                             response.info.message,
                             MessageAlertDialog.TYPE_ERROR);
@@ -171,16 +194,19 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
             }
 
             @Override
-            public void onError(String message) {
+            public void onError(String message)
+            {
                 loginView.hideLoading();
-                if (Tools.isNetworkAvailable((Activity) activityContext)) {
+                if (Tools.isNetworkAvailable((Activity) activityContext))
+                {
                     Logger.e("-OnError-", "Error: " + message);
                     MessageAlertDialog dialog = new MessageAlertDialog((Activity) activityContext, "",
                             "خطا در دریافت اطلاعات از سرور!",
                             MessageAlertDialog.TYPE_ERROR);
                     dialog.show(((Activity) activityContext).getFragmentManager(), "dialog");
 
-                } else {
+                } else
+                {
                     showAlert(appContext, R.string.networkErrorMessage, R.string.networkError);
                 }
             }
@@ -188,6 +214,7 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
 
 
     }
+
     public void showAlertSuccess(Context context, String Msg, String mTitle, boolean finish)
     {
         MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, mTitle, Msg, false,
@@ -199,12 +226,12 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
             {
                 if (finish)
                 {
-                  // ((Activity) context).onBackPressed();
+                    // ((Activity) context).onBackPressed();
                     //loginView.onButtonActions(true, GoToActivity.MainActivity);
-                   // Intent returnIntent = new Intent();
-                   // ((Activity) context).setResult(Activity.RESULT_OK,returnIntent);
+                    // Intent returnIntent = new Intent();
+                    // ((Activity) context).setResult(Activity.RESULT_OK,returnIntent);
                     loginView.onButtonActions(true, GoToActivity.MainActivity);
-                   // ((Activity) context).finish();
+                    // ((Activity) context).finish();
 
                     // ((Activity) context).getParent().finish();
 
@@ -220,31 +247,38 @@ public class UserEditVerifyPresenterImpl implements UserEditVerifyPresenter, Vie
         dialog.setCancelable(!finish);
         dialog.show(((Activity) context).getFragmentManager(), "dialog");
     }
-    private void setProfileData(WebServiceClass<VerifyResponse> response) {
 
-try {
-    Prefs.putString("accessToken", "Bearer " + response.data.getAccess());
+    private void setProfileData(WebServiceClass<VerifyResponse> response)
+    {
 
-    Profile profile = response.data.getProfile();
-    Prefs.putString("firstName", profile.getFirstName());
-    Prefs.putString("lastName", profile.getLastName());
-    Prefs.putString("FULLName", profile.getFirstName() + " " + profile.getLastName());
-    Prefs.putString("nickName", profile.getEnglishName());
-    if (profile.getBirthday() != null) {
-        Prefs.putString("birthday", profile.getBirthday().toString());
+        try
+        {
+            Prefs.putString("accessToken", "Bearer " + response.data.getAccess());
+
+            Profile profile = response.data.getProfile();
+            Prefs.putString("firstName", profile.getFirstName());
+            Prefs.putString("lastName", profile.getLastName());
+            Prefs.putString("FULLName", profile.getFirstName() + " " + profile.getLastName());
+            Prefs.putString("nickName", profile.getEnglishName());
+            if (profile.getBirthday() != null)
+            {
+                Prefs.putString("birthday", profile.getBirthday().toString());
+            }
+            if (profile.getPopularPlayer() != null)
+            {
+                Prefs.putInt("popularPlayer", profile.getPopularPlayer() == 0 ? 12 : profile.getPopularPlayer());
+            }
+            Prefs.putString("nationalCode", profile.getNationalCode());
+            Prefs.putString("keyInvite", profile.getKeyInvite());
+        } catch (Exception e)
+        {
+
+            e.getMessage();
+        }
     }
-    if (profile.getPopularPlayer() != null) {
-        Prefs.putInt("popularPlayer", profile.getPopularPlayer() == 0 ? 12 : profile.getPopularPlayer());
-    }
-    Prefs.putString("nationalCode", profile.getNationalCode());
-    Prefs.putString("keyInvite", profile.getKeyInvite());
-}catch (Exception e){
 
-    e.getMessage();
-}
-    }
-
-    public void sendMobileRequest() {
+    public void sendMobileRequest()
+    {
        /* loginView.showLoading();
 
         UserEditVerifyRequest request = new UserEditVerifyRequest();
@@ -257,46 +291,53 @@ try {
     }
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         //loginView.onButtonActions(false, null);
         countDownTimer.start();
         //  loginView.hideLoading();
     }
 
     @Override
-    public void onDestroy() {
-      //  EventBus.getDefault().unregister(this);
+    public void onDestroy()
+    {
+        //  EventBus.getDefault().unregister(this);
         countDownTimer.cancel();
 
 
     }
 
     @Override
-    public void onStart() {
+    public void onStart()
+    {
 
 
     }
 
     @Override
-    public void onBack() {
+    public void onBack()
+    {
         countDownTimer.cancel();
     }
 
 
     @Override
-    public void getCode(PinEntryEditText codeView) {
+    public void getCode(PinEntryEditText codeView)
+    {
         this.codeView = codeView;
 
     }
 
     @Override
-    public void getMobile(EditText mobile) {
+    public void getMobile(EditText mobile)
+    {
         mobileNumber = mobile;
 
     }
 
     @Override
-    public void setScreenSize(int height, int width) {
+    public void setScreenSize(int height, int width)
+    {
         this.height = height;
         this.width = width;
 

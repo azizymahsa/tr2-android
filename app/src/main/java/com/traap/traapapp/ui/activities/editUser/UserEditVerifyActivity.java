@@ -144,7 +144,7 @@ public class UserEditVerifyActivity extends BaseActivity implements UserEditVeri
         tvDesc.setText(" ﮐﺪ ﻓﻌﺎﻟﺴﺎزی ارﺳﺎل ﺷﺪه ﺑﻪ ﺷﻤﺎره ﺗﻠﻔﻦ ﻫﻤﺮاه ﺟﺪﯾﺪ را وارد ﮐﻨﯿﺪ.");
         String mobileLast = getIntent().getStringExtra("mobileLast");
 
-        txtphoneLast.setText("شماره تلفن همراه قبلی: " + mobileLast);
+        txtphoneLast.setText("شماره تلفن همراه قبلی: " +mobileLast);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         UserEditVerifyPresenter.setScreenSize(displayMetrics.heightPixels, displayMetrics.widthPixels);

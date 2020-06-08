@@ -694,6 +694,9 @@ public interface RetroClient
     @DELETE(Const.DELETE_PROFILE_PHOTO)
     Single<Response<WebServiceClass<DeleteProfileResponse>>> deleteProfilePhoto();
 
+    @DELETE(Const.DELETE_PROFILE_Send_Code)
+    Single<Response<WebServiceClass<DeleteProfileResponse>>> deleteProfileSendCode();
+
     @GET(Const.Get_NEWS_ARCHIVE_CATEGORY)
     Single<Response<WebServiceClass<MediaArchiveCategoryResponse>>> getNewsArchiveCategory();
 

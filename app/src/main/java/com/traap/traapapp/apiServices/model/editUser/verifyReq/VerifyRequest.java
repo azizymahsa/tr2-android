@@ -25,12 +25,25 @@ public class VerifyRequest {
     @SerializedName("username")
     @Expose
     private String username;
+    @SerializedName("country_code")
+    @Expose
+    private String country_code;
     @SerializedName("current_version")
     @Expose
     private String currentVersion;
     @SerializedName("device_type")
     @Expose
     private Integer deviceType;
+
+    public String getCountry_code()
+    {
+        return country_code;
+    }
+
+    public void setCountry_code(String country_code)
+    {
+        this.country_code = country_code;
+    }
 
     public String getCode() {
         return code;
