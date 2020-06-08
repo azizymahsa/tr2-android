@@ -266,6 +266,50 @@
                                 android:src="@drawable/ic_havadar" />
 
                         </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/rlDeleteProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:id="@+id/img6"
+                                android:layout_width="@dimen/_50dp"
+                                android:layout_height="@dimen/_50dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:paddingTop="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingBottom="10dp"
+                                android:scaleType="center"
+                                android:visibility="invisible"
+                                app:srcCompat="@drawable/ic_arrow_left"
+                                app:tint="@color/textColorSecondary" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toLeftOf="@+id/icon6"
+                                android:layout_toRightOf="@+id/img6"
+                                android:gravity="right|center_vertical"
+                                android:paddingEnd="2dp"
+                                android:text="حذف حساب کاربری "
+                                android:textColor="@color/textColorSecondary"
+                                android:textSize="@dimen/textSize_14dp" />
+
+                            <ImageView
+                                android:id="@+id/icon6"
+                                android:layout_width="@dimen/_50dp"
+                                android:layout_height="@dimen/_50dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:padding="10dp"
+                                android:scaleType="center"
+                                android:src="@drawable/ic_havadar" />
+
+                        </RelativeLayout>
 
                         <RelativeLayout
                             android:id="@+id/rlExit"

@@ -52,7 +52,7 @@ public class MyProfileActivity extends BaseActivity
 
     private ImageView imgProfile;
 
-    private RelativeLayout rlEditProfile, rlMyPredict, rlMyFavorite, rlExit,rlMySupport;
+    private RelativeLayout rlEditProfile, rlMyPredict, rlMyFavorite, rlExit,rlMySupport,rlDeleteProfile;
 
 
     @Override
@@ -89,6 +89,7 @@ public class MyProfileActivity extends BaseActivity
         rlEditProfile = findViewById(R.id.rlEditProfile);
         rlMyPredict = findViewById(R.id.rlMyPredict);
         rlMySupport = findViewById(R.id.rlMySupport);
+        rlDeleteProfile = findViewById(R.id.rlDeleteProfile);
         rlMyFavorite = findViewById(R.id.rlMyFavorite);
         rlExit = findViewById(R.id.rlExit);
         FrameLayout flLogoToolbar = findViewById(R.id.flLogoToolbar);
@@ -129,6 +130,10 @@ public class MyProfileActivity extends BaseActivity
         tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
 
         rlEditProfile.setOnClickListener(v ->
+        {
+            startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class), 100);
+        });
+        rlDeleteProfile.setOnClickListener(v ->
         {
             startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class), 100);
         });
