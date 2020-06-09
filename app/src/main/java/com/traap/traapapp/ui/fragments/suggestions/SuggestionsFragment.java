@@ -35,6 +35,8 @@ import com.traap.traapapp.apiServices.model.doTransfer.DoTransferWalletRequest;
 import com.traap.traapapp.apiServices.model.doTransfer.DoTransferWalletResponse;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessRequest;
 import com.traap.traapapp.apiServices.model.getInfoWallet.GetInfoWalletResponse;
+import com.traap.traapapp.apiServices.model.suggestions.RequestSuggestions;
+import com.traap.traapapp.apiServices.model.suggestions.ResponseSuggestions;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
@@ -67,20 +69,22 @@ public class SuggestionsFragment extends BaseFragment implements View.OnClickLis
     private MainActionView mainView;
 
     private Spinner spinnerType;
-    private String[] ListType = {"کدمشتری", "شماره کارت", "شماره موبایل"};
+    private String[] ListType = {"انتقادات", "پیشنهادات", "درخواست", "شکایات"};
     private String strType = "";
     private Integer type = 0;
-    private Integer TYPE_USER_CODE = 0;
-    private Integer TYPE_CARD_NUMBER = 1;
-    private Integer TYPE_PHONE_NUMBER = 2;
+    
+    private Integer TYPE_Critic = 0;
+    private Integer TYPE_recommandation = 1;
+    private Integer TYPE_request = 2;
+    private Integer TYPE_complaint = 3;
     private String userName;
     private TextInputLayout inputLayout3;
     private AppCompatEditText etComment;
     private View view;
     private Toolbar mToolbar;
     private LinearLayout llEditInvite;
-    private View  rlShirt, imgMenu, imgBack;
-    private TextView tvTraapTitle,tvUserName, tvPopularPlayer;
+    private View rlShirt, imgMenu, imgBack;
+    private TextView tvTraapTitle, tvUserName, tvPopularPlayer;
 
     public SuggestionsFragment()
     {
@@ -125,10 +129,7 @@ public class SuggestionsFragment extends BaseFragment implements View.OnClickLis
     public void onStop()
     {
         super.onStop();
-        WalletTitle walletTitle = new WalletTitle();
-        walletTitle.setTitle("کیف پول");
 
-        EventBus.getDefault().post(walletTitle);
     }
 
     private void initView()
@@ -178,9 +179,7 @@ public class SuggestionsFragment extends BaseFragment implements View.OnClickLis
         tvPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
 
 
-
-
-   //     ViewCompat.setLayoutDirection(inputLayout3, ViewCompat.LAYOUT_DIRECTION_RTL);
+        //     ViewCompat.setLayoutDirection(inputLayout3, ViewCompat.LAYOUT_DIRECTION_RTL);
 
         spinnerType = rootView.findViewById(R.id.spinnerType);
         etComment = rootView.findViewById(R.id.etComment);
@@ -188,7 +187,6 @@ public class SuggestionsFragment extends BaseFragment implements View.OnClickLis
 
         btnConfirm = rootView.findViewById(R.id.btnConfirm);
         btnConfirm.setOnClickListener(this);
-
 
 
     }
@@ -206,7 +204,7 @@ public class SuggestionsFragment extends BaseFragment implements View.OnClickLis
             {
 
                 strType = adapterAmount.getItem(position);
-                 setTypeLayout(position);
+                setTypeLayout(position);
             }
 
             @Override
@@ -215,7 +213,6 @@ public class SuggestionsFragment extends BaseFragment implements View.OnClickLis
             }
         });
     }
-
 
 
     @Subscribe
@@ -248,26 +245,31 @@ public class SuggestionsFragment extends BaseFragment implements View.OnClickLis
 
     private void onConfirmClicked()
     {
+        if (etComment.getText().toString().length() > 3)
+        {
+            requestDoTransfer(etComment.getText().toString(), strType);
+        } else
+        {
+            showError(getContext(), "متن نظر یا پیشنهادات نباید خالی باشد!");
 
-        requestDoTransfer("");
-
+        }
 
     }
 
 
-
-    private void requestDoTransfer(String card_no)
+    private void requestDoTransfer(String description, String type)
     {
         mainView.showLoading();
-        DoTransferWalletRequest request = new DoTransferWalletRequest();
+        RequestSuggestions request = new RequestSuggestions();
 
-        request.setTo(card_no);
-        SingletonService.getInstance().doTransferWalletService().DoTransferWalletService(new OnServiceStatus<WebServiceClass<DoTransferWalletResponse>>()
+        request.setDescription(description);
+        request.setType(type);
+        SingletonService.getInstance().tractorTeamService().postSuggestions(new OnServiceStatus<WebServiceClass<ResponseSuggestions>>()
         {
 
 
             @Override
-            public void onReady(WebServiceClass<DoTransferWalletResponse> response)
+            public void onReady(WebServiceClass<ResponseSuggestions> response)
             {
 
                 try
@@ -277,8 +279,7 @@ public class SuggestionsFragment extends BaseFragment implements View.OnClickLis
                     if (response.info.statusCode == 200)
                     {
 
-                        showResultPayment(response);
-
+                        showAlertSuccess(getContext(), response.info.message, "", false);
                     } else
                     {
                         showAlertFailure(getContext(), response.info.message, "", false);
@@ -318,37 +319,36 @@ public class SuggestionsFragment extends BaseFragment implements View.OnClickLis
         }, request);
     }
 
-    private void showResultPayment(WebServiceClass<DoTransferWalletResponse> response)
-    {
-        Intent intent = new Intent(this.getContext(), PaymentResultIncreaseInventoryActivity.class);
-        intent.putExtra("RefrenceNumber", response.data.getRefrenceNumber());
-        getActivity().startActivityForResult(intent, 44);
-    }
 
     private void setTypeLayout(Integer position)
     {
 
-        if (position == TYPE_USER_CODE)
+        if (position == TYPE_Critic)
         {
 
-            type = TYPE_USER_CODE;
-          /*  llCardNumber.setVisibility(View.GONE);
-            ivCreditCart.setVisibility(View.GONE);
-            ivContact.setVisibility(View.GONE);
-            llPhoneNumber.setVisibility(View.GONE);
-            llUserCode.setVisibility(View.VISIBLE);
-*/
+            type = TYPE_Critic;
+            strType = "critic";
 
-        } else if (position == TYPE_CARD_NUMBER)
+
+        } else if (position == TYPE_recommandation)
         {
 
-            type = TYPE_CARD_NUMBER;
+            type = TYPE_recommandation;
+            strType = "recommandation";
 
 
-        } else if (position == TYPE_PHONE_NUMBER)
+        } else if (position == TYPE_request)
         {
 
-            type = TYPE_PHONE_NUMBER;
+            type = TYPE_request;
+            strType = "request";
+
+
+        } else if (position == TYPE_complaint)
+        {
+
+            type = TYPE_complaint;
+            strType = "complaint";
 
 
         }
