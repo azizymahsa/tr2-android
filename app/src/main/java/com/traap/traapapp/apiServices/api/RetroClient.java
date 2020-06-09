@@ -129,6 +129,8 @@ import com.traap.traapapp.apiServices.model.shetacForgotPass2.request.ShetacForg
 import com.traap.traapapp.apiServices.model.spectatorInfo.GetSpectatorListResponse;
 import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
+import com.traap.traapapp.apiServices.model.suggestions.RequestSuggestions;
+import com.traap.traapapp.apiServices.model.suggestions.ResponseSuggestions;
 import com.traap.traapapp.apiServices.model.survey.SurveyDetailResponse;
 import com.traap.traapapp.apiServices.model.techHistory.GetTechsHistoryResponse;
 import com.traap.traapapp.apiServices.model.techs.GetTechsIdResponse;
@@ -836,5 +838,10 @@ public interface RetroClient
     @GET(Const.Get_Tech_News)
     Single<Response<WebServiceClass<GetTechNewsResponse>>> getTechNews(
             @Path("id") Integer id);
+    @POST(Const.POST_Suggestions)
+    Single<Response<WebServiceClass<ResponseSuggestions>>> postSuggestions(
+            @Body RequestSuggestions request
+    );
+
 
 }

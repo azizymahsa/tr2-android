@@ -224,5 +224,7 @@ public class Const
     public final static String Post_Favorite=SubBASEURL+"v1/team/techs/fan_page/";
     //MySupportProfile
     public final static String GET_MY_Supportes=SubBASEURL+"v1/team/techs/fan_page/";
+    //Suggestions
+    public final static String POST_Suggestions=SubBASEURL+"v1/feedback/";
 
 }
