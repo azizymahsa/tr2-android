@@ -162,10 +162,9 @@
                                                 android:layout_height="@dimen/_35sdp"
                                                 android:layout_alignParentLeft="true"
                                                 android:layout_centerVertical="true"
-                                                android:layout_margin="2dp"
                                                 android:scaleType="center"
                                                 android:visibility="visible"
-                                                app:srcCompat="@drawable/delete_comment" />
+                                                app:srcCompat="@drawable/ic_crash" />
 
                                             <ImageView
                                                 android:id="@+id/imgEditMobile"
