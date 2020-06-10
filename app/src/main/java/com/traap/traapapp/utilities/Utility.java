@@ -983,7 +983,7 @@ public class Utility
     {
         String startPhoneNo = number.substring(0, 4);
 
-        String[] typePhone_No = {"0932","0933"
+        String[] typePhone_No = {"0932"
         };
         if (Arrays.asList(typePhone_No).contains(startPhoneNo))
         {
