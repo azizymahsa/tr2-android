@@ -4,8 +4,11 @@ import com.traap.traapapp.apiServices.generator.ServiceGenerator;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.cup.CupResponse;
+import com.traap.traapapp.apiServices.model.suggestions.RequestSuggestions;
+import com.traap.traapapp.apiServices.model.suggestions.ResponseSuggestions;
 import com.traap.traapapp.apiServices.model.techHistory.GetTechsHistoryResponse;
 import com.traap.traapapp.apiServices.model.techs.GetTechsIdResponse;
+import com.traap.traapapp.apiServices.model.techs.news.GetTechNewsResponse;
 import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
 import com.traap.traapapp.apiServices.model.tractorTeam.TractorTeamResponse;
 import com.traap.traapapp.ui.fragments.competitions.QuestionCompationFragment;
@@ -61,6 +64,16 @@ public void getQuestionCompation(Integer id, QuestionCompationFragment listener)
 
     public void getTechsHistory(Integer id, OnServiceStatus<WebServiceClass<GetTechsHistoryResponse>> listener){
         start(getServiceGenerator().createService().getTechsHistory(id),listener);
+    }
+
+    public void getTechNews(Integer id, OnServiceStatus<WebServiceClass<GetTechNewsResponse>> listener){
+        start(getServiceGenerator().createService().getTechNews(id),listener);
+    }
+
+
+    public void postSuggestions(OnServiceStatus<WebServiceClass<ResponseSuggestions>> listener, RequestSuggestions req)
+    {
+        start(getServiceGenerator().createService().postSuggestions(req), listener);
     }
 
 }

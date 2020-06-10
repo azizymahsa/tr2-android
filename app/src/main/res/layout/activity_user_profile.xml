@@ -150,45 +150,54 @@
                                         android:layout_gravity="center|right"
                                         android:layout_weight="100">
 
-                                        <com.traap.traapapp.utilities.ClearableEditText
-                                            android:id="@+id/tvMobileEdit"
-                                            android:layout_width="match_parent"
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
                                             android:layout_height="match_parent"
-                                            android:layout_toRightOf="@+id/imgEditMobile"
-                                            android:background="@android:color/transparent"
-                                            android:digits="0,1,2,3,4,5,6,7,8,9"
-                                            android:gravity="center_vertical|left"
-                                            android:imeOptions="actionNext"
-                                            android:inputType="number"
-                                            android:maxLines="1"
-                                            android:singleLine="true"
-                                            android:text=""
-                                            android:maxLength="13"
-                                            android:textColor="@color/textHint"
-                                            android:textColorHint="@color/textColorSecondary"
-                                            android:textSize="@dimen/textSize_12dp" />
+                                            android:layout_gravity="center|right"
+                                            android:orientation="horizontal">
+                                            <ImageView
+                                                android:id="@+id/imgDeleteUser"
+                                                style="?android:attr/borderlessButtonStyle"
+                                                android:layout_width="@dimen/_35sdp"
+                                                android:layout_height="@dimen/_35sdp"
+                                                android:layout_alignParentLeft="true"
+                                                android:layout_centerVertical="true"
+                                                android:scaleType="center"
+                                                android:visibility="visible"
+                                                app:srcCompat="@drawable/ic_crash" />
 
-                                        <!--  <ImageView
-                                              android:id="@+id/imgEditMobile"
-                                              style="?android:attr/borderlessButtonStyle"
-                                              android:layout_width="@dimen/_25sdp"
-                                              android:layout_height="@dimen/_35sdp"
-                                              android:layout_centerVertical="true"
-                                              android:scaleType="centerCrop"
-                                              android:tint="@color/textColorPrimary"
-                                              android:visibility="visible"
-                                              app:srcCompat="@drawable/ic_clear" />-->
+                                            <ImageView
+                                                android:id="@+id/imgEditMobile"
+                                                style="?android:attr/borderlessButtonStyle"
+                                                android:layout_width="@dimen/_35sdp"
+                                                android:layout_height="@dimen/_35sdp"
+                                                android:layout_alignParentLeft="true"
+                                                android:layout_centerVertical="true"
+                                                android:scaleType="center"
+                                                android:visibility="visible"
+                                                app:srcCompat="@drawable/ic_refresh" />
 
-                                        <ImageView
-                                            android:id="@+id/imgEditMobile"
-                                            style="?android:attr/borderlessButtonStyle"
-                                            android:layout_width="@dimen/_35sdp"
-                                            android:layout_height="@dimen/_35sdp"
-                                            android:layout_alignParentLeft="true"
-                                            android:layout_centerVertical="true"
-                                            android:scaleType="center"
-                                            android:visibility="visible"
-                                            app:srcCompat="@drawable/ic_refresh" />
+
+                                            <com.traap.traapapp.utilities.ClearableEditText
+                                                android:id="@+id/tvMobileEdit"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:layout_toRightOf="@+id/imgEditMobile"
+                                                android:background="@android:color/transparent"
+                                                android:digits="0,1,2,3,4,5,6,7,8,9"
+                                                android:gravity="center_vertical|left"
+                                                android:imeOptions="actionNext"
+                                                android:inputType="number"
+                                                android:maxLines="1"
+                                                android:singleLine="true"
+                                                android:text=""
+                                                android:maxLength="13"
+                                                android:textColor="@color/textHint"
+                                                android:textColorHint="@color/textColorSecondary"
+                                                android:textSize="@dimen/textSize_12dp" />
+
+                                        </LinearLayout>
+
 
                                         <View
                                             android:layout_width="match_parent"
@@ -965,6 +974,363 @@
 
                                 </LinearLayout>
 
+                            </LinearLayout>
+                            <!--lnrDeleteMobileOne-->
+                            <LinearLayout
+                                android:id="@+id/lnrDeleteMobileOne"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_70sdp"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center|right"
+                                        android:layout_weight="100">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_weight="1"
+                                            android:layout_height="match_parent"
+                                            android:gravity="right|center"
+                                            android:singleLine="false"
+                                            android:textAlignment="center"
+                                            android:text="حذف حساب کاربری:"
+                                            android:textColor="@color/red"
+                                            android:textSize="@dimen/textSize_14dp" />
+
+                                        <ImageView
+                                            android:layout_width="wrap_content"
+                                            android:layout_weight="1"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginEnd="5dp"
+                                            android:layout_marginStart="5dp"
+                                            android:src="@drawable/danger"
+                                            android:tint="@color/red"
+                                            android:scaleType="centerInside"
+                                            android:visibility="visible"
+                                            />
+
+
+
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center|right"
+                                    android:layout_marginTop="@dimen/_10dp"
+                                    android:orientation="horizontal">
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="20" />
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center|right"
+                                        android:layout_weight="100">
+
+                                        <TextView
+
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:gravity="right"
+                                            android:singleLine="false"
+                                            android:text="@string/suggestions_text"
+                                            android:textStyle="bold"
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_14dp" />
+
+
+
+                                    </RelativeLayout>
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                </LinearLayout>
+                                <View
+                                    android:id="@+id/vTowToThree"
+                                    android:layout_marginTop="@dimen/_10dp"
+                                    android:layout_marginBottom="@dimen/_10dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_gravity="center"
+                                    android:background="@color/_disable_color" />
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center|right"
+                                    android:layout_marginTop="@dimen/_10dp"
+                                    android:orientation="horizontal">
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="20" />
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center|right"
+                                        android:layout_weight="100">
+
+                                        <TextView
+
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:gravity="right"
+                                            android:singleLine="false"
+                                            android:text="@string/_edite_num_delete"
+                                            android:textStyle="bold"
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_14dp" />
+
+
+
+                                    </RelativeLayout>
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_20dp"
+                                    android:layout_marginBottom="@dimen/_20dp"
+                                    android:gravity="right"
+                                    android:orientation="horizontal">
+
+
+
+                                        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+
+                                            android:layout_width="@dimen/_150dp"
+                                            android:layout_height="@dimen/_35dp"
+                                            android:layout_gravity="right"
+                                            android:id="@+id/btnEditNumDelete"
+                                            android:background="@drawable/background_border_a"
+                                            android:text="   تغییر شماره  "
+                                            android:textColor="@color/arrowButtonColor"
+                                            android:textSize="@dimen/textSize_14dp"
+                                            android:textStyle="bold"
+                                            android:transitionName="transition"
+                                            app:finalCornerAngle="50dp"
+                                            app:spinning_bar_color="@color/white"
+                                            app:initialCornerAngle="50dp"
+                                            app:spinning_bar_width="2dp"
+                                            android:layout_marginBottom="2dp"
+                                            android:layout_marginTop="2dp" />
+
+                                    </LinearLayout>
+
+
+
+                                <View
+                                    android:layout_marginTop="@dimen/_10dp"
+                                    android:layout_marginBottom="@dimen/_10dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_gravity="center"
+                                    android:background="@color/_disable_color" />
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center|right"
+                                    android:layout_marginTop="@dimen/_10dp"
+                                    android:orientation="horizontal">
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="20" />
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center|right"
+                                        android:layout_weight="100">
+
+                                        <TextView
+
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:gravity="right"
+                                            android:singleLine="false"
+                                            android:text="@string/_delet_account_text"
+                                            android:textStyle="bold"
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_14dp" />
+
+
+
+                                    </RelativeLayout>
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="20" />
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_10dp"
+                                    android:layout_marginBottom="@dimen/_10dp"
+                                    android:orientation="horizontal">
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="35" />
+
+                                    <RelativeLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="100"
+                                        android:orientation="horizontal">
+                                        <EditText
+                                            android:id="@+id/etCountryNameDelete"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="right"
+                                            android:gravity="right"
+                                            android:text="ایران"
+                                            android:editable="false"
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_18dp" />
+
+                                    </RelativeLayout>
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center|right"
+                                    android:orientation="horizontal">
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="40" />
+                                    <RelativeLayout
+                                        android:id="@+id/rlCountryCodeDelete"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+                                        <TextView
+                                            android:layout_width="@dimen/_10dp"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_18dp"
+                                            android:text="+"
+                                            android:layout_centerVertical="true"/>
+                                        <EditText
+                                            android:id="@+id/etCountryCodeDelete"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:paddingLeft="@dimen/_10dp"
+                                            android:layout_gravity="center"
+                                            android:minWidth="@dimen/_50dp"
+                                            android:gravity="center"
+                                            android:text="98"
+                                            android:imeOptions="actionDone"
+                                            android:inputType="number"
+                                            android:maxLength="4"
+
+
+                                            android:maxLines="1"
+                                            android:singleLine="true"
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_18dp" />
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="@dimen/_35sdp"
+                                        android:layout_gravity="center|right"
+                                        android:layout_weight="100">
+
+                                        <com.traap.traapapp.utilities.ClearableEditText
+                                            android:id="@+id/tvMobileDelete"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="@android:color/transparent"
+                                            android:digits="0,1,2,3,4,5,6,7,8,9"
+                                            android:gravity="right|center"
+                                            android:hint="@string/_new_mobile_num_"
+                                            android:imeOptions="actionDone"
+                                            android:inputType="number"
+                                            android:maxLines="1"
+                                            android:singleLine="true"
+                                            android:text=""
+                                            android:textColorHint="@color/textHint"
+                                            android:textColor="@color/textColorSecondary"
+                                            android:textSize="@dimen/textSize_16dp" />
+
+
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="1dp"
+                                            android:layout_alignParentBottom="true"
+                                            android:background="@color/textHint" />
+
+                                    </RelativeLayout>
+
+                                    <Space
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1" />
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_20dp"
+                                    android:layout_marginBottom="@dimen/_20dp"
+                                    android:gravity="right"
+                                    android:orientation="horizontal">
+
+
+
+                                    <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+
+                                        android:layout_width="@dimen/_150dp"
+                                        android:layout_height="@dimen/_35dp"
+                                        android:layout_gravity="right"
+                                        android:id="@+id/btnDeleteUser"
+                                        android:background="@drawable/background_button_login"
+                                        android:text="  حذف حساب کاربری  "
+                                        android:textColor="@color/textColorButton"
+                                        android:textSize="@dimen/textSize_14dp"
+                                        android:textStyle="bold"
+                                        android:transitionName="transition"
+                                        app:finalCornerAngle="50dp"
+                                        app:spinning_bar_color="@color/white"
+                                        app:initialCornerAngle="50dp"
+                                        app:spinning_bar_width="2dp"
+                                        android:layout_marginBottom="2dp"
+                                        android:layout_marginTop="2dp" />
+
+                                </LinearLayout>
                             </LinearLayout>
                             <!--llPin-->
                             <LinearLayout

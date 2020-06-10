@@ -78,6 +78,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     private RoundedImageView imgProfile;
     private ProfileHeadCoahFragment profileHeadCoahFragment;
     private HistoryHeadCoachFragment historyHeadCoachFragment;
+    private NewsHeadCoachFragment newsHeadCoachFragment;
     private RecyclerView rvComment;
     private View btnShare, llInfoFromShare, llGallery;
     private ImageView btnFavorit;
@@ -335,6 +336,8 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
         initViews();
         profileHeadCoahFragment =new ProfileHeadCoahFragment();
         historyHeadCoachFragment=new HistoryHeadCoachFragment();
+        newsHeadCoachFragment=new NewsHeadCoachFragment();
+        newsHeadCoachFragment.setCoachId(coachId);
         historyHeadCoachFragment.setCoachId(coachId);
         getTechsId();
         initViewPager();
@@ -378,6 +381,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
        /* adapter.addFrag("امتیازات", new CurrentPlayersFragment());
         adapter.addFrag("اتفاقات مهم", new TechnicalTeamFragment());
         adapter.addFrag("قراردادها", new TopPlayersFragment());*/
+        adapter.addFrag("اتفاقات مهم", newsHeadCoachFragment);
         adapter.addFrag("سابقه", historyHeadCoachFragment);
         adapter.addFrag("مشخصات",profileHeadCoahFragment);
 

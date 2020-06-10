@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -188,6 +190,9 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
         mToolbar = rootView.findViewById(R.id.toolbar);
 
         ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText("آرشیو اخبار");
+
+
+
         disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgBack))
                 .subscribe(v ->
                 {
@@ -200,6 +205,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
                     {
                         mainNewsView.backToMediaFragment(mediaPosition);
                     }
+               //  getActivity().onBackPressed();
                 })
         );
 
@@ -1061,7 +1067,7 @@ public class NewsArchiveFragment extends BaseFragment implements OnServiceStatus
     @Override
     public void onDestroy()
     {
-        disposable.clear();
+     //   disposable.clear();
         EventBus.getDefault().unregister(this);
         super.onDestroy();
     }

@@ -1,4 +1,4 @@
-package com.traap.traapapp.ui.activities.editUser;
+package com.traap.traapapp.ui.activities.deleteUser;
 
 import android.animation.Animator;
 import android.annotation.SuppressLint;
@@ -24,6 +24,8 @@ import com.google.gson.reflect.TypeToken;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.models.CountryCodeModel;
+import com.traap.traapapp.ui.activities.editUser.UserEditVerifyActivity;
+import com.traap.traapapp.ui.activities.editUser.UserEditVerifyPresenterImpl;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.base.GoToActivity;
@@ -42,9 +44,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
-public class UserEditVerifyActivity extends BaseActivity implements UserEditVerifyView, OnAnimationEndListener
+public class UserDeleteVerifyActivity extends BaseActivity implements UserDeleteVerifyView, OnAnimationEndListener
 {
-    private UserEditVerifyPresenterImpl UserEditVerifyPresenter;
+    private UserDeleteVerifyPresenterImpl UserEditVerifyPresenter;
     private CircularProgressButton btnConfirm;
     private TextView tvDesc,txtphoneLast, tvCountDown, tvPhoneNumber, tvMenu, tvResend;
     private int dimeSpace80, dimeSpace40, dimeLogo150, dimeLogo70;
@@ -75,8 +77,8 @@ public class UserEditVerifyActivity extends BaseActivity implements UserEditVeri
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user_verify);
 //        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-       // Prefs.putString("accessToken", "");
-        UserEditVerifyPresenter = new UserEditVerifyPresenterImpl(getApplicationContext(), this, this);
+        // Prefs.putString("accessToken", "");
+        UserEditVerifyPresenter = new UserDeleteVerifyPresenterImpl(getApplicationContext(), this, this);
         initView();
         initCountryCode();
         filter();
@@ -141,17 +143,17 @@ public class UserEditVerifyActivity extends BaseActivity implements UserEditVeri
         btnConfirm.setOnClickListener(UserEditVerifyPresenter);
 
         btnConfirm.setTag("mobile");
-        tvDesc.setText(" ﮐﺪ ﻓﻌﺎﻟﺴﺎزی ارﺳﺎل ﺷﺪه ﺑﻪ ﺷﻤﺎره ﺗﻠﻔﻦ ﻫﻤﺮاه ﺟﺪﯾﺪ را وارد ﮐﻨﯿﺪ.");
+        tvDesc.setText(" ﮐﺪ ﻓﻌﺎﻟﺴﺎزی ارﺳﺎل ﺷﺪه ﺑﻪ ﺷﻤﺎره ﺗﻠﻔﻦ ﻫﻤﺮاه خود را وارد ﮐﻨﯿﺪ.");
         String mobileLast = getIntent().getStringExtra("mobileLast");
 
-        txtphoneLast.setText("شماره تلفن همراه قبلی: " +mobileLast);
+        txtphoneLast.setText("شماره تلفن همراه : " +Prefs.getString("mobile", ""));
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         UserEditVerifyPresenter.setScreenSize(displayMetrics.heightPixels, displayMetrics.widthPixels);
 
         tvResend.setOnClickListener(view ->
         {
-            UserEditVerifyPresenter.sendMobileRequest();
+           // UserEditVerifyPresenter.sendMobileRequest();
             tvResend.setVisibility(View.GONE);
             codeView.setText("");
             tvCountDown.setVisibility(View.VISIBLE);
@@ -188,7 +190,7 @@ public class UserEditVerifyActivity extends BaseActivity implements UserEditVeri
             }
             else
             {
-                showAlert(UserEditVerifyActivity.this, "لطفا کد فعال سازی خود را صحیح وارد نمایید.", R.string.error);
+                showAlert(UserDeleteVerifyActivity.this, "لطفا کد فعال سازی خود را صحیح وارد نمایید.", R.string.error);
             }
 
         });
@@ -229,7 +231,7 @@ public class UserEditVerifyActivity extends BaseActivity implements UserEditVeri
     @Override
     public void hideLoading()
     {
-        btnConfirm.revertAnimation(UserEditVerifyActivity.this);
+        btnConfirm.revertAnimation(UserDeleteVerifyActivity.this);
         btnConfirm.setClickable(true);
 
     }
@@ -240,7 +242,7 @@ public class UserEditVerifyActivity extends BaseActivity implements UserEditVeri
     {
        /* if (isCode && canEnter)
         {*/
-            Intent intent = null;
+        Intent intent = null;
 //            switch (goToActivity)
 //            {
 //                case UserProfileActivity:
@@ -256,12 +258,12 @@ public class UserEditVerifyActivity extends BaseActivity implements UserEditVeri
 //
 //                        break;
 //            }
-       //getParent().finish();
+        //getParent().finish();
         //mainView.backToMainFragment();
-            intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivityForResult(intent, 100);
-            finish();
+        intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivityForResult(intent, 100);
+        finish();
 
 
        /* }
@@ -285,7 +287,7 @@ public class UserEditVerifyActivity extends BaseActivity implements UserEditVeri
     public void onTick(String second)
     {
         tvCountDown.setText(second);
-           countDownTimer.setVisibility(View.VISIBLE);
+        countDownTimer.setVisibility(View.VISIBLE);
 
     }
 
@@ -293,7 +295,7 @@ public class UserEditVerifyActivity extends BaseActivity implements UserEditVeri
     public void showErrorMessage(String message, String name, boolean b)
     {
         //  showError(this, message);
-        if (Tools.isNetworkAvailable(UserEditVerifyActivity.this))
+        if (Tools.isNetworkAvailable(UserDeleteVerifyActivity.this))
         {
             Logger.e("-OnError-", "Error: " + message);
             showErrorMessage(message);
@@ -389,8 +391,8 @@ public class UserEditVerifyActivity extends BaseActivity implements UserEditVeri
                 btnConfirm.setText(getString(R.string.verify_user));
                 llPin.setVisibility(View.GONE);
                 etMobileNumber.setVisibility(View.VISIBLE);
-               // etCountryName.setVisibility(View.VISIBLE);
-               // rlCountryCode.setVisibility(View.VISIBLE);
+                // etCountryName.setVisibility(View.VISIBLE);
+                // rlCountryCode.setVisibility(View.VISIBLE);
                 isCode = false;
                 YoYo.with(Techniques.SlideInLeft)
                         .duration(500)

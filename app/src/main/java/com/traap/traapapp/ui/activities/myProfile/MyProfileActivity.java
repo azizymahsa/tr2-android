@@ -33,6 +33,7 @@ import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.ui.fragments.suggestions.SuggestionsFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
@@ -51,7 +52,7 @@ public class MyProfileActivity extends BaseActivity
 
     private ImageView imgProfile;
 
-    private RelativeLayout rlEditProfile, rlMyPredict, rlMyFavorite, rlExit,rlMySupport;
+    private RelativeLayout rlEditProfile, rlMyPredict, rlMyFavorite, rlExit,rlMySupport,rlDeleteProfile;
 
 
     @Override
@@ -88,6 +89,7 @@ public class MyProfileActivity extends BaseActivity
         rlEditProfile = findViewById(R.id.rlEditProfile);
         rlMyPredict = findViewById(R.id.rlMyPredict);
         rlMySupport = findViewById(R.id.rlMySupport);
+        rlDeleteProfile = findViewById(R.id.rlDeleteProfile);
         rlMyFavorite = findViewById(R.id.rlMyFavorite);
         rlExit = findViewById(R.id.rlExit);
         FrameLayout flLogoToolbar = findViewById(R.id.flLogoToolbar);
@@ -131,6 +133,10 @@ public class MyProfileActivity extends BaseActivity
         {
             startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class), 100);
         });
+        rlDeleteProfile.setOnClickListener(v ->
+        {
+            startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), UserProfileActivity.class), 100);
+        });
 
         rlMyPredict.setOnClickListener(v ->
         {
@@ -143,6 +149,7 @@ public class MyProfileActivity extends BaseActivity
 
         rlMyFavorite.setOnClickListener(v ->
         {
+          //  startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), SuggestionsFragment.class), 100);
 
         });
         tvInviteCode.setOnClickListener(v ->

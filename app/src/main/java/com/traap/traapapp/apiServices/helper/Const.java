@@ -134,6 +134,11 @@ public class Const
     public final static String SEND_PROFILE_PHOTO = SubBASEURL + "v1/user/profile/photo/";
     public final static String DELETE_PROFILE_PHOTO = SubBASEURL + "v1/user/profile/delete_photo/";
 
+    //DeleteProfile
+    public final static String DELETE_PROFILE_Send_Code = SubBASEURL + "v1/user/deactivate/send_code/";
+    public final static String DELETE_PROFILE_Verify_Code = SubBASEURL + "v1/user/deactivate/verify/";
+
+
     //Transaction
     public final static String GET_TYPE_Transaction_List = SubBASEURL + "v1/user/type_transaction/";
     public final static String GET_Transaction_List = SubBASEURL + "v1/user/transactions/";
@@ -203,11 +208,13 @@ public class Const
     public final static String Get_DETAIL_SURVEY = SubBASEURL + "v1/survey/{id}/";
     public final static String Get_LIST_SURVEY = SubBASEURL + "v1/survey/";
 
+    //headTechs
     public final static String TECHS = SubBASEURL + "v1/team/techs/";
     public final static String CUPS = SubBASEURL + "v1/team/cups/";
 
     public final static String TECHS_ID=SubBASEURL+"v1/team/techs/{id}/";
     public final static String TECHS_HISTORY=SubBASEURL+"v1/team/techs/{id}/history/";
+    public final static String Get_Tech_News=SubBASEURL+"v1/news/{id}/tech_staff/";
 
     //compation
     public final static String Get_All_Compations=SubBASEURL+"v1/competition/";
@@ -217,5 +224,7 @@ public class Const
     public final static String Post_Favorite=SubBASEURL+"v1/team/techs/fan_page/";
     //MySupportProfile
     public final static String GET_MY_Supportes=SubBASEURL+"v1/team/techs/fan_page/";
+    //Suggestions
+    public final static String POST_Suggestions=SubBASEURL+"v1/feedback/";
 
 }

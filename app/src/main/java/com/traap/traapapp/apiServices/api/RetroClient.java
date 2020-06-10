@@ -129,10 +129,13 @@ import com.traap.traapapp.apiServices.model.shetacForgotPass2.request.ShetacForg
 import com.traap.traapapp.apiServices.model.spectatorInfo.GetSpectatorListResponse;
 import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
+import com.traap.traapapp.apiServices.model.suggestions.RequestSuggestions;
+import com.traap.traapapp.apiServices.model.suggestions.ResponseSuggestions;
 import com.traap.traapapp.apiServices.model.survey.SurveyDetailResponse;
 import com.traap.traapapp.apiServices.model.techHistory.GetTechsHistoryResponse;
 import com.traap.traapapp.apiServices.model.techs.GetTechsIdResponse;
 import com.traap.traapapp.apiServices.model.techs.RequestSetFavoritePlayer;
+import com.traap.traapapp.apiServices.model.techs.news.GetTechNewsResponse;
 import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
 import com.traap.traapapp.apiServices.model.survey.listSurvey.SurveyListResponse;
 import com.traap.traapapp.apiServices.model.survey.putSurvey.PutSurveyRequest;
@@ -693,6 +696,9 @@ public interface RetroClient
     @DELETE(Const.DELETE_PROFILE_PHOTO)
     Single<Response<WebServiceClass<DeleteProfileResponse>>> deleteProfilePhoto();
 
+    @DELETE(Const.DELETE_PROFILE_Send_Code)
+    Single<Response<WebServiceClass<DeleteProfileResponse>>> deleteProfileSendCode();
+
     @GET(Const.Get_NEWS_ARCHIVE_CATEGORY)
     Single<Response<WebServiceClass<MediaArchiveCategoryResponse>>> getNewsArchiveCategory();
 
@@ -719,6 +725,11 @@ public interface RetroClient
 //    );
     @POST(Const.Get_verify_change_user)
     Single<Response<WebServiceClass<com.traap.traapapp.apiServices.model.editUser.verifyRes.VerifyResponse>>> editUserVerify(
+            @Body com.traap.traapapp.apiServices.model.editUser.verifyReq.VerifyRequest request
+    );
+
+    @POST(Const.DELETE_PROFILE_Verify_Code)
+    Single<Response<WebServiceClass<com.traap.traapapp.apiServices.model.editUser.verifyRes.VerifyResponse>>> deleteUserVerifyCode(
             @Body com.traap.traapapp.apiServices.model.editUser.verifyReq.VerifyRequest request
     );
 
@@ -823,5 +834,14 @@ public interface RetroClient
     @GET(Const.Get_All_Questions)
     Single<Response<WebServiceClass<ResponseGetQuestions>>> getAllQuestions(
             @Path("id") Integer id);
+
+    @GET(Const.Get_Tech_News)
+    Single<Response<WebServiceClass<GetTechNewsResponse>>> getTechNews(
+            @Path("id") Integer id);
+    @POST(Const.POST_Suggestions)
+    Single<Response<WebServiceClass<ResponseSuggestions>>> postSuggestions(
+            @Body RequestSuggestions request
+    );
+
 
 }
