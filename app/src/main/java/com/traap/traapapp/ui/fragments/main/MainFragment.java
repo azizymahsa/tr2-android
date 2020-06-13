@@ -809,10 +809,13 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             case 701:
             {
                 // mainView.openWebView(mainView, baseUrl, Prefs.getString("gds_token", ""),"تراپ مارکت");
+/*                Bundle headers = new Bundle();
+                headers.putString("Authorization", Prefs.getString("accessToken", ""));*/
+
                 Bundle headers = new Bundle();
                 headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
-                Utility.openUrlCustomTab(getActivity(), baseUrl);
+                Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
                 break;
 
             }
