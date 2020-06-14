@@ -78,7 +78,7 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
             rootView = null;
         }
 
-        rootView = inflater.inflate(R.layout.past_match_fragment, container, false);
+        rootView = inflater.inflate(R.layout.past_schecdule_fragment, container, false);
         initView();
         addDataRecyclerList();
 
