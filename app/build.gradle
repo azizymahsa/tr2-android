@@ -10,8 +10,8 @@ android {
         applicationId "com.traap.traapapp"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 72
-        versionName "2.0.1"
+        versionCode 80
+        versionName "2.2.1"
 
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
