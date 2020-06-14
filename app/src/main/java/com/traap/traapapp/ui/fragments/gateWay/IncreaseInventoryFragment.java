@@ -29,6 +29,7 @@ import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPaymen
 import com.traap.traapapp.utilities.ConvertPersianNumberToString;
 import com.traap.traapapp.utilities.MyGridView;
 import com.traap.traapapp.utilities.Tools;
+import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -339,8 +340,11 @@ public class IncreaseInventoryFragment extends BaseFragment implements View.OnCl
 
         String title = "با انجام این پرداخت، مبلغ " + txtAmount.getText().toString() + "ریال بابت \"افزایش موجودی\"، از حساب شما کسر خواهد شد.";
         String mobile = "";
-        mainView.openIncreaseWalletPaymentFragment(this, data.getUrl(), R.drawable.ic_increase_payment,
-                title, txtAmount.getText().toString(), paymentInstance, mobile, TrapConfig.PAYMENT_STATUS_INCREASE_WALLET);
+/*        mainView.openIncreaseWalletPaymentFragment(this, data.getUrl(), R.drawable.ic_increase_payment,
+                title, txtAmount.getText().toString(), paymentInstance, mobile, TrapConfig.PAYMENT_STATUS_INCREASE_WALLET);*/
+
+        Utility.openUrlCustomTab(getActivity(), data.getUrl());
+
     }
 
     @Override
