@@ -291,7 +291,7 @@ public class NewsMainContentFragment extends BaseFragment implements OnServiceSt
                 latestNewsList = newsMainResponse.getLatestNews();
                 favoriteNewsList = newsMainResponse.getFavoriteNews();
 
-                MainActivity.newsMainResponse = newsMainResponse;
+//                MainActivity.newsMainResponse = newsMainResponse;
 
                 setContent();
             }
