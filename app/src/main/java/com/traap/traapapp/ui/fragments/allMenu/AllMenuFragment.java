@@ -235,7 +235,8 @@ public class AllMenuFragment extends BaseFragment implements
             request.setDeviceType(TrapConfig.AndroidDeviceType);
             request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
             SingletonService.getInstance().getMenuService().getMenuAll(AllMenuFragment.this, request);
-        } else
+        }
+        else
         {
             layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
             recyclerView.setLayoutManager(layoutManager);
