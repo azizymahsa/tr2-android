@@ -63,6 +63,7 @@ public class PlayerEvaluationDialog extends DialogFragment implements Performanc
         super.onCreate(savedInstanceState);
         dialog = new Dialog(activity, R.style.MyAlertDialogStyle);
         dialog.setContentView(R.layout.alert_dialog_player_evaluation);
+
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
