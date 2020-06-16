@@ -127,7 +127,6 @@
                 android:layout_marginEnd="@dimen/_10dp"
                 android:gravity="center|end"
                 android:background="@drawable/background_disable_rec"
-
                 android:orientation="vertical">
 
 

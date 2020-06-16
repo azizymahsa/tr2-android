@@ -10,6 +10,8 @@ import com.traap.traapapp.apiServices.model.GlobalResponse3;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoResponse;
 import com.traap.traapapp.apiServices.model.availableAmount.AvailableAmounResponse;
+import com.traap.traapapp.apiServices.model.billCar.RequestBillCar;
+import com.traap.traapapp.apiServices.model.billCar.ResponseBillCar;
 import com.traap.traapapp.apiServices.model.billPayment.request.BillPaymentRequest;
 import com.traap.traapapp.apiServices.model.billPayment.response.BillPaymentResponse;
 import com.traap.traapapp.apiServices.model.bookMarkPhoto.BookMarkPhotoResponse;
@@ -302,6 +304,15 @@ public interface RetroClient
     @POST(Const.GetAllBoxes)
     Single<Response<WebServiceClass<GetAllBoxesResponse>>> getAllBoxes(
             @Body GetAllBoxesRequest request
+    );
+     @POST(Const.POST_BillCar)
+    Single<Response<WebServiceClass<ResponseBillCar>>> getAllBillCar(
+            @Body RequestBillCar request
+    );
+
+    @POST(Const.POST_BillMotorcycle)
+    Single<Response<WebServiceClass<ResponseBillCar>>> getAllBillMotor(
+            @Body RequestBillCar request
     );
 
     @POST(Const.ReservationMatch)
