@@ -161,7 +161,6 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     private String refrenceNumber;
     private Boolean isCompleteThreadMatch = false;
     private Boolean isCompleteThreadAllServices = false;
-    private Boolean isCompleteThreadNews = false;
     private ArrayList<MatchItem> matchBuyable;
     private String typeTransaction;
     private boolean hasPaymentCharge = false;
@@ -906,7 +905,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     public void hideLoading()
     {
 //        new Handler().postDelayed(() -> findViewById(R.id.rlLoading).setVisibility(View.GONE), 3000);
-        if (isCompleteThreadAllServices && isCompleteThreadMatch && isCompleteThreadNews)
+        if (isCompleteThreadAllServices && isCompleteThreadMatch)
         {
 //            Logger.e("isCompleteThreadAllServices", String.valueOf(isCompleteThreadAllServices));
 //            Logger.e("isCompleteThreadMatch", String.valueOf(isCompleteThreadMatch));
@@ -2479,7 +2478,6 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 //                    Prefs.clear();
                         isCompleteThreadAllServices = true;
                         isCompleteThreadMatch = true;
-                        isCompleteThreadNews = true;
                         hideLoading();
                         MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
                                 false, "تلاش مجدد", "", false, MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
@@ -2507,7 +2505,6 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 //                    Prefs.clear();
                         isCompleteThreadAllServices = true;
                         isCompleteThreadMatch = true;
-                        isCompleteThreadNews = true;
                         hideLoading();
                         MessageAlertDialog dialog = new MessageAlertDialog(MainActivity.this, "", "خظایی رخ داده است.",
                                 false, "تلاش مجدد", "", false, MessageAlertDialog.TYPE_MESSAGE, new MessageAlertDialog.OnConfirmListener()
@@ -2578,7 +2575,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
                         getMatchList();
                         getAllServicesList();
-                        getNewsMainContent();
+//                        getNewsMainContent();
                     }
                 } catch (Exception e)
                 {
@@ -2683,24 +2680,12 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                     isCompleteThreadAllServices = true;
                     hideLoading();
 
-
-                    if (response == null || response.info == null)
-                    {
-                        // startActivity(new Intent(this, A.class));
-                        return;
-                    }
-                    if (response.info.statusCode != 200)
-                    {
-                        // startActivityForResult(new Intent(this, LoginActivity.class));
-                        //  finish();
-
-                        return;
-                    }
                     if (response.info.statusCode == 200)
                     {
                         allServiceList = response.data.getResults();
                     }
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
 //                    mainView.showError(e.getMessage());
                     e.printStackTrace();
