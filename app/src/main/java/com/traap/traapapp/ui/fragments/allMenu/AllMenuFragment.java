@@ -235,7 +235,8 @@ public class AllMenuFragment extends BaseFragment implements
             request.setDeviceType(TrapConfig.AndroidDeviceType);
             request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
             SingletonService.getInstance().getMenuService().getMenuAll(AllMenuFragment.this, request);
-        } else
+        }
+        else
         {
             layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
             recyclerView.setLayoutManager(layoutManager);
@@ -544,7 +545,7 @@ public class AllMenuFragment extends BaseFragment implements
     }
 
     @Override
-    public void onChosenItemClickk(View view, Integer id, String URl,String baseuUrl)
+    public void onChosenItemClickk(View view, Integer id, String URl,String baseUrl)
     {
 
 
@@ -561,10 +562,17 @@ public class AllMenuFragment extends BaseFragment implements
 
 
 
-                Bundle headers = new Bundle();
-                headers.putString("Authorization",Prefs.getString("accessToken",""));
+                if (baseUrl != null)
+                {
+                    Utility.openUrlCustomTab(getActivity(), baseUrl);
+                }else{
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization",Prefs.getString("accessToken",""));
 
-                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                }
+
+
 
 
 
@@ -626,10 +634,15 @@ public class AllMenuFragment extends BaseFragment implements
 
 
 
-                Bundle headers = new Bundle();
-                headers.putString("Authorization",Prefs.getString("accessToken",""));
+                if (baseUrl != null)
+                {
+                    Utility.openUrlCustomTab(getActivity(), baseUrl);
+                }else{
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization",Prefs.getString("accessToken",""));
 
-                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                }
 
 
 
@@ -668,10 +681,16 @@ public class AllMenuFragment extends BaseFragment implements
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivityForResult(intent, 100);*/
 
-                Bundle headers = new Bundle();
-                headers.putString("Authorization",Prefs.getString("accessToken",""));
+                if (baseUrl != null)
+                {
+                    Utility.openUrlCustomTab(getActivity(), baseUrl);
+                }else{
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization",Prefs.getString("accessToken",""));
 
-                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                }
+
                 break;
             }
 
@@ -705,10 +724,16 @@ public class AllMenuFragment extends BaseFragment implements
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivityForResult(intent, 100);*/
 
-                Bundle headers = new Bundle();
-                headers.putString("Authorization",Prefs.getString("accessToken",""));
+                if (baseUrl != null)
+                {
+                    Utility.openUrlCustomTab(getActivity(), baseUrl);
+                }else{
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization",Prefs.getString("accessToken",""));
 
-                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                }
+
 
 
 
@@ -820,10 +845,16 @@ public class AllMenuFragment extends BaseFragment implements
                 intent.putExtra("TOKEN", "");
                 startActivityForResult(intent, 100);*/
 
-                Bundle headers = new Bundle();
-                headers.putString("Authorization",Prefs.getString("accessToken",""));
+                if (baseUrl != null)
+                {
+                    Utility.openUrlCustomTab(getActivity(), baseUrl);
+                }else{
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization",Prefs.getString("accessToken",""));
 
-                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                }
+
 
 
 
@@ -840,17 +871,31 @@ public class AllMenuFragment extends BaseFragment implements
                 intent.putExtra("TOKEN", "");
                 startActivityForResult(intent, 100);*/
 
-                Bundle headers = new Bundle();
-                headers.putString("Authorization",Prefs.getString("accessToken",""));
+                if (baseUrl != null)
+                {
+                    Utility.openUrlCustomTab(getActivity(), baseUrl);
+                }else{
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization",Prefs.getString("accessToken",""));
 
-                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                }
+
 
                 // Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 73: //  پارک حاشیه ای
             {
-                Utility.openUrlCustomTab(getActivity(), baseuUrl);
+                if (baseUrl != null)
+                {
+                    Utility.openUrlCustomTab(getActivity(), baseUrl);
+                }else{
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization",Prefs.getString("accessToken",""));
+
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                }
                 break;
             }
         }

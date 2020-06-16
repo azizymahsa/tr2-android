@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/_10dp">
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imgBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/test_event_1"
+        android:background="@drawable/button_main_background_border"
+        android:foreground="?attr/selectableItemBackground"
+        android:scaleType="fitXY"
+        app:riv_border_color="@color/buttonMainBorderColor"
+        app:riv_border_width="0dp"
+        app:riv_corner_radius="15dp"
+        app:riv_mutate_background="true"
+        app:riv_oval="false" />
+
+    <LinearLayout
+        android:id="@+id/llRoot"
+        android:foreground="?attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center|right|top"
+        android:layout_marginRight="@dimen/_10dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textSize_14dp"
+            android:text="◄ ﻣﻌﺮﻓﯽ ﮐﻤﭗ اﺳﺘﺎرﺗﺎﭘﯽ ﻫﻮش ﻣﺼﻨﻮﻋﯽ"
+            android:textAppearance="@style/IranSansBold"
+            android:textColor="@color/team_text_color"
+            android:layout_marginTop="@dimen/_20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textSize_12dp"
+            android:text="پنجشنبه 29 خرداد 1399"
+            android:layout_marginTop="20dp"
+            android:textAppearance="@style/IranSansBold"
+            android:textColor="@color/team_text_color"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textSize_12dp"
+            android:text="ﻣﺪرس: ﺷﯿﺮﯾﻦ ﺷﻤﺲ"
+            android:layout_marginTop="5dp"
+            android:textAppearance="@style/IranSansBold"
+            android:textColor="@color/team_text_color"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textSize_12dp"
+            android:text="راﯾﮕﺎن"
+            android:textAppearance="@style/IranSansBold"
+            android:textColor="@color/faded_Red"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

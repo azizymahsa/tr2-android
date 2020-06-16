@@ -24,7 +24,7 @@ import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
 import com.traap.traapapp.apiServices.model.tractorTeam.TractorTeamResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.IntroduceFragmentPagerAdapter;
+import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.FragmentsPagerAdapter;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.PlayerSearchAdapter;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.TeamPhotoAdapter;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -58,7 +58,7 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
     private BannerLayout blTeam;
     private TabLayout tabLayout;
     private WrapContentHeightViewPager view_pager;
-    private IntroduceFragmentPagerAdapter adapter;
+    private FragmentsPagerAdapter adapter;
     private NestedScrollView nestedScrollView;
     private ClearableEditText etSearchText;
     private CardView cvSearch;
@@ -257,7 +257,7 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
 
     private void addTabs(ViewPager viewPager)
     {
-        adapter = new IntroduceFragmentPagerAdapter(getChildFragmentManager());
+        adapter = new FragmentsPagerAdapter(getChildFragmentManager());
 
         adapter.addFrag("بازیکنان فعلی", new CurrentPlayersFragment(mainView));
         adapter.addFrag("کادر فنی", new TechnicalTeamFragment(mainView));

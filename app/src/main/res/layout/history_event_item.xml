@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_150dp"
+    android:padding="@dimen/_10dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center|right|top"
+        android:layout_marginRight="@dimen/_10dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:id="@+id/llRoot">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textSize_14dp"
+            android:text="ﻣﻌﺮﻓﯽ ﮐﻤﭗ اﺳﺘﺎرﺗﺎﭘﯽ ﻫﻮش ﻣﺼﻨﻮﻋﯽ"
+            android:textAppearance="@style/IranSansBold"
+            android:textColor="@color/team_text_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textSize_12dp"
+            android:text="پنجشنبه 29 خرداد 1399"
+            android:layout_marginTop="20dp"
+            android:textAppearance="@style/IranSansBold"
+            android:textColor="@color/team_text_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textSize_12dp"
+            android:text="ﻣﺪرس: ﺷﯿﺮﯾﻦ ﺷﻤﺲ"
+            android:layout_marginTop="5dp"
+            android:textAppearance="@style/IranSansBold"
+            android:textColor="@color/team_text_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize_12dp"
+                android:text="ﻣﺸﺎﻫﺪه ﺟﺰﺋﯿﺎت ⟵"
+                android:textAppearance="@style/IranSansBold"
+                android:textColor="@color/textHint" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="100"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize_12dp"
+                android:text="راﯾﮕﺎن"
+                android:textAppearance="@style/IranSansBold"
+                android:textColor="@color/faded_Red" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/textHint" />
+
+    </LinearLayout>
+
+</RelativeLayout>
