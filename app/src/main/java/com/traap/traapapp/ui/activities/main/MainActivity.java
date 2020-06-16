@@ -2575,7 +2575,6 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
                         getMatchList();
                         getAllServicesList();
-//                        getNewsMainContent();
                     }
                 } catch (Exception e)
                 {
@@ -2602,65 +2601,6 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
             }
         });
-    }
-
-    private Boolean getNewsMainContent()
-    {
-        isCompleteThreadNews = false;
-
-        SingletonService.getInstance().getNewsService().getNewsMain(new OnServiceStatus<WebServiceClass<NewsMainResponse>>()
-        {
-            @Override
-            public void onReady(WebServiceClass<NewsMainResponse> response)
-            {
-                try
-                {
-                    isCompleteThreadNews = true;
-                    hideLoading();
-                    if (response == null || response.info == null)
-                    {
-                        // startActivity(new Intent(this, A.class));
-                        return;
-                    }
-                    if (response.info.statusCode != 200)
-                    {
-                        // startActivity(new Intent(this, LoginActivity.class));
-                        //  finish();
-
-                        return;
-                    }
-                    if (response.info.statusCode == 200)
-                    {
-                        newsMainResponse = response.data;
-                        return;
-                    }
-                } catch (Exception e)
-                {
-                    e.printStackTrace();
-                    hideLoading();
-                }
-            }
-
-            @Override
-            public void onError(String message)
-            {
-                isCompleteThreadNews = true;
-                hideLoading();
-
-                if (Tools.isNetworkAvailable(MainActivity.this))
-                {
-                    Logger.e("-OnError-", "Error: " + message);
-                    showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
-                } else
-                {
-                    showError(MainActivity.this, getString(R.string.networkErrorMessage));
-
-                }
-
-            }
-        });
-
-        return isCompleteThreadNews;
     }
 
     private Boolean getAllServicesList()
@@ -2742,7 +2682,6 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                     public void onConfirmClick()
                     {
                         getAllServicesList();
-
                     }
 
                     @Override
