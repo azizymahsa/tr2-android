@@ -96,6 +96,7 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     private SimChargePaymentInstance simChargePaymentInstance;
     private TicketPaymentInstance ticketPaymentInstance;
     private SimPackPaymentInstance simPackPaymentInstance;
+    private int idBill=0;
 
 
     public PaymentFragment()
@@ -109,11 +110,12 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
                                                   String title,
                                                   int imgLogo,
                                                   String mobile,
-                                                  T response)
+                                                  T response,int idBill)
     {
         PaymentFragment fragment = new PaymentFragment();
         fragment.setParentActionView(paymentParentActionView);
 
+        fragment.setBillId(idBill);
         Bundle args = new Bundle();
 
         args.putInt("imgLogo", imgLogo);
@@ -126,6 +128,11 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
         fragment.setArguments(args);
 
         return fragment;
+    }
+
+    private void setBillId(int idBill)
+    {
+        this.idBill=idBill;
     }
 
 //    public static PaymentFragment newInstance(int PAYMENT_STATUS,

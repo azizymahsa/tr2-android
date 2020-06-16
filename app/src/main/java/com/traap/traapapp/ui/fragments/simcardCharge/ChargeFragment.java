@@ -1677,13 +1677,13 @@ public class ChargeFragment extends BaseFragment
     public void onPaymentCancelAndBack()
     {
         rootView.findViewById(R.id.container).setVisibility(View.GONE);
-//        transaction.detach(pFragment);
+//      transaction.detach(pFragment);
         contentView.setVisibility(View.VISIBLE);
         setBtnBackToCharge();
     }
 
     @Override
-    public void onBill()
+    public void onBill(String title,Integer idBillType)
     {
 
     }
@@ -2034,7 +2034,7 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void onBackToChargFragment(int PAYMENT_STATUS)
+    public void onBackToChargFragment(int PAYMENT_STATUS, Integer idBill)
     {
 
     }
@@ -2097,6 +2097,12 @@ public class ChargeFragment extends BaseFragment
 
     @Override
     public void onMediaPlayersFragment()
+    {
+
+    }
+
+    @Override
+    public void openBillPaymentFragment(String url, String textBillPayment, String number, Integer idSelectedBillType, String amount,int PAYMENT_STATUS_BILL)
     {
 
     }

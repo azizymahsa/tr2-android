@@ -861,7 +861,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             }
             case 65: //Bill
             {
-                mainView.onBill();
+                mainView.onBill("title", 0);
                 break;
             }
             case 42: //Pack
@@ -872,7 +872,9 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
             case 41: //Charge
             {
-                mainView.onChargeSimCard(0);
+                mainView.onBill( "title", 0);
+
+                //mainView.onChargeSimCard(0);
                 break;
             }
 
