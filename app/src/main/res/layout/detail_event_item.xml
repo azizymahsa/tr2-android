@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    android:id="@+id/llHeader"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center|right"
+    android:orientation="horizontal"
+    android:layout_marginTop="@dimen/_10dp"
+    android:layout_marginRight="@dimen/_10dp"
+    android:layout_marginLeft="@dimen/_10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <Spinner
+        android:id="@+id/spCount"
+        android:layout_width="0dp"
+        android:layout_weight="50"
+        android:layout_height="@dimen/_35dp"
+        android:layout_gravity="center"
+        android:gravity="right"
+        android:tag="allBox"
+        android:background="@drawable/background_spinner_custom" />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="60"
+        android:layout_height="wrap_content"
+        android:text="رایگان"
+        android:gravity="center|right"
+        android:textColor="@color/textHint3"
+        android:textSize="@dimen/textSize_14dp"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="60"
+        android:layout_height="wrap_content"
+        android:text="12 آبان"
+        android:gravity="center|right"
+        android:textColor="@color/textHint3"
+        android:textSize="@dimen/textSize_14dp"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="50"
+        android:layout_height="wrap_content"
+        android:text="کارگاه 1"
+        android:gravity="center|right"
+        android:textColor="@color/textHint3"
+        android:textSize="@dimen/textSize_14dp"/>
+
+</LinearLayout>

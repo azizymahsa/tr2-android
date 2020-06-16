@@ -94,7 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:layout_below="@+id/rl1"
-                    android:background="@drawable/background_ata_flight"
+                    android:background="@drawable/ata_banner_traap"
                     android:foreground="?attr/selectableItemBackground">
 
                     <LinearLayout
@@ -400,7 +400,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:visibility="visible">
+                        android:visibility="gone">
                         <!--مسابقات-->
                         <RelativeLayout
                             android:id="@+id/rlF3"
@@ -459,7 +459,8 @@
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_75sdp"
                             android:layout_margin="4dp"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            >
                             <!--                        android:background="@drawable/button_main_background_border">-->
 
                             <com.makeramen.roundedimageview.RoundedImageView

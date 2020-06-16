@@ -34,11 +34,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.browser.customtabs.CustomTabsIntent;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
-
-//import com.scottyab.aescrypt.AESCrypt;
+import com.traap.traapapp.R;
+import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.singleton.SingletonContext;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
@@ -60,17 +58,19 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.traap.traapapp.R;
-import com.traap.traapapp.conf.TrapConfig;
-import com.traap.traapapp.singleton.SingletonContext;
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import saman.zamani.persiandate.PersianDate;
 import saman.zamani.persiandate.PersianDateFormat;
 import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
 
+//import com.scottyab.aescrypt.AESCrypt;
+
 
 public class Utility
 {
-    private static boolean phoneNumberValidation=false;
+    private static boolean phoneNumberValidation = false;
 
     public static List<String> splite(String s, int chunkSize)
     {
@@ -87,7 +87,7 @@ public class Utility
     public static String getPersianDate(String dateFormatServer)
     {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd" );
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = dateFormat.format(dateFormatServer);  // formatted date in string
         String[] splitsDate = date.split("-");
 
@@ -354,8 +354,7 @@ public class Utility
         if (month < 10)
         {
             return "0" + month;
-        }
-        else
+        } else
         {
             return String.valueOf(month);
         }
@@ -827,10 +826,11 @@ public class Utility
 
         } catch (Exception e)
         {
-            Log.e("errr",   e.getMessage() );
+            Log.e("errr", e.getMessage());
             e.getMessage();
         }
     }
+
     public static void openUrlCustomTabWithBundle(Activity context, String url, Bundle headers)
     {
         try
@@ -848,7 +848,7 @@ public class Utility
 
         } catch (Exception e)
         {
-            Log.e("errr",   e.getMessage() );
+            Log.e("errr", e.getMessage());
             e.getMessage();
         }
     }
@@ -913,7 +913,7 @@ public class Utility
         }
 
         String check = number.substring(0, 4);
-       return check.equals("0910") || check.equals("0911") || check.equals("0912") || check.equals("0913")
+        return check.equals("0910") || check.equals("0911") || check.equals("0912") || check.equals("0913")
                 || check.equals("0914") || check.equals("0915") || check.equals("0916") || check.equals("0917")
                 || check.equals("0918") || check.equals("0919") || check.equals("0990") || check.equals("0991") || check.equals("0992");
         //return true;
@@ -936,8 +936,8 @@ public class Utility
         String check = number.substring(0, 4);
         return check.equals("0939") || check.equals("0938") || check.equals("0937") || check.equals("0936")
                 || check.equals("0935") || check.equals("0933") || check.equals("0930") || check.equals("0903")
-                || check.equals("0902") || check.equals("0901")|| check.equals("0905");
-       // return true;
+                || check.equals("0902") || check.equals("0901") || check.equals("0905");
+        // return true;
     }
 
     public static boolean rightelValidation(String number)
@@ -962,18 +962,17 @@ public class Utility
     {
         String startPhoneNo = number.substring(0, 4);
 
-        String[] typePhone_No = {"0990","0992","0991", "0910", "0911", "0912", "0913", "0914", "0915",
+        String[] typePhone_No = {"0990", "0992", "0991", "0910", "0911", "0912", "0913", "0914", "0915",
                 "0916", "0917", "0918", "0919", "0990"
-        ,"0901", "0902", "0903", "0905", "0930", "0933", "0935", "0936", "0937", "0938", "0939",
-                "0920", "0921", "0922" ,"0932","0933","0994"
+                , "0901", "0902", "0903", "0905", "0930", "0933", "0935", "0936", "0937", "0938", "0939",
+                "0920", "0921", "0922", "0932", "0933", "0994"
         };
         if (Arrays.asList(typePhone_No).contains(startPhoneNo))
         {
-            phoneNumberValidation=true;
-        }
-        else
+            phoneNumberValidation = true;
+        } else
         {
-            phoneNumberValidation=false;
+            phoneNumberValidation = false;
         }
 
         return !TextUtils.isEmpty(number) && phoneNumberValidation && number.length() >= 11;
@@ -988,7 +987,8 @@ public class Utility
         if (Arrays.asList(typePhone_No).contains(startPhoneNo))
         {
             return true;
-        }else {
+        } else
+        {
             return false;
         }
 
@@ -1000,23 +1000,20 @@ public class Utility
         Logger.e("-startPhoneNo-", startPhoneNo);
 
 
-        String[] typeMCI_No = {"0990","0992","0991", "0910", "0911", "0912", "0913", "0914", "0915", "0916", "0917", "0918", "0919", "0990"};
+        String[] typeMCI_No = {"0990", "0992", "0991", "0910", "0911", "0912", "0913", "0914", "0915", "0916", "0917", "0918", "0919", "0990"};
         String[] typeMTN_No = {"0901", "0902", "0903", "0905", "0930", "0933", "0935", "0936", "0937", "0938", "0939"};
         String[] typeRightel_No = {"0920", "0921", "0922"};
 
         if (Arrays.asList(typeMCI_No).contains(startPhoneNo))
         {
             return TrapConfig.SIM_TYPE_MCI;
-        }
-        else if (Arrays.asList(typeMTN_No).contains(startPhoneNo))
+        } else if (Arrays.asList(typeMTN_No).contains(startPhoneNo))
         {
             return TrapConfig.SIM_TYPE_MTN;
-        }
-        else if (Arrays.asList(typeRightel_No).contains(startPhoneNo))
+        } else if (Arrays.asList(typeRightel_No).contains(startPhoneNo))
         {
             return TrapConfig.SIM_TYPE_RIGHTELL;
-        }
-        else
+        } else
         {
             return TrapConfig.SIM_TYPE_OTHERS;
         }
@@ -1211,15 +1208,51 @@ public class Utility
         recyclerView.getAdapter().notifyDataSetChanged();
         recyclerView.scheduleLayoutAnimation();
     }
-  public static void changeFontInViewGroup(ViewGroup viewGroup, String fontPath) {
-        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+
+    public static void changeFontInViewGroup(ViewGroup viewGroup, String fontPath)
+    {
+        for (int i = 0; i < viewGroup.getChildCount(); i++)
+        {
             View child = viewGroup.getChildAt(i);
-            if (TextView.class.isAssignableFrom(child.getClass())) {
+            if (TextView.class.isAssignableFrom(child.getClass()))
+            {
                 CalligraphyUtils.applyFontToTextView(child.getContext(), (TextView) child, fontPath);
-            } else if (ViewGroup.class.isAssignableFrom(child.getClass())) {
+            } else if (ViewGroup.class.isAssignableFrom(child.getClass()))
+            {
                 changeFontInViewGroup((ViewGroup) viewGroup.getChildAt(i), fontPath);
             }
         }
+    }
+
+    public static String getNameNumber(Integer number)
+    {
+        switch (number)
+        {
+
+            case 0:
+                return "اول";
+            case 1:
+                return "دوم";
+            case 2:
+                return "سوم";
+            case 3:
+                return "چهارم";
+            case 4:
+                return "پنجم";
+            case 5:
+                return "ششم";
+            case 6:
+                return "هفتم";
+            case 7:
+                return "هشتم";
+            case 8:
+                return "نهم";
+            case 9:
+                return "دهم";
+            default:
+                return "";
+        }
+
     }
 
 }

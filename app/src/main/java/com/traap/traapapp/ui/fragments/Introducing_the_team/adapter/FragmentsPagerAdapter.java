@@ -18,12 +18,12 @@ import androidx.viewpager.widget.ViewPager;
  * Reza Nejati <reza.n.j.t.i@gmail.com>
  * Copyright © 2017
  */
-public class IntroduceFragmentPagerAdapter extends FragmentPagerAdapter
+public class FragmentsPagerAdapter extends FragmentPagerAdapter
 {
     private final ArrayList<Fragment> mFragmentList = new ArrayList<>();
     private final ArrayList<String> mFragmentTitleList = new ArrayList<>();
 
-    public IntroduceFragmentPagerAdapter(FragmentManager manager)
+    public FragmentsPagerAdapter(FragmentManager manager)
     {
         super(manager);
     }

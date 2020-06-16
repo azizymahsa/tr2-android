@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.FragmentManager;
@@ -40,8 +39,7 @@ import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.ui.fragments.Introducing_the_team.PositionInLeaguesFragment;
-import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.IntroduceFragmentPagerAdapter;
+import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.FragmentsPagerAdapter;
 import com.traap.traapapp.ui.fragments.headCoach.adapter.CommentAdapter;
 import com.traap.traapapp.ui.fragments.galleryIntroPlayer.MediaPlayersFragment;
 import com.traap.traapapp.ui.fragments.headCoach.model.CoachCommentModel;
@@ -72,7 +70,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     private TextView tvUserName, tvPopularPlayer;
     private TabLayout tabLayout;
     private com.traap.traapapp.utilities.WrapContentHeightViewPager view_pager;
-    private IntroduceFragmentPagerAdapter adapter;
+    private FragmentsPagerAdapter adapter;
     private Integer coachId = 4;
     private GetTechsIdResponse headProfileData;
     private RoundedImageView imgProfile;
@@ -376,7 +374,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
 
     private void addTabs(ViewPager viewPager)
     {
-        adapter = new IntroduceFragmentPagerAdapter(getChildFragmentManager());
+        adapter = new FragmentsPagerAdapter(getChildFragmentManager());
 
        /* adapter.addFrag("امتیازات", new CurrentPlayersFragment());
         adapter.addFrag("اتفاقات مهم", new TechnicalTeamFragment());

@@ -163,7 +163,7 @@
                                                 android:layout_alignParentLeft="true"
                                                 android:layout_centerVertical="true"
                                                 android:scaleType="center"
-                                                android:visibility="visible"
+                                                android:visibility="gone"
                                                 app:srcCompat="@drawable/ic_crash" />
 
                                             <ImageView
