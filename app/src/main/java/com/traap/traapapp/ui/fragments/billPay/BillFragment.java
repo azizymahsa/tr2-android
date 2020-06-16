@@ -1717,6 +1717,24 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
     }
 
+    @Override
+    public void onPerformanceEvaluation(Integer matchId, MatchItem matchItem)
+    {
+
+    }
+
+    @Override
+    public void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId)
+    {
+
+    }
+
+    @Override
+    public void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId)
+    {
+
+    }
+
 
     @Override
     public void onBill(String title,Integer idBillType)

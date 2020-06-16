@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:padding="@dimen/_10dp"
+    android:paddingTop="@dimen/_10dp"
+    android:paddingRight="@dimen/_10dp"
+    android:paddingLeft="@dimen/_10dp"
     android:orientation="vertical"
     android:background="@drawable/background_disable_rec">
 
@@ -193,23 +196,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5dp"
+        android:layout_marginBottom="@dimen/_5dp"
         android:orientation="horizontal"
         android:gravity="center"
         android:weightSum="2">
 
-       <!-- <TextView
-            android:id="@+id/tvPredictResult"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/_5dp"
-            android:layout_marginEnd="@dimen/_5dp"
-            android:layout_weight="0.8"
-            android:background="@drawable/background_border_a"
-            android:gravity="center"
-            android:text=" پیش بینی نتیجه"
-            android:textColor="@color/textColorPrimary"
-            android:textSize="@dimen/_10sdp" />-->
         <TextView
             android:id="@+id/tvPredictResult"
             android:layout_width="0dp"
@@ -222,8 +213,8 @@
             android:background="@drawable/background_border_red"
             android:textSize="@dimen/_10sdp"
             android:textColor="@color/textColorTitle"
-            android:text=" پیش بینی"
-            />
+            android:text=" پیش بینی" />
+
         <TextView
             android:id="@+id/tvBuyTicket"
             android:layout_width="0dp"
@@ -239,5 +230,49 @@
             android:text="خرید بلیت "/>
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlPerformance"
+        android:foreground="?attr/selectableItemBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:paddingBottom="4dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/gray"/>
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="@dimen/_30dp"
+            android:layout_height="@dimen/_30dp"
+            android:layout_gravity="center"
+            android:padding="6dp"
+            android:layout_marginTop="8dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_award"/>
+
+        <TextView
+            android:layout_toLeftOf="@+id/imgLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:gravity="right|center"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/textColorSubTitle"
+            android:text="ارزیابی عملکرد بازیکنان"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

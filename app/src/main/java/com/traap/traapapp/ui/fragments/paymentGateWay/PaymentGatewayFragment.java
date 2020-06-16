@@ -22,10 +22,8 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
 import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
-import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.singleton.SingletonPaymentPlace;
 import com.traap.traapapp.ui.adapters.leagues.DataBean;
-import com.traap.traapapp.ui.adapters.leagues.matchResult.MatchAdapter;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Utility;
@@ -34,7 +32,7 @@ import com.uncopt.android.widget.text.justify.JustifiedTextView;
 /**
  * Created by MahsaAzizi on 11/20/2019.
  */
-public class PaymentGatewayFragment extends Fragment implements OnAnimationEndListener, View.OnClickListener, MatchAdapter.ItemClickListener
+public class PaymentGatewayFragment extends Fragment implements OnAnimationEndListener, View.OnClickListener
 {
     private View rootView;
 
@@ -334,25 +332,6 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
 
 
         }
-
-    }
-
-
-    @Override
-    public void onItemClick(View view, int position, MatchItem matchItem)
-    {
-
-    }
-
-    @Override
-    public void onItemPredictClick(View view, int position, MatchItem matchItem)
-    {
-
-    }
-
-    @Override
-    public void onItemLogoTeamClick(View view, Integer id, String logo, String name)
-    {
 
     }
 }

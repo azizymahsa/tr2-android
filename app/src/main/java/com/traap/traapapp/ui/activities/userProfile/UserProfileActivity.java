@@ -283,7 +283,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         animHideButton = AnimationUtils.loadAnimation(UserProfileActivity.this, R.anim.hide_button);
         animShowButton = AnimationUtils.loadAnimation(UserProfileActivity.this, R.anim.show_button);
 
-        NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.nested);
+        NestedScrollView scrollView = findViewById(R.id.nested);
         btnConfirm = findViewById(R.id.btnConfirm);
         btnConfirmEditMobile = findViewById(R.id.btnConfirmEditMobile);
         btnEditNumDelete = findViewById(R.id.btnEditNumDelete);

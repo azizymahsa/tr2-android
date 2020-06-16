@@ -132,4 +132,10 @@ public class NextMatchesFragment extends BaseFragment implements MatchAdapter.It
             mainActionView.openPastResultFragment(LeagueTableParent.MatchScheduleFragment, "0", false, id.toString(), logo, title);
         }
     }
+
+    @Override
+    public void onPerformanceEvaluationClick(Integer matchId, MatchItem matchItem)
+    {
+
+    }
 }
