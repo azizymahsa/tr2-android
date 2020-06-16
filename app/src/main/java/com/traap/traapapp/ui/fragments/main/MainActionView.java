@@ -17,7 +17,7 @@ import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPaymen
 
 public interface MainActionView extends BaseView
 {
-    void onBill();
+    void onBill(String title,Integer idBillType);
 
     void onChargeSimCard(Integer status);
 
@@ -96,7 +96,7 @@ public interface MainActionView extends BaseView
     void getBuyEnable(BuyTicketAction buyTicketAction);
 
     void onSetPredictCompleted(Integer matchIdt, Boolean isPredictable, String message);
-    void onBackToChargFragment(int PAYMENT_STATUS);
+    void onBackToChargFragment(int PAYMENT_STATUS, Integer idBill);
 
     void backToAllServicePackage(Integer backState);
 
@@ -113,4 +113,6 @@ public interface MainActionView extends BaseView
     void onCompationTeam();
     void onHeadCoach(Integer coachId,String title,boolean flagFavorite);
     void onMediaPlayersFragment();
+
+    void openBillPaymentFragment(String url, String textBillPayment, String number, Integer idSelectedBillType,String amount,int PAYMENT_STATUS_BILL);
 }

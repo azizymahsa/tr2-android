@@ -55,6 +55,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     private JustifiedTextView tvTitlePay;
     private ImageView imgLogo;
     private int PAYMENT_STATUS =0;
+    private int idBill=0;
 
     public PaymentGatewayFragment()
     {
@@ -83,13 +84,19 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     }
 
 
-    public static PaymentGatewayFragment newInstance(MainActionView mainActionView, String url, int imageDrawable, String amount, String title, int PAYMENT_STATUS)
+    public static PaymentGatewayFragment newInstance(MainActionView mainActionView, String url, int imageDrawable, String amount, String title, int PAYMENT_STATUS,int idBill)
     {
         PaymentGatewayFragment fragment = new PaymentGatewayFragment();
+        fragment.setIdBill(idBill);
         Bundle args = new Bundle();
 
         fragment.setMainView(mainActionView, url, imageDrawable, amount, title,PAYMENT_STATUS);
         return fragment;
+    }
+
+    private void setIdBill(int idBill)
+    {
+        this.idBill=idBill;
     }
 
 
@@ -198,7 +205,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
         } else if (v.getId() == R.id.btnBack)
         {
 
-            mainView.onBackToChargFragment(PAYMENT_STATUS);
+            mainView.onBackToChargFragment(PAYMENT_STATUS, idBill);
            /* MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟",
                     true, "بله", "خیر", listener);
             dialog.show(getActivity().getFragmentManager(), "dialog");*/

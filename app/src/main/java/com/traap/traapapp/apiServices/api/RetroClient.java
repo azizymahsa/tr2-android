@@ -10,8 +10,10 @@ import com.traap.traapapp.apiServices.model.GlobalResponse3;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoResponse;
 import com.traap.traapapp.apiServices.model.availableAmount.AvailableAmounResponse;
-import com.traap.traapapp.apiServices.model.billPayment.request.BillPaymentRequest;
-import com.traap.traapapp.apiServices.model.billPayment.response.BillPaymentResponse;
+import com.traap.traapapp.apiServices.model.billPayment.BillPaymentRequest;
+import com.traap.traapapp.apiServices.model.billPayment.BillPaymentResponse;
+import com.traap.traapapp.apiServices.model.billPhone.BillPhoneRequest;
+import com.traap.traapapp.apiServices.model.billPhone.BillPhoneResponse;
 import com.traap.traapapp.apiServices.model.bookMarkPhoto.BookMarkPhotoResponse;
 import com.traap.traapapp.apiServices.model.buyChargeWallet.BuyChargeWalletRequest;
 import com.traap.traapapp.apiServices.model.buyChargeWallet.BuyChargeWalletResponse;
@@ -443,12 +445,6 @@ public interface RetroClient
             @Body GetInfoPhoneBillRequest request
     );
 
-
-    @POST(Const.BillPayment)
-    Single<Response<WebServiceClass<BillPaymentResponse>>> billPayment(
-            @Body BillPaymentRequest request
-    );
-
     @POST(Const.GetInfoBill)
     Single<Response<WebServiceClass<GetInfoBillResponse>>> getInfoBill(
             @Body GetInfoBillRequest request
@@ -841,6 +837,16 @@ public interface RetroClient
     @POST(Const.POST_Suggestions)
     Single<Response<WebServiceClass<ResponseSuggestions>>> postSuggestions(
             @Body RequestSuggestions request
+    );
+
+    @POST(Const.BILL_PHONE)
+    Single<Response<WebServiceClass<BillPhoneResponse>>> postBillPhone(
+            @Body BillPhoneRequest request
+    );
+
+    @POST(Const.BILL_PAYMENT)
+    Single<Response<WebServiceClass<BillPaymentResponse>>> postBillPayment(
+            @Body BillPaymentRequest request
     );
 
 

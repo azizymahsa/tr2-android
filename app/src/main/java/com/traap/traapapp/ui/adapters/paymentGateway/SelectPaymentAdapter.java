@@ -27,6 +27,7 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
     private final MainActionView mainActionView;
     private final String amount;
     private final String title;
+    private  int idBill=0;
     private  String url;
     private final int imageDrawable;
     private final String mobile;
@@ -76,7 +77,7 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
     }
 
 
-    public SelectPaymentAdapter(FragmentManager fragmentManager, int tabCount, MainActionView mainView, String amount, String title, int imageDrawable, String mobile, String url, SimChargePaymentInstance simChargePaymentInstance, SimPackPaymentInstance simPackPaymentInstance,int payment_status)
+    public SelectPaymentAdapter(FragmentManager fragmentManager, int tabCount, MainActionView mainView, String amount, String title, int imageDrawable, String mobile, String url, SimChargePaymentInstance simChargePaymentInstance, SimPackPaymentInstance simPackPaymentInstance,int payment_status,int idBill)
     {
         super(fragmentManager);
         this.url = url;
@@ -89,6 +90,7 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
         this.simChargePaymentInstance = simChargePaymentInstance;
         this.simPackPaymentInstance=simPackPaymentInstance;
         this.PAYMENT_STATUS=payment_status;
+        this.idBill=idBill;
 
     }
 
@@ -109,18 +111,18 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
         switch (position)
         {
             case 2:
-                PaymentWalletFragment tab2 = PaymentWalletFragment.newInstance(mainActionView,imageDrawable, simChargePaymentInstance,amount,mobile,title ,simPackPaymentInstance,PAYMENT_STATUS);
+                PaymentWalletFragment tab2 = PaymentWalletFragment.newInstance(mainActionView,imageDrawable, simChargePaymentInstance,amount,mobile,title ,simPackPaymentInstance,PAYMENT_STATUS,idBill);
 
                 return tab2;
             case 0:
 
-                PaymentGatewayFragment tab1 = PaymentGatewayFragment.newInstance(mainActionView,url,imageDrawable,amount,title,PAYMENT_STATUS);
+                PaymentGatewayFragment tab1 = PaymentGatewayFragment.newInstance(mainActionView,url,imageDrawable,amount,title,PAYMENT_STATUS,idBill);
 
                 return tab1;
 
             case 1:
                 PaymentFragment tab3 = PaymentFragment.newInstance(this, amount, title, imageDrawable,
-                        mobile, paymentInstance);
+                        mobile, paymentInstance,idBill);
 
                 return tab3;
 

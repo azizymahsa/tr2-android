@@ -227,4 +227,7 @@ public class Const
     //Suggestions
     public final static String POST_Suggestions=SubBASEURL+"v1/feedback/";
 
+    public final static String BILL_PHONE=SubBASEURL+"v1/bill/phone/";
+    public final static String BILL_PAYMENT=SubBASEURL+"v1/bill/payment/";
+
 }

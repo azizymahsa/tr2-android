@@ -33,6 +33,9 @@ public class TrapConfig
     public static final int PAYMENT_STATUS_INCREASE_WALLET = 13;
     public static final int PAYMENT_STATUS_TRANSFER_MONEY= 2;
 
+    public static final int PAYMENT_STATUS_BILL = 9;
+
+
 
     public static final String UNIQUE_CODE_Flight_Ata = "MGZlOTg5ZWEtNGVkNS00ZjcxLThjYmEtYzZiYjM2Yzk2MzQ1";
     public static final String UNIQUE_CODE_HOTEL = "ZWQzNzkwYjctYzBmMy00MTc0LWFmMjYtYTc0NWE0ZTM1OGRh";

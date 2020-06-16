@@ -16,8 +16,6 @@ import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -89,7 +87,6 @@ import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.competitions.CompationsFragment;
 import com.traap.traapapp.ui.fragments.competitions.QuestionCompationFragment;
-import com.traap.traapapp.ui.fragments.galleryIntroPlayer.MediaPlayersFragment;
 import com.traap.traapapp.ui.fragments.gateWay.WalletFragment;
 import com.traap.traapapp.ui.fragments.headCoach.HeadCoachFragment;
 import com.traap.traapapp.ui.fragments.inviteFriend.InviteFriendsFragment;
@@ -114,7 +111,6 @@ import com.traap.traapapp.ui.fragments.paymentWithoutCard.PaymentWithoutCardFrag
 import com.traap.traapapp.ui.fragments.photo.archive.PhotosArchiveActionView;
 import com.traap.traapapp.ui.fragments.photo.archive.PhotosArchiveFragment;
 import com.traap.traapapp.ui.fragments.predict.PredictFragment;
-import com.traap.traapapp.ui.fragments.predict.predictResult.PredictResultResultFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.ChargeFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
 import com.traap.traapapp.ui.fragments.simcardPack.PackFragment;
@@ -172,6 +168,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     private boolean hasPaymentPackageSimcard = false;
     private int PAYMENT_STATUS = 0;
     private boolean hasPaymentIncreaseWallet = false;
+    private boolean hasPaymentBill=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -272,6 +269,8 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_INCREASE_WALLET)
                 {
                     hasPaymentIncreaseWallet = true;
+                }else if (Integer.valueOf(typeTransaction)==TrapConfig.PAYMENT_STATUS_BILL){
+                    hasPaymentBill=true;
                 }
 
             } catch (Exception e)
@@ -630,7 +629,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 fragmentList.remove(fragmentList.size()-1); //remove SelectPaymentGatewayFragment
                 fragmentList.remove(fragmentList.size()-1); //remove ChargeFragment and add it again.
 
-                onBackToChargFragment(Prefs.getInt("PAYMENT_STATUS", PAYMENT_STATUS));
+                onBackToChargFragment(Prefs.getInt("PAYMENT_STATUS", PAYMENT_STATUS),  Prefs.getInt("ID_BILL",0));
             }
             else if (getFragment() instanceof ChargeFragment && backState == 2 || getFragment() instanceof PackFragment && backState == 2)
             {
@@ -640,6 +639,20 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 isMainFragment = false;
 
                 fragmentList.remove(fragmentList.size()-1); //remove ChargeFragment || PackFragment
+                fragmentList.remove(fragmentList.size()-1); //remove AllMenuFragment and add it again.
+
+                setFragment(AllMenuFragment.newInstance(this, allServiceList, backState));
+                replaceFragment(getFragment(), "allMenuFragment");
+
+            }
+            else if (getFragment() instanceof BillFragment  )
+            {
+//                        setCheckedBNV(bottomNavigationView, 3);
+                setCheckedBNV(bottomNavigationView, 2);
+
+                isMainFragment = false;
+
+                fragmentList.remove(fragmentList.size()-1); //remove BillFragment
                 fragmentList.remove(fragmentList.size()-1); //remove AllMenuFragment and add it again.
 
                 setFragment(AllMenuFragment.newInstance(this, allServiceList, backState));
@@ -937,11 +950,11 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void onBill()
+    public void onBill(String title,Integer idBillType)
     {
         isMainFragment = false;
-        String titleBill = "قبض تلفن همراه";
-        int idBillType = 5;
+        String titleBill = title;
+        idBillType = idBillType;
         setFragment(BillFragment.newInstance(this, titleBill, idBillType));
         replaceFragment(getFragment(), "billFragment");
 
@@ -985,6 +998,19 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     @Override
     public void onMediaPlayersFragment()
     {
+
+    }
+
+    @Override
+    public void openBillPaymentFragment(String url, String textBillPayment, String number, Integer idSelectedBillType,String amount,int
+            PAYMENT_STATUS_BILL)
+    {
+        isMainFragment = false;
+        Prefs.putInt("PAYMENT_STATUS", PAYMENT_STATUS_BILL);
+        Prefs.putInt("ID_BILL",idSelectedBillType);
+        setFragment(SelectPaymentGatewayFragment.newInstance( url, this,
+                textBillPayment, number, idSelectedBillType,amount,PAYMENT_STATUS_BILL));
+        replaceFragment(getFragment(), "selectPaymentGatewayFragment");
 
     }
 
@@ -1262,7 +1288,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             fragmentList.remove(fragmentList.size()-1); //remove ChargeFragment and add it again.
             int PAYMENTstatus = data.getIntExtra("PaymentStatus", 0);
 
-            onBackToChargFragment(PAYMENTstatus);
+            onBackToChargFragment(PAYMENTstatus, 0);
         }else if ( resultCode == Activity.RESULT_OK && requestCode ==44){
 
 
@@ -2216,7 +2242,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void onBackToChargFragment(int PAYMENT_STATUS)
+    public void onBackToChargFragment(int PAYMENT_STATUS, Integer idBill)
     {
 
         if (PAYMENT_STATUS == 3)
@@ -2236,6 +2262,11 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             isMainFragment = false;
             setFragment(WalletFragment.newInstance(this, 1));//IncreaseInventoryFragment
             replaceFragment(getFragment(), "IncreaseInventoryFragment");
+        }else if (PAYMENT_STATUS==TrapConfig.PAYMENT_STATUS_BILL)
+        {
+            isMainFragment = false;
+            setFragment(BillFragment.newInstance(this,idBill));
+            replaceFragment(getFragment(), "BillFragment");
         }
     }
 

@@ -80,7 +80,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     private ImageView imgLogo;
     private int PAYMENT_STATUS =0;
     public Integer balance=0;
-
+    private int idBill=0;
 
 
     public PaymentWalletFragment()
@@ -100,13 +100,19 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
 
 
-    public static PaymentWalletFragment newInstance(MainActionView mainActionView, int imageDrawable, SimChargePaymentInstance simChargePaymentInstance, String amount, String mobile, String title, SimPackPaymentInstance simPackPaymentInstance,int PAYMENT_STATUS)
+    public static PaymentWalletFragment newInstance(MainActionView mainActionView, int imageDrawable, SimChargePaymentInstance simChargePaymentInstance, String amount, String mobile, String title, SimPackPaymentInstance simPackPaymentInstance,int PAYMENT_STATUS,int idBill)
     {
         PaymentWalletFragment fragment = new PaymentWalletFragment();
+        fragment.setIdBill(idBill);
         Bundle args = new Bundle();
 
         fragment.setMainView(mainActionView, imageDrawable, amount, title,simChargePaymentInstance,mobile,simPackPaymentInstance,PAYMENT_STATUS);
         return fragment;
+    }
+
+    private void setIdBill(int idBill)
+    {
+        this.idBill=idBill;
     }
 
     private void setMainView(MainActionView mainView, int imageDrawable, String amount, String title, SimChargePaymentInstance simChargePaymentInstance, String mobile, SimPackPaymentInstance simPackPaymentInstance,int PAYMENT_STATUS)
@@ -286,7 +292,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
         }
         else if (v.getId() == R.id.btnBack)
         {
-            mainView.onBackToChargFragment(PAYMENT_STATUS);
+            mainView.onBackToChargFragment(PAYMENT_STATUS, idBill);
         }
     };
 
