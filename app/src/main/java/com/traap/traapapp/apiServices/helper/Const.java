@@ -9,10 +9,11 @@ public class Const
     public static final boolean TEST = false;
 
     //-----------------------------------------------------------------------------
-    public final static String BASEURL = "http://5.253.25.117:9000/";     //developing
+   public final static String BASEURL = "http://5.253.25.117:9000/";     //developing
     //public final static String BASEURL = "http:/stage-rest.traap.com/";     //developing
     //public final static String BASEURL = "http://5.253.25.117:5000/";     //pre Live
     //public final static String BASEURL = "http://79.175.146.58:8000/";     //pre Live
+   // public final static String BASEURL = "https://restapp.traap.com/";   //Live
 //    public final static String BASEURL = "https://restapp.traap.com/";   //Live
 
     private static final String SubBASEURL = "api/";

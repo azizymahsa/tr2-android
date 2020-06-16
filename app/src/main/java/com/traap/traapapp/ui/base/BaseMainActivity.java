@@ -16,19 +16,19 @@ public class BaseMainActivity extends BaseActivity
     protected List<Fragment> fragmentList = new ArrayList<>();
 
     @Getter @Setter
-    private Fragment fragment, mainFragment;
+    public Fragment fragment, mainFragment;
 
     @Getter @Setter
-    private FragmentManager myFragmentManager;
+    public FragmentManager myFragmentManager;
 
     @Getter @Setter
-    private FragmentTransaction transaction;
+    public FragmentTransaction transaction;
 
     @Getter @Setter
-    private  @IdRes int containerViewId;
+    public   @IdRes int containerViewId;
 
 
-    protected void addFragment(Fragment fragment, String tag)
+    public void addFragment(Fragment fragment, String tag)
     {
         transaction = myFragmentManager.beginTransaction();
         transaction.add(getContainerViewId(), fragment, tag)
@@ -36,7 +36,7 @@ public class BaseMainActivity extends BaseActivity
         fragmentList.add(fragment);
     }
 
-    protected void replaceFragment(Fragment fragment, String tag)
+    public void replaceFragment(Fragment fragment, String tag)
     {
         transaction = myFragmentManager.beginTransaction();
         transaction.replace(getContainerViewId(), fragment, tag)
@@ -44,7 +44,7 @@ public class BaseMainActivity extends BaseActivity
         fragmentList.add(fragment);
     }
 
-    protected void backToParentFragment()
+    public void backToParentFragment()
     {
         if (fragmentList.size() > 2)
         {
@@ -63,7 +63,7 @@ public class BaseMainActivity extends BaseActivity
         }
     }
 
-    protected void removeAndBackToMainFragment()
+    public void removeAndBackToMainFragment()
     {
         fragmentList = new ArrayList<>();
         fragmentList.add(getMainFragment());

@@ -5,7 +5,6 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.buyChargeWallet.BuyChargeWalletRequest;
 import com.traap.traapapp.apiServices.model.buyChargeWallet.BuyChargeWalletResponse;
-import com.traap.traapapp.ui.fragments.payment.PaymentActionView;
 
 /**
  * Created by MahtabAzizi on 12/10/2019.
@@ -29,7 +28,11 @@ public class BuyChargeWalletImpl implements BuyChargeWalletInteractor
             {
                 try
                 {
-                    listener.onSuccessBuyChargeWallet(getBuyChargeWalletResponse);
+                    if (getBuyChargeWalletResponse.info.statusCode == 200)
+                        listener.onSuccessBuyChargeWallet(getBuyChargeWalletResponse);
+                    else
+                        listener.onErrorBuyChargeWallet(getBuyChargeWalletResponse.info.message);
+
 
                 } catch (Exception e)
                 {
