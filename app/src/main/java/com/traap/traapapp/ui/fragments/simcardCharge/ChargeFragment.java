@@ -2107,6 +2107,24 @@ public class ChargeFragment extends BaseFragment
 
     }
 
+    @Override
+    public void onPerformanceEvaluation(Integer matchId, MatchItem matchItem)
+    {
+
+    }
+
+    @Override
+    public void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId)
+    {
+
+    }
+
+    @Override
+    public void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId)
+    {
+
+    }
+
     private void closeAutoComplete()
     {
         autoCompletePhoneNumberRightel.dismissDropDown();
