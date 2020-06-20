@@ -20,6 +20,29 @@ public class BillPaymentRequest
     @SerializedName("pay_code")
     @Expose
     private String payCode;
+    @SerializedName("type")
+    @Expose
+    private String type;
+    @SerializedName("gwe_bill_id")
+    @Expose
+    private String gweBillId;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getGweBillId() {
+        return gweBillId;
+    }
+
+    public void setGweBillId(String gweBillId) {
+        this.gweBillId = gweBillId;
+    }
+
 
     public Integer getAmount() {
         return amount;

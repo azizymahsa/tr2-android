@@ -10,6 +10,9 @@ import com.traap.traapapp.apiServices.model.GlobalResponse3;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoResponse;
 import com.traap.traapapp.apiServices.model.availableAmount.AvailableAmounResponse;
+import com.traap.traapapp.apiServices.model.billCode.BillCodeResponse;
+import com.traap.traapapp.apiServices.model.billElectricity.BillElectricityRequest;
+import com.traap.traapapp.apiServices.model.billElectricity.BillElectricityResponse;
 import com.traap.traapapp.apiServices.model.billPayment.BillPaymentRequest;
 import com.traap.traapapp.apiServices.model.billPayment.BillPaymentResponse;
 import com.traap.traapapp.apiServices.model.billPhone.BillPhoneRequest;
@@ -849,5 +852,22 @@ public interface RetroClient
             @Body BillPaymentRequest request
     );
 
+    @POST(Const.BILL_ELECTRICITY)
+    Single<Response<WebServiceClass<BillElectricityResponse>>> postBillElectricity(
+            @Body BillElectricityRequest request
+    );
 
+    @POST(Const.BILL_GAZ)
+    Single<Response<WebServiceClass<BillCodeResponse>>> postBillGaz(
+            @Body BillPhoneRequest request
+    );
+    @POST(Const.BILL_MCI)
+Single<Response<WebServiceClass<BillPhoneResponse>>> postBillMci(
+                @Body BillPhoneRequest request
+        );
+
+    @POST(Const.BILL_WATER)
+Single<Response<WebServiceClass<BillCodeResponse>>> postBillWater(
+                @Body BillPhoneRequest request
+        );
 }
