@@ -2315,13 +2315,13 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     public void backToAllServicePackage(Integer backState)
     {
 
-        if (this.backState == 2)
+        if (backState == 2)
         {
             setCheckedBNV(bottomNavigationView, 2);
 
             isMainFragment = false;
 
-            setFragment(AllMenuFragment.newInstance(this, allServiceList, this.backState));
+            setFragment(AllMenuFragment.newInstance(this, allServiceList, backState));
             replaceFragment(getFragment(), "allMenuFragment");
         }
         else

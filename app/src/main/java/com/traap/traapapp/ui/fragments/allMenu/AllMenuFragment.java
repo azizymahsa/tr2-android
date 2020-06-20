@@ -773,6 +773,11 @@ public class AllMenuFragment extends BaseFragment implements
                 break;
             }
 
+            case 61: //قبض برق
+            {
+                mainView.onBill("قبض برق" ,1);
+                break;
+            }
             case 62: //قبض آبفا
             {
                 mainView.onBill("قبض آبفا" ,1);
@@ -780,7 +785,7 @@ public class AllMenuFragment extends BaseFragment implements
             }
             case 63: //قبض گاز
             {
-                mainView.onBill("قبض گاز" ,2);
+                mainView.onBill("قبض گاز" ,3);
                 break;
             }
             case 64: //قبض تلفن ثابت
