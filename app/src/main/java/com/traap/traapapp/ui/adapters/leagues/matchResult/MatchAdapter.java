@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -62,6 +63,14 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
 
         // holder.rlHost.setOnClickListener(mClickListener.onItemLogoTeamClick(););
 
+        if (parent != MatchScheduleParent.PastResultFragment)
+        {
+            holder.rlPerformance.setVisibility(View.GONE);
+        }
+        else
+        {
+            holder.rlPerformance.setVisibility(View.VISIBLE);
+        }
 
         try
         {
@@ -230,6 +239,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
         ImageView imgGuest;
         ImageView imgCenter;
         LinearLayout lnrBuyEnable;
+        private RelativeLayout rlPerformance;
 
         ViewHolder(View itemView)
         {
@@ -253,11 +263,13 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
             tvMatchResult = itemView.findViewById(R.id.tvMatchResult);
             progress = itemView.findViewById(R.id.progress);
             lnrBuyEnable = itemView.findViewById(R.id.lnrBuyEnable);
+            rlPerformance = itemView.findViewById(R.id.rlPerformance);
 
             rlGuest.setOnClickListener(this);
             rlHost.setOnClickListener(this);
             tvBuyTicket.setOnClickListener(this);
             tvPredictResult.setOnClickListener(this);
+            rlPerformance.setOnClickListener(this);
         }
 
 
@@ -267,19 +279,23 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
             switch (v.getId())
             {
                 case R.id.tvBuyTicket:
+                {
                     if (mClickListener != null)
                     {
                         mClickListener.onItemClick(view, getAdapterPosition(), pastMatchesList.get(getAdapterPosition()));
                     }
                     break;
+                }
                 case R.id.tvPredictResult:
+                {
                     if (mClickListener != null)
                     {
                         mClickListener.onItemPredictClick(view, getAdapterPosition(), pastMatchesList.get(getAdapterPosition()));
                     }
                     break;
-
+                }
                 case R.id.rlHost:
+                {
                     if (mClickListener != null)
                     {
                         mClickListener.onItemLogoTeamClick(view,
@@ -290,7 +306,9 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
                         );
                     }
                     break;
+                }
                 case R.id.rlGuest:
+                {
                     if (mClickListener != null)
                     {
                         mClickListener.onItemLogoTeamClick(view,
@@ -301,6 +319,15 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
                         );
                     }
                     break;
+                }
+                case R.id.rlPerformance:
+                {
+                    if (mClickListener != null)
+                    {
+                        mClickListener.onPerformanceEvaluationClick(pastMatchesList.get(getAdapterPosition()).getId(), pastMatchesList.get(getAdapterPosition()));
+                        break;
+                    }
+                }
             }
         }
     }
@@ -314,6 +341,8 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder>
         void onItemPredictClick(View view, int position, MatchItem matchItem);
 
         void onItemLogoTeamClick(View view, Integer id, String logo, String name);
+
+        void onPerformanceEvaluationClick(Integer matchId, MatchItem matchItem);
     }
 }
 

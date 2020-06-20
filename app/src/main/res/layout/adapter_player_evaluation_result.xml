@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@android:color/transparent"
+    android:layoutDirection="ltr"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:layout_marginBottom="2dp">
+
+    <TextView
+        android:id="@+id/tvAvgEvaluation"
+        android:layout_width="0dp"
+        android:layout_weight="1.7"
+        android:layout_height="wrap_content"
+        android:text="میانگین ارزیابی سایرین"
+        android:gravity="center"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="@dimen/textSize_12dp"/>
+
+    <TextView
+        android:id="@+id/tvMyEvaluation"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="ارزیابی شما"
+        android:gravity="center"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="@dimen/textSize_12dp"/>
+
+    <TextView
+        android:id="@+id/tvEvaluationIndex"
+        android:layout_width="0dp"
+        android:layout_weight="2.3"
+        android:layout_height="wrap_content"
+        android:text="شاخص ارزیابی"
+        android:gravity="right"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="@dimen/textSize_12dp"/>
+
+</LinearLayout>

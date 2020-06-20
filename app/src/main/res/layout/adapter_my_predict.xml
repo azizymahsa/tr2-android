@@ -195,44 +195,38 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:id="@+id/rlWinnerList"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
 
-            <RelativeLayout
-                android:id="@+id/rlWinnerList"
-                android:foreground="?attr/selectableItemBackground"
+            <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="@dimen/_30dp"
+                android:layout_height="@dimen/_30dp"
+                android:layout_gravity="center"
+                android:padding="6dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_award"/>
+
+            <TextView
+                android:layout_toLeftOf="@+id/imgLogo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="4dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true">
-
-                <ImageView
-                    android:id="@+id/imgLogo"
-                    android:layout_width="@dimen/_30dp"
-                    android:layout_height="@dimen/_30dp"
-                    android:layout_gravity="center"
-                    android:padding="6dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:scaleType="fitCenter"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/ic_award"/>
-
-                <TextView
-                    android:layout_toLeftOf="@+id/imgLogo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center"
-                    android:gravity="right|center"
-                    android:textSize="@dimen/_10sdp"
-                    android:textColor="@color/textColorSecondary"
-                    android:text="لیست برندگان"/>
-
-            </RelativeLayout>
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:gravity="right|center"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/textColorSecondary"
+                android:text="لیست برندگان"/>
 
             <TextView
                 android:id="@+id/tvPoint"
