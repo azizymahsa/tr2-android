@@ -279,7 +279,7 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView ->
-                        mainView.backToAllServicePackage(backState)
+                        mainView.backToAllServicePackage(2)
                 // onClickContinueBuyChargeListener.onBackClicked()
         );
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
@@ -929,8 +929,8 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
 
     private void requestBillPayment( BillCodeResponse responseBillCode,BillPhoneResponse responseTerm){
-        btnOkTerm.startAnimation();
-        btnOkTerm.setClickable(false);
+
+       mainView.showLoading();
         BillPaymentRequest request = new BillPaymentRequest();
 
         if (idSelectedBillType==4||idSelectedBillType==5)
@@ -963,6 +963,8 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
             if (responseBillCode.getBillId()!=null)
             {
                 request.setGweBillId(responseBillCode.getBillId());
+            }else {
+                request.setGweBillId("");
             }
         }
 
@@ -972,11 +974,11 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
             @Override
             public void onReady(WebServiceClass<BillPaymentResponse> response)
             {
+                mainView.hideLoading();
+
                 try
                 {
 
-                    btnOkTerm.revertAnimation(BillFragment.this);
-                    btnOkTerm.setClickable(true);
                     if (response.info.statusCode == 200)
                     {
 
@@ -999,8 +1001,8 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
             @Override
             public void onError(String message)
             {
-                btnOkTerm.revertAnimation(BillFragment.this);
-                btnOkTerm.setClickable(true);
+                mainView.hideLoading();
+
                 if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
                 {
 
