@@ -78,6 +78,7 @@ import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.adapters.MyBillsAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.dialogs.bill.BillCodeInfoDialog;
 import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
@@ -905,9 +906,29 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
     private void onGetBillCodeSuccess(BillCodeResponse data, String billCode, Integer idSelectedBillType)
     {
 
+
+        BillCodeInfoDialog dialog = new BillCodeInfoDialog(getActivity(), data,
+                new BillCodeInfoDialog.OnConfirmListener()
+                {
+                    @Override
+                    public void onConfirmClick(BillCodeResponse response)
+                    {
+
+                        requestBillPayment(response,null);
+                    }
+
+                    @Override
+                    public void onCancelClick()
+                    {
+                    }
+                });
+        dialog.show(getFragmentManager(), "dialog");
+
     }
 
-    private void requestBillPayment(BillPhoneResponse responseTerm){
+
+
+    private void requestBillPayment( BillCodeResponse responseBillCode,BillPhoneResponse responseTerm){
         btnOkTerm.startAnimation();
         btnOkTerm.setClickable(false);
         BillPaymentRequest request = new BillPaymentRequest();
@@ -934,12 +955,15 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
             }
         }else {
-            request.setAmount(responseTerm.get2().getAmount());
-            request.setBillCode(responseTerm.getBillCode());
-            request.setBillTerm("");
+            request.setAmount(responseBillCode.getAmount());
+            request.setBillCode(responseBillCode.getBillCode());
+            request.setBillTerm("2");
             request.setType(idSelectedBillType.toString());
-            request.setPayCode(responseTerm.get2().getPayCode());
-            request.setGweBillId(gweBillId);
+            request.setPayCode(responseBillCode.getPayCode());
+            if (responseBillCode.getBillId()!=null)
+            {
+                request.setGweBillId(responseBillCode.getBillId());
+            }
         }
 
 
@@ -997,22 +1021,37 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
     private void onPaymentBillSuccess(BillPaymentResponse data, String number, Integer idSelectedBillType, BillPaymentRequest request)
     {
         String typeBill="";
+        String numberText ="";
         if (request.getBillTerm().equals("1")){
             termText="میان دوره";
-        }else {
+        }else if (request.getBillTerm().equals("2")&&idSelectedBillType.equals(4)||idSelectedBillType.equals(5)){
             termText="پایان دوره";
+        }else {
+            termText="";
         }
         if (idSelectedBillType==4){
             typeBill=" تلفن ثابت'";
-            tvPhoneNumberTerm.setText(number);
+            numberText = " برای شماره " + request.getBillCode();
         }else if (idSelectedBillType==5){
             typeBill=" تلفن همراه'";
+            numberText = " برای شماره " + request.getBillCode();
+
+        } else if (idSelectedBillType==1){
+            typeBill=" آب'";
+            numberText="";
+         }else if (idSelectedBillType==2){
+         typeBill=" برق'";
+            numberText="";
+        }else if (idSelectedBillType==3){
+        typeBill=" گاز'";
+            numberText="";
+
         }
 
-
-        String textBillPayment=   "با انجام این پرداخت، مبلغ "+Utility.priceFormat(request.getAmount()) +" ریال بابت ' قبض " +termText+typeBill+" برای شماره "
-            + request.getBillCode()+"، از حساب شما کسر خواهد شد."   ;
+        String textBillPayment=   "با انجام این پرداخت، مبلغ "+Utility.priceFormat(request.getAmount()) +" ریال بابت ' قبض " +termText+typeBill+numberText
+            +"، از حساب شما کسر خواهد شد."   ;
          mainView.openBillPaymentFragment(data.getUrl(),textBillPayment,number,idSelectedBillType,request.getAmount().toString(),TrapConfig.PAYMENT_STATUS_BILL);
+
     }
 
     private void onGetBillTermSuccess(BillPhoneResponse response,String number,Integer idSelectedBillType)
@@ -2055,7 +2094,7 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
                 if (checkBoxTerm1.isChecked()||checkBoxTerm2.isChecked())
                 {
 
-                      requestBillPayment(responseTerm);
+                      requestBillPayment(null,responseTerm);
 
                 }else {
 

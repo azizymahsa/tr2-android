@@ -17,6 +17,9 @@ public class BillCodeResponse
     @SerializedName("bill_code")
     @Expose
     private String billCode;
+    @SerializedName("bill_id")
+    @Expose
+    private String billId;
     @SerializedName("current_date")
     @Expose
     private String currentDate;
@@ -35,6 +38,16 @@ public class BillCodeResponse
     @SerializedName("address")
     @Expose
     private String address;
+
+    public String getBillId()
+    {
+        return billId;
+    }
+
+    public void setBillId(String billId)
+    {
+        this.billId = billId;
+    }
 
     public String getOwnerName() {
         return ownerName;
