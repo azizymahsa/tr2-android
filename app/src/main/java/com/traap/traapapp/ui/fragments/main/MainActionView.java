@@ -1,7 +1,6 @@
 package com.traap.traapapp.ui.fragments.main;
 
-import java.util.ArrayList;
-import java.util.List;
+import androidx.annotation.Nullable;
 
 import com.traap.traapapp.apiServices.model.lottery.Winner;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
@@ -12,12 +11,16 @@ import com.traap.traapapp.enums.PredictPosition;
 import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
+import com.traap.traapapp.models.otherModels.qrModel.QrModel;
 import com.traap.traapapp.ui.base.BaseView;
 import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public interface MainActionView extends BaseView
 {
-    void onBill(String title,Integer idBillType);
+    void onBill(String title, Integer idBillType);
 
     void onChargeSimCard(Integer status);
     void onBillMotor(Integer status);
@@ -27,9 +30,19 @@ public interface MainActionView extends BaseView
 
     void openBarcode(BarcodeType bill);
 
-    void onBarcodReader();
+    void onBarcodeReader();
 
-    void onPaymentWithoutCard();
+    void onShowPaymentWithoutCardFragment(@Nullable QrModel model);
+
+    void onPaymentWithoutCard(OnClickContinueSelectPayment onClickContinueSelectPayment,
+                              String urlPayment,
+                              int imageDrawable,
+                              String title,
+                              String amount,
+                              SimChargePaymentInstance paymentInstance,
+                              String mobile,
+                              int PAYMENT_STATUS
+    );
 
     void doTransferMoney();
 
@@ -49,7 +62,7 @@ public interface MainActionView extends BaseView
 
     void onBuyTicketClick(MatchItem matchBuyable);
 
-    void onLeageClick (ArrayList<MatchItem> matchBuyable);
+    void onLeageClick(ArrayList<MatchItem> matchBuyable);
 
     void onPredict(PredictPosition position, Integer matchId, Boolean isPredictable);
 
@@ -89,12 +102,13 @@ public interface MainActionView extends BaseView
 
     void openPastResultFragment(LeagueTableParent parent, String matchId, Boolean isPredictable, String teamId, String imageLogo, String logoTitle);
 
-    void openChargePaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment,String urlPayment, int imageDrawable, String title, String priceFormat, SimChargePaymentInstance paymentInstance, String mobile,int PAYMENT_STATUS );
+    void openChargePaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String priceFormat, SimChargePaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS);
 
     void openWebView(MainActionView mainView, String uRl, String gds_token, String title);
 
-    void openIncreaseWalletPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment,String urlPayment, int imageDrawable, String title, String amount, SimChargePaymentInstance paymentInstance, String mobile,int PAYMENT_STATUS );
-    void openPackPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment,String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile,int PAYMENT_STATUS );
+    void openIncreaseWalletPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String amount, SimChargePaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS);
+
+    void openPackPaymentFragment(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS);
 
     void getBuyEnable(BuyTicketAction buyTicketAction);
 
@@ -118,11 +132,11 @@ public interface MainActionView extends BaseView
 
     void onCompationTeam();
 
-    void onHeadCoach(Integer coachId,String title,boolean flagFavorite);
+    void onHeadCoach(Integer coachId, String title, boolean flagFavorite);
 
     void onMediaPlayersFragment();
 
-    void openBillPaymentFragment(String url, String textBillPayment, String number, Integer idSelectedBillType,String amount,int PAYMENT_STATUS_BILL);
+    void openBillPaymentFragment(String url, String textBillPayment, String number, Integer idSelectedBillType, String amount, int PAYMENT_STATUS_BILL);
 
     void onPerformanceEvaluation(Integer matchId, MatchItem matchItem);
 
