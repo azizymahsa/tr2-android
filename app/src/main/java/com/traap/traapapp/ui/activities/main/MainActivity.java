@@ -985,7 +985,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         this.backState = backState;
         isMainFragment = false;
 
-        setFragment(PayBillCarMotorFragment.newInstance(this,status));
+        setFragment(PayBillCarMotorFragment.newInstance(this,10));
         replaceFragment(getFragment(), "onBillMotor");
     }
 
@@ -995,7 +995,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         this.backState = backState;
         isMainFragment = false;
 
-        setFragment(PayBillCarMotorFragment.newInstance(this,status));
+        setFragment(PayBillCarMotorFragment.newInstance(this,9));
         replaceFragment(getFragment(), "onBillCar");
     }
 
