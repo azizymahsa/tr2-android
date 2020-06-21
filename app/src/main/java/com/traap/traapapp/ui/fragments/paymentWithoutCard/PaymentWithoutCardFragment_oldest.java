@@ -44,7 +44,7 @@ import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Tools;
 
-public class PaymentWithoutCardFragment2 extends BaseFragment implements View.OnClickListener, OnAnimationEndListener
+public class PaymentWithoutCardFragment_oldest extends BaseFragment implements View.OnClickListener, OnAnimationEndListener
 {
 
     private Toolbar mToolbar;
@@ -59,7 +59,7 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
     private boolean continue_ = false;
     private TextView tvUserName;
 
-    public PaymentWithoutCardFragment2()
+    public PaymentWithoutCardFragment_oldest()
     {
     }
 
@@ -107,9 +107,9 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
         }*/
     }
 
-    public static PaymentWithoutCardFragment2 newInstance(MainActionView mainActionView)
+    public static PaymentWithoutCardFragment_oldest newInstance(MainActionView mainActionView)
     {
-        PaymentWithoutCardFragment2 fragment = new PaymentWithoutCardFragment2();
+        PaymentWithoutCardFragment_oldest fragment = new PaymentWithoutCardFragment_oldest();
         fragment.setMainView(mainActionView);
 
         Bundle args = new Bundle();
@@ -190,7 +190,7 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
                             @Override
                             public void run()
                             {
-                                btnConfirm.revertAnimation(PaymentWithoutCardFragment2.this);
+                                btnConfirm.revertAnimation(PaymentWithoutCardFragment_oldest.this);
                                 btnConfirm.setClickable(true);
                             }
                         }, 200);
@@ -262,7 +262,7 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
                         @Override
                         public void run()
                         {
-                            btnConfirm.revertAnimation(PaymentWithoutCardFragment2.this);
+                            btnConfirm.revertAnimation(PaymentWithoutCardFragment_oldest.this);
                             btnConfirm.setClickable(true);
                         }
                     }, 200);
@@ -302,7 +302,7 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
         YoYo.with(Techniques.SlideInLeft)
                 .duration(200)
                 .playOn(llDetailPayment);
-        btnConfirm.revertAnimation(PaymentWithoutCardFragment2.this);
+        btnConfirm.revertAnimation(PaymentWithoutCardFragment_oldest.this);
         btnConfirm.setClickable(true);
         llPayment.setVisibility(View.VISIBLE);
         llBtnConfirm2.setVisibility(View.GONE);
@@ -331,7 +331,7 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
 
                     }
                 })
-                .setDeniedMessage("If you reject permission,you can not use this application, Please turn on permissions at [Setting] > [Permission]")
+                .setDeniedMessage("لطفا جهت خواند بارکد، مجوز دسترسی به دوربین دستگاه خود را صادر نمایید.")
                 .setPermissions(Manifest.permission.CAMERA)
                 .check();
 
@@ -341,7 +341,7 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
     {
         // changeFragment(fragments.get(13), "13");
         Prefs.putString("qrCode", "");
-        mainView.onBarcodReader();
+        mainView.onBarcodeReader();
         //    mFragNavController.switchTab(13);
        /* new Handler().postDelayed(() -> {
             layoutBehavior();
@@ -461,7 +461,7 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
         continue_ = false;
         //etPassPayment.setText("");
         etQR.setText("");
-        btnConfirm.revertAnimation(PaymentWithoutCardFragment2.this);
+        btnConfirm.revertAnimation(PaymentWithoutCardFragment_oldest.this);
         btnConfirm.setClickable(true);
         // etCvv2.setText("");
         etAmountPayment.setText("");

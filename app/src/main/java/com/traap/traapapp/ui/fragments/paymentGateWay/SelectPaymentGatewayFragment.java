@@ -152,6 +152,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
      fragment.setParentActionView(paymentParentActionView);
 
      Bundle args = new Bundle();*/
+
     public static <I extends PaymentGateWayParentActionView> SelectPaymentGatewayFragment newInstance(int PAYMENT_STATUS, OnClickContinueSelectPayment paymentParentActionView, String urlPayment, MainActionView mainView, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile)
     {
         SelectPaymentGatewayFragment fragment = new SelectPaymentGatewayFragment();
@@ -172,7 +173,14 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         return fragment;
     }
 
-    public static <I extends PaymentGateWayParentActionView> SelectPaymentGatewayFragment newInstance(int PAYMENT_STATUS, I paymentParentActionView, String urlPayment, MainActionView mainView, int imageDrawable, String title, String amount, SimChargePaymentInstance paymentInstance, String mobile)
+    public static <I extends PaymentGateWayParentActionView> SelectPaymentGatewayFragment newInstance(int PAYMENT_STATUS, I paymentParentActionView,
+                                                                                                      String urlPayment,
+                                                                                                      MainActionView mainView,
+                                                                                                      int imageDrawable,
+                                                                                                      String title,
+                                                                                                      String amount,
+                                                                                                      SimChargePaymentInstance paymentInstance,
+                                                                                                      String mobile)
     {
         SelectPaymentGatewayFragment fragment = new SelectPaymentGatewayFragment();
         // fragment.setParentActionView(mainView);
