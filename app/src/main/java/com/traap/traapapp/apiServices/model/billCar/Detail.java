@@ -32,7 +32,20 @@ public class Detail implements Serializable
     @SerializedName("bill_id")
     @Expose
     private String billId;
+    @SerializedName("city")
+    @Expose
+    private String city;
     private final static long serialVersionUID = 2821639230749711712L;
+
+    public String getCity()
+    {
+        return city;
+    }
+
+    public void setCity(String city)
+    {
+        this.city = city;
+    }
 
     public String getDescription() {
         return description;

@@ -86,6 +86,7 @@ import com.traap.traapapp.ui.fragments.Introducing_the_team.IntroducingTeamFragm
 import com.traap.traapapp.ui.fragments.barcodeReader.BarcodeReaderFragment;
 import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
+import com.traap.traapapp.ui.fragments.billCarAndMotor.PayBillCarMotorFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.competitions.CompationsFragment;
 import com.traap.traapapp.ui.fragments.competitions.QuestionCompationFragment;
@@ -954,6 +955,24 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
         setFragment(ChargeFragment.newInstance(this, backState));
         replaceFragment(getFragment(), "chargeFragment");
+
+    }  public void onBillMotor(Integer backState)
+    {
+        this.backState = backState;
+        isMainFragment = false;
+
+        setFragment(PayBillCarMotorFragment.newInstance(this));
+        replaceFragment(getFragment(), "PayBillMotorFragment");
+
+    }
+
+    public void onBillCar(Integer backState)
+    {
+        this.backState = backState;
+        isMainFragment = false;
+
+        setFragment(PayBillCarMotorFragment.newInstance(this));
+        replaceFragment(getFragment(), "PayBillCar");
 
     }
 
