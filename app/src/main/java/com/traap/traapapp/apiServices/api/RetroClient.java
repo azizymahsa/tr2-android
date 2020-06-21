@@ -102,6 +102,7 @@ import com.traap.traapapp.apiServices.model.news.details.sendComment.request.Sen
 import com.traap.traapapp.apiServices.model.news.details.sendLike.request.LikeNewsDetailRequest;
 import com.traap.traapapp.apiServices.model.news.details.sendLike.response.LikeNewsDetailResponse;
 import com.traap.traapapp.apiServices.model.news.main.NewsMainResponse;
+import com.traap.traapapp.apiServices.model.payBillCar.RequestPayBillCar;
 import com.traap.traapapp.apiServices.model.photo.archive.PhotoArchiveResponse;
 import com.traap.traapapp.apiServices.model.photo.response.Content;
 import com.traap.traapapp.apiServices.model.photo.response.PhotosByIdResponse;
@@ -868,6 +869,11 @@ public interface RetroClient
     @POST(Const.BILL_PAYMENT)
     Single<Response<WebServiceClass<BillPaymentResponse>>> postBillPayment(
             @Body BillPaymentRequest request
+    );
+
+    @POST(Const.POST_BillPayment)
+    Single<Response<WebServiceClass<BillPaymentResponse>>> postBillCarPayment(
+            @Body RequestPayBillCar request
     );
 
     @POST(Const.BILL_ELECTRICITY)

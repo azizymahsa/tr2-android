@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -77,18 +79,30 @@ public class AllBillCarAdapter extends RecyclerView.Adapter<AllBillCarAdapter.Vi
         holder.txtLocat.setText(item.getLocation());
         holder.txtPrice.setText(Utility.priceFormat(String.valueOf(item.getAmount())) + " ریال");
         holder.txtType.setText(item.getType());
-        holder.rootView.setOnClickListener(new View.OnClickListener()
+      /* holder.rootView.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                row_index = position;
+                *//*row_index = position;
                 mItemClickListener.OnItemAllBillClick(view, item.getBillId(), item.getAmount()+"");
                 notifyDataSetChanged();
+*//*
+                list.get(position).setCheck(isChecked);
+
+            }
+        });*/
+
+        holder.checkBox.setTag(item.getBillId());
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                list.get(position).setCheck(isChecked);
 
             }
         });
-
 
     }
 
@@ -102,7 +116,7 @@ public class AllBillCarAdapter extends RecyclerView.Adapter<AllBillCarAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder
     {
         public TextView txtDate,txtCity,txtLocat,txtPrice,txtType;
-        public ImageView image;
+        public CheckBox checkBox;
         public ProgressBar progressBar;
         public LinearLayout rootView;
 
@@ -116,6 +130,8 @@ public class AllBillCarAdapter extends RecyclerView.Adapter<AllBillCarAdapter.Vi
             txtLocat = itemView.findViewById(R.id.txtLocat);
             txtPrice = itemView.findViewById(R.id.txtPrice);
             txtType = itemView.findViewById(R.id.txtType);
+            checkBox = itemView.findViewById(R.id.checkBoxTerm1);
+          //  checkBox.setClickable(false);
            // image = itemView.findViewById(R.id.image);
           //  progressBar = itemView.findViewById(R.id.progress);
 
