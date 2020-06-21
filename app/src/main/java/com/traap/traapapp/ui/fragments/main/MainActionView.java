@@ -20,6 +20,8 @@ public interface MainActionView extends BaseView
     void onBill(String title,Integer idBillType);
 
     void onChargeSimCard(Integer status);
+    void onBillMotor(Integer status);
+    void onBillCar(Integer status);
 
     void onPackSimCard(Integer status);
 
