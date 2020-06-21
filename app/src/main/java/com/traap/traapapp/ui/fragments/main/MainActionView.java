@@ -17,7 +17,7 @@ import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPaymen
 
 public interface MainActionView extends BaseView
 {
-    void onBill();
+    void onBill(String title,Integer idBillType);
 
     void onChargeSimCard(Integer status);
     void onBillMotor(Integer status);
@@ -84,6 +84,7 @@ public interface MainActionView extends BaseView
     void onVideosFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition);
 
     void onMainVideoClick();
+
     void onMainQuestionClick(Integer idQuest);
 
     void openPastResultFragment(LeagueTableParent parent, String matchId, Boolean isPredictable, String teamId, String imageLogo, String logoTitle);
@@ -98,7 +99,8 @@ public interface MainActionView extends BaseView
     void getBuyEnable(BuyTicketAction buyTicketAction);
 
     void onSetPredictCompleted(Integer matchIdt, Boolean isPredictable, String message);
-    void onBackToChargFragment(int PAYMENT_STATUS);
+
+    void onBackToChargFragment(int PAYMENT_STATUS, Integer idBill);
 
     void backToAllServicePackage(Integer backState);
 
@@ -111,8 +113,20 @@ public interface MainActionView extends BaseView
     void onShowDetailWinnerList(List<Winner> winnerList);
 
     void onShowLast5PastMatch(Integer teamLiveScoreId);
+
     void onIntroduceTeam();
+
     void onCompationTeam();
+
     void onHeadCoach(Integer coachId,String title,boolean flagFavorite);
+
     void onMediaPlayersFragment();
+
+    void openBillPaymentFragment(String url, String textBillPayment, String number, Integer idSelectedBillType,String amount,int PAYMENT_STATUS_BILL);
+
+    void onPerformanceEvaluation(Integer matchId, MatchItem matchItem);
+
+    void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId);
+
+    void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId);
 }

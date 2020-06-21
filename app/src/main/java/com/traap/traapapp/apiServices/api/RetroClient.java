@@ -12,8 +12,14 @@ import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoResponse;
 import com.traap.traapapp.apiServices.model.availableAmount.AvailableAmounResponse;
 import com.traap.traapapp.apiServices.model.billCar.RequestBillCar;
 import com.traap.traapapp.apiServices.model.billCar.ResponseBillCar;
-import com.traap.traapapp.apiServices.model.billPayment.request.BillPaymentRequest;
-import com.traap.traapapp.apiServices.model.billPayment.response.BillPaymentResponse;
+import com.traap.traapapp.apiServices.model.billCode.BillCodeResponse;
+import com.traap.traapapp.apiServices.model.billElectricity.BillElectricityRequest;
+import com.traap.traapapp.apiServices.model.billElectricity.BillElectricityResponse;
+import com.traap.traapapp.apiServices.model.billPayment.BillPaymentRequest;
+import com.traap.traapapp.apiServices.model.billPayment.BillPaymentResponse;
+import com.traap.traapapp.apiServices.model.billPhone.BillPhoneRequest;
+import com.traap.traapapp.apiServices.model.billPhone.BillPhoneResponse;
+
 import com.traap.traapapp.apiServices.model.bookMarkPhoto.BookMarkPhotoResponse;
 import com.traap.traapapp.apiServices.model.buyChargeWallet.BuyChargeWalletRequest;
 import com.traap.traapapp.apiServices.model.buyChargeWallet.BuyChargeWalletResponse;
@@ -854,5 +860,33 @@ public interface RetroClient
             @Body RequestSuggestions request
     );
 
+    @POST(Const.BILL_PHONE)
+    Single<Response<WebServiceClass<BillPhoneResponse>>> postBillPhone(
+            @Body BillPhoneRequest request
+    );
+
+    @POST(Const.BILL_PAYMENT)
+    Single<Response<WebServiceClass<BillPaymentResponse>>> postBillPayment(
+            @Body BillPaymentRequest request
+    );
+
+    @POST(Const.BILL_ELECTRICITY)
+    Single<Response<WebServiceClass<BillElectricityResponse>>> postBillElectricity(
+            @Body BillElectricityRequest request
+    );
+
+    @POST(Const.BILL_GAZ)
+    Single<Response<WebServiceClass<BillCodeResponse>>> postBillGaz(
+            @Body BillPhoneRequest request
+    );
+    @POST(Const.BILL_MCI)
+Single<Response<WebServiceClass<BillPhoneResponse>>> postBillMci(
+                @Body BillPhoneRequest request
+        );
+
+    @POST(Const.BILL_WATER)
+Single<Response<WebServiceClass<BillCodeResponse>>> postBillWater(
+                @Body BillPhoneRequest request
+        );
 
 }

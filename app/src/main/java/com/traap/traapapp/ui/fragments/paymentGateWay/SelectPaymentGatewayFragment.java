@@ -66,6 +66,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
     private int PAYMENT_STATUS;
     private SimPackPaymentInstance simPackPaymentInstance;
     private PaymentGateWayParentActionView pActionView;
+    private Integer idBill=0;
 
     public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount, PaymentMatchRequest paymentMatchRequest)
     {
@@ -192,6 +193,34 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         return fragment;
     }
 
+    public static Fragment newInstance(String url, MainActionView mainView, String textBillPayment, String number, Integer idSelectedBillType,String amount,int PAYMENT_STATUS)
+    {
+        SelectPaymentGatewayFragment fragment = new SelectPaymentGatewayFragment();
+        fragment.setParentActionView(mainView);
+        fragment.setStatus(PAYMENT_STATUS);
+        fragment.setIdBill(idSelectedBillType);
+
+        Bundle args = new Bundle();
+        args.putString("url", url);
+        args.putString("amount", amount);
+        args.putString("mobile", number);
+        args.putString("title", textBillPayment);
+
+        fragment.setArguments(args);
+
+        return fragment;    }
+
+    private void setIdBill(Integer idSelectedBillType)
+    {
+        this.idBill=idSelectedBillType;
+    }
+
+
+    private void setParentActionView(MainActionView mainView)
+    {
+        this.mainView=mainView;
+    }
+
     private void setStatus(int payment_status)
     {
         this.PAYMENT_STATUS = payment_status;
@@ -282,7 +311,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
 
         final SelectPaymentAdapter adapter = new SelectPaymentAdapter
                 (getFragmentManager(), tabLayout.getTabCount(), mainView, amount, title, imageDrawable, mobile,
-                        url, this.simChargePaymentInstance, simPackPaymentInstance, PAYMENT_STATUS);
+                        url, this.simChargePaymentInstance, simPackPaymentInstance, PAYMENT_STATUS,idBill);
 
         viewPager.setAdapter(adapter);
         //viewPager.beginFakeDrag();
@@ -313,7 +342,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
             imgBack.setOnClickListener(v ->
             {
                 //getActivity().onBackPressed();
-                mainView.onBackToChargFragment(PAYMENT_STATUS);
+                mainView.onBackToChargFragment(PAYMENT_STATUS,idBill);
 
                 // pActionView.onPaymentCancelAndBack();
 

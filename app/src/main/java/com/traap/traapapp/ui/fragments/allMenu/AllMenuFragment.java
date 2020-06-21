@@ -235,7 +235,8 @@ public class AllMenuFragment extends BaseFragment implements
             request.setDeviceType(TrapConfig.AndroidDeviceType);
             request.setDensity(SingletonContext.getInstance().getContext().getResources().getDisplayMetrics().density);
             SingletonService.getInstance().getMenuService().getMenuAll(AllMenuFragment.this, request);
-        } else
+        }
+        else
         {
             layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
             recyclerView.setLayoutManager(layoutManager);
@@ -544,7 +545,7 @@ public class AllMenuFragment extends BaseFragment implements
     }
 
     @Override
-    public void onChosenItemClickk(View view, Integer id, String URl,String baseuUrl)
+    public void onChosenItemClickk(View view, Integer id, String URl,String baseUrl)
     {
 
 
@@ -561,10 +562,17 @@ public class AllMenuFragment extends BaseFragment implements
 
 
 
-                Bundle headers = new Bundle();
-                headers.putString("Authorization",Prefs.getString("accessToken",""));
+                if (baseUrl != null)
+                {
+                    Utility.openUrlCustomTab(getActivity(), baseUrl);
+                }else{
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization",Prefs.getString("accessToken",""));
 
-                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                }
+
+
 
 
 
@@ -626,10 +634,15 @@ public class AllMenuFragment extends BaseFragment implements
 
 
 
-                Bundle headers = new Bundle();
-                headers.putString("Authorization",Prefs.getString("accessToken",""));
+                if (baseUrl != null)
+                {
+                    Utility.openUrlCustomTab(getActivity(), baseUrl);
+                }else{
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization",Prefs.getString("accessToken",""));
 
-                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                }
 
 
 
@@ -668,10 +681,16 @@ public class AllMenuFragment extends BaseFragment implements
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivityForResult(intent, 100);*/
 
-                Bundle headers = new Bundle();
-                headers.putString("Authorization",Prefs.getString("accessToken",""));
+                if (baseUrl != null)
+                {
+                    Utility.openUrlCustomTab(getActivity(), baseUrl);
+                }else{
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization",Prefs.getString("accessToken",""));
 
-                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                }
+
                 break;
             }
 
@@ -705,10 +724,16 @@ public class AllMenuFragment extends BaseFragment implements
                 intent.putExtra("TOKEN", Prefs.getString("gds_token", ""));
                 startActivityForResult(intent, 100);*/
 
-                Bundle headers = new Bundle();
-                headers.putString("Authorization",Prefs.getString("accessToken",""));
+                if (baseUrl != null)
+                {
+                    Utility.openUrlCustomTab(getActivity(), baseUrl);
+                }else{
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization",Prefs.getString("accessToken",""));
 
-                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                }
+
 
 
 
@@ -720,7 +745,7 @@ public class AllMenuFragment extends BaseFragment implements
 
             case 4:
             {
-                mainView.onBill();
+                mainView.onBill("title",0);
                 break;
             }
 
@@ -748,6 +773,32 @@ public class AllMenuFragment extends BaseFragment implements
                 break;
             }
 
+            case 61: //قبض برق
+            {
+                mainView.onBill("قبض برق" ,1);
+                break;
+            }
+            case 62: //قبض آبفا
+            {
+                mainView.onBill("قبض آبفا" ,1);
+                break;
+            }
+            case 63: //قبض گاز
+            {
+                mainView.onBill("قبض گاز" ,3);
+                break;
+            }
+            case 64: //قبض تلفن ثابت
+            {
+                mainView.onBill("قبض تلفن ثابت" ,4);
+                break;
+            }
+            case 65: //قبض تلفن همراه
+            {
+                mainView.onBill("قبض تلفن همراه" ,5);
+                break;
+            }
+
             //بیمه
             case 21: //بیمه شخص ثالث
             case 22: //بیمه بدنه
@@ -768,10 +819,16 @@ public class AllMenuFragment extends BaseFragment implements
             {
 
 
-                Bundle headers = new Bundle();
-                headers.putString("Authorization",Prefs.getString("accessToken",""));
+                if (baseUrl != null)
+                {
+                    Utility.openUrlCustomTab(getActivity(), baseUrl);
+                }else{
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization",Prefs.getString("accessToken",""));
 
-                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                }
+
 
                 break;
             }
@@ -779,16 +836,30 @@ public class AllMenuFragment extends BaseFragment implements
             {
 
 
-                Bundle headers = new Bundle();
-                headers.putString("Authorization",Prefs.getString("accessToken",""));
+                if (baseUrl != null)
+                {
+                    Utility.openUrlCustomTab(getActivity(), baseUrl);
+                }else{
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization",Prefs.getString("accessToken",""));
 
-                Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                }
+
 
                 break;
             }
             case 73: //  پارک حاشیه ای
             {
-                Utility.openUrlCustomTab(getActivity(), baseuUrl);
+                if (baseUrl != null)
+                {
+                    Utility.openUrlCustomTab(getActivity(), baseUrl);
+                }else{
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization",Prefs.getString("accessToken",""));
+
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                }
                 break;
             }
             case 920: //  موتورسیکلت

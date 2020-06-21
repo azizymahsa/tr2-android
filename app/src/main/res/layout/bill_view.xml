@@ -65,7 +65,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/llPayment"
+                android:id="@+id/llBarcode"
                 android:layout_width="@dimen/_200dp"
                 android:layout_height="@dimen/_60dp"
                 android:layout_gravity="center"
@@ -109,7 +109,7 @@
                             android:layout_below="@+id/tv3"
                             android:layout_centerHorizontal="true"
                             android:gravity="center"
-                            android:text="بارکد"
+                            android:text="اسکن بارکد"
                             android:textSize="@dimen/textSize_12dp"
                             android:visibility="gone" />
 
@@ -119,113 +119,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/llSelect"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="100"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/llBillInfo"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="100"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
-
-
-                        <TextView
-                            android:id="@+id/tvBillInfo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="5dp"
-                            android:gravity="right"
-                            android:text="استعلام موبایل یا تلفن ثابت"
-
-                            android:textColor="@color/textColorSecondary"
-                            android:textSize="@dimen/textSize_12dp"/>
-                        <ImageView
-                            android:id="@+id/ivBillInfo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="10dp"
-                            android:visibility="visible"
-
-                            />
-
-                        <!-- <ImageView
-                             android:id="@+id/ivBillInfo"
-
-                             android:layout_width="wrap_content"
-                             android:layout_height="match_parent"
-                             android:layout_marginRight="10dp"
-                             android:src="@drawable/purse"
-                             android:visibility="visible"
-
-                             />-->
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                         />
-
-
-                    <LinearLayout
-                        android:id="@+id/llBillPayment"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="100"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tvBillPayment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="5dp"
-                            android:gravity="right"
-                            android:text="پرداخت"
-
-                            android:textSize="@dimen/textSize_12dp" />
-
-                        <ImageView
-                            android:id="@+id/ivBillPayment"
-
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="10dp"
-                            android:padding="@dimen/_5sdp"
-                            android:visibility="visible"
-
-                            />
-
-
-                    </LinearLayout>
-                </LinearLayout>
-
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5" />
-
-
-            </LinearLayout>
 
 
             <LinearLayout
@@ -253,34 +146,11 @@
                         android:id="@+id/tvBillTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="30"
-                        android:gravity="right"
-                        android:text="aaaaa"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textSize_16dp" />
-                 <!--   <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/spinnerBillTypes"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="50"
-                        android:background="@drawable/background_spinner_custom"
-                        android:gravity="right" />
--->
-                    <TextView
-                        android:id="@+id/tvf"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="30"
+                        android:layout_weight="100"
                         android:gravity="center"
-                        android:text=" نوع قبض :"
-                        android:textAppearance="@style/IranSansBold"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textSize_16dp" />
+                        android:text=""
+                        android:textColor="@color/greyishBrown"
+                        android:textSize="@dimen/textSize_14dp" />
 
                     <Space
                         android:layout_width="0dp"
@@ -290,17 +160,18 @@
                 </LinearLayout>
 
                 <LinearLayout
-
+                    android:id="@+id/llPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20dp"
                     android:gravity="center|end"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="10" />
+                        android:layout_weight="20" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -308,22 +179,6 @@
                         android:layout_weight="100"
                         android:gravity="center|end"
                         android:orientation="horizontal">
-
-
-                        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-                            android:id="@+id/btnMyBills"
-                            android:layout_width="@dimen/_30dp"
-                            android:layout_height="@dimen/_30dp"
-                            android:layout_gravity="center"
-                            android:layout_marginEnd="5dp"
-                            android:background="@drawable/button_small_border"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/textSize_20dp"
-                            android:transitionName="transition"
-                            app:finalCornerAngle="40dp"
-                            app:initialCornerAngle="40dp"
-                            app:spinning_bar_color="@color/white"
-                            app:spinning_bar_width="2dp" />
 
                         <ImageView
                             android:id="@+id/btnContact"
@@ -342,7 +197,7 @@
                             android:id="@+id/etMobileHint"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_60sdp"
-                            android:layout_gravity="center|end"
+                            android:layout_gravity="center|right"
                             android:layout_weight="100"
                             android:hint="@string/etMobileHint"
                             android:theme="@style/EditTextHint"
@@ -354,10 +209,11 @@
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@color/warmGray"
                                 android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                                android:gravity="end|center"
+                                android:gravity="right|center"
                                 android:imeOptions="actionDone"
                                 android:inputType="number"
                                 android:maxLines="1"
+                               android:maxLength="11"
                                 android:paddingTop="15dp"
                                 android:singleLine="true"
                                 android:textColor="@color/warmGray"
@@ -416,13 +272,87 @@
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
-                        android:layout_weight="10"
+                        android:layout_weight="20"
 
                         android:tint="@color/white" />
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/llBillCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:gravity="center|end"
+                    android:visibility="gone"
+                    android:orientation="horizontal">
 
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:gravity="center|end"
+                        android:orientation="horizontal">
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/etBillCodeHint"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_60sdp"
+                            android:layout_gravity="center|right"
+                            android:layout_weight="100"
+                            android:hint="شناسه قبض"
+                            android:theme="@style/EditTextHint"
+                            app:hintTextAppearance="@style/TextLabel">
+
+                            <com.traap.traapapp.utilities.ClearableEditText
+                                android:id="@+id/etBillCode"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="@color/warmGray"
+                                android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                                android:gravity="right|center"
+                                android:imeOptions="actionDone"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:maxLength="11"
+                                android:paddingTop="15dp"
+                                android:singleLine="true"
+                                android:textColor="@color/warmGray"
+                                android:textColorHint="@color/warmGray"
+                                android:textSize="@dimen/textSize_16dp"
+
+
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:minWidth="@dimen/_20dp"
+                            android:textColor="@color/textColorPrimary"
+                            android:textSize="@dimen/_20dp"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="20"
+
+                        android:tint="@color/white" />
+
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -434,12 +364,12 @@
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="10" />
+                        android:layout_weight="30" />
 
                     <FrameLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="100">
+                        android:layout_weight="60">
 
                         <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                             android:id="@+id/btnPhoneInfo"
@@ -461,7 +391,7 @@
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="10" />
+                        android:layout_weight="30" />
 
                 </LinearLayout>
 
@@ -499,164 +429,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/llDetailPayment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|end"
-                    android:orientation="horizontal">
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="10" />
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/etLayoutCode"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_50sdp"
-                        android:layout_gravity="center|end"
-                        android:layout_weight="100"
-                        android:hint="شناسه قبض"
-                        android:theme="@style/EditTextHint"
-                        app:hintTextAppearance="@style/TextLabel">
-
-                        <com.traap.traapapp.utilities.ClearableEditText
-                            android:id="@+id/etBillId"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@color/warmGray"
-                            android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                            android:gravity="end|center"
-                            android:imeOptions="actionDone"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:textColor="@color/warmGray"
-                            android:textColorHint="@color/warmGray"
-                            android:textSize="@dimen/textSize_16dp"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="10" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|end"
-                    android:orientation="horizontal">
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="10" />
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_50sdp"
-                        android:layout_gravity="center|end"
-                        android:layout_weight="100"
-                        android:hint="شناسه پرداخت"
-
-                        android:theme="@style/EditTextHint"
-                        app:hintTextAppearance="@style/TextLabel">
-
-                        <com.traap.traapapp.utilities.ClearableEditText
-                            android:id="@+id/etPayId"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@color/warmGray"
-                            android:digits="0,1,2,3,4,5,6,7,8,9,-"
-                            android:gravity="end|center"
-                            android:imeOptions="actionDone"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:textColor="@color/warmGray"
-                            android:textColorHint="@color/warmGray"
-                            android:textSize="@dimen/textSize_16dp"
-
-
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="10" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10dp"
-                    android:gravity="center|end"
-                    android:orientation="horizontal">
-
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="10" />
-
-                    <FrameLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="100">
-
-                        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-                            android:id="@+id/btnConfirm"
-
-                            android:layout_width="match_parent"
-
-                            android:layout_height="@dimen/_30dp"
-                            android:layout_gravity="center"
-                            android:layout_margin="2dp"
-                            android:background="@drawable/button_small_border"
-                            android:textColor="@color/warmGray"
-                            android:textSize="@dimen/textSize_14dp"
-                            android:transitionName="transition"
-                            app:finalCornerAngle="50dp"
-                            app:initialCornerAngle="50dp"
-                            app:spinning_bar_color="@color/white"
-                            app:spinning_bar_width="2dp" />
-                    </FrameLayout>
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="10" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tvBillName2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:gravity="center"
-                    android:text="لیست قبوض قابل پرداخت"
-                    android:textColor="@android:color/holo_blue_bright"
-                    android:textSize="@dimen/textSize_16dp" />
-
-
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/llbillCodePayCodeNow"
@@ -1206,13 +978,214 @@
 
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/llContinueBill"
+                android:id="@+id/llSelectTermBill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/_20dp"
+                android:gravity="center|end"
+                android:visibility="visible">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20" />
+
+                    <TextView
+                        android:id="@+id/tvPhoneNumberTerm"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="30"
+                        android:gravity="right"
+                        android:text=""
+                        android:textColor="@color/redBack"
+                        android:textSize="@dimen/textSize_14dp" />
+
+                    <TextView
+                        android:id="@+id/tvTitleTerm"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="30"
+                        android:gravity="center"
+                        android:text=" شماره تلفن :"
+                        android:textColor="@color/greyishBrown"
+                        android:textSize="@dimen/textSize_14dp" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="100"
+                        android:gravity="center"
+                        android:text="پرداخت میان دوره یا پایان دوره را انتخاب کنید."
+                        android:textColor="@color/greyishBrown"
+                        android:textSize="@dimen/textSize_14dp" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:gravity="center|end"
+                    android:orientation="horizontal">
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="60"
+                    android:padding="@dimen/_10dp"
+                    android:background="@drawable/background_rectangle_white_8dp"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="right|center_vertical">
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_10dp"
+                            android:layout_weight="10"/>
+
+                        <TextView
+                            android:id="@+id/tvAmountTerm1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text=" ریال"
+                            android:textColor="@color/greyishBrown"
+                            android:textSize="@dimen/textSize_14dp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_10dp"
+                            android:layout_weight="10"/>
+
+                        <CheckBox
+                            android:id="@+id/checkBoxTerm1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="میان دوره"
+                            android:layout_gravity="center_horizontal"
+                            android:checked="false"
+                            android:textSize="@dimen/textSize_16dp"
+                            android:layoutDirection="rtl"
+                            android:textAlignment="viewStart"
+                            android:autoSizeMaxTextSize="@dimen/textSize_12dp"
+                            android:gravity="right|center_vertical"
+                            android:buttonTint="@color/textColorPrimary"
+                            android:visibility="visible"
+                            tools:ignore="RtlCompat"
+                            />
+
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/v2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/textHint" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="right|center_vertical">
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_10dp"
+                            android:layout_weight="10"/>
+
+                        <TextView
+                            android:id="@+id/tvAmountTerm2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text=" ریال"
+                            android:textColor="@color/greyishBrown"
+                            android:textSize="@dimen/textSize_14dp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_10dp"
+                            android:layout_weight="10"/>
+
+                        <CheckBox
+                            android:id="@+id/checkBoxTerm2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="پایان دوره"
+                            android:layout_gravity="center_horizontal"
+                            android:checked="false"
+                            android:textSize="@dimen/textSize_16dp"
+                            android:layoutDirection="rtl"
+                            android:textAlignment="viewStart"
+                            android:autoSizeMaxTextSize="@dimen/textSize_12dp"
+                            android:gravity="right|center_vertical"
+                            android:buttonTint="@color/textColorPrimary"
+                            android:visibility="visible"
+                            tools:ignore="RtlCompat"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="20" />
+            </LinearLayout>
+                <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20dp"
                 android:gravity="center|end"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:orientation="horizontal">
 
 
                 <Space
@@ -1220,26 +1193,54 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="10" />
 
-                <FrameLayout
+                    <FrameLayout
+                        android:id="@+id/flCancelDelete"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        >
+
+                        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                            android:id="@+id/btnCancelTerm"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_30dp"
+                            android:background="@drawable/background_border_a"
+                            app:spinning_bar_width="2dp"
+                            android:text="انصراف"
+                            android:textColor="@color/backgroundButton"
+                            android:textSize="@dimen/_10sdp"
+                            android:layout_gravity="center"
+                            app:initialCornerAngle="50dp"
+                            app:finalCornerAngle="50dp"
+                            android:transitionName="transition"/>
+
+                    </FrameLayout>
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5" />
+
+                    <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="100">
+                    android:layout_weight="50">
 
                     <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-                        android:id="@+id/btnBillInfoEnd"
+                        android:id="@+id/btnOkTerm"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_30dp"
                         android:layout_gravity="center"
                         android:layout_margin="2dp"
-                        android:background="@drawable/button_small_border"
-                        android:text="ادامه"
-                        android:textColor="@color/warmGray"
+                        android:background="@drawable/background_button_login"
+                        android:text="پرداخت"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/textSize_14dp"
                         android:transitionName="transition"
                         app:finalCornerAngle="50dp"
                         app:initialCornerAngle="50dp"
                         app:spinning_bar_color="@color/white"
-                        app:spinning_bar_width="2dp" />
+                        app:spinning_bar_width="2dp"
+                        />
                 </FrameLayout>
 
                 <Space
@@ -1247,6 +1248,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="10" />
 
+            </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

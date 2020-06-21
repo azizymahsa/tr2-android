@@ -26,7 +26,6 @@ import com.traap.traapapp.apiServices.model.buyChargeWallet.BuyChargeWalletRespo
 import com.traap.traapapp.apiServices.model.buyPackage.response.BuyPackageWalletResponse;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessRequest;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.GetBalancePasswordLessResponse;
-import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
 import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
@@ -34,7 +33,6 @@ import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInsta
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
 import com.traap.traapapp.ui.activities.ticket.ShowTicketActivity;
 import com.traap.traapapp.ui.adapters.leagues.DataBean;
-import com.traap.traapapp.ui.adapters.leagues.matchResult.MatchAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -51,7 +49,7 @@ import com.uncopt.android.widget.text.justify.JustifiedTextView;
 /**
  * Created by MahsaAzizi on 11/25/2019.
  */
-public class PaymentWalletFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener, MatchAdapter.ItemClickListener, PaymentWalletInteractor.OnFinishedPaymentWalletListener, BuyChargeWalletInteractor.OnBuyChargeWalletListener, BuyPackageWalletInteractor.OnBuyPackageWalletListener
+public class PaymentWalletFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener, PaymentWalletInteractor.OnFinishedPaymentWalletListener, BuyChargeWalletInteractor.OnBuyChargeWalletListener, BuyPackageWalletInteractor.OnBuyPackageWalletListener
 {
     private View rootView;
 
@@ -80,7 +78,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     private ImageView imgLogo;
     private int PAYMENT_STATUS =0;
     public Integer balance=0;
-
+    private int idBill=0;
 
 
     public PaymentWalletFragment()
@@ -100,13 +98,19 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
 
 
-    public static PaymentWalletFragment newInstance(MainActionView mainActionView, int imageDrawable, SimChargePaymentInstance simChargePaymentInstance, String amount, String mobile, String title, SimPackPaymentInstance simPackPaymentInstance,int PAYMENT_STATUS)
+    public static PaymentWalletFragment newInstance(MainActionView mainActionView, int imageDrawable, SimChargePaymentInstance simChargePaymentInstance, String amount, String mobile, String title, SimPackPaymentInstance simPackPaymentInstance,int PAYMENT_STATUS,int idBill)
     {
         PaymentWalletFragment fragment = new PaymentWalletFragment();
+        fragment.setIdBill(idBill);
         Bundle args = new Bundle();
 
         fragment.setMainView(mainActionView, imageDrawable, amount, title,simChargePaymentInstance,mobile,simPackPaymentInstance,PAYMENT_STATUS);
         return fragment;
+    }
+
+    private void setIdBill(int idBill)
+    {
+        this.idBill=idBill;
     }
 
     private void setMainView(MainActionView mainView, int imageDrawable, String amount, String title, SimChargePaymentInstance simChargePaymentInstance, String mobile, SimPackPaymentInstance simPackPaymentInstance,int PAYMENT_STATUS)
@@ -286,7 +290,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
         }
         else if (v.getId() == R.id.btnBack)
         {
-            mainView.onBackToChargFragment(PAYMENT_STATUS);
+            mainView.onBackToChargFragment(PAYMENT_STATUS, idBill);
         }
     };
 
@@ -400,25 +404,6 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
                 break;
            */
         }
-
-    }
-
-
-    @Override
-    public void onItemClick(View view, int position, MatchItem matchItem)
-    {
-
-    }
-
-    @Override
-    public void onItemPredictClick(View view, int position, MatchItem matchItem)
-    {
-
-    }
-
-    @Override
-    public void onItemLogoTeamClick(View view, Integer id, String logo, String name)
-    {
 
     }
 

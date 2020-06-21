@@ -86,6 +86,7 @@
     <color name="navigationBarColor">#d5282e</color>
     <color name="backgroundNewsTitle">#8B000000</color>
     <color name="buttonArrowColor">#fff</color>
+    <color name="buttonArrowColorSecondary">#888</color>
     <color name="aviColor">#ff0000</color>
     <color name="backgroundRelatedNews">#f5f5f5</color>
     <color name="loadingBackground">#ca000000</color>
@@ -154,6 +155,7 @@
     <color name="backgroundLastWinMatch">#d3ead8</color>
     <color name="team_text_color">#484848</color>
     <color name="textHint2">#888888</color>
+    <color name="textHint3">#5C5C5C</color>
     <color name="faded_Red">#d5282e</color>
     <color name="pelak_blue">#03127A</color>
     <!--  calendar  end-->

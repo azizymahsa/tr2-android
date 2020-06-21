@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background"
+    android:fitsSystemWindows="true"
+    tools:context="com.traap.traapapp.ui.activities.userProfile.UserProfileActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="208dp"
+            android:background="@drawable/background_main_header" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent">
+
+            <include layout="@layout/toolbar_back" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested"
+            android:layout_below="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_45sdp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card"
+                        style="@style/Widget.MaterialComponents.CardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:elevation="3dp"
+                        android:translationZ="1dp"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="3dp"
+                        app:cardMaxElevation="5dp"
+                        app:cardUseCompatPadding="true"
+                        app:contentPadding="8dp"
+                        app:strokeColor="@color/borderColorGray">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_70sdp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvPlayerName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="عنوان"
+                                android:gravity="center"
+                                android:textColor="@color/textColorSecondary"
+                                android:textSize="@dimen/textSize_14dp"
+                                android:layout_marginBottom="16dp"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="2dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1.7"
+                                    android:layout_height="wrap_content"
+                                    android:text="میانگین ارزیابی سایرین"
+                                    android:textStyle="bold"
+                                    android:gravity="center"
+                                    android:textColor="@color/textColorSecondary"
+                                    android:textSize="@dimen/textSize_12dp"/>
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:text="ارزیابی شما"
+                                    android:gravity="center"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/textColorSecondary"
+                                    android:textSize="@dimen/textSize_12dp"/>
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_weight="2.3"
+                                    android:layout_height="wrap_content"
+                                    android:text="شاخص ارزیابی"
+                                    android:gravity="right"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/textColorSecondary"
+                                    android:textSize="@dimen/textSize_12dp"/>
+
+                            </LinearLayout>
+
+                            <view
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/borderBackgroundColor"/>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"/>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlImageProfile"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_120sdp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/imgProfile"
+                        android:layout_width="@dimen/_120sdp"
+                        android:layout_height="@dimen/_120sdp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:elevation="3dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_user_default"
+                        android:visibility="visible"
+                        app:riv_border_color="@color/borderColorGray"
+                        app:riv_border_width="2dip"
+                        app:riv_corner_radius="30dip"
+                        app:riv_mutate_background="true"
+                        app:riv_oval="true"
+                        app:riv_tile_mode="clamp" />
+
+                    <com.wang.avi.AVLoadingIndicatorView
+                        android:id="@+id/progressImageProfile"
+                        style="@style/AVLoadingIndicatorView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:translationZ="3dp"
+                        android:visibility="gone"
+                        app:indicatorColor="@color/textColorPrimary"
+                        app:indicatorName="BallScaleMultipleIndicator" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <include
+            layout="@layout/loading"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -22,10 +22,8 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
 import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
-import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.singleton.SingletonPaymentPlace;
 import com.traap.traapapp.ui.adapters.leagues.DataBean;
-import com.traap.traapapp.ui.adapters.leagues.matchResult.MatchAdapter;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Utility;
@@ -34,7 +32,7 @@ import com.uncopt.android.widget.text.justify.JustifiedTextView;
 /**
  * Created by MahsaAzizi on 11/20/2019.
  */
-public class PaymentGatewayFragment extends Fragment implements OnAnimationEndListener, View.OnClickListener, MatchAdapter.ItemClickListener
+public class PaymentGatewayFragment extends Fragment implements OnAnimationEndListener, View.OnClickListener
 {
     private View rootView;
 
@@ -55,6 +53,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     private JustifiedTextView tvTitlePay;
     private ImageView imgLogo;
     private int PAYMENT_STATUS =0;
+    private int idBill=0;
 
     public PaymentGatewayFragment()
     {
@@ -83,13 +82,19 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     }
 
 
-    public static PaymentGatewayFragment newInstance(MainActionView mainActionView, String url, int imageDrawable, String amount, String title, int PAYMENT_STATUS)
+    public static PaymentGatewayFragment newInstance(MainActionView mainActionView, String url, int imageDrawable, String amount, String title, int PAYMENT_STATUS,int idBill)
     {
         PaymentGatewayFragment fragment = new PaymentGatewayFragment();
+        fragment.setIdBill(idBill);
         Bundle args = new Bundle();
 
         fragment.setMainView(mainActionView, url, imageDrawable, amount, title,PAYMENT_STATUS);
         return fragment;
+    }
+
+    private void setIdBill(int idBill)
+    {
+        this.idBill=idBill;
     }
 
 
@@ -198,7 +203,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
         } else if (v.getId() == R.id.btnBack)
         {
 
-            mainView.onBackToChargFragment(PAYMENT_STATUS);
+            mainView.onBackToChargFragment(PAYMENT_STATUS, idBill);
            /* MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟",
                     true, "بله", "خیر", listener);
             dialog.show(getActivity().getFragmentManager(), "dialog");*/
@@ -327,25 +332,6 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
 
 
         }
-
-    }
-
-
-    @Override
-    public void onItemClick(View view, int position, MatchItem matchItem)
-    {
-
-    }
-
-    @Override
-    public void onItemPredictClick(View view, int position, MatchItem matchItem)
-    {
-
-    }
-
-    @Override
-    public void onItemLogoTeamClick(View view, Integer id, String logo, String name)
-    {
 
     }
 }

@@ -7,16 +7,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
-
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
@@ -37,14 +27,6 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
-
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -55,21 +37,20 @@ import com.traap.traapapp.apiServices.model.getMenuHelp.GetMenuHelpResponse;
 import com.traap.traapapp.apiServices.model.getMenuHelp.ResultHelpMenu;
 import com.traap.traapapp.apiServices.model.matchList.MachListResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
+import com.traap.traapapp.apiServices.model.tourism.GetUserPassResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.PredictPosition;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.mainService.MainServiceModelItem;
-import com.traap.traapapp.apiServices.model.tourism.GetUserPassResponse;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.singleton.SingletonNeedGetAllBoxesRequest;
 import com.traap.traapapp.ui.activities.login.LoginActivity;
 import com.traap.traapapp.ui.activities.main.MainActivity;
-import com.traap.traapapp.ui.activities.web.WebActivity;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.adapters.mainServiceModel.BanerServiceModelAdapter;
 import com.traap.traapapp.ui.adapters.mainServiceModel.MainServiceModelAdapter;
 import com.traap.traapapp.ui.adapters.mainSlider.MainSliderAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
-import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.utilities.CountDownTimerPredict;
 import com.traap.traapapp.utilities.Logger;
@@ -80,8 +61,29 @@ import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
+
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+import library.android.eniac.StartEniacFlightActivity;
+import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
+import smartdevelop.ir.eram.showcaseviewlib.GuideView;
+import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
+
 //import library.android.eniac.StartEniacBusActivity;
 //import library.android.eniac.StartEniacFlightActivity;
 //import library.android.eniac.StartEniacHotelActivity;
@@ -94,10 +96,6 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 //import library.android.service.model.bus.saleVerify.response.SaleVerifyResponse;
 //import library.android.service.model.bus.searchBus.response.Company;
 //import library.android.service.model.flight.reservation.response.ReservationResponse;
-import library.android.eniac.StartEniacFlightActivity;
-import ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator;
-import smartdevelop.ir.eram.showcaseviewlib.GuideView;
-import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
 
 public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, MainServiceModelAdapter.OnItemClickListener, BanerServiceModelAdapter.OnItemClickListener,
 //        FlightReservationData, BusLockSeat, HotelReservationData,
@@ -812,10 +810,18 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 /*                Bundle headers = new Bundle();
                 headers.putString("Authorization", Prefs.getString("accessToken", ""));*/
 
-                Bundle headers = new Bundle();
-                headers.putString("Authorization", Prefs.getString("accessToken", ""));
+                if (baseUrl != null)
+                {
+                    Utility.openUrlCustomTab(getActivity(), baseUrl);
+                } else
+                {
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
-                Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
+                }
+
+
                 break;
 
             }
@@ -838,16 +844,24 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             {
 //                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_BUS, this);
 
-                Bundle headers = new Bundle();
-                headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
-                Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
-                ///  mainView.openWebView(mainView, URl, Prefs.getString("gds_token", ""), "گردشگری");
+                if (baseUrl != null)
+                {
+                    Utility.openUrlCustomTab(getActivity(), baseUrl);
+                } else
+                {
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization", Prefs.getString("accessToken", ""));
+
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
+                }
+
+
                 break;
             }
             case 65: //Bill
             {
-                mainView.onBill();
+                mainView.onBill("title", 0);
                 break;
             }
             case 42: //Pack
@@ -858,7 +872,9 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
             case 41: //Charge
             {
-                mainView.onChargeSimCard(0);
+                mainView.onBill("title", 0);
+
+                //mainView.onChargeSimCard(0);
                 break;
             }
 
@@ -897,11 +913,20 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
                 intent.putExtra("TOKEN", "");
                 startActivityForResult(intent, 100);*/
-                Bundle headers = new Bundle();
-                headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
-                Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
-                // Utility.openUrlCustomTab(getActivity(), Prefs.getString("alopark_token", ""));
+
+                if (baseUrl != null)
+                {
+                    Utility.openUrlCustomTab(getActivity(), baseUrl);
+                } else
+                {
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization", Prefs.getString("accessToken", ""));
+
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
+                }
+
+
                 break;
             }
             case 32: //  پارک حاشیه ای
@@ -912,12 +937,28 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
                 intent.putExtra("TOKEN", "");
                 startActivityForResult(intent, 100);*/
-                Bundle headers = new Bundle();
-                headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
-                Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
+                if (baseUrl != null)
+                {
+                    Utility.openUrlCustomTab(getActivity(), baseUrl);
+                } else
+                {
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization", Prefs.getString("accessToken", ""));
+
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
+                }
+
                 // Utility.openUrlCustomTab(getActivity(), URl);
                 break;
+            }
+            case 919:
+            {
+                mainView.onBillCar(9);
+            }
+            case 920:
+            {
+                mainView.onBillMotor(9);
             }
         }
     }

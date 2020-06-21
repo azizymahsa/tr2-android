@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+  >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/background_main_header">
+
+            <include layout="@layout/toolbar_back" />
+
+        </androidx.appcompat.widget.Toolbar>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200dp"
+                    android:padding="@dimen/_10dp">
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/imgBackground"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/test_event_1"
+                        android:background="@drawable/button_main_background_border"
+                        android:scaleType="fitXY"
+                        app:riv_border_color="@color/buttonMainBorderColor"
+                        app:riv_border_width="0dp"
+                        app:riv_corner_radius="15dp"
+                        app:riv_mutate_background="true"
+                        app:riv_oval="false" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center|right|top"
+                        android:layout_marginRight="@dimen/_10dp"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/textSize_14dp"
+                            android:text="◄ ﻣﻌﺮﻓﯽ ﮐﻤﭗ اﺳﺘﺎرﺗﺎﭘﯽ ﻫﻮش ﻣﺼﻨﻮﻋﯽ"
+                            android:textAppearance="@style/IranSansBold"
+                            android:textColor="@color/team_text_color"
+                            android:layout_marginTop="@dimen/_20dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/textSize_12dp"
+                            android:text="پنجشنبه 29 خرداد 1399"
+                            android:layout_marginTop="20dp"
+                            android:textAppearance="@style/IranSansBold"
+                            android:textColor="@color/team_text_color"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/textSize_12dp"
+                            android:text="ﻣﺪرس: ﺷﯿﺮﯾﻦ ﺷﻤﺲ"
+                            android:layout_marginTop="5dp"
+                            android:textAppearance="@style/IranSansBold"
+                            android:textColor="@color/team_text_color"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/textSize_12dp"
+                            android:text="راﯾﮕﺎن"
+                            android:textAppearance="@style/IranSansBold"
+                            android:textColor="@color/faded_Red"/>
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/llHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|right"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginRight="@dimen/_10dp"
+                    android:layout_marginLeft="@dimen/_10dp">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="50"
+                        android:layout_height="wrap_content"
+                        android:text="تعداد"
+                        android:gravity="center|right"
+                        android:textColor="@color/black"
+                        android:textAppearance="@style/IranSansBold"
+                        android:textSize="@dimen/textSize_14dp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="60"
+                        android:layout_height="wrap_content"
+                        android:text="قیمت (ریال)"
+                        android:gravity="center|right"
+                        android:textColor="@color/black"
+                        android:textAppearance="@style/IranSansBold"
+                        android:textSize="@dimen/textSize_14dp"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="60"
+                        android:layout_height="wrap_content"
+                        android:text="مهلت ثبت نام"
+                        android:gravity="center|right"
+                        android:textColor="@color/black"
+                        android:textAppearance="@style/IranSansBold"
+                        android:textSize="@dimen/textSize_14dp"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="50"
+                        android:layout_height="wrap_content"
+                        android:text="جزئیات"
+                        android:gravity="center|right"
+                        android:textColor="@color/black"
+                        android:textAppearance="@style/IranSansBold"
+                        android:textSize="@dimen/textSize_14dp"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/textHint"
+                    android:layout_marginRight="@dimen/_10dp"
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_5dp"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvDetail"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_marginRight="@dimen/_10dp"
+                    android:layout_marginLeft="@dimen/_10dp"/>
+
+
+
+
+
+
+
+
+
+                <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                    android:id="@+id/btnConfirm"
+                    android:layout_width="@dimen/_200dp"
+                    android:layout_height="@dimen/_35dp"
+
+                    android:layout_gravity="center"
+                    android:background="@drawable/background_button_login"
+                    android:text="ثبت نام"
+                    android:textColor="@color/textColorButton"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:textStyle="bold"
+                    android:transitionName="transition"
+                    app:finalCornerAngle="50dp"
+                    app:spinning_bar_color="@color/white"
+                    app:initialCornerAngle="50dp"
+                    app:spinning_bar_width="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="@dimen/_20dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/textSize_16dp"
+                    android:text="ﮐﻤﭗ اﺳﺘﺎرﺗﺎﭘﯽ ﻫﻮش ﻣﺼﻨﻮﻋﯽ: "
+                    android:textAppearance="@style/IranSansBold"
+                    android:textColor="@color/team_text_color"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginRight="@dimen/_10dp"/>
+                <com.uncopt.android.widget.text.justify.JustifiedTextView
+                    android:id="@+id/tvBody"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10dp"
+                    android:gravity="right"
+                    android:textAppearance="@style/IranSansBold"
+
+                    android:padding="@dimen/_10dp"
+                    android:text="از ، ﻟﻮرم اﯾﭙﺴﻮم ﻣﺘﻦ ﺳﺎﺧﺘﮕﯽ ﺑﺎ ﺗﻮﻟﯿﺪ ﺳﺎدﮔﯽ ﻧﺎﻣﻔﻬﻮم از ﺻﻨﻌﺖ ﭼﺎپ ﭼﺎﭘﮕﺮﻫﺎ و ﻣﺘﻮن ﺑﻠﮑﻪ روزﻧﺎﻣﻪ و ﻣﺠﻠﻪ در ﺳﺘﻮن و ، ﻃﺮاﺣﺎن ﮔﺮاﻓﯿﮏ اﺳﺖ و ﮐﺎرﺑﺮدﻫﺎی ، و ﺑﺮای ﺷﺮاﯾﻂ ﻓﻌﻠﯽ ﺗﮑﻨﻮﻟﻮژی ﻣﻮرد ﻧﯿﺎز ، ﺳﻄﺮآﻧﭽﻨﺎن ﮐﻪ ﻻزم اﺳﺖ ﮐﺘﺎﺑﻬﺎی زﯾﺎدی در ﺷﺼﺖ و ﺳﻪ ، ﻣﺘﻨﻮع ﺑﺎ ﻫﺪف ﺑﻬﺒﻮد اﺑﺰارﻫﺎی ﮐﺎرﺑﺮدی ﻣﯽ ﺑﺎﺷﺪ ﺗﺎ ﺑﺎ ، ﺷﻨﺎﺧﺖ ﻓﺮاوان ﺟﺎﻣﻌﻪ و ﻣﺘﺨﺼﺼﺎن را ﻣﯽ ﻃﻠﺒﺪ ، درﺻﺪ ﮔﺬﺷﺘﻪ ﺣﺎل و آﯾﻨﺪه ﻧﺮم اﻓﺰارﻫﺎ ﺷﻨﺎﺧﺖ ﺑﯿﺸﺘﺮی را ﺑﺮای ﻃﺮاﺣﺎن راﯾﺎﻧﻪ ای ﻋﻠﯽ اﻟﺨﺼﻮص ﻃﺮاﺣﺎن در اﯾﻦ ﺻﻮرت ﻣﯽ ﺗﻮان اﻣﯿﺪ ، و ﻓﺮﻫﻨﮓ ﭘﯿﺸﺮو در زﺑﺎن ﻓﺎرﺳﯽ اﯾﺠﺎد ﮐﺮد ، ﺧﻼﻗﯽ و ﺷﺮاﯾﻂ ﺳﺨﺖ ﺗﺎﯾﭗ ﺑﻪ ﭘﺎﯾﺎن ، داﺷﺖ ﮐﻪ ﺗﻤﺎم و دﺷﻮاری ﻣﻮﺟﻮد در اراﺋﻪ راﻫﮑﺎرﻫﺎ و ﺟﻮاﺑﮕﻮی ﺳﻮاﻻت ، رﺳﺪ و زﻣﺎن ﻣﻮرد ﻧﯿﺎز ﺷﺎﻣﻞ ﺣﺮوﻓﭽﯿﻨﯽ دﺳﺘﺎوردﻫﺎی اﺻﻠﯽ .ﭘﯿﻮﺳﺘﻪ اﻫﻞ دﻧﯿﺎی ﻣﻮﺟﻮد ﻃﺮاﺣﯽ اﺳﺎﺳﺎ ﻣﻮرد اﺳﺘﻔﺎده ﻗﺮار ﮔﯿﺮد"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textSize_12dp" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+</RelativeLayout>

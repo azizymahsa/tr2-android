@@ -158,11 +158,17 @@ public class PastMatchesFragment extends BaseFragment implements OnAnimationEndL
         if (id == 0)
         {
             showToast(getActivity(), "متاسفانه اطلاعاتی برای نمایش وجود ندارد.", 0);
-        } else
+        }
+        else
         {
             Prefs.putInt("selectedTab", 1);
             mainView.openPastResultFragment(LeagueTableParent.MatchScheduleFragment, "0", false, id.toString(), logo, title);
         }
+    }
 
+    @Override
+    public void onPerformanceEvaluationClick(Integer matchId, MatchItem matchItem)
+    {
+        mainView.onPerformanceEvaluation(matchId, matchItem);
     }
 }

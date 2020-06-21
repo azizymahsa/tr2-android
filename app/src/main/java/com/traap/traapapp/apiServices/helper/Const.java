@@ -9,11 +9,12 @@ public class Const
     public static final boolean TEST = false;
 
     //-----------------------------------------------------------------------------
-    public final static String BASEURL = "http://5.253.25.117:9000/";     //developing
+   public final static String BASEURL = "http://5.253.25.117:9000/";     //developing
     //public final static String BASEURL = "http:/stage-rest.traap.com/";     //developing
     //public final static String BASEURL = "http://5.253.25.117:5000/";     //pre Live
-  //  public final static String BASEURL = "http://79.175.146.58:8000/";     //pre Live
+    //public final static String BASEURL = "http://79.175.146.58:8000/";     //pre Live
    // public final static String BASEURL = "https://restapp.traap.com/";   //Live
+//    public final static String BASEURL = "https://restapp.traap.com/";   //Live
 
     private static final String SubBASEURL = "api/";
     //-----------------------------------------------------------------------------
@@ -229,5 +230,13 @@ public class Const
     //bil car & motor
     public final static String POST_BillCar=SubBASEURL+"v1/bill/car/";
     public final static String POST_BillMotorcycle=SubBASEURL+"v1/bill/motorcycle/";
+
+    public final static String BILL_PHONE=SubBASEURL+"v1/bill/phone/";
+    public final static String BILL_PAYMENT=SubBASEURL+"v1/bill/bill_payment/";
+    public final static String BILL_ELECTRICITY=SubBASEURL+"v1/bill/electricity/";
+    public final static String BILL_GAZ=SubBASEURL+"v1/bill/gas/";
+    public final static String BILL_MCI=SubBASEURL+"v1/bill/mci/";
+    public final static String BILL_WATER=SubBASEURL+"v1/bill/water/";
+
 
 }

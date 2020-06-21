@@ -8,6 +8,7 @@ import com.traap.traapapp.apiServices.part.AddCardService;
 import com.traap.traapapp.apiServices.part.ArchiveVideoService;
 import com.traap.traapapp.apiServices.part.BankListService;
 import com.traap.traapapp.apiServices.part.BillCodePayCodeService;
+import com.traap.traapapp.apiServices.part.BillService;
 import com.traap.traapapp.apiServices.part.BusService;
 import com.traap.traapapp.apiServices.part.BuyChargeWalletService;
 import com.traap.traapapp.apiServices.part.BuyPackageWalletService;
@@ -424,6 +425,11 @@ public class SingletonService
     public TractorTeamService tractorTeamService()
     {
         return new TractorTeamService(serviceGenerator);
+    }
+
+    public BillService billService()
+    {
+        return new BillService(serviceGenerator);
     }
 
 
