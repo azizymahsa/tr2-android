@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.fragments.billCarAndMotor;
 
 import android.Manifest;
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -29,8 +30,12 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.allService.response.SubMenu;
+import com.traap.traapapp.apiServices.model.billCar.Detail;
 import com.traap.traapapp.apiServices.model.billCar.RequestBillCar;
 import com.traap.traapapp.apiServices.model.billCar.ResponseBillCar;
+import com.traap.traapapp.apiServices.model.billPayment.BillPaymentResponse;
+import com.traap.traapapp.apiServices.model.payBillCar.Bill;
+import com.traap.traapapp.apiServices.model.payBillCar.RequestPayBillCar;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.enums.MatchScheduleParent;
@@ -49,14 +54,14 @@ import java.util.Objects;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
-public class PayBillCarMotorFragment extends BaseFragment implements View.OnClickListener, OnAnimationEndListener,AllBillCarAdapter.OnItemAllBillClickListener
+public class PayBillCarMotorFragment extends BaseFragment implements View.OnClickListener, OnAnimationEndListener, AllBillCarAdapter.OnItemAllBillClickListener
 
 {
 
     private Toolbar mToolbar;
 
     private MainActionView mainView;
-    private CircularProgressButton btnConfirm;
+    private CircularProgressButton btnConfirm, btnPay;
     private EditText etQR;
     TextInputLayout etLayoutCode;
     View rootView;
@@ -67,8 +72,11 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
     private RecyclerView recyclerView;
     private LinearLayout llGetBill, llNumCar;
     private AllBillCarAdapter mAdapter;
-AllBillCarAdapter.OnItemAllBillClickListener mItemClickListener;
-    private Integer billType=9;
+    AllBillCarAdapter.OnItemAllBillClickListener mItemClickListener;
+    private Integer billType = 9;
+    List<Bill> bills;
+    List<Detail> details;
+    private Integer sum = 0;
 
     public PayBillCarMotorFragment()
     {
@@ -85,6 +93,7 @@ AllBillCarAdapter.OnItemAllBillClickListener mItemClickListener;
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
 
         btnConfirm = rootView.findViewById(R.id.btnConfirm);
+        btnPay = rootView.findViewById(R.id.btnPay);
         etQR = rootView.findViewById(R.id.etQR);
         etLayoutCode = rootView.findViewById(R.id.etLayoutCode);
         llGetBill = rootView.findViewById(R.id.llGetBill);
@@ -102,16 +111,17 @@ AllBillCarAdapter.OnItemAllBillClickListener mItemClickListener;
 
 
         ivShowBalance.setOnClickListener(this);
+        btnPay.setOnClickListener(this);
         btnConfirm.setOnClickListener(this);
         btnConfirm.setText("تایید");
 
 
     }
 
-    public static PayBillCarMotorFragment newInstance(MainActionView mainActionView,Integer billType)
+    public static PayBillCarMotorFragment newInstance(MainActionView mainActionView, Integer billType)
     {
         PayBillCarMotorFragment fragment = new PayBillCarMotorFragment();
-        fragment.setMainView(mainActionView,billType);
+        fragment.setMainView(mainActionView, billType);
 
         Bundle args = new Bundle();
 
@@ -121,7 +131,7 @@ AllBillCarAdapter.OnItemAllBillClickListener mItemClickListener;
         return fragment;
     }
 
-    private void setMainView(MainActionView mainView,Integer billType)
+    private void setMainView(MainActionView mainView, Integer billType)
     {
         this.mainView = mainView;
         this.billType = billType;
@@ -176,7 +186,7 @@ AllBillCarAdapter.OnItemAllBillClickListener mItemClickListener;
         });
         if (Prefs.getString("qrCode", "").length() > 5 || etQR.getText().toString().length() > 5)
         {
-          //  sendRequest();
+            //  sendRequest();
         }
 
         return rootView;
@@ -186,14 +196,14 @@ AllBillCarAdapter.OnItemAllBillClickListener mItemClickListener;
     {
         RequestBillCar request = new RequestBillCar();
         request.setBillCode(etQR.getText().toString());//Prefs.getString("qrCode", ""));
-        request.setType(billType+"");
+        request.setType(billType + "");
         SingletonService.getInstance().getAllBillsService().getAllBillCar(new OnServiceStatus<WebServiceClass<ResponseBillCar>>()
         {
             @Override
             public void onReady(WebServiceClass<ResponseBillCar> decryptQrResponse)
             {
 
-
+                details = new ArrayList<>();
                 try
                 {
                     new Handler().postDelayed(new Runnable()
@@ -208,11 +218,12 @@ AllBillCarAdapter.OnItemAllBillClickListener mItemClickListener;
 
                     if (decryptQrResponse.info.statusCode == 200)
                     {
+                        details = decryptQrResponse.data.getDetails();
 
                         btnConfirm.setText("تایید");
                         llGetBill.setVisibility(View.GONE);
                         llNumCar.setVisibility(View.VISIBLE);
-                        txtSizeBill.setText(decryptQrResponse.data.getDetails().size()+"");
+                        txtSizeBill.setText(decryptQrResponse.data.getDetails().size() + "");
                         txtSumBill.setText(Utility.priceFormat(String.valueOf(decryptQrResponse.data.getTotalAmount())) + " ریال");
 
                         txtZero.setText(decryptQrResponse.data.getPlate().get(0));
@@ -220,8 +231,8 @@ AllBillCarAdapter.OnItemAllBillClickListener mItemClickListener;
                         txttwe.setText(decryptQrResponse.data.getPlate().get(2));
                         txtthree.setText(decryptQrResponse.data.getPlate().get(3));
 
-                       // mAdapter = new AllBillCarAdapter(getActivity(),decryptQrResponse.data.getDetails(),this);
-                        mAdapter = new AllBillCarAdapter(getActivity(),decryptQrResponse.data.getDetails());
+                        // mAdapter = new AllBillCarAdapter(getActivity(),decryptQrResponse.data.getDetails(),this);
+                        mAdapter = new AllBillCarAdapter(getActivity(), decryptQrResponse.data.getDetails());
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         recyclerView.setAdapter(mAdapter);
                     } else
@@ -330,14 +341,108 @@ AllBillCarAdapter.OnItemAllBillClickListener mItemClickListener;
         Log.d("barcode:", Prefs.getString("qrCode", ""));
     }
 
+    private void requestBillPayment()
+    {
+        bills = new ArrayList<>();
+
+        mainView.showLoading();
+
+        sum = 0;
+        int j=0;
+        for (int i = 0; i < details.size(); i++)
+        {
+            if (details.get(i).getCheck())
+            {
+                Bill bill = new Bill();
+                bill.setAmount(details.get(i).getAmount());
+                bill.setBillCode(details.get(i).getBillId());
+                bill.setPayCode(details.get(i).getPayCode());
+                bill.setType(billType + "");
+                bills.add(j, bill);
+                j++;
+
+                sum = sum + details.get(i).getAmount();
+
+            }
+        }
+        RequestPayBillCar request = new RequestPayBillCar();
+        request.setBills(bills);
+        SingletonService.getInstance().billService().postBillCarPayment(new OnServiceStatus<WebServiceClass<BillPaymentResponse>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<BillPaymentResponse> response)
+            {
+                mainView.hideLoading();
+
+                try
+                {
+
+                    if (response.info.statusCode == 200)
+                    {
+
+                        onPaymentBillSuccess(response.data, sum, request);
+
+                    } else
+                    {
+                        showToast(getContext(), response.info.message, R.color.red);
+
+                    }
+                } catch (Exception e)
+                {
+                    showError(getContext(), e.getMessage());
+
+                }
+
+
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                mainView.hideLoading();
+
+                if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
+                {
+
+                    showError(getContext(), "خطا در دریافت اطلاعات از سرور!");
+
+
+                } else
+                {
+                    showAlert(getContext(), R.string.networkErrorMessage, R.string.networkError);
+
+                }
+
+            }
+        }, request);
+    }
+    //  void openBillPaymentFragment(String url, String textBillPayment, String number, Integer idSelectedBillType,String amount,int PAYMENT_STATUS_BILL);
+
+    private void onPaymentBillSuccess(BillPaymentResponse data, Integer totalAmount, RequestPayBillCar request)
+    {
+        String textBillPayment = "";
+        if (billType == 9)
+        {
+
+            textBillPayment = "با انجام این پرداخت، مبلغ " + Utility.priceFormat(totalAmount + "") + " ریال بابت ' خلافی خودرو ' " //+ termText + typeBill + numberText
+                    + "، از حساب شما کسر خواهد شد.";
+        } else
+        {
+            textBillPayment = "با انجام این پرداخت، مبلغ " + Utility.priceFormat(totalAmount + "") + " ریال بابت ' خلافی موتور ' " //+ termText + typeBill + numberText
+                    + "، از حساب شما کسر خواهد شد.";
+        }
+        mainView.openBillPaymentFragment(data.getUrl(), textBillPayment, "", billType, totalAmount + "", TrapConfig.PAYMENT_STATUS_BILL);
+
+    }
+
     @Override
     public void onClick(View view)
     {
         switch (view.getId())
         {
-            case R.id.btnPaymentConfirm:
+            case R.id.btnPay:
 
-
+                requestBillPayment();
                 break;
             case R.id.ivShowBalance:
                 openBarcode(BarcodeType.Payment);
@@ -398,7 +503,7 @@ AllBillCarAdapter.OnItemAllBillClickListener mItemClickListener;
     }
 
     @Override
-    public void OnItemAllBillClick(View view, String id,String amount)
+    public void OnItemAllBillClick(View view, String id, String amount)
     {
 
     }

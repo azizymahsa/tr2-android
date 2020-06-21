@@ -35,7 +35,19 @@ public class Detail implements Serializable
     @SerializedName("city")
     @Expose
     private String city;
+    @Expose
+    private Boolean isCheck=false;
     private final static long serialVersionUID = 2821639230749711712L;
+
+    public Boolean getCheck()
+    {
+        return isCheck;
+    }
+
+    public void setCheck(Boolean check)
+    {
+        isCheck = check;
+    }
 
     public String getCity()
     {
