@@ -10,6 +10,8 @@ import com.traap.traapapp.apiServices.model.GlobalResponse3;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoResponse;
 import com.traap.traapapp.apiServices.model.availableAmount.AvailableAmounResponse;
+import com.traap.traapapp.apiServices.model.billCar.RequestBillCar;
+import com.traap.traapapp.apiServices.model.billCar.ResponseBillCar;
 import com.traap.traapapp.apiServices.model.billCode.BillCodeResponse;
 import com.traap.traapapp.apiServices.model.billElectricity.BillElectricityRequest;
 import com.traap.traapapp.apiServices.model.billElectricity.BillElectricityResponse;
@@ -17,6 +19,7 @@ import com.traap.traapapp.apiServices.model.billPayment.BillPaymentRequest;
 import com.traap.traapapp.apiServices.model.billPayment.BillPaymentResponse;
 import com.traap.traapapp.apiServices.model.billPhone.BillPhoneRequest;
 import com.traap.traapapp.apiServices.model.billPhone.BillPhoneResponse;
+
 import com.traap.traapapp.apiServices.model.bookMarkPhoto.BookMarkPhotoResponse;
 import com.traap.traapapp.apiServices.model.buyChargeWallet.BuyChargeWalletRequest;
 import com.traap.traapapp.apiServices.model.buyChargeWallet.BuyChargeWalletResponse;
@@ -308,6 +311,15 @@ public interface RetroClient
     Single<Response<WebServiceClass<GetAllBoxesResponse>>> getAllBoxes(
             @Body GetAllBoxesRequest request
     );
+     @POST(Const.POST_BillCar)
+    Single<Response<WebServiceClass<ResponseBillCar>>> getAllBillCar(
+            @Body RequestBillCar request
+    );
+
+    @POST(Const.POST_BillMotorcycle)
+    Single<Response<WebServiceClass<ResponseBillCar>>> getAllBillMotor(
+            @Body RequestBillCar request
+    );
 
     @POST(Const.ReservationMatch)
     Single<Response<WebServiceClass<ReservationResponse>>> reservTicket(
@@ -446,6 +458,12 @@ public interface RetroClient
     @POST(Const.GetInfoPhoneBill)
     Single<Response<WebServiceClass<GetInfoPhoneBillResponse>>> getInfoPhoneBill(
             @Body GetInfoPhoneBillRequest request
+    );
+
+
+    @POST(Const.BillPayment)
+    Single<Response<WebServiceClass<BillPaymentResponse>>> billPayment(
+            @Body BillPaymentRequest request
     );
 
     @POST(Const.GetInfoBill)
@@ -870,4 +888,5 @@ Single<Response<WebServiceClass<BillPhoneResponse>>> postBillMci(
 Single<Response<WebServiceClass<BillCodeResponse>>> postBillWater(
                 @Body BillPhoneRequest request
         );
+
 }

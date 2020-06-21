@@ -1695,6 +1695,18 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
+    public void onBillMotor(Integer status)
+    {
+
+    }
+
+    @Override
+    public void onBillCar(Integer status)
+    {
+
+    }
+
+    @Override
     public void onPackSimCard(Integer status)
     {
 

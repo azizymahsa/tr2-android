@@ -1975,6 +1975,18 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
     }
 
     @Override
+    public void onBillMotor(Integer status)
+    {
+
+    }
+
+    @Override
+    public void onBillCar(Integer status)
+    {
+
+    }
+
+    @Override
     public void onPackSimCard(Integer status)
     {
 

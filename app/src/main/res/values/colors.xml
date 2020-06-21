@@ -157,5 +157,6 @@
     <color name="textHint2">#888888</color>
     <color name="textHint3">#5C5C5C</color>
     <color name="faded_Red">#d5282e</color>
+    <color name="pelak_blue">#03127A</color>
     <!--  calendar  end-->
 </resources>

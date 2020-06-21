@@ -76,6 +76,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
+
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import library.android.eniac.StartEniacFlightActivity;
@@ -812,7 +813,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 if (baseUrl != null)
                 {
                     Utility.openUrlCustomTab(getActivity(), baseUrl);
-                }else{
+                } else
+                {
                     Bundle headers = new Bundle();
                     headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
@@ -843,18 +845,16 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_BUS, this);
 
 
-
                 if (baseUrl != null)
                 {
                     Utility.openUrlCustomTab(getActivity(), baseUrl);
-                }else{
+                } else
+                {
                     Bundle headers = new Bundle();
                     headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
                     Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
                 }
-
-
 
 
                 break;
@@ -872,7 +872,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
             case 41: //Charge
             {
-                mainView.onBill( "title", 0);
+                mainView.onBill("title", 0);
 
                 //mainView.onChargeSimCard(0);
                 break;
@@ -915,22 +915,16 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 startActivityForResult(intent, 100);*/
 
 
-
                 if (baseUrl != null)
                 {
                     Utility.openUrlCustomTab(getActivity(), baseUrl);
-                }else{
+                } else
+                {
                     Bundle headers = new Bundle();
                     headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
                     Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
                 }
-
-
-
-
-
-
 
 
                 break;
@@ -947,7 +941,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 if (baseUrl != null)
                 {
                     Utility.openUrlCustomTab(getActivity(), baseUrl);
-                }else{
+                } else
+                {
                     Bundle headers = new Bundle();
                     headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
@@ -956,6 +951,14 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
                 // Utility.openUrlCustomTab(getActivity(), URl);
                 break;
+            }
+            case 919:
+            {
+                mainView.onBillCar(9);
+            }
+            case 920:
+            {
+                mainView.onBillMotor(10);
             }
         }
     }

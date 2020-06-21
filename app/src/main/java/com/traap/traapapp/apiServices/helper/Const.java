@@ -227,6 +227,9 @@ public class Const
     public final static String GET_MY_Supportes=SubBASEURL+"v1/team/techs/fan_page/";
     //Suggestions
     public final static String POST_Suggestions=SubBASEURL+"v1/feedback/";
+    //bil car & motor
+    public final static String POST_BillCar=SubBASEURL+"v1/bill/car/";
+    public final static String POST_BillMotorcycle=SubBASEURL+"v1/bill/motorcycle/";
 
     public final static String BILL_PHONE=SubBASEURL+"v1/bill/phone/";
     public final static String BILL_PAYMENT=SubBASEURL+"v1/bill/bill_payment/";
