@@ -325,7 +325,7 @@ AllBillCarAdapter.OnItemAllBillClickListener mItemClickListener;
     public void onBarcodReader()
     {
         Prefs.putString("qrCode", "");
-        mainView.onBarcodReader();
+        mainView.onBarcodeReader();
 
         Log.d("barcode:", Prefs.getString("qrCode", ""));
     }
