@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -54,6 +55,7 @@ import com.traap.traapapp.models.dbModels.BankDB;
 import com.traap.traapapp.models.otherModels.newsModel.NewsArchiveClickModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
+import com.traap.traapapp.models.otherModels.qrModel.QrModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.singleton.SingletonLastPredictItem;
 import com.traap.traapapp.singleton.SingletonNewsArchiveClick;
@@ -62,17 +64,15 @@ import com.traap.traapapp.ui.activities.card.add.AddCardActivity;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultIncreaseInventoryActivity;
-import com.traap.traapapp.ui.activities.points.PointsActivity;
 import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.base.BaseMainActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.dialogs.MessageAlertPermissionDialog;
 import com.traap.traapapp.ui.drawer.MenuDrawerFragment;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.IntroducingTeamFragment;
-import com.traap.traapapp.ui.fragments.barcodeReader.BarcodeReaderFragment;
 import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
-import com.traap.traapapp.ui.fragments.barcodeReader.BarcodeReaderFragment;
+import com.traap.traapapp.ui.fragments.barcodeReader.QrCodeReader;
 import com.traap.traapapp.ui.fragments.billCarAndMotor.PayBillCarMotorFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.competitions.CompationsFragment;
@@ -91,7 +91,6 @@ import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
 import com.traap.traapapp.ui.fragments.matchSchedule.pastResult.PastResultFragment;
 import com.traap.traapapp.ui.fragments.media.MediaFragment;
 import com.traap.traapapp.ui.fragments.moneyTransfer.MainMoneyTransferFragment;
-import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.fragments.news.NewsArchiveActionView;
 import com.traap.traapapp.ui.fragments.news.NewsMainActionView;
 import com.traap.traapapp.ui.fragments.news.archive.NewsArchiveFragment;
@@ -104,13 +103,11 @@ import com.traap.traapapp.ui.fragments.performanceEvaluation.showResult.PlayerEv
 import com.traap.traapapp.ui.fragments.photo.archive.PhotosArchiveActionView;
 import com.traap.traapapp.ui.fragments.photo.archive.PhotosArchiveFragment;
 import com.traap.traapapp.ui.fragments.predict.PredictFragment;
-import com.traap.traapapp.ui.fragments.predict.predictResult.PredictResultResultFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.ChargeFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
 import com.traap.traapapp.ui.fragments.simcardPack.PackFragment;
 import com.traap.traapapp.ui.fragments.suggestions.SuggestionsFragment;
 import com.traap.traapapp.ui.fragments.support.SupportFragment;
-import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.fragments.survey.SurveyFragment;
 import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
 import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
@@ -140,8 +137,7 @@ import io.realm.exceptions.RealmException;
 //import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment2;
 
 public class MainActivity extends BaseMainActivity implements MainActionView, MenuDrawerFragment.FragmentDrawerListener,
-        OnServiceStatus
-                <WebServiceClass<GetMenuResponse>>, KeyboardUtils.SoftKeyboardToggleListener
+        OnServiceStatus<WebServiceClass<GetMenuResponse>>, KeyboardUtils.SoftKeyboardToggleListener
         , SelectPositionFragment.OnListFragmentInteractionListener
 {
     private Boolean isMainFragment = true;
@@ -1089,7 +1085,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                     {
                         try
                         {
-                            onBarcodReader();
+                            onBarcodeReader();
                         }
                         catch (Exception e)
                         {
@@ -1118,22 +1114,39 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void onBarcodReader()
+    public void onBarcodeReader()
     {
         isMainFragment = false;
 
-        setFragment(BarcodeReaderFragment.newInstance(this));
-        replaceFragment(getFragment(), "barcodeReaderFragment");
-
+//        setFragment(BarcodeReaderFragment.newInstance(this));
+//        replaceFragment(getFragment(), "barcodeReaderFragment");
+        setFragment(QrCodeReader.newInstance(this));
+        replaceFragment(getFragment(), "QrCodeReader");
     }
 
     @Override
-    public void onPaymentWithoutCard()
+    public void onShowPaymentWithoutCardFragment(@Nullable QrModel model)
     {
         isMainFragment = false;
 
-        setFragment(PaymentWithoutCardFragment.newInstance(this));
+        if (model != null)
+        {
+            fragmentList.remove(fragmentList.size() - 1); //remove QR Fragment
+            fragmentList.remove(fragmentList.size() - 1); //remove PaymentWithoutCard Fragment
+        }
+
+        setFragment(PaymentWithoutCardFragment.newInstance(this, model));
         replaceFragment(getFragment(), "paymentWithoutCardFragment");
+    }
+
+    @Override
+    public void onPaymentWithoutCard(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String amount, SimChargePaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS)
+    {
+        isMainFragment = false;
+        Prefs.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
+        setFragment(SelectPaymentGatewayFragment.newInstance(PAYMENT_STATUS, onClickContinueSelectPayment, urlPayment, this, imageDrawable,
+                title, amount, paymentInstance, mobile));
+        replaceFragment(getFragment(), "selectPaymentGatewayFragment");
     }
 
     @Override

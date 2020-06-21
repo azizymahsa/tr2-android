@@ -28,6 +28,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
@@ -69,6 +70,7 @@ import com.traap.traapapp.apiServices.model.mobileCharge.response.MobileChargeRe
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.pack.RightelPackModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
+import com.traap.traapapp.models.otherModels.qrModel.QrModel;
 import com.traap.traapapp.singleton.SingletonPaymentPlace;
 import com.traap.traapapp.ui.adapters.pack.DetailPackAdapter;
 import com.traap.traapapp.ui.adapters.pack.TitlePackAdapter;
@@ -2476,10 +2478,11 @@ public class PackFragment
     }
 
     @Override
-    public void onPaymentWithoutCard()
+    public void onShowPaymentWithoutCardFragment(@Nullable QrModel model)
     {
 
     }
+
 
     @Override
     public void onPaymentBill()

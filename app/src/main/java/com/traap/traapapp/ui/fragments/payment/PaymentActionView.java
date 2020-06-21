@@ -1,7 +1,10 @@
 package com.traap.traapapp.ui.fragments.payment;
 
+import androidx.annotation.Nullable;
+
 import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
 import com.traap.traapapp.apiServices.model.mobileCharge.response.MobileChargeResponse;
+import com.traap.traapapp.models.otherModels.qrModel.QrModel;
 
 public interface PaymentActionView
 {
@@ -17,7 +20,7 @@ public interface PaymentActionView
 
     void onPaymentTransferMoney();
 
-    void onPaymentWithoutCard();
+    void onShowPaymentWithoutCardFragment(@Nullable QrModel model);
 
     void onPaymentBill();
 

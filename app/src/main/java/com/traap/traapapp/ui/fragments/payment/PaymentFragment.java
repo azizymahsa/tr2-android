@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -40,6 +41,7 @@ import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.TicketPaymentInstance;
+import com.traap.traapapp.models.otherModels.qrModel.QrModel;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.favoriteCard.FavoriteCardFragment;
 import com.traap.traapapp.ui.fragments.favoriteCard.FavoriteCardParentActionView;
@@ -595,7 +597,7 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     }
 
     @Override
-    public void onPaymentWithoutCard()
+    public void onShowPaymentWithoutCardFragment(@Nullable QrModel model)
     {
 
     }

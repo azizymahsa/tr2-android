@@ -336,7 +336,7 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
     public void onBarcodReader()
     {
         Prefs.putString("qrCode", "");
-        mainView.onBarcodReader();
+        mainView.onBarcodeReader();
 
         Log.d("barcode:", Prefs.getString("qrCode", ""));
     }
