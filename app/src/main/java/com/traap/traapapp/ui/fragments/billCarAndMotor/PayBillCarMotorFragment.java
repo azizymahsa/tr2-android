@@ -68,6 +68,8 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
     private LinearLayout llGetBill, llNumCar;
     private AllBillCarAdapter mAdapter;
 AllBillCarAdapter.OnItemAllBillClickListener mItemClickListener;
+    private Integer billType=9;
+
     public PayBillCarMotorFragment()
     {
     }
@@ -106,10 +108,10 @@ AllBillCarAdapter.OnItemAllBillClickListener mItemClickListener;
 
     }
 
-    public static PayBillCarMotorFragment newInstance(MainActionView mainActionView)
+    public static PayBillCarMotorFragment newInstance(MainActionView mainActionView,Integer billType)
     {
         PayBillCarMotorFragment fragment = new PayBillCarMotorFragment();
-        fragment.setMainView(mainActionView);
+        fragment.setMainView(mainActionView,billType);
 
         Bundle args = new Bundle();
 
@@ -119,9 +121,10 @@ AllBillCarAdapter.OnItemAllBillClickListener mItemClickListener;
         return fragment;
     }
 
-    private void setMainView(MainActionView mainView)
+    private void setMainView(MainActionView mainView,Integer billType)
     {
         this.mainView = mainView;
+        this.billType = billType;
     }
 
     @Override
@@ -183,7 +186,7 @@ AllBillCarAdapter.OnItemAllBillClickListener mItemClickListener;
     {
         RequestBillCar request = new RequestBillCar();
         request.setBillCode(etQR.getText().toString());//Prefs.getString("qrCode", ""));
-        request.setType("9");
+        request.setType(billType+"");
         SingletonService.getInstance().getAllBillsService().getAllBillCar(new OnServiceStatus<WebServiceClass<ResponseBillCar>>()
         {
             @Override

@@ -958,7 +958,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
             }
             case 920:
             {
-                mainView.onBillMotor(9);
+                mainView.onBillMotor(10);
             }
         }
     }
