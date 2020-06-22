@@ -1708,6 +1708,18 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
+    public void onBillToll(Integer status)
+    {
+
+    }
+
+    @Override
+    public void onBillTrafic(Integer status)
+    {
+
+    }
+
+    @Override
     public void onPackSimCard(Integer status)
     {
 

@@ -75,6 +75,7 @@ import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.barcodeReader.QrCodeReader;
 import com.traap.traapapp.ui.fragments.billCarAndMotor.PayBillCarMotorFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
+import com.traap.traapapp.ui.fragments.billTollAndTraficPlan.PayTollTraficPlanFragment;
 import com.traap.traapapp.ui.fragments.competitions.CompationsFragment;
 import com.traap.traapapp.ui.fragments.competitions.QuestionCompationFragment;
 import com.traap.traapapp.ui.fragments.events.EventsFragment;
@@ -997,6 +998,26 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
         setFragment(PayBillCarMotorFragment.newInstance(this,9));
         replaceFragment(getFragment(), "onBillCar");
+    }
+
+    @Override
+    public void onBillToll(Integer status)
+    {
+        this.backState = backState;
+        isMainFragment = false;
+
+        setFragment(PayTollTraficPlanFragment.newInstance(this,110));
+        replaceFragment(getFragment(), "onBillToll");
+    }
+
+    @Override
+    public void onBillTrafic(Integer status)
+    {
+        this.backState = backState;
+        isMainFragment = false;
+
+        setFragment(PayTollTraficPlanFragment.newInstance(this,111));
+        replaceFragment(getFragment(), "onBillTrafic");
     }
 
     public void onIntroduceTeam()
