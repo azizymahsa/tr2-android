@@ -1988,6 +1988,18 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
     }
 
     @Override
+    public void onBillToll(Integer status)
+    {
+
+    }
+
+    @Override
+    public void onBillTrafic(Integer status)
+    {
+
+    }
+
+    @Override
     public void onPackSimCard(Integer status)
     {
 

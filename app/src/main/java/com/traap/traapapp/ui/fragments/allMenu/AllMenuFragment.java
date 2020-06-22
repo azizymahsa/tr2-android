@@ -873,6 +873,17 @@ public class AllMenuFragment extends BaseFragment implements
                 mainView.onBillCar(1);
                 break;
             }
+
+            case 111: //  طرح ترافیک
+            {
+                mainView.onBillTrafic(111);
+                break;
+            }
+            case 110: //  عوارض
+            {
+                mainView.onBillToll(110);
+                break;
+            }
         }
     }
 
