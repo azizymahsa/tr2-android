@@ -2337,6 +2337,12 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             isMainFragment = false;
             setFragment(WalletFragment.newInstance(this, 1));//IncreaseInventoryFragment
             replaceFragment(getFragment(), "IncreaseInventoryFragment");
+        }
+        else if (PAYMENT_STATUS == 15)
+        {
+            isMainFragment = false;
+            setFragment(PayBillCarMotorFragment.newInstance(this, idBill));//IncreaseInventoryFragment
+            replaceFragment(getFragment(), "PayBillCarMotorFragment");
         }else if (PAYMENT_STATUS==TrapConfig.PAYMENT_STATUS_BILL)
         {
             isMainFragment = false;
