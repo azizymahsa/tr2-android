@@ -1,7 +1,6 @@
 package com.traap.traapapp.ui.fragments.billCarAndMotor;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,7 +30,6 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.allService.response.SubMenu;
 import com.traap.traapapp.apiServices.model.billCar.Detail;
 import com.traap.traapapp.apiServices.model.billCar.RequestBillCar;
 import com.traap.traapapp.apiServices.model.billCar.ResponseBillCar;
@@ -40,11 +38,9 @@ import com.traap.traapapp.apiServices.model.payBillCar.Bill;
 import com.traap.traapapp.apiServices.model.payBillCar.RequestPayBillCar;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.BarcodeType;
-import com.traap.traapapp.enums.MatchScheduleParent;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.adapters.billCarAndMotor.AllBillCarAdapter;
-import com.traap.traapapp.ui.adapters.compations.CompationsDeActiveAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Tools;
@@ -64,7 +60,7 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
     private Toolbar mToolbar;
 
     private MainActionView mainView;
-    private CircularProgressButton btnConfirm, btnPay,btnSelectAll;
+    private CircularProgressButton btnConfirm, btnPay, btnSelectAll;
     private EditText etQR;
     TextInputLayout etLayoutCode;
     View rootView;
@@ -75,7 +71,6 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
     private RecyclerView recyclerView;
     private LinearLayout llGetBill, llNumCar;
     private AllBillCarAdapter mAdapter;
-    AllBillCarAdapter.OnItemAllBillClickListener mItemClickListener;
     private Integer billType = 9;
     List<Bill> bills;
     List<Detail> details;
@@ -105,8 +100,7 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
         imgBack = rootView.findViewById(R.id.imgBack);
         imgBack.setOnClickListener(v ->
         {
-           // getActivity().onBackPressed();
-
+            // getActivity().onBackPressed();
             mainView.backToAllServicePackage(2);
 
         });
@@ -269,24 +263,17 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
                         txttwe.setText(decryptQrResponse.data.getPlate().get(2));
                         txtthree.setText(decryptQrResponse.data.getPlate().get(3));
 
-                        // mAdapter = new AllBillCarAdapter(getActivity(),decryptQrResponse.data.getDetails(),this);
                         mAdapter = new AllBillCarAdapter(getActivity(), decryptQrResponse.data.getDetails());
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         recyclerView.setAdapter(mAdapter);
                     } else
                     {
-                        //   backToHome();
                         mainView.showError(decryptQrResponse.info.message);
 
                     }
                 } catch (Exception e)
                 {
                     mainView.hideLoading();
-
-                    //  mainView.showError(e.getMessage());
-                  /*  llPayment.setVisibility(View.VISIBLE);
-                    llDetailPayment.setVisibility(View.GONE);*/
-                    //   backToHome();
 
                 }
 
@@ -297,12 +284,6 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
             public void onError(String message)
             {
                 mainView.hideLoading();
-
-//...
-/*                llPayment.setVisibility(View.VISIBLE);
-                llDetailPayment.setVisibility(View.GONE);*/
-                //  backToHome();
-
 
                 new Handler().postDelayed(new Runnable()
                 {
@@ -328,21 +309,6 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
 
 
     }
-
-    public void backToHome()
-    {
-        continue_ = false;
-        etQR.setEnabled(true);
-
-
-        btnConfirm.revertAnimation(PayBillCarMotorFragment.this);
-        btnConfirm.setClickable(true);
-
-        etQR.setText("");
-        etLayoutCode.setHint(getString(R.string._txt_cod_car));
-
-    }
-
 
     public void openBarcode(BarcodeType bill)
     {
@@ -439,7 +405,6 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
             }
         }, request);
     }
-    //  void openBillPaymentFragment(String url, String textBillPayment, String number, Integer idSelectedBillType,String amount,int PAYMENT_STATUS_BILL);
 
     private void onPaymentBillSuccess(BillPaymentResponse data, Integer totalAmount, RequestPayBillCar request)
     {
@@ -522,21 +487,9 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
         for (int i = 0; i < details.size(); i++)
         {
             details.get(i).setCheck(true);
-           /* if (details.get(i).getCheck())
-            {
-                Bill bill = new Bill();
-                bill.setAmount(details.get(i).getAmount());
-                bill.setBillCode(details.get(i).getBillId());
-                bill.setPayCode(details.get(i).getPayCode());
-                bill.setType(billType + "");
-                bills.add(j, bill);
-                j++;
 
-                sum = sum + details.get(i).getAmount();
-
-            }*/
         }
-        mAdapter = new AllBillCarAdapter(getActivity(),details);
+        mAdapter = new AllBillCarAdapter(getActivity(), details);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
@@ -573,7 +526,6 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
     @Override
     public void onAnimationEnd()
     {
-        //  btnPaymentConfirm.setBackground(ContextCompat.getDrawable(SingletonContext.getInstance().getContext(), R.drawable.background_border_red));
         btnConfirm.setBackground(ContextCompat.getDrawable(SingletonContext.getInstance().getContext(), R.drawable.background_border_red));
     }
 
