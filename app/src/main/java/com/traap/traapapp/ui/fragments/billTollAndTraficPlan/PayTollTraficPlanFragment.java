@@ -1,4 +1,4 @@
-package com.traap.traapapp.ui.fragments.billCarAndMotor;
+package com.traap.traapapp.ui.fragments.billTollAndTraficPlan;
 
 import android.Manifest;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -40,7 +42,7 @@ import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
-import com.traap.traapapp.ui.adapters.billCarAndMotor.AllBillCarAdapter;
+import com.traap.traapapp.ui.adapters.billTollAndTraficPlan.AllBillTollAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Tools;
@@ -53,7 +55,7 @@ import java.util.Objects;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
-public class PayBillCarMotorFragment extends BaseFragment implements View.OnClickListener, OnAnimationEndListener, AllBillCarAdapter.OnItemAllBillClickListener
+public class PayTollTraficPlanFragment extends BaseFragment implements View.OnClickListener, OnAnimationEndListener
 
 {
 
@@ -62,6 +64,7 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
     private MainActionView mainView;
     private CircularProgressButton btnConfirm, btnPay, btnSelectAll;
     private EditText etQR;
+    private FloatingActionButton fab;
     TextInputLayout etLayoutCode;
     View rootView;
     private boolean isDetailPaymentList = false, isDetailPaymentBarcode = false;
@@ -70,7 +73,7 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
     private ImageView ivShowBalance;
     private RecyclerView recyclerView;
     private LinearLayout llGetBill, llNumCar;
-    private AllBillCarAdapter mAdapter;
+    private AllBillTollAdapter mAdapter;
     private Integer billType = 9;
     List<Bill> bills;
     List<Detail> details;
@@ -78,7 +81,7 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
     private TextView tvTitle, tvUserName, tvPopularPlayer;
     private View imgBack, imgMenu;
 
-    public PayBillCarMotorFragment()
+    public PayTollTraficPlanFragment()
     {
     }
 
@@ -104,10 +107,10 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
             mainView.backToAllServicePackage(2);
 
         });
-        if (billType == 9)
-            tvTitle.setText("استعلام خلافی خودرو");
+        if (billType == 110)
+            tvTitle.setText("عوارض آزاد راهی");
         else
-            tvTitle.setText("استعلام خلافی موتور");
+            tvTitle.setText("طرح ترافیک");
 
 
         FrameLayout flLogoToolbar = mToolbar.findViewById(R.id.flLogoToolbar);
@@ -117,6 +120,7 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
             mainView.backToMainFragment();
         });
 
+        fab = rootView.findViewById(R.id.floating_action_button);
         ivShowBalance = rootView.findViewById(R.id.ivShowBalance);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
 
@@ -139,18 +143,19 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
         txtthree = rootView.findViewById(R.id.txtthree);
 
 
+        fab.setOnClickListener(this);
         ivShowBalance.setOnClickListener(this);
         btnPay.setOnClickListener(this);
         btnSelectAll.setOnClickListener(this);
         btnConfirm.setOnClickListener(this);
-        btnConfirm.setText("تایید");
+        btnConfirm.setText("ثبت");
 
 
     }
 
-    public static PayBillCarMotorFragment newInstance(MainActionView mainActionView, Integer billType)
+    public static PayTollTraficPlanFragment newInstance(MainActionView mainActionView, Integer billType)
     {
-        PayBillCarMotorFragment fragment = new PayBillCarMotorFragment();
+        PayTollTraficPlanFragment fragment = new PayTollTraficPlanFragment();
         fragment.setMainView(mainActionView, billType);
 
         Bundle args = new Bundle();
@@ -201,7 +206,7 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
             }
 
         }
-        rootView = inflater.inflate(R.layout.fragment_bill_car_motor, container, false);
+        rootView = inflater.inflate(R.layout.fragment_bill_toll_plan, container, false);
 
         mToolbar = rootView.findViewById(R.id.toolbar);
         initView();
@@ -228,7 +233,8 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
         mainView.showLoading();
         RequestBillCar request = new RequestBillCar();
         request.setBillCode(etQR.getText().toString());//Prefs.getString("qrCode", ""));
-        request.setType(billType + "");
+        request.setType(9 + "");
+       // request.setType(billType + "");
         SingletonService.getInstance().getAllBillsService().getAllBillCar(new OnServiceStatus<WebServiceClass<ResponseBillCar>>()
         {
             @Override
@@ -243,7 +249,7 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
                         @Override
                         public void run()
                         {
-                            btnConfirm.revertAnimation(PayBillCarMotorFragment.this);
+                            btnConfirm.revertAnimation(PayTollTraficPlanFragment.this);
                             btnConfirm.setClickable(true);
                         }
                     }, 200);
@@ -263,7 +269,7 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
                         txttwe.setText(decryptQrResponse.data.getPlate().get(2));
                         txtthree.setText(decryptQrResponse.data.getPlate().get(3));
 
-                        mAdapter = new AllBillCarAdapter(getActivity(), decryptQrResponse.data.getDetails());
+                        mAdapter = new AllBillTollAdapter(getActivity(), decryptQrResponse.data.getDetails());
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         recyclerView.setAdapter(mAdapter);
                     } else
@@ -290,7 +296,7 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
                     @Override
                     public void run()
                     {
-                        btnConfirm.revertAnimation(PayBillCarMotorFragment.this);
+                        btnConfirm.revertAnimation(PayTollTraficPlanFragment.this);
                         btnConfirm.setClickable(true);
                     }
                 }, 200);
@@ -457,7 +463,10 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
                 break;
             case R.id.ivShowBalance:
                 openBarcode(BarcodeType.Payment);
-                // isDetailPaymentBarcode = true;
+
+                break;
+            case R.id.floating_action_button:
+                showAlert(getContext(),"hiii",1);
 
 
                 break;
@@ -489,7 +498,7 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
             details.get(i).setCheck(true);
 
         }
-        mAdapter = new AllBillCarAdapter(getActivity(), details);
+        mAdapter = new AllBillTollAdapter(getActivity(), details);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
@@ -516,7 +525,7 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
         super.onResume();
         continue_ = false;
         etQR.setText("");
-        btnConfirm.revertAnimation(PayBillCarMotorFragment.this);
+        btnConfirm.revertAnimation(PayTollTraficPlanFragment.this);
         btnConfirm.setClickable(true);
 
 
@@ -529,9 +538,5 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
         btnConfirm.setBackground(ContextCompat.getDrawable(SingletonContext.getInstance().getContext(), R.drawable.background_border_red));
     }
 
-    @Override
-    public void OnItemAllBillClick(View view, String id, String amount)
-    {
 
-    }
 }
