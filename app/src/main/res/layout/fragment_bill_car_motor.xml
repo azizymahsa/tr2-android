@@ -390,7 +390,7 @@
                                     android:layout_weight="40">
 
                                     <include
-                                        android:id="@+id/btnPaymentConfirm"
+                                        android:id="@+id/btnSelectAll"
                                         layout="@layout/circular_progress_button_white"
                                         android:layout_width="@dimen/_120sdp"
                                         android:layout_height="@dimen/_30dp"

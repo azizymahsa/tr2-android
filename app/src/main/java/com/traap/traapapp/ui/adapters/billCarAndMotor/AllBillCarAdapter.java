@@ -104,6 +104,18 @@ public class AllBillCarAdapter extends RecyclerView.Adapter<AllBillCarAdapter.Vi
             }
         });
 
+        holder.checkBox.setTag(item.getBillId());
+        holder.checkBox.setChecked(item.getCheck());
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                list.get(position).setCheck(isChecked);
+
+            }
+        });
+
     }
 
     @Override
