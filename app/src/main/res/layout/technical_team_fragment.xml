@@ -40,7 +40,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center|right"
                         android:text="نام"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginRight="@dimen/_10dp"
                         android:textColor="@color/warmGray"
                         android:textSize="@dimen/textSize_14dp"/>
 
@@ -71,6 +71,7 @@
                     android:gravity="center"
                     android:textColor="@color/warmGray"
                     android:layout_marginRight="@dimen/_10dp"
+                    android:layout_marginLeft="@dimen/_10dp"
 
                     android:textSize="@dimen/textSize_16dp"/>
 
@@ -88,5 +89,10 @@
             android:layout_height="0dp"
             android:layout_weight="100"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="bottom"
+            android:background="@color/warmGray"/>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

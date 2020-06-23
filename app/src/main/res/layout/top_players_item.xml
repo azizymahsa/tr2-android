@@ -57,7 +57,7 @@
         android:layout_width="0dp"
         android:layout_weight="140"
         android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="@dimen/_5dp"
         android:text="محمدرشید مظاهری"
         android:textColor="@color/warmGray"
         android:gravity="center|right"
@@ -75,7 +75,7 @@
         android:gravity="center"
         android:textColor="@color/warmGray"
         android:layout_marginRight="@dimen/_10dp"
-
+        android:layout_marginLeft="@dimen/_10dp"
         android:textSize="@dimen/textSize_14dp"/>
 
 

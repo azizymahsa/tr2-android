@@ -60,10 +60,10 @@
                     android:layout_width="0dp"
                     android:layout_weight="140"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
                     android:text="بازیکن"
+                    android:layout_marginRight="@dimen/_5dp"
                     android:textColor="@color/warmGray"
-                    android:gravity="center|right"
+                    android:gravity="center"
                     android:textSize="@dimen/textSize_14dp"/>
                 <View
                     android:layout_width="0.5dp"
@@ -78,7 +78,7 @@
                     android:gravity="center"
                     android:textColor="@color/warmGray"
                     android:layout_marginRight="@dimen/_10dp"
-
+                    android:layout_marginLeft="@dimen/_10dp"
                     android:textSize="@dimen/textSize_14dp"/>
 
             </LinearLayout>
@@ -95,5 +95,10 @@
             android:layout_height="0dp"
             android:layout_weight="100"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="bottom"
+            android:background="@color/warmGray"/>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
