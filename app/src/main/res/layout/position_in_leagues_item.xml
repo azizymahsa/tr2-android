@@ -7,7 +7,7 @@
     android:gravity="center|right">
 
 
-        <TextView
+                   <TextView
             android:id="@+id/tvLeague"
             android:layout_width="0dp"
             android:layout_weight="100"
@@ -24,7 +24,6 @@
             />
         <TextView
             android:id="@+id/tvYear"
-
             android:layout_width="0dp"
             android:layout_weight="40"
             android:layout_height="wrap_content"
