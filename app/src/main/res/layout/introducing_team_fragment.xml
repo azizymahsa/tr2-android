@@ -33,7 +33,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScroll"
+        android:id="@+id/nested"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/appbar"
@@ -215,6 +215,8 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/textSize_14dp"
                         android:text="1370"
+                        android:layout_marginStart="@dimen/_5dp"
+                        android:layout_marginEnd="@dimen/_5dp"
                         android:textColor="@color/team_text_color"
                         />
 
@@ -238,15 +240,17 @@
                         android:id="@+id/tvTeamAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/textSize_12dp"
+                        android:textSize="@dimen/textSize_14dp"
                         android:text="تبریز"
+                        android:layout_marginStart="@dimen/_5dp"
+                        android:layout_marginEnd="@dimen/_5dp"
                         android:textColor="@color/team_text_color"
                         />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/textSize_12dp"
+                        android:textSize="@dimen/textSize_14dp"
                         android:text="آدرس باشگاه: "
                         android:textColor="@color/team_text_color"
                         />
@@ -265,6 +269,8 @@
                         android:layout_width="48dp"
                         android:layout_height="match_parent"
                         android:text="021-2211"
+                        android:layout_marginStart="@dimen/_5dp"
+                        android:layout_marginEnd="@dimen/_5dp"
                         android:textColor="@color/team_text_color"
                         android:textSize="@dimen/textSize_14dp" />
 
@@ -288,7 +294,9 @@
                         android:id="@+id/tvEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/textSize_12dp"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:layout_marginStart="@dimen/_5dp"
+                        android:layout_marginEnd="@dimen/_5dp"
                         android:text="info@traap.com"
                         android:textColor="@color/team_text_color"
                         />
