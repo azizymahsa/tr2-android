@@ -325,7 +325,7 @@ public class MoneyTransferFragment extends BaseFragment implements View.OnClickL
 
             type = TYPE_CARD_NUMBER;
             llCardNumber.setVisibility(View.VISIBLE);
-            ivCreditCart.setVisibility(View.VISIBLE);
+            ivCreditCart.setVisibility(View.GONE);
             ivContact.setVisibility(View.GONE);
             llPhoneNumber.setVisibility(View.GONE);
             llUserCode.setVisibility(View.GONE);
