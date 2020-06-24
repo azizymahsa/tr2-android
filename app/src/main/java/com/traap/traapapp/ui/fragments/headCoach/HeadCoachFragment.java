@@ -23,6 +23,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
+
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 import com.google.android.material.tabs.TabLayout;
@@ -274,24 +275,30 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
             {
                 pb.setVisibility(View.GONE);
 
-
-                if (response.info.statusCode == 200)
+                try
                 {
-
-                    headProfileData = response.data;
-                    if (headProfileData.getIs_favorite())
+                    if (response.info.statusCode == 200)
                     {
-                        btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.maryGold));
+
+                        headProfileData = response.data;
+                        if (headProfileData.getIs_favorite())
+                        {
+                            btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.maryGold));
+                        } else
+                        {
+                            btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.shadowColor));
+
+                        }
+                        profileHeadCoahFragment.setData(headProfileData);
+
                     } else
                     {
-                        btnFavorit.setColorFilter(getContext().getResources().getColor(R.color.shadowColor));
+                        showToast(getActivity(), response.info.message, R.color.red);
 
                     }
-                    profileHeadCoahFragment.setData(headProfileData);
-
-                } else
+                } catch (Exception e)
                 {
-                    showToast(getActivity(), response.info.message, R.color.red);
+                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
 
                 }
             }
@@ -332,9 +339,9 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
         rootView = inflater.inflate(R.layout.fragment_head_coach, container, false);
 
         initViews();
-        profileHeadCoahFragment =new ProfileHeadCoahFragment();
-        historyHeadCoachFragment=new HistoryHeadCoachFragment();
-        newsHeadCoachFragment=new NewsHeadCoachFragment();
+        profileHeadCoahFragment = new ProfileHeadCoahFragment();
+        historyHeadCoachFragment = new HistoryHeadCoachFragment();
+        newsHeadCoachFragment = new NewsHeadCoachFragment();
         newsHeadCoachFragment.setCoachId(coachId);
         historyHeadCoachFragment.setCoachId(coachId);
         getTechsId();
@@ -381,7 +388,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
         adapter.addFrag("قراردادها", new TopPlayersFragment());*/
         adapter.addFrag("اتفاقات مهم", newsHeadCoachFragment);
         adapter.addFrag("سابقه", historyHeadCoachFragment);
-        adapter.addFrag("مشخصات",profileHeadCoahFragment);
+        adapter.addFrag("مشخصات", profileHeadCoahFragment);
 
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(2);

@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:gravity="center|right"
             android:text="ساکت الهامی"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="@dimen/_10dp"
             android:textColor="@color/warmGray"
             android:textSize="@dimen/textSize_14dp"/>
 
@@ -63,7 +63,7 @@
         android:gravity="center"
         android:textColor="@color/warmGray"
         android:layout_marginRight="@dimen/_10dp"
-
+        android:layout_marginLeft="@dimen/_10dp"
         android:textSize="@dimen/textSize_14dp"/>
 
 

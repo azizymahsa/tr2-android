@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nested"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
 
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50dp"
@@ -60,26 +60,28 @@
                     android:layout_width="0dp"
                     android:layout_weight="140"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
                     android:text="بازیکن"
+                    android:layout_marginRight="@dimen/_5dp"
                     android:textColor="@color/warmGray"
-                    android:gravity="center|right"
+                    android:gravity="center"
                     android:textSize="@dimen/textSize_14dp"/>
                 <View
                     android:layout_width="0.5dp"
                     android:layout_height="match_parent"
                     android:background="@color/warmGray"/>
+
                 <TextView
                     android:id="@+id/tvRate"
                     android:layout_width="0dp"
-                    android:layout_weight="50"
                     android:layout_height="wrap_content"
-                    android:text="ردیف"
-                    android:gravity="center"
-                    android:textColor="@color/warmGray"
                     android:layout_marginRight="@dimen/_10dp"
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:text="ردیف"
+                    android:textColor="@color/warmGray"
 
-                    android:textSize="@dimen/textSize_14dp"/>
+                    android:textSize="@dimen/textSize_14dp" />
 
             </LinearLayout>
 
@@ -95,5 +97,10 @@
             android:layout_height="0dp"
             android:layout_weight="100"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="bottom"
+            android:background="@color/warmGray"/>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

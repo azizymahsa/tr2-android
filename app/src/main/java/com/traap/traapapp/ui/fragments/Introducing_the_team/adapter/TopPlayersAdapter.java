@@ -19,11 +19,13 @@ public class TopPlayersAdapter extends RecyclerView.Adapter<TopPlayersAdapter.Vi
 {
     private Context context;
     private List<Result> results;
+    private TopPlayersAdapter.CurrentPlayerEvent teamEvent;
 
 
-    public TopPlayersAdapter(List<Result> results)
+    public TopPlayersAdapter(List<Result> results, TopPlayersAdapter.CurrentPlayerEvent teamEvent)
     {
         this.results=results;
+        this.teamEvent=teamEvent;
 
     }
 
@@ -60,7 +62,10 @@ public class TopPlayersAdapter extends RecyclerView.Adapter<TopPlayersAdapter.Vi
         holder.tvPlayer.setText(results.get(position).getPersianFirstName()+" "+results.get(position).getPersianLastName());
         holder.tvAttendance.setText(results.get(position).getSeasons()+" فصل");
         holder.tvGoals.setText(results.get(position).getClubGoals()+" گل");
-
+        holder.llRoot.setOnClickListener(v ->
+        {
+            teamEvent.CurrentPlayerClick(results.get(position));
+        });
     }
 
 
@@ -75,11 +80,14 @@ public class TopPlayersAdapter extends RecyclerView.Adapter<TopPlayersAdapter.Vi
     {
         private LinearLayout llHeader, llItem;
         private TextView tvRate, tvGoals, tvAttendance, tvPlayer;
+        private LinearLayout llRoot;
 
 
         public ViewHolder(View v)
         {
             super(v);
+
+            llRoot = v.findViewById(R.id.llRoot);
             llHeader = v.findViewById(R.id.llHeader);
             llItem = v.findViewById(R.id.llItem);
             tvRate = v.findViewById(R.id.tvRate);
@@ -90,5 +98,7 @@ public class TopPlayersAdapter extends RecyclerView.Adapter<TopPlayersAdapter.Vi
         }
     }
 
-
+    public interface CurrentPlayerEvent{
+        void CurrentPlayerClick(Result result);
+    }
 }

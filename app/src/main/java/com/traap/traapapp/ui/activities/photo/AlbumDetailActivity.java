@@ -281,29 +281,32 @@ public class AlbumDetailActivity extends BaseActivity implements View.OnClickLis
         tvCaption.setText(data.getCaption() + "");
         for (int i = 0; i < data.getContent().size(); i++)
         {
-            if (data.getContent().get(i).getIsCover())
+            try
             {
-                setImageBackground(ivPhoto, data.getContent().get(i).getImageName().getThumbnailLarge().replace("\\", ""));
-                if (data.getContent().get(i).getIsLiked())
+                if (data.getContent().get(i).getIsCover())
                 {
-                    imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
-                    tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
+                    setImageBackground(ivPhoto, data.getContent().get(i).getImageName().getThumbnailLarge().replace("\\", ""));
+                    if (data.getContent().get(i).getIsLiked())
+                    {
+                        imgLike.setColorFilter(getResources().getColor(R.color.backgroundButton));
+                        tvLike.setTextColor(getResources().getColor(R.color.backgroundButton));
+                    } else
+                    {
+                        imgLike.setColorFilter(getResources().getColor(R.color.white));
+                        tvLike.setTextColor(getResources().getColor(R.color.white));
+                    }
+                    idPhoto = data.getContent().get(i).getId();
+                    likeCount = data.getContent().get(i).getLikes();
+                    isLike = data.getContent().get(i).getIsLiked();
+                    isBookmark = data.getContent().get(i).getIsBookmarked();
+                    tvLike.setText(likeCount + "");
+                    coverImg = data.getContent().get(i).getCover();
+                    largeImageClick = data.getContent().get(i).getImageName().getThumbnailLarge();
+                    position = i;
                 }
-                else
-                {
-                    imgLike.setColorFilter(getResources().getColor(R.color.white));
-                    tvLike.setTextColor(getResources().getColor(R.color.white));
-                }
-                idPhoto = data.getContent().get(i).getId();
-                likeCount = data.getContent().get(i).getLikes();
-                isLike = data.getContent().get(i).getIsLiked();
-                isBookmark = data.getContent().get(i).getIsBookmarked();
-                tvLike.setText(likeCount + "");
-                coverImg = data.getContent().get(i).getCover();
-                largeImageClick = data.getContent().get(i).getImageName().getThumbnailLarge();
-                position = i;
+            }catch (Exception e){
+                e.getMessage();
             }
-
         }
         list = new ArrayList<>();
         list.addAll(data.getContent());
