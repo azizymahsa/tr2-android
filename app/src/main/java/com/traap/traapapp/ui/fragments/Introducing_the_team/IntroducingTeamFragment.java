@@ -282,7 +282,7 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
         nested.scrollTo(0, 0);
         adapter.addFrag("بازیکنان فعلی", new CurrentPlayersFragment(mainView));
         adapter.addFrag("کادر فنی", new TechnicalTeamFragment(mainView));
-        adapter.addFrag("برترین بازیکن ها", new TopPlayersFragment());
+        adapter.addFrag("برترین بازیکن ها", new TopPlayersFragment(mainView));
         adapter.addFrag("جایگاه در لیگ ها", new PositionInLeaguesFragment());
         adapter.addFrag("تاریخچه", new TeamHistoryFragment());
 

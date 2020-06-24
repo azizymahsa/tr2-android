@@ -13,6 +13,7 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.cup.CupResponse;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.PositionInLeaguesAdapter;
+import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
@@ -26,12 +27,14 @@ import androidx.recyclerview.widget.RecyclerView;
  * Reza Nejati <reza.n.j.t.i@gmail.com>
  * Copyright © 2017
  */
-public class PositionInLeaguesFragment  extends BaseFragment
+public class PositionInLeaguesFragment  extends BaseFragment implements  PositionInLeaguesAdapter.PredictLeagueEvent
+
 {
     private View rootView;
     private RecyclerView rv;
     private NestedScrollView nested;
     public static Integer height;
+    private MainActionView mainView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -45,7 +48,16 @@ public class PositionInLeaguesFragment  extends BaseFragment
         getCup();
         return rootView;
     }
-
+    public static PositionInLeaguesFragment newInstance(MainActionView mainView)
+    {
+        PositionInLeaguesFragment f = new PositionInLeaguesFragment();
+        f.setMainView(mainView);
+        return f;
+    }
+    private void setMainView(MainActionView mainView)
+    {
+        this.mainView = mainView;
+    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
@@ -77,7 +89,7 @@ public class PositionInLeaguesFragment  extends BaseFragment
                     if (response.info.statusCode==200)
                     {
 
-                        rv.setAdapter(new PositionInLeaguesAdapter(response.data.getResults()));
+                        rv.setAdapter(new PositionInLeaguesAdapter(response.data.getResults(),PositionInLeaguesFragment.this));
 
 
                     }else{
@@ -109,6 +121,13 @@ public class PositionInLeaguesFragment  extends BaseFragment
                 }catch (Exception e){}
             }
         });
+
+    }
+
+    @Override
+    public void PredictLeagueTableClick(Integer teamId, Integer matchId, Boolean isPredictable)
+    {
+        mainView.onPredictLeagueTable(teamId, matchId, isPredictable);
 
     }
 }

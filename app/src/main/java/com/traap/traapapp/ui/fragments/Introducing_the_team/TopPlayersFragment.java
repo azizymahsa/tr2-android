@@ -9,10 +9,12 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.topPlayers.Result;
 import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.PositionInLeaguesAdapter;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.TopPlayersAdapter;
+import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
@@ -26,11 +28,12 @@ import androidx.recyclerview.widget.RecyclerView;
  * Reza Nejati <reza.n.j.t.i@gmail.com>
  * Copyright © 2017
  */
-public class TopPlayersFragment extends BaseFragment
+public class TopPlayersFragment extends BaseFragment implements TopPlayersAdapter.CurrentPlayerEvent
 {
     private View rootView;
     private RecyclerView rv;
     private NestedScrollView nested;
+    private MainActionView mainView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -44,7 +47,11 @@ public class TopPlayersFragment extends BaseFragment
         getTopPlayers();
         return rootView;
     }
-
+    public TopPlayersFragment(MainActionView mainView)
+    {
+        super();
+        this.mainView=mainView;
+    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
@@ -70,7 +77,7 @@ public class TopPlayersFragment extends BaseFragment
                     if (response.info.statusCode==200)
                     {
 
-                        rv.setAdapter(new TopPlayersAdapter(response.data.getResults()));
+                        rv.setAdapter(new TopPlayersAdapter(response.data.getResults(),TopPlayersFragment.this));
 
 
 
@@ -103,6 +110,13 @@ public class TopPlayersFragment extends BaseFragment
                 }catch (Exception e){}
             }
         },"player",true,true);
+
+    }
+
+    @Override
+    public void CurrentPlayerClick(Result result)
+    {
+        mainView.onHeadCoach(result.getId(),"معرفی بازیکن",true);
 
     }
 }
