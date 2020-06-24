@@ -142,7 +142,7 @@ public interface MainActionView extends BaseView
 
     void onPerformanceEvaluation(Integer matchId, MatchItem matchItem);
 
-    void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId);
+    void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId, String name, String imageURL);
 
-    void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId);
+    void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId, String name, String imageURL);
 }

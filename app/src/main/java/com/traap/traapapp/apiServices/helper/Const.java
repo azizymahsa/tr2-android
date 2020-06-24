@@ -1,20 +1,17 @@
 package com.traap.traapapp.apiServices.helper;
 
 
-import com.androidnetworking.common.ANRequest;
-
 public class Const
 {
     public static final boolean MOCK = false;
     public static final boolean TEST = false;
 
     //-----------------------------------------------------------------------------
-   public final static String BASEURL = "http://5.253.25.117:9000/";     //developing
+    public final static String BASEURL = "http://5.253.25.117:9000/";     //developing
     //public final static String BASEURL = "http:/stage-rest.traap.com/";     //developing
     //public final static String BASEURL = "http://5.253.25.117:5000/";     //pre Live
     //public final static String BASEURL = "http://79.175.146.58:8000/";     //pre Live
-   // public final static String BASEURL = "https://restapp.traap.com/";   //Live
-//    public final static String BASEURL = "https://restapp.traap.com/";   //Live
+    // public final static String BASEURL = "https://restapp.traap.com/";   //Live
 
     private static final String SubBASEURL = "api/";
     //-----------------------------------------------------------------------------
@@ -36,8 +33,8 @@ public class Const
     public final static String ReservationMatch = SubBASEURL + "v1/match/reservation/";
     public final static String GetTicketInfo = SubBASEURL + "v1/match/ticket_info/";
     public final static String GetTicketBuyEnable = SubBASEURL + "v1/match/buy_enable/";
-    public final static String GetSpectatorInfo=SubBASEURL+"v1/match/spectator/{national_code}";
-    public final static String GetSpectatorList=SubBASEURL+"v1/match/spectator";
+    public final static String GetSpectatorInfo = SubBASEURL + "v1/match/spectator/{national_code}";
+    public final static String GetSpectatorList = SubBASEURL + "v1/match/spectator";
 
     //Mobile
     public final static String GET_BOUGHT_FOR = SubBASEURL + "v1/topupcharge/bought_for/";
@@ -67,7 +64,7 @@ public class Const
     public final static String GetInfoWallet = SubBASEURL + "v1/shetac/get_info/";
     public final static String IncreaseInventoryWallet = SubBASEURL + "v1/shetac/increase_inventory_ipg/";
     public final static String Get_Withdraw_Wallet = SubBASEURL + "v1/shetac/withdraw/";
-    public final static String DoTransferWallet=SubBASEURL+"v1/shetac/do_transfer/";
+    public final static String DoTransferWallet = SubBASEURL + "v1/shetac/do_transfer/";
 
     //card
     public final static String GetCardList = SubBASEURL + "v1/card/";
@@ -149,9 +146,8 @@ public class Const
     public final static String Get_Main_Video = SubBASEURL + "v1/video/video_main/";
     public final static String Get_VIDEOS_ARCHIVE_CATEGORY = SubBASEURL + "v1/video/category/";
     public final static String Get_VIDEOS_ARCHIVE_BY_IDs = SubBASEURL + "v1/video/";
-  //  public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/{id}/recent_by_category/";
+    //  public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/{id}/recent_by_category/";
     public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/";
-
 
 
     public final static String Get_Category_By_Id_Video2 = SubBASEURL + "v1/video/{id}/related/";
@@ -169,7 +165,7 @@ public class Const
     public final static String Like_Photo = SubBASEURL + "v1/photo/{id}/like/";
     public final static String bookMark_Photo = SubBASEURL + "v1/photo/{id}/bookmark/";
     public final static String List_Bookmark_Photo = SubBASEURL + "v1/photo/bookmarks/";
-    public final static String Get_Photo_Detail=SubBASEURL+"v1/photo/{id}/photo_detail/";
+    public final static String Get_Photo_Detail = SubBASEURL + "v1/photo/{id}/photo_detail/";
 
     //News
     public final static String NEWS_MAIN = SubBASEURL + "v1/news/home/";
@@ -195,7 +191,7 @@ public class Const
     public final static String mainpage = SubBASEURL + "v1/shetab/main_page/";
 
     //inviteFriend
-    public final static String Get_Invite_Friend=SubBASEURL+"v1/invite_friend/";
+    public final static String Get_Invite_Friend = SubBASEURL + "v1/invite_friend/";
 
     //Lottery for Predict
     public final static String GET_LOTTERY_WINNER_LIST = SubBASEURL + "v1/lottery/{matchId}";
@@ -213,31 +209,34 @@ public class Const
     public final static String TECHS = SubBASEURL + "v1/team/techs/";
     public final static String CUPS = SubBASEURL + "v1/team/cups/";
 
-    public final static String TECHS_ID=SubBASEURL+"v1/team/techs/{id}/";
-    public final static String TECHS_HISTORY=SubBASEURL+"v1/team/techs/{id}/history/";
-    public final static String Get_Tech_News=SubBASEURL+"v1/news/{id}/tech_staff/";
+    public final static String TECHS_ID = SubBASEURL + "v1/team/techs/{id}/";
+    public final static String TECHS_HISTORY = SubBASEURL + "v1/team/techs/{id}/history/";
+    public final static String Get_Tech_News = SubBASEURL + "v1/news/{id}/tech_staff/";
 
     //compation
-    public final static String Get_All_Compations=SubBASEURL+"v1/competition/";
-    public final static String Get_All_Questions=SubBASEURL+"v1/competition/{id}/";
-    public final static String Post_Answer=SubBASEURL+"v1/competition/{id}/answers/";
+    public final static String Get_All_Compations = SubBASEURL + "v1/competition/";
+    public final static String Get_All_Questions = SubBASEURL + "v1/competition/{id}/";
+    public final static String Post_Answer = SubBASEURL + "v1/competition/{id}/answers/";
     //favorite player interview
-    public final static String Post_Favorite=SubBASEURL+"v1/team/techs/fan_page/";
+    public final static String Post_Favorite = SubBASEURL + "v1/team/techs/fan_page/";
     //MySupportProfile
-    public final static String GET_MY_Supportes=SubBASEURL+"v1/team/techs/fan_page/";
+    public final static String GET_MY_Supportes = SubBASEURL + "v1/team/techs/fan_page/";
     //Suggestions
-    public final static String POST_Suggestions=SubBASEURL+"v1/feedback/";
+    public final static String POST_Suggestions = SubBASEURL + "v1/feedback/";
     //bil car & motor
-    public final static String POST_BillCar=SubBASEURL+"v1/bill/car/";
-    public final static String POST_BillMotorcycle=SubBASEURL+"v1/bill/motorcycle/";
-    public final static String POST_BillPayment=SubBASEURL+"v1/bill/traffic_payment/";
+    public final static String POST_BillCar = SubBASEURL + "v1/bill/car/";
+    public final static String POST_BillMotorcycle = SubBASEURL + "v1/bill/motorcycle/";
+    public final static String POST_BillPayment = SubBASEURL + "v1/bill/traffic_payment/";
+    public final static String BILL_PHONE = SubBASEURL + "v1/bill/phone/";
+    public final static String BILL_PAYMENT = SubBASEURL + "v1/bill/bill_payment/";
+    public final static String BILL_ELECTRICITY = SubBASEURL + "v1/bill/electricity/";
+    public final static String BILL_GAZ = SubBASEURL + "v1/bill/gas/";
+    public final static String BILL_MCI = SubBASEURL + "v1/bill/mci/";
+    public final static String BILL_WATER = SubBASEURL + "v1/bill/water/";
 
-    public final static String BILL_PHONE=SubBASEURL+"v1/bill/phone/";
-    public final static String BILL_PAYMENT=SubBASEURL+"v1/bill/bill_payment/";
-    public final static String BILL_ELECTRICITY=SubBASEURL+"v1/bill/electricity/";
-    public final static String BILL_GAZ=SubBASEURL+"v1/bill/gas/";
-    public final static String BILL_MCI=SubBASEURL+"v1/bill/mci/";
-    public final static String BILL_WATER=SubBASEURL+"v1/bill/water/";
 
+    public final static String GET_MAIN_PERFORMANCE_EVALUATION = SubBASEURL + "v1/match/{id}/formation/";
+    public final static String GET_PERFORMANCE_EVALUATION_SUBSTITUTION = SubBASEURL + "v1/match/{id}/substitution/";
+    public final static String SET_PLAYER_PERFORMANCE_EVALUATION = SubBASEURL + "v1/evaluation/{id}/polls";
 
 }

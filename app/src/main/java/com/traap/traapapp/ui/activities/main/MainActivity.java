@@ -1075,14 +1075,14 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId)
+    public void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId, String name, String imageURL)
     {
-        setFragment(PlayerSetEvaluationFragment.newInstance(this, matchId, playerId));
+        setFragment(PlayerSetEvaluationFragment.newInstance(this, matchId, playerId, name, imageURL));
         replaceFragment(getFragment(), "PlayerSetEvaluationFragment");
     }
 
     @Override
-    public void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId)
+    public void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId, String name, String imageURL)
     {
         setFragment(PlayerEvaluationResultFragment.newInstance(this, matchId, playerId));
         replaceFragment(getFragment(), "PlayerEvaluationResultFragment");
