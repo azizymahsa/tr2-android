@@ -17,7 +17,7 @@ import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPaymen
 
 public interface MainActionView extends BaseView
 {
-    void onBill(String title,Integer idBillType);
+    void onBill(String title,Integer idBillType,String qrCode);
 
     void onChargeSimCard(Integer status);
 
@@ -25,7 +25,7 @@ public interface MainActionView extends BaseView
 
     void openBarcode(BarcodeType bill);
 
-    void onBarcodReader();
+    void onBarcodReader(BarcodeType barcodeType);
 
     void onPaymentWithoutCard();
 

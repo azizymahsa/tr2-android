@@ -962,12 +962,12 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void onBill(String title,Integer idBillType)
+    public void onBill(String title,Integer idBillType,String qrCode)
     {
         isMainFragment = false;
         String titleBill = title;
         idBillType = idBillType;
-        setFragment(BillFragment.newInstance(this, titleBill, idBillType));
+        setFragment(BillFragment.newInstance(this, titleBill, idBillType,qrCode));
         replaceFragment(getFragment(), "billFragment");
 
     }
@@ -1058,8 +1058,9 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
 
     @Override
-    public void openBarcode(BarcodeType bill)
+    public void openBarcode(BarcodeType barcodeType)
     {
+
         new TedPermission(this)
                 .setPermissionListener(new PermissionListener()
                 {
@@ -1068,7 +1069,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                     {
                         try
                         {
-                            onBarcodReader();
+                            onBarcodReader(barcodeType);
                         }
                         catch (Exception e)
                         {
@@ -1097,11 +1098,11 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void onBarcodReader()
+    public void onBarcodReader(BarcodeType barcodeType)
     {
         isMainFragment = false;
 
-        setFragment(BarcodeReaderFragment.newInstance(this));
+        setFragment(BarcodeReaderFragment.newInstance(this,barcodeType));
         replaceFragment(getFragment(), "barcodeReaderFragment");
 
     }

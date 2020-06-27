@@ -341,7 +341,7 @@ public class PaymentWithoutCardFragment2 extends BaseFragment implements View.On
     {
         // changeFragment(fragments.get(13), "13");
         Prefs.putString("qrCode", "");
-        mainView.onBarcodReader();
+        mainView.onBarcodReader(BarcodeType.Payment);
         //    mFragNavController.switchTab(13);
        /* new Handler().postDelayed(() -> {
             layoutBehavior();
