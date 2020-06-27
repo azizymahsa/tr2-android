@@ -269,6 +269,35 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="10"/>
+
+                            <TextView
+                                android:id="@+id/tvPriceSequence"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="صفر ریال"
+                                android:visibility="gone"
+                                android:gravity="center"
+                                android:textSize="@dimen/textSize_14dp"
+                                android:textColor="@color/textColorSubTitle"
+                                android:layout_weight="100"/>
+
+                            <Space
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="10"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_10dp"
                             android:orientation="horizontal"
                             android:gravity="center|end">
