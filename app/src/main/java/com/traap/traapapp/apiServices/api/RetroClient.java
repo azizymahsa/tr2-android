@@ -35,10 +35,13 @@ import com.traap.traapapp.apiServices.model.doTransferCard.request.DoTransferReq
 import com.traap.traapapp.apiServices.model.doTransferCard.response.DoTransferResponse;
 import com.traap.traapapp.apiServices.model.editUser.sendCodeReq.SendCodeReq;
 import com.traap.traapapp.apiServices.model.editUser.sendCodeRes.SendCodeRes;
+import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.getEvaluationResult.request.GetPlayerEvaluationResultRequest;
+import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.getEvaluationResult.response.GetPlayerEvaluationRequestResponse;
 import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.main.PerformanceEvaluationMainResponse;
 import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.playerSubstitution.request.PlayerSubstitutionRequest;
 import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.playerSubstitution.response.PerformanceEvaluationPlayerSubstitutionResponse;
 import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.getEvaluationQuestion.GetPlayerEvaluationQuestionResponse;
+import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.setEvaluation.request.SetPlayerEvaluationQuestionsRequest;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesRequest;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesResponse;
 import com.traap.traapapp.apiServices.model.getAllCompations.ResponseAllCompations;
@@ -911,9 +914,19 @@ public interface RetroClient
             @Body PlayerSubstitutionRequest request
     );
 
-    @GET(Const.SET_PLAYER_PERFORMANCE_EVALUATION)
-    Single<Response<WebServiceClass<List<GetPlayerEvaluationQuestionResponse>>>> setPlayerEvaluation(
+    @GET(Const.GET_PERFORMANCE_EVALUATION_QUESTION)
+    Single<Response<WebServiceClass<List<GetPlayerEvaluationQuestionResponse>>>> getPlayerEvaluationQuestions(
             @Path("id") Integer matchId
+    );
+
+    @POST(Const.SET_PLAYER_PERFORMANCE_EVALUATION)
+    Single<Response<WebServiceClass<Object>>> setPlayerEvaluation(
+            @Body SetPlayerEvaluationQuestionsRequest request
+    );
+
+    @POST(Const.GET_PLAYER_PERFORMANCE_EVALUATION_RESULT)
+    Single<Response<WebServiceClass<List<GetPlayerEvaluationRequestResponse>>>> getPlayerEvaluationResult(
+            @Body GetPlayerEvaluationResultRequest request
     );
 
 }

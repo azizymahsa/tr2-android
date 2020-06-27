@@ -21,7 +21,6 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
@@ -29,8 +28,8 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.getEvaluationQuestion.GetPlayerEvaluationQuestionResponse;
+import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.setEvaluation.request.QuestionItemRequest;
 import com.traap.traapapp.conf.TrapConfig;
-import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.performanceEvaluation.PlayerSetEvaluationAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
@@ -39,6 +38,7 @@ import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
@@ -47,7 +47,7 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
 @SuppressLint("ValidFragment")
 public class PlayerSetEvaluationFragment extends BaseFragment implements OnAnimationEndListener, PlayerSetEvaluationAdapter.onEValueCheckedChangeListener,
-        OnServiceStatus<WebServiceClass<List<GetPlayerEvaluationQuestionResponse>>>
+        OnServiceStatus<WebServiceClass<List<GetPlayerEvaluationQuestionResponse>>>, SetPlayerEvaluationImpl.onSetPlayerEvaluationListener
 {
     private View rootView;
     private MainActionView mainView;
@@ -66,6 +66,8 @@ public class PlayerSetEvaluationFragment extends BaseFragment implements OnAnima
 
     private RecyclerView recyclerView;
     private PlayerSetEvaluationAdapter adapter;
+
+    private List<QuestionItemRequest> questionRequestList;
 
 
     public PlayerSetEvaluationFragment()
@@ -120,7 +122,7 @@ public class PlayerSetEvaluationFragment extends BaseFragment implements OnAnima
         mToolbar = rootView.findViewById(R.id.toolbar);
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
-        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> mainView.backToMainFragment());
+        mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView -> getActivity().onBackPressed());
         TextView tvUserName = mToolbar.findViewById(R.id.tvUserName);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
         tvTitle.setText("نتایج ارزیابی عملکرد");
@@ -168,9 +170,11 @@ public class PlayerSetEvaluationFragment extends BaseFragment implements OnAnima
         btnConfirm.setOnClickListener(v ->
         {
 //            btnConfirm.revertAnimation();
-//            btnConfirm.startAnimation();
+            btnConfirm.startAnimation();
+            btnConfirm.setClickable(false);
 
             //send Evaluation List + call API
+            SetPlayerEvaluationImpl.SetPlayerEvaluation(questionRequestList, this);
         });
 
 //        mainView.showLoading();
@@ -209,9 +213,9 @@ public class PlayerSetEvaluationFragment extends BaseFragment implements OnAnima
     }
 
     @Override
-    public void onEValueSelected(int value, int position)
+    public void onEvaluateSelected(int value, int position)
     {
-
+        questionRequestList.get(position).setScore(value);
     }
 
     @Override
@@ -232,6 +236,16 @@ public class PlayerSetEvaluationFragment extends BaseFragment implements OnAnima
         {
             adapter = new PlayerSetEvaluationAdapter(context, response.data, this);
             recyclerView.setAdapter(adapter);
+            questionRequestList = new ArrayList<>(response.data.size());
+
+            for (int i = 0; i < response.data.size(); i++)
+            {
+                QuestionItemRequest questionItemRequest = new QuestionItemRequest();
+                questionItemRequest.setQuestionId(response.data.get(i).getQuestionId());
+                questionItemRequest.setScore(1);
+                questionItemRequest.setPlayerId(playerId);
+                questionRequestList.add(questionItemRequest);
+            }
         }
     }
 
@@ -272,4 +286,21 @@ public class PlayerSetEvaluationFragment extends BaseFragment implements OnAnima
         dialog.show(((Activity) context).getFragmentManager(), "dialog");
     }
 
+    @Override
+    public void onSetPlayerEvaluationCompleted(String message)
+    {
+        btnConfirm.revertAnimation();
+        btnConfirm.setClickable(true);
+
+        showAlertSuccess(context, "", "0", true);
+    }
+
+    @Override
+    public void onSetPlayerEvaluationError(String message)
+    {
+        btnConfirm.revertAnimation();
+        btnConfirm.setClickable(true);
+
+        showAlertFailure(context, message, getResources().getString(R.string.error), false);
+    }
 }

@@ -24,5 +24,4 @@ public class GetPlayerEvaluationQuestionResponse
     @SerializedName("match")
     @Expose @Getter @Setter
     private Integer matchId;
-
 }

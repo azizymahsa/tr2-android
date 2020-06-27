@@ -15,6 +15,7 @@ import com.jaygoo.widget.OnRangeChangedListener;
 import com.jaygoo.widget.RangeSeekBar;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.getEvaluationQuestion.GetPlayerEvaluationQuestionResponse;
+import com.traap.traapapp.utilities.Logger;
 
 import java.util.List;
 
@@ -56,41 +57,27 @@ public class PlayerSetEvaluationAdapter extends RecyclerView.Adapter<PlayerSetEv
         {
             holder.tvEvaluationText.setTextColor(ContextCompat.getColor(context, R.color.textColorSubTitle));
         }
-//        try
-//        {
-//            if (position == questionList.size() - 1 || position == questionList.size() - 2)
-//            {
-//                holder.tvEvaluationText.setTextColor(ContextCompat.getColor(context, R.color.textColorPrimary));
-//            }
-//        }
-//        catch (Exception e)
-//        {
-//
-//        }
 
         holder.seekBar.setIndicatorTextDecimalFormat("0");
-        holder.seekBar.setRange(1f, question.getRange());
+        holder.seekBar.setSteps(question.getRange()-1);
+        holder.seekBar.setRange(1f, question.getRange(), 1);
         holder.seekBar.setProgress(1f);
 //        holder.seekBar.setIndicatorTextStringFormat("0");
         //rangeLeft = rangeBar.getLeftSeekBar().getProgress();
         holder.seekBar.setOnRangeChangedListener(new OnRangeChangedListener()
         {
             @Override
-            public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser)
-            {
-                int left = (int) leftValue;
-            }
+            public void onRangeChanged(RangeSeekBar view, float leftValue, float rightValue, boolean isFromUser) { }
 
             @Override
-            public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft)
-            {
+            public void onStartTrackingTouch(RangeSeekBar view, boolean isLeft) { }
 
-            }
 
             @Override
             public void onStopTrackingTouch(RangeSeekBar view, boolean isLeft)
             {
-
+                Logger.e("-leftValue progress-", "" + holder.seekBar.getLeftSeekBar().getProgress());
+                listener.onEvaluateSelected(((int) holder.seekBar.getLeftSeekBar().getProgress()), position);
             }
         });
 //        holder.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
@@ -158,6 +145,6 @@ public class PlayerSetEvaluationAdapter extends RecyclerView.Adapter<PlayerSetEv
 
     public interface onEValueCheckedChangeListener
     {
-        void onEValueSelected(int value, int position);
+        void onEvaluateSelected(int value, int position);
     }
 }

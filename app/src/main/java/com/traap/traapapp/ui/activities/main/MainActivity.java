@@ -1084,7 +1084,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     @Override
     public void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId, String name, String imageURL)
     {
-        setFragment(PlayerEvaluationResultFragment.newInstance(this, matchId, playerId));
+        setFragment(PlayerEvaluationResultFragment.newInstance(this, matchId, playerId, name, imageURL));
         replaceFragment(getFragment(), "PlayerEvaluationResultFragment");
     }
 
@@ -2848,25 +2848,31 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             error = getString(R.string.networkErrorMessage);
         }
 
-
-        MessageAlertDialog dialog = new MessageAlertDialog(this, "", error,
-                false, "تلاش مجدد", "", false, MessageAlertDialog.TYPE_MESSAGE,
-                new MessageAlertDialog.OnConfirmListener()
-                {
-                    @Override
-                    public void onConfirmClick()
+        try
+        {
+            MessageAlertDialog dialog = new MessageAlertDialog(this, "", error,
+                    false, "تلاش مجدد", "", false, MessageAlertDialog.TYPE_MESSAGE,
+                    new MessageAlertDialog.OnConfirmListener()
                     {
-                        getAllServicesList();
-                    }
+                        @Override
+                        public void onConfirmClick()
+                        {
+                            getAllServicesList();
+                        }
 
-                    @Override
-                    public void onCancelClick()
-                    {
+                        @Override
+                        public void onCancelClick()
+                        {
 
-                    }
-                });
-        dialog.setCancelable(false);
-        dialog.show(getFragmentManager(), "messageDialog");
+                        }
+                    });
+            dialog.setCancelable(false);
+            dialog.show(getFragmentManager(), "messageDialog");
+        }
+        catch (IllegalStateException e)
+        {
+
+        }
 /*
         startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), 100);
         finish();*/

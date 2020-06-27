@@ -22,18 +22,29 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.generator.SingletonService;
+import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.getEvaluationResult.request.GetPlayerEvaluationResultRequest;
+import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.getEvaluationResult.response.GetPlayerEvaluationRequestResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.adapters.performanceEvaluation.PlayerEvaluationResultAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.utilities.Logger;
+import com.traap.traapapp.utilities.Tools;
 import com.wang.avi.AVLoadingIndicatorView;
+
+import java.util.List;
 
 
 @SuppressLint("ValidFragment")
-public class PlayerEvaluationResultFragment extends BaseFragment
+public class PlayerEvaluationResultFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<List<GetPlayerEvaluationRequestResponse>>>
 {
     private View rootView;
     private MainActionView mainView;
@@ -42,10 +53,13 @@ public class PlayerEvaluationResultFragment extends BaseFragment
     private Toolbar mToolbar;
     private TextView tvMenu, tvUserName;
     private ImageView imgProfile;
+    private TextView tvPlayerName;
     private AVLoadingIndicatorView progressImageProfile;
     private RelativeLayout rlPlayerImage;
     private Integer matchId;
     private Integer playerId;
+    private String name;
+    private String imageURL;
 
     private RecyclerView recyclerView;
     private PlayerEvaluationResultAdapter adapter;
@@ -56,12 +70,14 @@ public class PlayerEvaluationResultFragment extends BaseFragment
 
     }
 
-    public static PlayerEvaluationResultFragment newInstance(MainActionView mainView, Integer matchId, Integer playerId)
+    public static PlayerEvaluationResultFragment newInstance(MainActionView mainView, Integer matchId, Integer playerId, String name, String imageURL)
     {
         PlayerEvaluationResultFragment f = new PlayerEvaluationResultFragment();
         Bundle arg = new Bundle();
         arg.putInt("matchId", matchId);
         arg.putInt("playerId", playerId);
+        arg.putString("name", name);
+        arg.putString("imageURL", imageURL);
         f.setArguments(arg);
         f.setMainView(mainView);
         return f;
@@ -87,6 +103,8 @@ public class PlayerEvaluationResultFragment extends BaseFragment
         {
             playerId = getArguments().getInt("playerId");
             matchId = getArguments().getInt("matchId");
+            name = getArguments().getString("name");
+            imageURL = getArguments().getString("imageURL");
         }
     }
 
@@ -121,8 +139,11 @@ public class PlayerEvaluationResultFragment extends BaseFragment
         progressImageProfile = rootView.findViewById(R.id.progressImageProfile);
         imgProfile = rootView.findViewById(R.id.imgProfile);
 
+        tvPlayerName = rootView.findViewById(R.id.tvPlayerName);
+
+        tvPlayerName.setText(name);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-//        recyclerView.setAdapter();
 
         scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) ->
         {
@@ -140,6 +161,89 @@ public class PlayerEvaluationResultFragment extends BaseFragment
             }
         });
 
+        progressImageProfile.setVisibility(View.VISIBLE);
+        try
+        {
+            Picasso.with(context).load(imageURL).into(imgProfile, new Callback()
+            {
+                @Override
+                public void onSuccess()
+                {
+                    progressImageProfile.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onError()
+                {
+                    progressImageProfile.setVisibility(View.GONE);
+                    Picasso.with(context).load(R.drawable.ic_user_default).into(imgProfile);
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            progressImageProfile.setVisibility(View.GONE);
+            Picasso.with(context).load(R.drawable.ic_user_default).into(imgProfile);
+        }
+        GetPlayerEvaluationResultRequest request = new GetPlayerEvaluationResultRequest();
+        request.setPlayerId(playerId);
+        SingletonService.getInstance().getPerformanceEvaluationService().getPlayerEvaluationResult(request, this);
     }
 
+    @Override
+    public void onReady(WebServiceClass<List<GetPlayerEvaluationRequestResponse>> response)
+    {
+        mainView.hideLoading();
+        if (response == null || response.data == null)
+        {
+            showErrorAndBack("خطا در دریافت اطلاعات از سرور!");
+            Logger.e("-GetPredictResponse-", "null");
+            return;
+        }
+        if (response.info.statusCode != 200)
+        {
+            showErrorAndBack(response.info.message);
+        }
+        else
+        {
+            adapter = new PlayerEvaluationResultAdapter(context, response.data);
+            recyclerView.setAdapter(adapter);
+        }
+    }
+
+    @Override
+    public void onError(String message)
+    {
+        mainView.hideLoading();
+        Logger.e("-showErrorMessage-", "Error: " + message);
+
+        if (Tools.isNetworkAvailable((Activity) context))
+        {
+            showErrorAndBack("خطا در دریافت اطلاعات از سرور!");
+        }
+        else
+        {
+            showErrorAndBack(getString(R.string.networkErrorMessage));
+        }
+    }
+
+    private void showErrorAndBack(String message)
+    {
+        MessageAlertDialog dialog = new MessageAlertDialog((Activity) context, getResources().getString(R.string.error),
+                message, false, MessageAlertDialog.TYPE_ERROR, new MessageAlertDialog.OnConfirmListener()
+        {
+            @Override
+            public void onConfirmClick()
+            {
+                getActivity().onBackPressed();
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+
+            }
+        });
+        dialog.show(((Activity) context).getFragmentManager(), "dialog");
+    }
 }

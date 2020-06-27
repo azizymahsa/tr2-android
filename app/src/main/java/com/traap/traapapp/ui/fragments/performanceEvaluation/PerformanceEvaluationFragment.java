@@ -308,14 +308,14 @@ public class PerformanceEvaluationFragment extends BaseFragment implements Playe
     @Override
     public void onPlayerShowEvaluatedResult(int matchId, int positionId, String name, String imageURL)
     {
-        showDebugToast((Activity) context, "onPlayerShowEvaluatedResult");
+//        showDebugToast((Activity) context, "onPlayerShowEvaluatedResult");
         mainView.onPlayerPerformanceEvaluationResult(matchId, positionId, name, imageURL);
     }
 
     @Override
     public void onPlayerSetEvaluation(int matchId, int positionId, String name, String imageURL)
     {
-        showDebugToast((Activity) context, "onPlayerSetEvaluation");
+//        showDebugToast((Activity) context, "onPlayerSetEvaluation");
         mainView.onSetPlayerPerformanceEvaluation(matchId, positionId, name, imageURL);
     }
 }
