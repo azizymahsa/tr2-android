@@ -6,7 +6,9 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,8 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.jakewharton.rxbinding3.widget.RxTextView;
+import com.jakewharton.rxbinding3.widget.TextViewAfterTextChangeEvent;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
@@ -41,6 +45,8 @@ import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.PaymentResultDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
+import com.traap.traapapp.utilities.ConvertPersianNumberToString;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.NumberTextWatcher;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
@@ -48,11 +54,20 @@ import com.traap.traapapp.utilities.Utility;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
 
 
 @SuppressLint("ValidFragment")
@@ -68,7 +83,7 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
     private MainActionView mainView;
 
     private Toolbar mToolbar;
-    private TextView tvTitle, tvUserName,tvPopularPlayer;
+    private TextView tvTitle, tvUserName,tvPopularPlayer, tvPriceSequence;
     private View imgBack, imgMenu;
     private QrModel model;
 
@@ -126,12 +141,51 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
             llBarcode = rootView.findViewById(R.id.llBarcode);
 
             llList = rootView.findViewById(R.id.llList);
-            edtPrice.addTextChangedListener(new NumberTextWatcher(edtPrice));
+//            edtPrice.addTextChangedListener(new NumberTextWatcher(edtPrice));
+            edtPrice.addTextChangedListener(new TextWatcher()
+            {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+                @Override
+                public void afterTextChanged(Editable ss)
+                {
+                    edtPrice.removeTextChangedListener(this);
+                    String s = edtPrice.getText().toString();
+                    s = s.replace(",", "");
+                    if (s.length() > 0)
+                    {
+                        DecimalFormat sdd = new DecimalFormat("#,###");
+                        Double doubleNumber = Double.parseDouble(s);
+
+                        String format = sdd.format(doubleNumber);
+                        edtPrice.setText(format);
+                        edtPrice.setSelection(format.length());
+                    }
+
+                    if (edtPrice.getText().toString().isEmpty())
+                    {
+                        tvPriceSequence.setVisibility(View.GONE);
+                    }
+                    else
+                    {
+                        tvPriceSequence.setVisibility(View.VISIBLE);
+                        tvPriceSequence.setText(ConvertPersianNumberToString.getNumberConvertToString(
+                                BigDecimal.valueOf(Integer.parseInt(edtPrice.getText().toString().replace(",", ""))), "ریال")
+                                .replace("  ", " "));
+                    }
+                    edtPrice.addTextChangedListener(this);
+                }
+            });
 
             if (model != null)
             {
                 edtQR.setText(model.getMerchantId());
                 edtPrice.setText(Utility.priceFormat(model.getPrice()));
+                tvPriceSequence.setText(ConvertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(model.getPrice()), "ریال"));
             }
 
             btnConfirm = rootView.findViewById(R.id.btnConfirm);
@@ -151,6 +205,8 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
             tvUserName = rootView.findViewById(R.id.tvUserName);
             tvUserName.setText(TrapConfig.HEADER_USER_NAME);
             imgMenu = rootView.findViewById(R.id.imgMenu);
+
+            tvPriceSequence = rootView.findViewById(R.id.tvPriceSequence);
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
             imgBack = rootView.findViewById(R.id.imgBack);
@@ -531,7 +587,7 @@ public class PaymentWithoutCardFragment extends BaseFragment implements OnAnimat
     }
 
 
-   /* public void getMerchantByCode(String code)
+    /* public void getMerchantByCode(String code)
     {
         btnConfirm.startAnimation();
         btnConfirm.setClickable(false);

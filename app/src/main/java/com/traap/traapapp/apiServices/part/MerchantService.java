@@ -45,7 +45,6 @@ import com.traap.traapapp.apiServices.model.getDecQrCode.DecryptQrRequest;
 import com.traap.traapapp.apiServices.model.getDecQrCode.DecryptQrResponse;
 import com.traap.traapapp.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
 import com.traap.traapapp.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
-import com.traap.traapapp.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment_old;
 
 
 public class MerchantService extends BasePart
