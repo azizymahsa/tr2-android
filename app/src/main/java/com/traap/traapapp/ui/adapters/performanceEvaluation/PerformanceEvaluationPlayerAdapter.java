@@ -60,11 +60,11 @@ public class PerformanceEvaluationPlayerAdapter extends RecyclerView.Adapter<Per
         {
             if (player.getPlayerItem().getIsEvaluated())
             {
-                listener.onPlayerShowEvaluatedResult(matchId, player.getPositionId(), name, player.getPlayerItem().getPlayerImage());
+                listener.onPlayerShowEvaluatedResult(matchId, player.getPlayerItem().getId(), name, player.getPlayerItem().getPlayerImage());
             }
             else
             {
-                listener.onPlayerSetEvaluation(matchId, player.getPositionId(), name, player.getPlayerItem().getPlayerImage());
+                listener.onPlayerSetEvaluation(matchId, player.getPlayerItem().getId(), name, player.getPlayerItem().getPlayerImage());
             }
         });
     }
@@ -125,8 +125,8 @@ public class PerformanceEvaluationPlayerAdapter extends RecyclerView.Adapter<Per
 
     public interface OnPlayerItemClick
     {
-        void onPlayerShowEvaluatedResult(int matchId, int positionId, String name, String imageURL);
+        void onPlayerShowEvaluatedResult(int matchId, int playerId, String name, String imageURL);
 
-        void onPlayerSetEvaluation(int matchId, int positionId, String name, String imageURL);
+        void onPlayerSetEvaluation(int matchId, int playerId, String name, String imageURL);
     }
 }
