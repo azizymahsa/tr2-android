@@ -76,6 +76,7 @@ import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.dbModels.ArchiveCardDBModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
+import com.traap.traapapp.models.otherModels.qrModel.QrModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.adapters.MyBillsAdapter;
@@ -1998,13 +1999,13 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
     }
 
     @Override
-    public void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId)
+    public void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId, String name, String imageURL)
     {
 
     }
 
     @Override
-    public void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId)
+    public void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId, String name, String imageURL)
     {
 
     }
@@ -2018,6 +2019,30 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
     @Override
     public void onChargeSimCard(Integer backstate)
+    {
+
+    }
+
+    @Override
+    public void onBillMotor(Integer status)
+    {
+
+    }
+
+    @Override
+    public void onBillCar(Integer status)
+    {
+
+    }
+
+    @Override
+    public void onBillToll(Integer status)
+    {
+
+    }
+
+    @Override
+    public void onBillTrafic(Integer status)
     {
 
     }
@@ -2042,7 +2067,13 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
 
     @Override
-    public void onPaymentWithoutCard()
+    public void onShowPaymentWithoutCardFragment(@Nullable QrModel model)
+    {
+
+    }
+
+    @Override
+    public void onPaymentWithoutCard(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String amount, SimChargePaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS)
     {
 
     }

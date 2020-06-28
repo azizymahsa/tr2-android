@@ -17,13 +17,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PositionInLeaguesAdapter extends RecyclerView.Adapter<PositionInLeaguesAdapter.ViewHolder>
 {
+    private  PredictLeagueEvent event;
     private Context context;
     private List<Datum> results;
 
 
-    public PositionInLeaguesAdapter(List<Datum> results)
+    public PositionInLeaguesAdapter(List<Datum> results,PredictLeagueEvent event)
     {
         this.results=results;
+        this.event=event;
 
     }
 
@@ -53,7 +55,10 @@ public class PositionInLeaguesAdapter extends RecyclerView.Adapter<PositionInLea
 
         holder.tvLeague.setText(results.get(position).getCup());
         holder.tvYear.setText(results.get(position).getYear()+"");
-
+        holder.llRoot.setOnClickListener(v ->
+        {
+         //  event.PredictLeagueTableClick(results.get(position).getId(),);
+        });
 
     }
 
@@ -69,13 +74,14 @@ public class PositionInLeaguesAdapter extends RecyclerView.Adapter<PositionInLea
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        private LinearLayout llHeader,llItem;
+        private LinearLayout llHeader,llItem,llRoot;
         private TextView tvRate,tvYear,tvLeague;
 
 
         public ViewHolder(View v)
         {
             super(v);
+            llRoot=v.findViewById(R.id.rootView);
             llHeader=v.findViewById(R.id.llHeader);
             llItem=v.findViewById(R.id.llItem);
             tvRate=v.findViewById(R.id.tvRate);
@@ -84,6 +90,8 @@ public class PositionInLeaguesAdapter extends RecyclerView.Adapter<PositionInLea
 
         }
     }
-
+    public interface PredictLeagueEvent{
+        void PredictLeagueTableClick(Integer teamId, Integer matchId, Boolean isPredictable);
+    }
 
 }

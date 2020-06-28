@@ -488,7 +488,10 @@
 
 
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/warmGray" />
             <com.uncopt.android.widget.text.justify.JustifiedTextView
                 android:id="@+id/tvDesc"
                 android:layout_width="wrap_content"

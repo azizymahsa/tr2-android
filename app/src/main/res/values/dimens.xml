@@ -89,6 +89,11 @@
     <dimen name="any_chart_height">220dp</dimen>
     <dimen name="_120_btn_dp">120dp</dimen>
 
-
     <dimen name="_5dp">5dp</dimen>
+
+    <dimen name="formation_player_item_height">55dp</dimen>
+    <dimen name="formation_player_item_width">75dp</dimen>
+<!--    <dimen name="formation_system_height">495dp</dimen>-->
+    <dimen name="formation_system_height">470dp</dimen>
+    <dimen name="formation_system_width">400dp</dimen>
 </resources>

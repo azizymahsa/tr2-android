@@ -19,6 +19,7 @@ import com.traap.traapapp.apiServices.part.DoTransferWalletService;
 import com.traap.traapapp.apiServices.part.EditCardService;
 import com.traap.traapapp.apiServices.part.FlightService;
 import com.traap.traapapp.apiServices.part.ForgetPasswordWalletService;
+import com.traap.traapapp.apiServices.part.GetAllBillsService;
 import com.traap.traapapp.apiServices.part.GetAllBoxesService;
 import com.traap.traapapp.apiServices.part.GetBalancePasswordLessService;
 import com.traap.traapapp.apiServices.part.GetBillInfoService;
@@ -49,6 +50,7 @@ import com.traap.traapapp.apiServices.part.MerchantService;
 import com.traap.traapapp.apiServices.part.MobileChargeService;
 import com.traap.traapapp.apiServices.part.NewsService;
 import com.traap.traapapp.apiServices.part.PackageBuyService;
+import com.traap.traapapp.apiServices.part.PerformanceEvaluationService;
 import com.traap.traapapp.apiServices.part.PhotoArchiveService;
 import com.traap.traapapp.apiServices.part.PointsService;
 import com.traap.traapapp.apiServices.part.ReservationMatchService;
@@ -228,7 +230,10 @@ public class SingletonService
     {
         return new MerchantService(serviceGenerator);
     }
-
+    public GetAllBillsService getAllBillsService()
+    {
+        return new GetAllBillsService(serviceGenerator);
+    }
     public GetBalancePasswordLessService getBalancePasswordLessService()
     {
         return new GetBalancePasswordLessService(serviceGenerator);
@@ -426,6 +431,11 @@ public class SingletonService
     public BillService billService()
     {
         return new BillService(serviceGenerator);
+    }
+
+    public PerformanceEvaluationService getPerformanceEvaluationService()
+    {
+        return new PerformanceEvaluationService(serviceGenerator);
     }
 
 

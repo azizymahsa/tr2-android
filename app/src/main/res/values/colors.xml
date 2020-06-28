@@ -54,6 +54,7 @@
 
     <color name="gray">#aa888888</color>
     <color name="red">#A51316</color>
+    <color name="textColorExchange">#ff0009</color>
     <color name="red_light">#ff5456</color>
     <color name="green">#0e8019</color>
     <color name="greenBack">#27c527</color>
@@ -157,5 +158,6 @@
     <color name="textHint2">#888888</color>
     <color name="textHint3">#5C5C5C</color>
     <color name="faded_Red">#d5282e</color>
+    <color name="pelak_blue">#03127A</color>
     <!--  calendar  end-->
 </resources>

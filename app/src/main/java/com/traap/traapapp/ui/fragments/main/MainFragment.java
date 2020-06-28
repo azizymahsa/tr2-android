@@ -17,6 +17,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
+
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.common.base.Optional;
@@ -68,14 +77,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import library.android.eniac.StartEniacFlightActivity;
@@ -148,6 +149,46 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
     private ImageView imgMenu;
     private List<ResultHelpMenu> helpMenuResult;
     private View rlShirt;
+    //auto repeat
+    private Runnable repeatTask = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            try
+            {
+                rcFavoriteServices.post(() ->
+                {
+//                    Logger.e("--threat--", "index:" + favoriteServicesIndex + ", count:" + favoriteServicesCount);
+                    if (favoriteServicesIndex < favoriteServicesCount)
+                    {
+                        favoriteServicesIndex++;
+                    } else
+                    {
+                        favoriteServicesIndex = 0;
+                    }
+                    rcFavoriteServices.smoothScrollToPosition(favoriteServicesIndex);
+                });
+                recyclerViewBaner.post(() ->
+                {
+//                    Logger.e("--threat--", "index:" + favoriteServicesIndex + ", count:" + favoriteServicesCount);
+                    if (favoriteServicesIndex < favoriteServicesCount)
+                    {
+                        favoriteServicesIndex++;
+                    } else
+                    {
+                        favoriteServicesIndex = 0;
+                    }
+                    recyclerViewBaner.smoothScrollToPosition(favoriteServicesIndex);
+                });
+            } finally
+            {
+                mHandler.postDelayed(repeatTask, TIME_INTERVAL_FAV_SERVICE_ANIM);
+            }
+        }
+    };
+    private StartEniacFlightActivity startEniacFlightActivity;
+
 
     public MainFragment()
     {
@@ -172,7 +213,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         return fragment;
     }
-
 
     private void setMainView(MainActionView mainView)
     {
@@ -211,7 +251,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         return rootView;
     }
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
@@ -280,44 +319,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         startAutoAnimFavoriteServices();
     }
 
-    //auto repeat
-    private Runnable repeatTask = new Runnable()
-    {
-        @Override
-        public void run()
-        {
-            try
-            {
-                rcFavoriteServices.post(() ->
-                {
-//                    Logger.e("--threat--", "index:" + favoriteServicesIndex + ", count:" + favoriteServicesCount);
-                    if (favoriteServicesIndex < favoriteServicesCount)
-                    {
-                        favoriteServicesIndex++;
-                    } else
-                    {
-                        favoriteServicesIndex = 0;
-                    }
-                    rcFavoriteServices.smoothScrollToPosition(favoriteServicesIndex);
-                });
-                recyclerViewBaner.post(() ->
-                {
-//                    Logger.e("--threat--", "index:" + favoriteServicesIndex + ", count:" + favoriteServicesCount);
-                    if (favoriteServicesIndex < favoriteServicesCount)
-                    {
-                        favoriteServicesIndex++;
-                    } else
-                    {
-                        favoriteServicesIndex = 0;
-                    }
-                    recyclerViewBaner.smoothScrollToPosition(favoriteServicesIndex);
-                });
-            } finally
-            {
-                mHandler.postDelayed(repeatTask, TIME_INTERVAL_FAV_SERVICE_ANIM);
-            }
-        }
-    };
+    //end auto repeeat
 
     private void startAutoAnimFavoriteServices()
     {
@@ -342,11 +344,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         repeatTask.run();
     }
-
-    //end auto repeeat
-
-
-    private StartEniacFlightActivity startEniacFlightActivity;
 
     private void initView(View rootView)
     {
@@ -812,7 +809,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 if (baseUrl != null)
                 {
                     Utility.openUrlCustomTab(getActivity(), baseUrl);
-                }else{
+                } else
+                {
                     Bundle headers = new Bundle();
                     headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
@@ -843,18 +841,16 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 //                GetUserPassGdsImp.getUserPassGds(GetUserPassGdsImp.GDS_TYPE_BUS, this);
 
 
-
                 if (baseUrl != null)
                 {
                     Utility.openUrlCustomTab(getActivity(), baseUrl);
-                }else{
+                } else
+                {
                     Bundle headers = new Bundle();
                     headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
                     Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
                 }
-
-
 
 
                 break;
@@ -877,15 +873,15 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 break;
             }
 
-            case 72: //خرید بدون کارت
+            case 72: // کارت به کارت
             {
                 mainView.doTransferMoney();
                 break;
             }
 
-            case 43: //خرید بدون کارت
+            case 71: //خرید بدون کارت
             {
-//                mainView.doTransferMoney();
+                mainView.onShowPaymentWithoutCardFragment(null);
                 break;
             }
             //بیمه
@@ -914,22 +910,16 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 startActivityForResult(intent, 100);*/
 
 
-
                 if (baseUrl != null)
                 {
                     Utility.openUrlCustomTab(getActivity(), baseUrl);
-                }else{
+                } else
+                {
                     Bundle headers = new Bundle();
                     headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
                     Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
                 }
-
-
-
-
-
-
 
 
                 break;
@@ -946,7 +936,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 if (baseUrl != null)
                 {
                     Utility.openUrlCustomTab(getActivity(), baseUrl);
-                }else{
+                } else
+                {
                     Bundle headers = new Bundle();
                     headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
@@ -955,6 +946,25 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
                 // Utility.openUrlCustomTab(getActivity(), URl);
                 break;
+            }
+            /*خلافی ماشین*/
+            case 919:
+            {
+                mainView.onBillCar(9);
+            }
+            case 920:
+            {
+                mainView.onBillMotor(10);
+            }
+            /*عوارض آزاد راهی*/
+            case 110:
+            {
+                mainView.onBillToll(110);
+            }
+            /*طرح ترافیک */
+            case 111:
+            {
+                mainView.onBillTrafic(111);
             }
         }
     }
@@ -1182,7 +1192,7 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                 return o1.getCode().compareTo(o2.getCode());
             }
         });
-        Log.e("tesssst", new Gson().toJson(results).toString());
+        Log.e("tesssst", new Gson().toJson(results));
         helpMenuResult = results;
 
 
@@ -1291,11 +1301,11 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
                         } else
                         {
                             Utility.disableEnableControls(true, llRoot);
-                            showToast(((Activity) context), response.info.message, R.color.red);
+                            showToast(context, response.info.message, R.color.red);
                         }
                     } catch (Exception e)
                     {
-                        showToast(((Activity) context), e.getMessage(), R.color.red);
+                        showToast(context, e.getMessage(), R.color.red);
 
                     }
                 }

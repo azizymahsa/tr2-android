@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_50dp"
     android:orientation="horizontal"
     android:gravity="center|right">
 
 
-        <TextView
+                   <TextView
             android:id="@+id/tvLeague"
             android:layout_width="0dp"
             android:layout_weight="100"
             android:layout_height="wrap_content"
             android:gravity="center|right"
             android:text="لیگ خلیج فارس"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="@dimen/_10dp"
             android:textColor="@color/warmGray"
             android:textSize="@dimen/textSize_14dp"/>
         <View
@@ -24,7 +25,6 @@
             />
         <TextView
             android:id="@+id/tvYear"
-
             android:layout_width="0dp"
             android:layout_weight="40"
             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
             android:gravity="center"
             android:textColor="@color/warmGray"
             android:layout_marginRight="@dimen/_10dp"
-
+            android:layout_marginLeft="@dimen/_10dp"
             android:textSize="@dimen/textSize_14dp"/>
 
 

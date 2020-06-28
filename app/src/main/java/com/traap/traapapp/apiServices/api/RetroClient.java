@@ -1,15 +1,13 @@
 package com.traap.traapapp.apiServices.api;
 
-import java.util.ArrayList;
-
-import io.reactivex.Single;
-
 import com.traap.traapapp.apiServices.helper.Const;
 import com.traap.traapapp.apiServices.model.GlobalResponse2;
 import com.traap.traapapp.apiServices.model.GlobalResponse3;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.archiveVideo.ArchiveVideoResponse;
 import com.traap.traapapp.apiServices.model.availableAmount.AvailableAmounResponse;
+import com.traap.traapapp.apiServices.model.billCar.RequestBillCar;
+import com.traap.traapapp.apiServices.model.billCar.ResponseBillCar;
 import com.traap.traapapp.apiServices.model.billCode.BillCodeResponse;
 import com.traap.traapapp.apiServices.model.billElectricity.BillElectricityRequest;
 import com.traap.traapapp.apiServices.model.billElectricity.BillElectricityResponse;
@@ -37,6 +35,13 @@ import com.traap.traapapp.apiServices.model.doTransferCard.request.DoTransferReq
 import com.traap.traapapp.apiServices.model.doTransferCard.response.DoTransferResponse;
 import com.traap.traapapp.apiServices.model.editUser.sendCodeReq.SendCodeReq;
 import com.traap.traapapp.apiServices.model.editUser.sendCodeRes.SendCodeRes;
+import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.getEvaluationResult.request.GetPlayerEvaluationResultRequest;
+import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.getEvaluationResult.response.GetPlayerEvaluationRequestResponse;
+import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.main.PerformanceEvaluationMainResponse;
+import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.playerSubstitution.request.PlayerSubstitutionRequest;
+import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.playerSubstitution.response.PerformanceEvaluationPlayerSubstitutionResponse;
+import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.getEvaluationQuestion.GetPlayerEvaluationQuestionResponse;
+import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.setEvaluation.request.SetPlayerEvaluationQuestionsRequest;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesRequest;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesResponse;
 import com.traap.traapapp.apiServices.model.getAllCompations.ResponseAllCompations;
@@ -70,8 +75,15 @@ import com.traap.traapapp.apiServices.model.getPackageMci.response.request.GetPa
 import com.traap.traapapp.apiServices.model.getQuestionCompat.ResponseGetQuestions;
 import com.traap.traapapp.apiServices.model.getReport.request.GetReportRequest;
 import com.traap.traapapp.apiServices.model.getReport.response.GetReportResponse;
+import com.traap.traapapp.apiServices.model.getRightelPack.response.GetRightelPackRespone;
+import com.traap.traapapp.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
+import com.traap.traapapp.apiServices.model.getShetabCardInfo.request.ShetabCardInfoRequest;
+import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoRequest;
+import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
 import com.traap.traapapp.apiServices.model.getTransaction.TransactionDetailResponse;
+import com.traap.traapapp.apiServices.model.getVersion.request.GetVersionRequest;
+import com.traap.traapapp.apiServices.model.getVersion.response.GetVersionResponse;
 import com.traap.traapapp.apiServices.model.increaseWallet.RequestIncreaseWallet;
 import com.traap.traapapp.apiServices.model.increaseWallet.ResponseIncreaseWallet;
 import com.traap.traapapp.apiServices.model.invite.InviteResponse;
@@ -80,18 +92,21 @@ import com.traap.traapapp.apiServices.model.league.getLeagues.request.GetLeagueR
 import com.traap.traapapp.apiServices.model.league.getLeagues.response.ResponseLeage;
 import com.traap.traapapp.apiServices.model.league.pastResult.request.RequestPastResult;
 import com.traap.traapapp.apiServices.model.league.pastResult.response.ResponsePastResult;
-import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoRequest;
-import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 import com.traap.traapapp.apiServices.model.likeVideo.LikeVideoResponse;
+import com.traap.traapapp.apiServices.model.login.LoginRequest;
+import com.traap.traapapp.apiServices.model.login.LoginResponse;
 import com.traap.traapapp.apiServices.model.lottery.GetLotteryWinnerListResponse;
 import com.traap.traapapp.apiServices.model.mainPage.MainPageResponse;
 import com.traap.traapapp.apiServices.model.mainPhotos.MainPhotoResponse;
 import com.traap.traapapp.apiServices.model.mainVideos.MainVideosResponse;
+import com.traap.traapapp.apiServices.model.matchList.MachListResponse;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
+import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategoryResponse;
 import com.traap.traapapp.apiServices.model.media.category.TypeCategory;
+import com.traap.traapapp.apiServices.model.mobileCharge.request.MobileChargeRequest;
+import com.traap.traapapp.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import com.traap.traapapp.apiServices.model.mySupportProfile.ResponseMySupport;
 import com.traap.traapapp.apiServices.model.news.archive.NewsArchiveListByIdResponse;
-import com.traap.traapapp.apiServices.model.media.category.MediaArchiveCategoryResponse;
 import com.traap.traapapp.apiServices.model.news.details.getComment.response.GetNewsCommentResponse;
 import com.traap.traapapp.apiServices.model.news.details.getContent.response.GetNewsDetailsResponse;
 import com.traap.traapapp.apiServices.model.news.details.putBookmark.response.NewsBookmarkResponse;
@@ -99,6 +114,12 @@ import com.traap.traapapp.apiServices.model.news.details.sendComment.request.Sen
 import com.traap.traapapp.apiServices.model.news.details.sendLike.request.LikeNewsDetailRequest;
 import com.traap.traapapp.apiServices.model.news.details.sendLike.response.LikeNewsDetailResponse;
 import com.traap.traapapp.apiServices.model.news.main.NewsMainResponse;
+import com.traap.traapapp.apiServices.model.payBillCar.RequestPayBillCar;
+import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
+import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchResponse;
+import com.traap.traapapp.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
+import com.traap.traapapp.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
+import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
 import com.traap.traapapp.apiServices.model.photo.archive.PhotoArchiveResponse;
 import com.traap.traapapp.apiServices.model.photo.response.Content;
 import com.traap.traapapp.apiServices.model.photo.response.PhotosByIdResponse;
@@ -107,20 +128,6 @@ import com.traap.traapapp.apiServices.model.points.guide.PointsGuideResponse;
 import com.traap.traapapp.apiServices.model.points.records.PointsRecordResponse;
 import com.traap.traapapp.apiServices.model.predict.getMyPredict.MyPredictResponse;
 import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
-import com.traap.traapapp.apiServices.model.getRightelPack.response.GetRightelPackRespone;
-import com.traap.traapapp.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
-import com.traap.traapapp.apiServices.model.getShetabCardInfo.request.ShetabCardInfoRequest;
-import com.traap.traapapp.apiServices.model.getVersion.request.GetVersionRequest;
-import com.traap.traapapp.apiServices.model.getVersion.response.GetVersionResponse;
-import com.traap.traapapp.apiServices.model.login.LoginRequest;
-import com.traap.traapapp.apiServices.model.login.LoginResponse;
-import com.traap.traapapp.apiServices.model.matchList.MachListResponse;
-import com.traap.traapapp.apiServices.model.mobileCharge.request.MobileChargeRequest;
-import com.traap.traapapp.apiServices.model.mobileCharge.response.MobileChargeResponse;
-import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
-import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchResponse;
-import com.traap.traapapp.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
-import com.traap.traapapp.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
 import com.traap.traapapp.apiServices.model.predict.sendPredict.request.SendPredictRequest;
 import com.traap.traapapp.apiServices.model.profile.deleteProfile.DeleteProfileResponse;
 import com.traap.traapapp.apiServices.model.profile.getProfile.response.GetProfileResponse;
@@ -137,27 +144,29 @@ import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
 import com.traap.traapapp.apiServices.model.suggestions.RequestSuggestions;
 import com.traap.traapapp.apiServices.model.suggestions.ResponseSuggestions;
 import com.traap.traapapp.apiServices.model.survey.SurveyDetailResponse;
+import com.traap.traapapp.apiServices.model.survey.listSurvey.SurveyListResponse;
+import com.traap.traapapp.apiServices.model.survey.putSurvey.PutSurveyRequest;
+import com.traap.traapapp.apiServices.model.survey.putSurvey.PutSurveyResponse;
 import com.traap.traapapp.apiServices.model.techHistory.GetTechsHistoryResponse;
 import com.traap.traapapp.apiServices.model.techs.GetTechsIdResponse;
 import com.traap.traapapp.apiServices.model.techs.RequestSetFavoritePlayer;
 import com.traap.traapapp.apiServices.model.techs.news.GetTechNewsResponse;
 import com.traap.traapapp.apiServices.model.topPlayers.TopPlayerResponse;
-import com.traap.traapapp.apiServices.model.survey.listSurvey.SurveyListResponse;
-import com.traap.traapapp.apiServices.model.survey.putSurvey.PutSurveyRequest;
-import com.traap.traapapp.apiServices.model.survey.putSurvey.PutSurveyResponse;
+import com.traap.traapapp.apiServices.model.tourism.GetUserPassResponse;
 import com.traap.traapapp.apiServices.model.tourism.bus.getMessageBus.request.BusSendMessage;
 import com.traap.traapapp.apiServices.model.tourism.bus.getPaymentBus.request.RequestBusPayment;
 import com.traap.traapapp.apiServices.model.tourism.flight.payment.request.FlightPaymentRequest;
-import com.traap.traapapp.apiServices.model.tourism.GetUserPassResponse;
 import com.traap.traapapp.apiServices.model.tourism.hotel.hotelPayment.request.GdsHotelPaymentRequest;
 import com.traap.traapapp.apiServices.model.tractorTeam.TractorTeamResponse;
 import com.traap.traapapp.apiServices.model.verify.VerifyRequest;
 import com.traap.traapapp.apiServices.model.verify.VerifyResponse;
-import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
 import com.traap.traapapp.apiServices.model.withdrawWallet.WithdrawWalletRequest;
 import com.traap.traapapp.apiServices.model.withdrawWallet.WithdrawWalletResponse;
 
-import lombok.Generated;
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.Single;
 import okhttp3.MultipartBody;
 import retrofit2.Response;
 import retrofit2.http.Body;
@@ -309,6 +318,16 @@ public interface RetroClient
             @Body GetAllBoxesRequest request
     );
 
+    @POST(Const.POST_BillCar)
+    Single<Response<WebServiceClass<ResponseBillCar>>> getAllBillCar(
+            @Body RequestBillCar request
+    );
+
+    @POST(Const.POST_BillMotorcycle)
+    Single<Response<WebServiceClass<ResponseBillCar>>> getAllBillMotor(
+            @Body RequestBillCar request
+    );
+
     @POST(Const.ReservationMatch)
     Single<Response<WebServiceClass<ReservationResponse>>> reservTicket(
             @Body ReservationRequest request
@@ -446,6 +465,12 @@ public interface RetroClient
     @POST(Const.GetInfoPhoneBill)
     Single<Response<WebServiceClass<GetInfoPhoneBillResponse>>> getInfoPhoneBill(
             @Body GetInfoPhoneBillRequest request
+    );
+
+
+    @POST(Const.BillPayment)
+    Single<Response<WebServiceClass<BillPaymentResponse>>> billPayment(
+            @Body BillPaymentRequest request
     );
 
     @POST(Const.GetInfoBill)
@@ -837,6 +862,7 @@ public interface RetroClient
     @GET(Const.Get_Tech_News)
     Single<Response<WebServiceClass<GetTechNewsResponse>>> getTechNews(
             @Path("id") Integer id);
+
     @POST(Const.POST_Suggestions)
     Single<Response<WebServiceClass<ResponseSuggestions>>> postSuggestions(
             @Body RequestSuggestions request
@@ -852,6 +878,11 @@ public interface RetroClient
             @Body BillPaymentRequest request
     );
 
+    @POST(Const.POST_BillPayment)
+    Single<Response<WebServiceClass<BillPaymentResponse>>> postBillCarPayment(
+            @Body RequestPayBillCar request
+    );
+
     @POST(Const.BILL_ELECTRICITY)
     Single<Response<WebServiceClass<BillElectricityResponse>>> postBillElectricity(
             @Body BillElectricityRequest request
@@ -861,13 +892,41 @@ public interface RetroClient
     Single<Response<WebServiceClass<BillCodeResponse>>> postBillGaz(
             @Body BillPhoneRequest request
     );
+
     @POST(Const.BILL_MCI)
-Single<Response<WebServiceClass<BillPhoneResponse>>> postBillMci(
-                @Body BillPhoneRequest request
-        );
+    Single<Response<WebServiceClass<BillPhoneResponse>>> postBillMci(
+            @Body BillPhoneRequest request
+    );
 
     @POST(Const.BILL_WATER)
-Single<Response<WebServiceClass<BillCodeResponse>>> postBillWater(
-                @Body BillPhoneRequest request
-        );
+    Single<Response<WebServiceClass<BillCodeResponse>>> postBillWater(
+            @Body BillPhoneRequest request
+    );
+
+    @GET(Const.GET_MAIN_PERFORMANCE_EVALUATION)
+    Single<Response<WebServiceClass<PerformanceEvaluationMainResponse>>> getMainEvaluation(
+            @Path("id") Integer matchId
+    );
+
+    @POST(Const.GET_PERFORMANCE_EVALUATION_SUBSTITUTION)
+    Single<Response<WebServiceClass<List<PerformanceEvaluationPlayerSubstitutionResponse>>>> getEvaluationSubstitution(
+            @Path("id") Integer matchId,
+            @Body PlayerSubstitutionRequest request
+    );
+
+    @GET(Const.GET_PERFORMANCE_EVALUATION_QUESTION)
+    Single<Response<WebServiceClass<List<GetPlayerEvaluationQuestionResponse>>>> getPlayerEvaluationQuestions(
+            @Path("id") Integer matchId
+    );
+
+    @POST(Const.SET_PLAYER_PERFORMANCE_EVALUATION)
+    Single<Response<WebServiceClass<Object>>> setPlayerEvaluation(
+            @Body SetPlayerEvaluationQuestionsRequest request
+    );
+
+    @POST(Const.GET_PLAYER_PERFORMANCE_EVALUATION_RESULT)
+    Single<Response<WebServiceClass<List<GetPlayerEvaluationRequestResponse>>>> getPlayerEvaluationResult(
+            @Body GetPlayerEvaluationResultRequest request
+    );
+
 }

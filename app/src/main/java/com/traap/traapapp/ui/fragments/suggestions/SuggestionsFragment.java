@@ -278,7 +278,7 @@ public class SuggestionsFragment extends BaseFragment implements View.OnClickLis
 
                     if (response.info.statusCode == 200)
                     {
-
+                        etComment.setText("");
                         showAlertSuccess(getContext(), response.info.message, "", false);
                     } else
                     {

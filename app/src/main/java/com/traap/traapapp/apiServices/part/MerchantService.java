@@ -44,7 +44,7 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getDecQrCode.DecryptQrRequest;
 import com.traap.traapapp.apiServices.model.getDecQrCode.DecryptQrResponse;
 import com.traap.traapapp.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
-import com.traap.traapapp.ui.fragments.paymentWithoutCard.PaymentWithoutCardFragment;
+import com.traap.traapapp.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
 
 
 public class MerchantService extends BasePart
@@ -66,7 +66,7 @@ public class MerchantService extends BasePart
     {
         start(getServiceGenerator().createService().decryptQr(req), listener);
     }
-    public void PaymentPrintPosService(PaymentWithoutCardFragment listener, PaymentPrintPosRequest req)
+    public void PaymentPrintPosService(OnServiceStatus<WebServiceClass<PaymentPrintPosResponse>> listener, PaymentPrintPosRequest req)
     {
         start(getServiceGenerator().createService().getPayment(req), listener);
     }

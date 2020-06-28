@@ -13,14 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.getEvaluationResult.response.GetPlayerEvaluationRequestResponse;
+
+import java.util.List;
 
 public class PlayerEvaluationResultAdapter extends RecyclerView.Adapter<PlayerEvaluationResultAdapter.ViewHolder>
 {
     private Context context;
+    private List<GetPlayerEvaluationRequestResponse> responseList;
 
-    public PlayerEvaluationResultAdapter(Context context)
+    public PlayerEvaluationResultAdapter(Context context, List<GetPlayerEvaluationRequestResponse> responseList)
     {
         this.context = context;
+        this.responseList = responseList;
     }
 
     @NonNull
@@ -37,7 +42,7 @@ public class PlayerEvaluationResultAdapter extends RecyclerView.Adapter<PlayerEv
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
-
+        GetPlayerEvaluationRequestResponse item = responseList.get(position);
 
         if (position % 2 == 0)
         {
@@ -52,21 +57,22 @@ public class PlayerEvaluationResultAdapter extends RecyclerView.Adapter<PlayerEv
             holder.tvMyEvaluation.setTextColor(ContextCompat.getColor(context, R.color.textColorSubTitle));
         }
 
-//        if ((position == size - 1) || (position == size - 2))
-//        {
-//            holder.tvAvgEvaluation.setTextColor(ContextCompat.getColor(context, R.color.textColorPrimary));
-//            holder.tvEvaluationIndex.setTextColor(ContextCompat.getColor(context, R.color.textColorPrimary));
-//            holder.tvMyEvaluation.setTextColor(ContextCompat.getColor(context, R.color.textColorPrimary));
-//        }
+        if ((position == responseList.size() - 1) || (position == responseList.size() - 2))
+        {
+            holder.tvAvgEvaluation.setTextColor(ContextCompat.getColor(context, R.color.textColorPrimary));
+            holder.tvEvaluationIndex.setTextColor(ContextCompat.getColor(context, R.color.textColorPrimary));
+            holder.tvMyEvaluation.setTextColor(ContextCompat.getColor(context, R.color.textColorPrimary));
+        }
 
-
-
+        holder.tvAvgEvaluation.setText(String.valueOf(item.getAverageScore()));
+        holder.tvEvaluationIndex.setText(item.getTitle());
+        holder.tvMyEvaluation.setText(String.valueOf(item.getScore()));
     }
 
     @Override
     public int getItemCount()
     {
-        return 0;
+        return responseList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder

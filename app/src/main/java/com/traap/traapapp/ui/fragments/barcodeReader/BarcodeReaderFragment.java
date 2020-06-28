@@ -11,17 +11,17 @@ import androidx.fragment.app.Fragment;
 
 import com.google.zxing.Result;
 import com.pixplicity.easyprefs.library.Prefs;
-
-
 import com.traap.traapapp.R;
 import com.traap.traapapp.enums.BarcodeType;
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 
-public class BarcodeReaderFragment extends BaseFragment implements ZXingScannerView.ResultHandler {
+public class BarcodeReaderFragment extends BaseFragment implements ZXingScannerView.ResultHandler
+{
 
     private View v;
     private ZXingScannerView mScannerView;
@@ -31,10 +31,13 @@ public class BarcodeReaderFragment extends BaseFragment implements ZXingScannerV
     private MainActionView mainView;
 
 
-    public BarcodeReaderFragment() {
+    public BarcodeReaderFragment()
+    {
 
     }
-    public static BarcodeReaderFragment newInstance(MainActionView mainView) {
+
+    public static BarcodeReaderFragment newInstance(MainActionView mainView)
+    {
         BarcodeReaderFragment f = new BarcodeReaderFragment();
         f.setMainView(mainView);
 
@@ -49,7 +52,8 @@ public class BarcodeReaderFragment extends BaseFragment implements ZXingScannerV
 
         f.setBarcodeType(barcodeType);
 
-        return f;    }
+        return f;
+    }
 
     private void setMainView(MainActionView mainView) {
         this.mainView=mainView;
@@ -57,7 +61,8 @@ public class BarcodeReaderFragment extends BaseFragment implements ZXingScannerV
 
 
     @Override
-    public void handleResult(Result result) {
+    public void handleResult(Result result)
+    {
         //presenter.barcode(result.getText());
         Prefs.putString("qrCode",result.getText());
         if (barcodeType==BarcodeType.Bill){
@@ -66,18 +71,21 @@ public class BarcodeReaderFragment extends BaseFragment implements ZXingScannerV
             //mainView.setBarcodeBillData()
         }else
         {
-            mainView.onPaymentWithoutCard();
+            mainView.onShowPaymentWithoutCardFragment(null);
         }
     }
 
-    public void setBarcodeType(BarcodeType barcodeType) {
+    public void setBarcodeType(BarcodeType barcodeType)
+    {
         this.barcodeType = barcodeType;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        if (v != null) {
+                             Bundle savedInstanceState)
+    {
+        if (v != null)
+        {
             v = null;
 
         }
@@ -85,8 +93,8 @@ public class BarcodeReaderFragment extends BaseFragment implements ZXingScannerV
 
         v = inflater.inflate(R.layout.activity_barcode_reader, container, false);
         ViewGroup contentFrame = (ViewGroup) v.findViewById(R.id.content_frame);
-       // tvTitle = getActivity().findViewById(R.id.tvTitle);
-       // tvTitle.setText("بار کد خوان");
+        // tvTitle = getActivity().findViewById(R.id.tvTitle);
+        // tvTitle.setText("بار کد خوان");
 
         mScannerView = new ZXingScannerView(getActivity());
         contentFrame.addView(mScannerView);
@@ -95,9 +103,11 @@ public class BarcodeReaderFragment extends BaseFragment implements ZXingScannerV
     }
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
-        new Handler().postDelayed(() -> {
+        new Handler().postDelayed(() ->
+        {
             mScannerView.setResultHandler(this); // Register ourselves as a handler for scan transactionLists.
             mScannerView.startCamera();          // Start camera on resume
 
@@ -106,13 +116,15 @@ public class BarcodeReaderFragment extends BaseFragment implements ZXingScannerV
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroy()
+    {
         super.onDestroy();
         v = null;
     }
 
     @Override
-    public void onPause() {
+    public void onPause()
+    {
         super.onPause();
         mScannerView.stopCamera();
         // Stop camera on pause

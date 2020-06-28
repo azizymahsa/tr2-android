@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.fragments.Introducing_the_team;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.moeidbannerlibrary.banner.BannerLayout;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
@@ -38,6 +40,7 @@ import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -69,6 +72,7 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
     private ImageView ivTeamLogo;
     private List<Result> getResults = new ArrayList<>();
     private Handler handler;
+    private NestedScrollView nested;
 
     public IntroducingTeamFragment()
     {
@@ -91,6 +95,9 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
+
+
+
         if (rootView != null)
         {
             return rootView;
@@ -105,6 +112,9 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
+        nested = rootView.findViewById(R.id.nested);
+        nested.scrollTo(0, 0);
+
         initView();
         initViewPager();
         initSearch();
@@ -157,6 +167,7 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
 
     }
 
+
     private void initView()
     {
         blTeam = rootView.findViewById(R.id.blTeam);
@@ -172,6 +183,15 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
         tvTeamAddress = rootView.findViewById(R.id.tvTeamAddress);
         tvPhone = rootView.findViewById(R.id.tvPhone);
         tvEmail = rootView.findViewById(R.id.tvEmail);
+        tvEmail.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                nested.scrollTo(0, 0);
+
+            }
+        });
 
         TextView tvTitle = rootView.findViewById(R.id.tvTitle);
         tvTitle.setText("معرفی تیم تراکتور");
@@ -258,10 +278,11 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
     private void addTabs(ViewPager viewPager)
     {
         adapter = new FragmentsPagerAdapter(getChildFragmentManager());
-
+        nested = rootView.findViewById(R.id.nested);
+        nested.scrollTo(0, 0);
         adapter.addFrag("بازیکنان فعلی", new CurrentPlayersFragment(mainView));
         adapter.addFrag("کادر فنی", new TechnicalTeamFragment(mainView));
-        adapter.addFrag("برترین بازیکن ها", new TopPlayersFragment());
+        adapter.addFrag("برترین بازیکن ها", new TopPlayersFragment(mainView));
         adapter.addFrag("جایگاه در لیگ ها", new PositionInLeaguesFragment());
         adapter.addFrag("تاریخچه", new TeamHistoryFragment());
 
@@ -273,7 +294,22 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
     public void onResume()
     {
         super.onResume();
-
+        nested = rootView.findViewById(R.id.nested);
+        nested.scrollTo(0, 0);
+    }
+ @Override
+    public void onPause()
+    {
+        super.onPause();
+        nested = rootView.findViewById(R.id.nested);
+        nested.scrollTo(0, 0);
+    }
+ @Override
+    public void onStop()
+    {
+        super.onStop();
+        nested = rootView.findViewById(R.id.nested);
+        nested.scrollTo(0, 0);
     }
 
     public void getTraktorTeam()
@@ -390,6 +426,7 @@ public class IntroducingTeamFragment extends BaseFragment implements PlayerSearc
     @Override
     public void onPlayerSearchClick(Result result)
     {
+        nested.scrollTo(0, 0);
 
         if (result.getRole().contains("مربي"))
             mainView.onHeadCoach(result.getId(),"معرفی سرمربی",false);

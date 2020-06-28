@@ -78,6 +78,7 @@ import com.traap.traapapp.enums.PredictPosition;
 import com.traap.traapapp.enums.SubMediaParent;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
+import com.traap.traapapp.models.otherModels.qrModel.QrModel;
 import com.traap.traapapp.ui.activities.main.OnContactClick;
 import com.traap.traapapp.ui.adapters.charge.ChargeAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
@@ -1695,6 +1696,30 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
+    public void onBillMotor(Integer status)
+    {
+
+    }
+
+    @Override
+    public void onBillCar(Integer status)
+    {
+
+    }
+
+    @Override
+    public void onBillToll(Integer status)
+    {
+
+    }
+
+    @Override
+    public void onBillTrafic(Integer status)
+    {
+
+    }
+
+    @Override
     public void onPackSimCard(Integer status)
     {
 
@@ -1803,7 +1828,13 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void onPaymentWithoutCard()
+    public void onShowPaymentWithoutCardFragment(@Nullable QrModel model)
+    {
+
+    }
+
+    @Override
+    public void onPaymentWithoutCard(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String amount, SimChargePaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS)
     {
 
     }
@@ -2114,16 +2145,17 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId)
+    public void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId, String name, String imageURL)
     {
 
     }
 
     @Override
-    public void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId)
+    public void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId, String name, String imageURL)
     {
 
     }
+
 
     private void closeAutoComplete()
     {

@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -54,6 +55,7 @@ import com.traap.traapapp.models.dbModels.BankDB;
 import com.traap.traapapp.models.otherModels.newsModel.NewsArchiveClickModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
+import com.traap.traapapp.models.otherModels.qrModel.QrModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.singleton.SingletonLastPredictItem;
 import com.traap.traapapp.singleton.SingletonNewsArchiveClick;
@@ -62,18 +64,19 @@ import com.traap.traapapp.ui.activities.card.add.AddCardActivity;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultIncreaseInventoryActivity;
-import com.traap.traapapp.ui.activities.points.PointsActivity;
 import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.base.BaseMainActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.dialogs.MessageAlertPermissionDialog;
 import com.traap.traapapp.ui.drawer.MenuDrawerFragment;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.IntroducingTeamFragment;
-import com.traap.traapapp.ui.fragments.barcodeReader.BarcodeReaderFragment;
 import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
 import com.traap.traapapp.ui.fragments.barcodeReader.BarcodeReaderFragment;
+import com.traap.traapapp.ui.fragments.barcodeReader.QrCodeReader;
+import com.traap.traapapp.ui.fragments.billCarAndMotor.PayBillCarMotorFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
+import com.traap.traapapp.ui.fragments.billTollAndTraficPlan.PayTollTraficPlanFragment;
 import com.traap.traapapp.ui.fragments.competitions.CompationsFragment;
 import com.traap.traapapp.ui.fragments.competitions.QuestionCompationFragment;
 import com.traap.traapapp.ui.fragments.events.EventsFragment;
@@ -90,7 +93,6 @@ import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment;
 import com.traap.traapapp.ui.fragments.matchSchedule.pastResult.PastResultFragment;
 import com.traap.traapapp.ui.fragments.media.MediaFragment;
 import com.traap.traapapp.ui.fragments.moneyTransfer.MainMoneyTransferFragment;
-import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.fragments.news.NewsArchiveActionView;
 import com.traap.traapapp.ui.fragments.news.NewsMainActionView;
 import com.traap.traapapp.ui.fragments.news.archive.NewsArchiveFragment;
@@ -103,13 +105,11 @@ import com.traap.traapapp.ui.fragments.performanceEvaluation.showResult.PlayerEv
 import com.traap.traapapp.ui.fragments.photo.archive.PhotosArchiveActionView;
 import com.traap.traapapp.ui.fragments.photo.archive.PhotosArchiveFragment;
 import com.traap.traapapp.ui.fragments.predict.PredictFragment;
-import com.traap.traapapp.ui.fragments.predict.predictResult.PredictResultResultFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.ChargeFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
 import com.traap.traapapp.ui.fragments.simcardPack.PackFragment;
 import com.traap.traapapp.ui.fragments.suggestions.SuggestionsFragment;
 import com.traap.traapapp.ui.fragments.support.SupportFragment;
-import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.fragments.survey.SurveyFragment;
 import com.traap.traapapp.ui.fragments.ticket.SelectPositionFragment;
 import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
@@ -139,8 +139,7 @@ import io.realm.exceptions.RealmException;
 //import com.traap.traapapp.ui.fragments.matchSchedule.MatchScheduleFragment2;
 
 public class MainActivity extends BaseMainActivity implements MainActionView, MenuDrawerFragment.FragmentDrawerListener,
-        OnServiceStatus
-                <WebServiceClass<GetMenuResponse>>, KeyboardUtils.SoftKeyboardToggleListener
+        OnServiceStatus<WebServiceClass<GetMenuResponse>>, KeyboardUtils.SoftKeyboardToggleListener
         , SelectPositionFragment.OnListFragmentInteractionListener
 {
     private Boolean isMainFragment = true;
@@ -982,6 +981,46 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
     }
 
+    @Override
+    public void onBillMotor(Integer status)
+    {
+        this.backState = backState;
+        isMainFragment = false;
+
+        setFragment(PayBillCarMotorFragment.newInstance(this,10));
+        replaceFragment(getFragment(), "onBillMotor");
+    }
+
+    @Override
+    public void onBillCar(Integer status)
+    {
+        this.backState = backState;
+        isMainFragment = false;
+
+        setFragment(PayBillCarMotorFragment.newInstance(this,9));
+        replaceFragment(getFragment(), "onBillCar");
+    }
+
+    @Override
+    public void onBillToll(Integer status)
+    {
+        this.backState = backState;
+        isMainFragment = false;
+
+        setFragment(PayTollTraficPlanFragment.newInstance(this,110));
+        replaceFragment(getFragment(), "onBillToll");
+    }
+
+    @Override
+    public void onBillTrafic(Integer status)
+    {
+        this.backState = backState;
+        isMainFragment = false;
+
+        setFragment(PayTollTraficPlanFragment.newInstance(this,111));
+        replaceFragment(getFragment(), "onBillTrafic");
+    }
+
     public void onIntroduceTeam()
     {
         isMainFragment = false;
@@ -1003,6 +1042,8 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     @Override
     public void onHeadCoach(Integer coachId, String title, boolean flagFavorit)
     {
+        isMainFragment = false;
+
         setFragment(HeadCoachFragment.newInstance(this, coachId, title, flagFavorit));
         replaceFragment(getFragment(), "HeadCoachFragment");
 
@@ -1035,16 +1076,16 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId)
+    public void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId, String name, String imageURL)
     {
-        setFragment(PlayerSetEvaluationFragment.newInstance(this, matchId, playerId));
+        setFragment(PlayerSetEvaluationFragment.newInstance(this, matchId, playerId, name, imageURL));
         replaceFragment(getFragment(), "PlayerSetEvaluationFragment");
     }
 
     @Override
-    public void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId)
+    public void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId, String name, String imageURL)
     {
-        setFragment(PlayerEvaluationResultFragment.newInstance(this, matchId, playerId));
+        setFragment(PlayerEvaluationResultFragment.newInstance(this, matchId, playerId, name, imageURL));
         replaceFragment(getFragment(), "PlayerEvaluationResultFragment");
     }
 
@@ -1102,18 +1143,40 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     {
         isMainFragment = false;
 
-        setFragment(BarcodeReaderFragment.newInstance(this,barcodeType));
-        replaceFragment(getFragment(), "barcodeReaderFragment");
-
+        if (barcodeType.equals(BarcodeType.Bill))
+        {
+            setFragment(BarcodeReaderFragment.newInstance(this, barcodeType));
+            replaceFragment(getFragment(), "barcodeReaderFragment");
+        }else
+        {
+        setFragment(QrCodeReader.newInstance(this));
+        replaceFragment(getFragment(), "QrCodeReader");
+        }
     }
 
     @Override
-    public void onPaymentWithoutCard()
+    public void onShowPaymentWithoutCardFragment(@Nullable QrModel model)
     {
         isMainFragment = false;
 
-        setFragment(PaymentWithoutCardFragment.newInstance(this));
+        if (model != null)
+        {
+            fragmentList.remove(fragmentList.size() - 1); //remove QR Fragment
+            fragmentList.remove(fragmentList.size() - 1); //remove PaymentWithoutCard Fragment
+        }
+
+        setFragment(PaymentWithoutCardFragment.newInstance(this, model));
         replaceFragment(getFragment(), "paymentWithoutCardFragment");
+    }
+
+    @Override
+    public void onPaymentWithoutCard(OnClickContinueSelectPayment onClickContinueSelectPayment, String urlPayment, int imageDrawable, String title, String amount, SimChargePaymentInstance paymentInstance, String mobile, int PAYMENT_STATUS)
+    {
+        isMainFragment = false;
+        Prefs.putInt("PAYMENT_STATUS", PAYMENT_STATUS);
+        setFragment(SelectPaymentGatewayFragment.newInstance(PAYMENT_STATUS, onClickContinueSelectPayment, urlPayment, this, imageDrawable,
+                title, amount, paymentInstance, mobile));
+        replaceFragment(getFragment(), "selectPaymentGatewayFragment");
     }
 
     @Override
@@ -2304,6 +2367,12 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             isMainFragment = false;
             setFragment(WalletFragment.newInstance(this, 1));//IncreaseInventoryFragment
             replaceFragment(getFragment(), "IncreaseInventoryFragment");
+        }
+        else if (PAYMENT_STATUS == 15)
+        {
+            isMainFragment = false;
+            setFragment(PayBillCarMotorFragment.newInstance(this, idBill));//IncreaseInventoryFragment
+            replaceFragment(getFragment(), "PayBillCarMotorFragment");
         }else if (PAYMENT_STATUS==TrapConfig.PAYMENT_STATUS_BILL)
         {
             isMainFragment = false;
@@ -2786,25 +2855,31 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             error = getString(R.string.networkErrorMessage);
         }
 
-
-        MessageAlertDialog dialog = new MessageAlertDialog(this, "", error,
-                false, "تلاش مجدد", "", false, MessageAlertDialog.TYPE_MESSAGE,
-                new MessageAlertDialog.OnConfirmListener()
-                {
-                    @Override
-                    public void onConfirmClick()
+        try
+        {
+            MessageAlertDialog dialog = new MessageAlertDialog(this, "", error,
+                    false, "تلاش مجدد", "", false, MessageAlertDialog.TYPE_MESSAGE,
+                    new MessageAlertDialog.OnConfirmListener()
                     {
-                        getAllServicesList();
-                    }
+                        @Override
+                        public void onConfirmClick()
+                        {
+                            getAllServicesList();
+                        }
 
-                    @Override
-                    public void onCancelClick()
-                    {
+                        @Override
+                        public void onCancelClick()
+                        {
 
-                    }
-                });
-        dialog.setCancelable(false);
-        dialog.show(getFragmentManager(), "messageDialog");
+                        }
+                    });
+            dialog.setCancelable(false);
+            dialog.show(getFragmentManager(), "messageDialog");
+        }
+        catch (IllegalStateException e)
+        {
+
+        }
 /*
         startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), 100);
         finish();*/

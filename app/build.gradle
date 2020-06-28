@@ -11,7 +11,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 81
-        versionName "2.2.1"
+        versionName "2.2.2"
 
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -282,6 +282,10 @@ android {
         //---------------QRGenerator start--------------------------
         //   implementation 'com.github.kenglxn.QRGen:android:2.5.0'
         //---------------QRGenerator end----------------------------
+
+        //---------------QRReader start--------------------------
+        implementation 'com.budiyev.android:code-scanner:2.1.0'
+        //---------------QRReader end----------------------------
 
         //---------------PersianCalendar start----------------------------
         implementation 'com.github.dariushm2:PersianCaldroid:1.0.0'

@@ -817,38 +817,7 @@ public class AllMenuFragment extends BaseFragment implements
             //الوپارک
             case 31: //  پارکینگ عمومی
             {
-/*
 
-                Bundle headers = new Bundle();
-                headers.putString("Authorization", Prefs.getString("accessToken",""));
-
-                Uri uri = Uri.parse(Prefs.getString("alopark_token", ""));
-                CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
-                intentBuilder.setToolbarColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.colorPrimaryDark));
-                intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
-
-                CustomTabsIntent customTabsIntent = intentBuilder.build();
-                customTabsIntent.intent.putExtra(Browser.EXTRA_HEADERS, headers);
-
-                customTabsIntent.launchUrl(getActivity(), uri);
-*/
-
-/*
-                Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", URl);
-                intent.putExtra("Title", "الو پارک");
-
-                intent.putExtra("TOKEN", Prefs.getString("alopark_token", ""));
-                startActivityForResult(intent,100);*/
-
-
-
-   /*             Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", Prefs.getString("alopark_token", ""));
-                intent.putExtra("Title", "الوپارک");
-
-                intent.putExtra("TOKEN", "");
-                startActivityForResult(intent, 100);*/
 
                 if (baseUrl != null)
                 {
@@ -861,20 +830,11 @@ public class AllMenuFragment extends BaseFragment implements
                 }
 
 
-
-
-
-                // Utility.openUrlCustomTab(getActivity(), Prefs.getString("alopark_token", ""));
                 break;
             }
             case 32: //  پارک حاشیه ای
             {
-  /*              Intent intent = new Intent(getActivity(), WebActivity.class);
-                intent.putExtra("URL", URl);
-                intent.putExtra("Title", "الوپارک");
 
-                intent.putExtra("TOKEN", "");
-                startActivityForResult(intent, 100);*/
 
                 if (baseUrl != null)
                 {
@@ -887,7 +847,6 @@ public class AllMenuFragment extends BaseFragment implements
                 }
 
 
-                // Utility.openUrlCustomTab(getActivity(), URl);
                 break;
             }
             case 73: //  پارک حاشیه ای
@@ -901,6 +860,28 @@ public class AllMenuFragment extends BaseFragment implements
 
                     Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
                 }
+                break;
+            }
+            case 920: //  موتورسیکلت
+            {
+               mainView.onBillMotor(1);
+                break;
+            }
+
+            case 919: //  خودرو
+            {
+                mainView.onBillCar(1);
+                break;
+            }
+
+            case 111: //  طرح ترافیک
+            {
+                mainView.onBillTrafic(111);
+                break;
+            }
+            case 110: //  عوارض
+            {
+                mainView.onBillToll(110);
                 break;
             }
         }
