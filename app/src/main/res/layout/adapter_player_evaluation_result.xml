@@ -10,36 +10,58 @@
     android:layoutDirection="ltr"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
+    android:weightSum="5"
     android:layout_marginBottom="2dp">
 
-    <TextView
-        android:id="@+id/tvAvgEvaluation"
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_weight="1.7"
-        android:layout_height="wrap_content"
-        android:text="میانگین ارزیابی سایرین"
         android:gravity="center"
-        android:textColor="@color/textColorSecondary"
-        android:textSize="@dimen/textSize_12dp"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvMyEvaluation"
+        <TextView
+            android:id="@+id/tvAvgEvaluation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="میانگین ارزیابی سایرین"
+            android:gravity="center"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="@dimen/textSize_12dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:text="ارزیابی شما"
         android:gravity="center"
-        android:textColor="@color/textColorSecondary"
-        android:textSize="@dimen/textSize_12dp"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvEvaluationIndex"
+        <TextView
+            android:id="@+id/tvMyEvaluation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ارزیابی شما"
+            android:gravity="center"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="@dimen/textSize_12dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_weight="2.3"
-        android:layout_height="wrap_content"
-        android:text="شاخص ارزیابی"
         android:gravity="right"
-        android:textColor="@color/textColorSecondary"
-        android:textSize="@dimen/textSize_12dp"/>
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvEvaluationIndex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="شاخص ارزیابی"
+            android:gravity="right"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="@dimen/textSize_12dp"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

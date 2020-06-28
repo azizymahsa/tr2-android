@@ -292,7 +292,7 @@ public class PlayerSetEvaluationFragment extends BaseFragment implements OnAnima
         btnConfirm.revertAnimation();
         btnConfirm.setClickable(true);
 
-        showAlertSuccess(context, "", "0", true);
+        showAlertSuccess(context, message, "", true);
     }
 
     @Override

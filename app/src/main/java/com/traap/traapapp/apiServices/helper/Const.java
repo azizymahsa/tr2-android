@@ -238,7 +238,7 @@ public class Const
     public final static String GET_MAIN_PERFORMANCE_EVALUATION = SubBASEURL + "v1/match/{id}/formation/";
     public final static String GET_PERFORMANCE_EVALUATION_SUBSTITUTION = SubBASEURL + "v1/match/{id}/substitution/";
     public final static String GET_PERFORMANCE_EVALUATION_QUESTION = SubBASEURL + "v1/evaluation/{id}/polls";
-    public final static String SET_PLAYER_PERFORMANCE_EVALUATION = SubBASEURL + "v1/evaluation/poll_result";
-    public final static String GET_PLAYER_PERFORMANCE_EVALUATION_RESULT = SubBASEURL + "v1/evaluation/poll_result";
+    public final static String SET_PLAYER_PERFORMANCE_EVALUATION = SubBASEURL + "v1/evaluation/poll_result/";
+    public final static String GET_PLAYER_PERFORMANCE_EVALUATION_RESULT = SubBASEURL + "v1/evaluation/poll_result/user_polls/";
 
 }

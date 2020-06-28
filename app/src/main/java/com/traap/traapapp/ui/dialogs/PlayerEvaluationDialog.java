@@ -137,16 +137,16 @@ public class PlayerEvaluationDialog extends DialogFragment implements Performanc
     }
 
     @Override
-    public void onPlayerShowEvaluatedResult(int matchId, int positionId, String name, String imageURL)
+    public void onPlayerShowEvaluatedResult(int matchId, int playerId, String name, String imageURL)
     {
-        actionView.onPlayerShowEvaluatedResult(matchId, positionId, name, imageURL);
+        actionView.onPlayerShowEvaluatedResult(matchId, playerId, name, imageURL);
         dismiss();
     }
 
     @Override
-    public void onPlayerSetEvaluation(int matchId, int positionId, String name, String imageURL)
+    public void onPlayerSetEvaluation(int matchId, int playerId, String name, String imageURL)
     {
-        actionView.onPlayerSetEvaluation(matchId, positionId, name, imageURL);
+        actionView.onPlayerSetEvaluation(matchId, playerId, name, imageURL);
         dismiss();
     }
 }
