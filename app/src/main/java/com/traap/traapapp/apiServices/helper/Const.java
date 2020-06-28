@@ -239,5 +239,11 @@ public class Const
     public final static String BILL_MCI=SubBASEURL+"v1/bill/mci/";
     public final static String BILL_WATER=SubBASEURL+"v1/bill/water/";
 
+    //tech comments
+    public final static String Get_Comments=SubBASEURL+"v1/team/techs/{id}/comments/";
+  //  public final static String post_Likes=SubBASEURL+"v1/team/techs/{id}/comments/likes/";
+    public final static String post_Comment=SubBASEURL+"v1/team/techs/{id}/comments/" ;
+    public final static String post_Reply=SubBASEURL+"v1/team/techs/{id}/comment/reply/" ;
+
 
 }

@@ -42,6 +42,7 @@ import com.traap.traapapp.apiServices.model.editUser.sendCodeReq.SendCodeReq;
 import com.traap.traapapp.apiServices.model.editUser.sendCodeRes.SendCodeRes;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesRequest;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesResponse;
+import com.traap.traapapp.apiServices.model.getAllComments.ResponseComments;
 import com.traap.traapapp.apiServices.model.getAllCompations.ResponseAllCompations;
 import com.traap.traapapp.apiServices.model.getAllMenuServices.response.GetAllMenuResponse;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.ForgetPasswordWalletResponse;
@@ -132,6 +133,7 @@ import com.traap.traapapp.apiServices.model.profile.putProfile.request.SendProfi
 import com.traap.traapapp.apiServices.model.profile.putProfile.response.SendProfileResponse;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationRequest;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationResponse;
+import com.traap.traapapp.apiServices.model.sendComment.RequestSendComment;
 import com.traap.traapapp.apiServices.model.setAnswerQuestions.RequestSetAnswer;
 import com.traap.traapapp.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
 import com.traap.traapapp.apiServices.model.shetacForgotPass2.request.ShetacForgotPass2Request;
@@ -834,6 +836,23 @@ public interface RetroClient
     @GET(Const.TECHS_ID)
     Single<Response<WebServiceClass<GetTechsIdResponse>>> getTechsId(
             @Path("id") Integer id);
+
+    @GET(Const.Get_Comments)
+    Single<Response<WebServiceClass<ResponseComments>>> getCommentsTechsId(
+            @Path("id") Integer id);
+
+
+    @POST(Const.post_Comment)
+    Single<Response<WebServiceClass<ResponseComments>>> postCommentTechsId(
+            @Path("id") Integer techId,
+            @Body RequestSendComment request);
+
+    @POST(Const.post_Reply)
+    Single<Response<WebServiceClass<ResponseComments>>> postReplyId(
+            @Path("id") Integer techId,
+            @Body RequestSendComment request);
+
+
 
     @GET(Const.TECHS_HISTORY)
     Single<Response<WebServiceClass<GetTechsHistoryResponse>>> getTechsHistory(

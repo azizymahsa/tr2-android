@@ -7,9 +7,13 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.listener.OnServiceStatus;
+import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.getAllComments.ResponseComments;
 import com.traap.traapapp.ui.fragments.headCoach.model.CoachCommentModel;
 
 import java.util.ArrayList;
@@ -24,7 +28,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     private CommentAdapterEvents adapterEvents;
 
 
-    public CommentAdapter(ArrayList<CoachCommentModel> coachCommentModel,CommentAdapterEvents adapterEvents)
+    public CommentAdapter(ArrayList<CoachCommentModel> coachCommentModel, CommentAdapterEvents adapterEvents)
     {
         this.coachCommentModel = coachCommentModel;
         this.adapterEvents = adapterEvents;
@@ -44,23 +48,38 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public void onBindViewHolder(final CommentAdapter.ViewHolder holder, final int position)
     {
-        if (position == 2)
-        {
-            holder.llReply.setVisibility(View.VISIBLE);
-        } else
-        {
-            holder.llReply.setVisibility(View.GONE);
 
-        }
+        holder.llReply.setVisibility(View.GONE);
 
+
+        /*private TextView commentUser,commentDate,commentLike,commentDisLike,tvComment;
+        private TextView replyUser,replyDate,replyText,replyLike,replyDisLike;*/
         if (coachCommentModel.get(position).getUser())
         {
+            //holder.tvComment.setText(coachCommentModel.get(position).getResults().getBody());
             holder.tvComment.setText(coachCommentModel.get(position).getComment());
             holder.llEdit.setVisibility(View.VISIBLE);
 
         } else
         {
             holder.llEdit.setVisibility(View.GONE);
+            holder.commentUser.setText(coachCommentModel.get(position).getResults().getUser());
+            holder.commentDate.setText(coachCommentModel.get(position).getResults().getCreateDate());
+            holder.commentLike.setText(coachCommentModel.get(position).getResults().getLikesCount()+"");
+            holder.commentDisLike.setText(coachCommentModel.get(position).getResults().getDislikesCount()+"");
+            holder.tvComment.setText(coachCommentModel.get(position).getResults().getBody());
+
+            if (coachCommentModel.get(position).getResults().getReplies().size() > 0)
+            {
+                holder.llReply.setVisibility(View.VISIBLE);
+                holder.replyUser.setText(coachCommentModel.get(position).getResults().getUser());
+                holder.replyDate.setText(coachCommentModel.get(position).getResults().getCreateDate());
+                holder.replyText.setText(coachCommentModel.get(position).getResults().getBody());
+                holder.replyLike.setText(coachCommentModel.get(position).getResults().getLikesCount()+"");
+                holder.replyDisLike.setText(coachCommentModel.get(position).getResults().getDislikesCount()+"");
+
+
+            }
 
         }
         AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
@@ -69,6 +88,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         holder.ivDelete.setOnClickListener(v ->
         {
             adapterEvents.onDeleteCommentAdapter(position);
+
+        });
+        holder.ivEdit.setOnClickListener(v ->
+        {
+            adapterEvents.onEditCommentAdapter(position);
 
         });
         holder.ivEdit.setOnClickListener(v ->
@@ -89,13 +113,24 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
         private LinearLayout llReply, llEdit, llUserComment, llRoot;
-        private TextView tvComment;
+        private TextView commentUser, commentDate, commentLike, commentDisLike, tvComment;
+        private TextView replyUser, replyDate, replyText, replyLike, replyDisLike;
         private ImageView ivDelete, ivEdit;
+        private RelativeLayout rvCDisLike, rvCLike;
 
 
         public ViewHolder(View v)
         {
             super(v);
+            replyDisLike = v.findViewById(R.id.replyDisLike);
+            replyLike = v.findViewById(R.id.replyLike);
+            replyText = v.findViewById(R.id.replyText);
+            replyDate = v.findViewById(R.id.replyDate);
+            replyUser = v.findViewById(R.id.replyUser);
+            commentDisLike = v.findViewById(R.id.commentDisLike);
+            commentLike = v.findViewById(R.id.commentLike);
+            commentUser = v.findViewById(R.id.commentUser);
+            commentDate = v.findViewById(R.id.commentDate);
             llReply = v.findViewById(R.id.llReply);
             llRoot = v.findViewById(R.id.llRoot);
             llEdit = v.findViewById(R.id.llEdit);
@@ -103,6 +138,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             tvComment = v.findViewById(R.id.tvComment);
             ivDelete = v.findViewById(R.id.ivDelete);
             ivEdit = v.findViewById(R.id.ivEdit);
+            rvCLike = v.findViewById(R.id.rvCLike);
+            rvCDisLike = v.findViewById(R.id.rvCDisLike);
+          //  rvCDisLike.setOnClickListener(this);
+           // rvCLike.setOnClickListener(this);
 
         }
     }
