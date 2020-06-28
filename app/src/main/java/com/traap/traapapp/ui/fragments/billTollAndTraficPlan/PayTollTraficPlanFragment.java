@@ -350,7 +350,7 @@ public class PayTollTraficPlanFragment extends BaseFragment implements View.OnCl
     public void onBarcodReader()
     {
         Prefs.putString("qrCode", "");
-        mainView.onBarcodeReader();
+        mainView.onBarcodReader(BarcodeType.Payment);
 
         Log.d("barcode:", Prefs.getString("qrCode", ""));
     }

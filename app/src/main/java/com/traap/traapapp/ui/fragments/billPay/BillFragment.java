@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +37,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.textfield.TextInputLayout;
+import com.pixplicity.easyprefs.library.Prefs;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -95,12 +97,12 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 {
     private Context context;
     private View v;
-    private CardView cvBarcode;
-    private ClearableEditText etPayId, etBillId, etMobile, etTitleAddMyBill,etBillCode;
+    private LinearLayout cvBarcode;
+    private ClearableEditText etMobile, etTitleAddMyBill,etBillCode;
     private CircularProgressButton btnConfirm, btnAddBill, btnBillInfoEnd,btnPhoneInfo,btnCancelTerm,btnOkTerm;
     private View  btnContact;
     private RecyclerView rvInfo, rvMyBills;
-    private LinearLayout llDetailPayment, llCardDetail, llBill, llCvv2, rlBillList, llTitleAddMyBill,llContinueBill;
+    private LinearLayout llDetailPayment, llCardDetail, llBill, llCvv2, rlBillList, llTitleAddMyBill,llContinueBill,llBarcode;
     private List<LstPhoneBill> lstPhoneBills = new ArrayList<>();
    // private BillInfoAdapter billInfoAdapter;
     private String billId, payId;
@@ -148,6 +150,7 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
     private String termText;
     private String gweBillId="";
     private String billCode;
+    private String qrCode="";
 
 
     public BillFragment()
@@ -155,7 +158,7 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
     }
 
-    public static BillFragment newInstance(MainActionView mainView, String billTitle, int idSelectedBillType)
+    public static BillFragment newInstance(MainActionView mainView, String billTitle, int idSelectedBillType,String qrCode)
     {
         BillFragment f = new BillFragment();
         f.setMainView(mainView);
@@ -163,6 +166,7 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
         Bundle args = new Bundle();
         args.putString("TITLE", billTitle);
         args.putInt("ID_BILL_TYPE", idSelectedBillType);
+        args.putString("qrCode",qrCode);
 
         f.setArguments(args);
 
@@ -233,8 +237,10 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
         v = inflater.inflate(R.layout.bill_fragment, container, false);
 
-        initView();
 
+
+        initView();
+        barcode(qrCode);
 
         return v;
     }
@@ -268,6 +274,12 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
         {
             idSelectedBillType = getArguments().getInt("ID_BILL_TYPE");
             billTitle = getArguments().getString("TITLE");
+
+            qrCode=getArguments().getString("qrCode");
+
+            Prefs.putString("TITLE_BILL", billTitle);
+            Prefs.putInt("ID_BILL_TYPE", idSelectedBillType);
+
         }
 
         mToolbar = v.findViewById(R.id.toolbar);
@@ -292,6 +304,10 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
         llBillCode=v.findViewById(R.id.llBillCode);
         llPhone=v.findViewById(R.id.llPhone);
         etBillCode=v.findViewById(R.id.etBillCode);
+        llBarcode=v.findViewById(R.id.llBarcode);
+        llBarcode.setOnClickListener(this);
+        cvBarcode=v.findViewById(R.id.cvBarcode);
+       // cvBarcode.setOnClickListener(this);
 
         tvAmountTerm1=v.findViewById(R.id.tvAmountTerm1);
         tvAmountTerm2=v.findViewById(R.id.tvAmountTerm2);
@@ -306,7 +322,6 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
         tvBillsTitle = v.findViewById(R.id.tvBillsTitle);
         rlBillList = v.findViewById(R.id.rlBillList);
         upPanelLayout = v.findViewById(R.id.slidingLayout);
-        cvBarcode = v.findViewById(R.id.cvBarcode);
         nested = v.findViewById(R.id.nested);
         btnContact = v.findViewById(R.id.btnContact);
         etMobile = v.findViewById(R.id.etMobile);
@@ -396,32 +411,40 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
         {
             llPhone.setVisibility(View.VISIBLE);
             llBillCode.setVisibility(View.GONE);
+            llBarcode.setVisibility(View.INVISIBLE);
             tvTitle.setText("قبض تلفن ثابت");
             tvBillTitle.setText("شماره تلفن ثابتی که میخواهید قبض آن را پرداخت کنید را وارد نمایید.");
             etMobileHint.setHint("شماره تلفن ثابت");
 
 
         }else if (idSelectedBillType==5){
+
             llPhone.setVisibility(View.VISIBLE);
             llBillCode.setVisibility(View.GONE);
             tvTitle.setText("قبض تلفن همراه");
+            llBarcode.setVisibility(View.INVISIBLE);
             tvBillTitle.setText("شماره تلفن همراهی که میخواهید قبض آن را پرداخت کنید را وارد نمایید.");
             etMobileHint.setHint("شماره تلفن همراه");
 
         }else if (idSelectedBillType==1){
 
+            llBarcode.setVisibility(View.VISIBLE);
             llPhone.setVisibility(View.GONE);
             llBillCode.setVisibility(View.VISIBLE);
             tvTitle.setText("قبض آب");
             tvBillTitle.setText("شناسه قبض و شناسه پرداخت را وارد نمایید.در صورت نیاز می توانید از بارکدخوان نیز استفاده کنید.");
+
         }else if (idSelectedBillType==2){
 
+            llBarcode.setVisibility(View.VISIBLE);
             llPhone.setVisibility(View.GONE);
             llBillCode.setVisibility(View.VISIBLE);
             tvTitle.setText("قبض برق");
             tvBillTitle.setText("شناسه قبض و شناسه پرداخت را وارد نمایید.در صورت نیاز می توانید از بارکدخوان نیز استفاده کنید.");
+
         }else if (idSelectedBillType==3){
 
+            llBarcode.setVisibility(View.VISIBLE);
             llPhone.setVisibility(View.GONE);
             llBillCode.setVisibility(View.VISIBLE);
             tvTitle.setText("قبض گاز");
@@ -494,7 +517,7 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
         });
 */
         cvBarcode.setOnClickListener(view -> {
-            //  mainView.openBarcode(BarcodeType.Bill);
+              mainView.openBarcode(BarcodeType.Bill);
         });
 
         btnContact.setOnClickListener(view -> {
@@ -1315,6 +1338,31 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
         }
     }
 
+    public void barcode(String barcode)
+    {
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+
+                    // llPhone.setVisibility(View.GONE);
+                    //llBillCode.setVisibility(View.VISIBLE);
+
+                    etBillCode.setText(barcode.substring(0, 13));
+                    //etPayId.setText(barcode.substring(13));
+                } catch (Exception e)
+                {
+                    //showError(getContext(), e.getMessage());
+
+                }
+
+            }
+        }, 500);
+    }
+
    /* public void payBillRequest() {
         btnPassConfirm.startAnimation();
         btnPassConfirm.setClickable(false);
@@ -1964,7 +2012,7 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
 
     @Override
-    public void onBill(String title,Integer idBillType)
+    public void onBill(String title,Integer idBillType,String barcode)
     {
 
     }
@@ -2012,7 +2060,7 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
     }
 
     @Override
-    public void onBarcodeReader()
+    public void onBarcodReader(BarcodeType barcodeType)
     {
 
     }
@@ -2135,6 +2183,23 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
     public void onClick(View v)
     {
         switch (v.getId()){
+
+            case R.id.llBarcode:
+                Toast.makeText(context, "barcode", Toast.LENGTH_SHORT).show();
+              /*  try
+                {
+                    mainView.openBarcode(BarcodeType.Bill);
+                   // isDetailPaymentBarcode = true;
+
+                } catch (Exception e)
+                {
+                    e.getMessage();
+                }
+*/
+                mainView.openBarcode(BarcodeType.Bill);
+
+                break;
+
             case R.id.btnCancelTerm:
                 llMobileNumber.setVisibility(View.VISIBLE);
                 llSelectTermBill.setVisibility(View.GONE);

@@ -341,7 +341,7 @@ public class PaymentWithoutCardFragment_oldest extends BaseFragment implements V
     {
         // changeFragment(fragments.get(13), "13");
         Prefs.putString("qrCode", "");
-        mainView.onBarcodeReader();
+        mainView.onBarcodReader(BarcodeType.Payment);
         //    mFragNavController.switchTab(13);
        /* new Handler().postDelayed(() -> {
             layoutBehavior();

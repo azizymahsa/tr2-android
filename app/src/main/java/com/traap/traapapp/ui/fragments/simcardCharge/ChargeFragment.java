@@ -1684,7 +1684,7 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void onBill(String title,Integer idBillType)
+    public void onBill(String title,Integer idBillType,String barcode)
     {
 
     }
@@ -1732,7 +1732,7 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void onBarcodeReader()
+    public void onBarcodReader(BarcodeType barcodeType)
     {
 
     }
