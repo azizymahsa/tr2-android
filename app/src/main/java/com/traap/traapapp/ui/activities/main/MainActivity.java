@@ -371,7 +371,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
                         isMainFragment = false;
 
-                        setFragment(AllMenuFragment.newInstance(this, allServiceList, 0));
+                        setFragment(AllMenuFragment.newInstance(this, allServiceList, 0,4));
                         replaceFragment(getFragment(), "allMenuFragment");
                     }
                     break;
@@ -646,7 +646,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 fragmentList.remove(fragmentList.size() - 1); //remove ChargeFragment || PackFragment
                 fragmentList.remove(fragmentList.size() - 1); //remove AllMenuFragment and add it again.
 
-                setFragment(AllMenuFragment.newInstance(this, allServiceList, backState));
+                setFragment(AllMenuFragment.newInstance(this, allServiceList, backState,4));
                 replaceFragment(getFragment(), "allMenuFragment");
 
             }
@@ -660,7 +660,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 fragmentList.remove(fragmentList.size()-1); //remove BillFragment
                 fragmentList.remove(fragmentList.size()-1); //remove AllMenuFragment and add it again.
 
-                setFragment(AllMenuFragment.newInstance(this, allServiceList, backState));
+                setFragment(AllMenuFragment.newInstance(this, allServiceList, backState,6));
                 replaceFragment(getFragment(), "allMenuFragment");
 
             }
@@ -1382,11 +1382,11 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         {
             showToast(this, "کارت جدید با موفقیت ذخیره شد.", R.color.green);
 
-        } else if (resultCode == Activity.RESULT_OK && requestCode == 33)
+        }/* else if (resultCode == Activity.RESULT_OK && requestCode == 33)
         {
             fragmentList.remove(fragmentList.size() - 1); //remove SelectPaymentGatewayFragment
             fragmentList.remove(fragmentList.size() - 1); //remove ChargeFragment and add it again.
-        }
+        }*/
         else if (resultCode == Activity.RESULT_OK && requestCode == 33)
         {
             fragmentList.remove(fragmentList.size() - 1); //remove SelectPaymentGatewayFragment
@@ -2375,6 +2375,8 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             replaceFragment(getFragment(), "PayBillCarMotorFragment");
         }else if (PAYMENT_STATUS==TrapConfig.PAYMENT_STATUS_BILL)
         {
+          //  fragmentList.remove(fragmentList.size() - 1); //remove SelectPaymentGatewayFragment
+            //fragmentList.remove(fragmentList.size() - 1); //remove ChargeFragment and add it again.
             isMainFragment = false;
             setFragment(BillFragment.newInstance(this,idBill));
             replaceFragment(getFragment(), "BillFragment");
@@ -2391,7 +2393,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
             isMainFragment = false;
 
-            setFragment(AllMenuFragment.newInstance(this, allServiceList, backState));
+            setFragment(AllMenuFragment.newInstance(this, allServiceList, backState,4));
             replaceFragment(getFragment(), "allMenuFragment");
         }
         else
