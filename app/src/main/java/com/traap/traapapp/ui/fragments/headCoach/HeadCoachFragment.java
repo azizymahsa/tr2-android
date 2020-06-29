@@ -36,6 +36,9 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.getAllComments.ResponseComments;
 import com.traap.traapapp.apiServices.model.getAllComments.Result;
 import com.traap.traapapp.apiServices.model.sendComment.RequestSendComment;
+import com.traap.traapapp.apiServices.model.sendComment.ResponsePostComment;
+import com.traap.traapapp.apiServices.model.sendCommentLike.RequestSendLike;
+import com.traap.traapapp.apiServices.model.sendCommentLike.ResponsePostLike;
 import com.traap.traapapp.apiServices.model.techs.GetTechsIdResponse;
 import com.traap.traapapp.apiServices.model.techs.RequestSetFavoritePlayer;
 import com.traap.traapapp.conf.TrapConfig;
@@ -97,6 +100,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     private String title = "";
     private boolean flagFavorite = false;
     private Result result;
+    private Integer cmIdInsert = 0;
 
     public void setCoachId(Integer coachId)
     {
@@ -175,7 +179,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
 
 
             getAllComments(this);
-          //  commentAdapter = new CommentAdapter(coachCommentList, this);
+            //  commentAdapter = new CommentAdapter(coachCommentList, this);
             //rvComment.setAdapter(commentAdapter);
 
             tvUserName = mToolbar.findViewById(R.id.tvUserName);
@@ -261,6 +265,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
             e.getMessage();
         }
     }
+
     private void getAllComments(CommentAdapter.CommentAdapterEvents events)
     {
 
@@ -279,13 +284,13 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
 
                         for (int i = 0; i < response.data.getResults().size(); i++)
                         {
-                            coachCommentList.add(new CoachCommentModel("", false,response.data.getResults().get(i)));
+                            coachCommentList.add(new CoachCommentModel("", false, response.data.getResults().get(i)));
 
                         }
 
                         commentAdapter = new CommentAdapter(coachCommentList, events);
                         rvComment.setAdapter(commentAdapter);
-
+                        commentAdapter.notifyDataSetChanged();
 
                     } else
                     {
@@ -323,6 +328,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
         });
 
     }
+
     private void getTechsId()
     {
 
@@ -517,16 +523,18 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
                     @Override
                     public void run()
                     {
-                        sendComment(coachId,etComment.getText().toString());
 
                         if (isEdit)
                         {
-                            coachCommentList.get(0).setComment(etComment.getText().toString());
-                            commentAdapter.notifyItemChanged(0);
+
+
+                            editeComment(cmIdInsert, etComment.getText().toString());
+
                         } else
                         {
-                            coachCommentList.add(0, new CoachCommentModel(etComment.getText().toString(), true,result));
-                            commentAdapter.notifyItemInserted(0);
+                            sendComment(coachId, etComment.getText().toString());
+
+
                         }
 
 
@@ -548,12 +556,12 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     {
 
         pb.setVisibility(View.VISIBLE);
-        RequestSendComment requestSendComment=new RequestSendComment();
+        RequestSendComment requestSendComment = new RequestSendComment();
         requestSendComment.setBody(commentText);
-        SingletonService.getInstance().tractorTeamService().postCommentTechsId(coachId,requestSendComment, new OnServiceStatus<WebServiceClass<ResponseComments>>()
+        SingletonService.getInstance().tractorTeamService().postCommentTechsId(coachId, requestSendComment, new OnServiceStatus<WebServiceClass<ResponsePostComment>>()
         {
             @Override
-            public void onReady(WebServiceClass<ResponseComments> response)
+            public void onReady(WebServiceClass<ResponsePostComment> response)
             {
                 pb.setVisibility(View.GONE);
 
@@ -563,8 +571,9 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
                     {
 
                         showToast(getActivity(), response.info.message, R.color.gray);
-
-
+                        cmIdInsert = response.data.getCommentId();
+                        coachCommentList.add(0, new CoachCommentModel(etComment.getText().toString(), true, result));
+                        commentAdapter.notifyItemInserted(0);
                     } else
                     {
                         showToast(getActivity(), response.info.message, R.color.red);
@@ -601,13 +610,14 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
         });
 
     }
+
     private void sendReply(Integer coachId, String commentText)
     {
 
         pb.setVisibility(View.VISIBLE);
-        RequestSendComment requestSendComment=new RequestSendComment();
+        RequestSendComment requestSendComment = new RequestSendComment();
         requestSendComment.setBody(commentText);
-        SingletonService.getInstance().tractorTeamService().postReplyId(coachId,requestSendComment, new OnServiceStatus<WebServiceClass<ResponseComments>>()
+        SingletonService.getInstance().tractorTeamService().postReplyId(coachId, requestSendComment, new OnServiceStatus<WebServiceClass<ResponseComments>>()
         {
             @Override
             public void onReady(WebServiceClass<ResponseComments> response)
@@ -618,7 +628,7 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
                 {
                     if (response.info.statusCode == 200)
                     {
-                       // coachCommentList.add(0, new CoachCommentModel("", false,result));
+                        // coachCommentList.add(0, new CoachCommentModel("", false,result));
                         commentAdapter.notifyDataSetChanged();//ItemInserted(0);
                         showToast(getActivity(), response.info.message, R.color.gray);
 
@@ -659,6 +669,67 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
         });
 
     }
+
+    private void deleteCommentId(Integer cmIdInsert)
+    {
+
+        pb.setVisibility(View.VISIBLE);
+
+        SingletonService.getInstance().tractorTeamService().deleteCommentId(cmIdInsert, new OnServiceStatus<WebServiceClass<ResponseComments>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<ResponseComments> response)
+            {
+                pb.setVisibility(View.GONE);
+
+                try
+                {
+                    if (response.info.statusCode == 200)
+                    {
+                        commentAdapter.notifyDataSetChanged();//ItemInserted(0);
+                        showToast(getActivity(), response.info.message, R.color.gray);
+
+                        coachCommentList.remove(0);
+                        commentAdapter.notifyItemRemoved(0);
+                        llSendComment.setVisibility(View.VISIBLE);
+                        isEdit = false;
+                    } else
+                    {
+                        showToast(getActivity(), response.info.message, R.color.red);
+
+                    }
+
+                } catch (Exception e)
+                {
+                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+
+                }
+
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                pb.setVisibility(View.GONE);
+                try
+                {
+
+                    if (Tools.isNetworkAvailable(getActivity()))
+                    {
+                        Logger.e("-OnError-", "Error: " + message);
+                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                    } else
+                    {
+                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    }
+                } catch (Exception e)
+                {
+                }
+            }
+        });
+
+    }
+
     private void sendRequestFavorit()
     {
 //movaghati
@@ -727,18 +798,148 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onDeleteCommentAdapter(Integer position)
     {
-        coachCommentList.remove(0);
-        commentAdapter.notifyItemRemoved(0);
-        llSendComment.setVisibility(View.VISIBLE);
-        isEdit = false;
+        deleteCommentId(cmIdInsert);
+
+
     }
 
     @Override
     public void onEditCommentAdapter(Integer position)
     {
+
         isEdit = true;
         llSendComment.setVisibility(View.VISIBLE);
         etComment.setText(coachCommentList.get(position).getComment());
+
+    }
+
+    @Override
+    public void onLikedCommentAdapter(Integer position, Integer id, Boolean flagLike)
+    {
+        likeComment(position, id, flagLike, this);
+
+    }
+
+    private void likeComment(Integer position, Integer id, Boolean flagLike, CommentAdapter.CommentAdapterEvents events)
+    {
+
+        pb.setVisibility(View.VISIBLE);
+        RequestSendLike requestSendComment = new RequestSendLike();
+        requestSendComment.setValue(flagLike);
+        SingletonService.getInstance().tractorTeamService().postCommentLikes(id, requestSendComment, new OnServiceStatus<WebServiceClass<ResponsePostLike>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<ResponsePostLike> response)
+            {
+                pb.setVisibility(View.GONE);
+
+                try
+                {
+                    if (response.info.statusCode == 200)
+                    {
+                        //update List
+                        coachCommentList = new ArrayList<>();
+                        getAllComments(events);
+                    //    showToast(getActivity(), response.info.message, R.color.gray);
+
+
+                    } else
+                    {
+                        //update List
+                        coachCommentList = new ArrayList<>();
+                        getAllComments(events);
+                        showToast(getActivity(), response.info.message, R.color.red);
+
+                    }
+
+                } catch (Exception e)
+                {
+                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+
+                }
+
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                pb.setVisibility(View.GONE);
+                try
+                {
+
+                    if (Tools.isNetworkAvailable(getActivity()))
+                    {
+                        Logger.e("-OnError-", "Error: " + message);
+                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                    } else
+                    {
+                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    }
+                } catch (Exception e)
+                {
+                }
+            }
+        });
+
+    }
+
+
+    private void editeComment(Integer cmIdInsert, String newText)
+    {
+
+        pb.setVisibility(View.VISIBLE);
+        RequestSendComment requestSendComment = new RequestSendComment();
+        requestSendComment.setBody(newText);
+        SingletonService.getInstance().tractorTeamService().updateComment(cmIdInsert, requestSendComment, new OnServiceStatus<WebServiceClass<ResponsePostComment>>()
+        {
+            @Override
+            public void onReady(WebServiceClass<ResponsePostComment> response)
+            {
+                pb.setVisibility(View.GONE);
+
+                try
+                {
+                    if (response.info.statusCode == 200)
+                    {
+                        showToast(getActivity(), response.info.message, R.color.gray);
+
+                        coachCommentList.get(0).setComment(etComment.getText().toString());
+                        commentAdapter.notifyItemChanged(0);
+
+                    } else
+                    {
+                        showToast(getActivity(), response.info.message, R.color.red);
+
+                    }
+
+                } catch (Exception e)
+                {
+                    showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+
+                }
+
+            }
+
+            @Override
+            public void onError(String message)
+            {
+                pb.setVisibility(View.GONE);
+                try
+                {
+
+                    if (Tools.isNetworkAvailable(getActivity()))
+                    {
+                        Logger.e("-OnError-", "Error: " + message);
+                        showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
+                    } else
+                    {
+                        showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
+                    }
+                } catch (Exception e)
+                {
+                }
+            }
+        });
 
     }
 }

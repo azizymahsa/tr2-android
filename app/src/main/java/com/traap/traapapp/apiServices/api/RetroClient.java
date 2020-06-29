@@ -134,6 +134,9 @@ import com.traap.traapapp.apiServices.model.profile.putProfile.response.SendProf
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationRequest;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationResponse;
 import com.traap.traapapp.apiServices.model.sendComment.RequestSendComment;
+import com.traap.traapapp.apiServices.model.sendComment.ResponsePostComment;
+import com.traap.traapapp.apiServices.model.sendCommentLike.RequestSendLike;
+import com.traap.traapapp.apiServices.model.sendCommentLike.ResponsePostLike;
 import com.traap.traapapp.apiServices.model.setAnswerQuestions.RequestSetAnswer;
 import com.traap.traapapp.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
 import com.traap.traapapp.apiServices.model.shetacForgotPass2.request.ShetacForgotPass2Request;
@@ -250,6 +253,7 @@ public interface RetroClient
             @Path("id") Integer surveyId,
             @Body PutSurveyRequest request);
 
+
     @GET(Const.Get_LIST_SURVEY)
     Single<Response<WebServiceClass<SurveyListResponse>>> getSurveyList(
     );
@@ -314,7 +318,8 @@ public interface RetroClient
     Single<Response<WebServiceClass<GetAllBoxesResponse>>> getAllBoxes(
             @Body GetAllBoxesRequest request
     );
-     @POST(Const.POST_BillCar)
+
+    @POST(Const.POST_BillCar)
     Single<Response<WebServiceClass<ResponseBillCar>>> getAllBillCar(
             @Body RequestBillCar request
     );
@@ -843,17 +848,28 @@ public interface RetroClient
 
 
     @POST(Const.post_Comment)
-    Single<Response<WebServiceClass<ResponseComments>>> postCommentTechsId(
+    Single<Response<WebServiceClass<ResponsePostComment>>> postCommentTechsId(
             @Path("id") Integer techId,
             @Body RequestSendComment request);
+
+    @POST(Const.post_Likes)
+    Single<Response<WebServiceClass<ResponsePostLike>>> postCommentLikes(
+            @Path("comment_id") Integer techId,
+            @Body RequestSendLike request);
 
     @POST(Const.post_Reply)
     Single<Response<WebServiceClass<ResponseComments>>> postReplyId(
             @Path("id") Integer techId,
             @Body RequestSendComment request);
 
+    @DELETE(Const.delete_Comment)
+    Single<Response<WebServiceClass<ResponseComments>>> deleteCommentId(
+            @Path("id") Integer techId);
 
-
+    @PUT(Const.update_Comment)
+    Single<Response<WebServiceClass<ResponsePostComment>>> updateComment(
+            @Path("comment_id") Integer surveyId,
+            @Body RequestSendComment request);
     @GET(Const.TECHS_HISTORY)
     Single<Response<WebServiceClass<GetTechsHistoryResponse>>> getTechsHistory(
             @Path("id") Integer id);
@@ -875,6 +891,7 @@ public interface RetroClient
     @GET(Const.Get_Tech_News)
     Single<Response<WebServiceClass<GetTechNewsResponse>>> getTechNews(
             @Path("id") Integer id);
+
     @POST(Const.POST_Suggestions)
     Single<Response<WebServiceClass<ResponseSuggestions>>> postSuggestions(
             @Body RequestSuggestions request
@@ -904,14 +921,15 @@ public interface RetroClient
     Single<Response<WebServiceClass<BillCodeResponse>>> postBillGaz(
             @Body BillPhoneRequest request
     );
+
     @POST(Const.BILL_MCI)
-Single<Response<WebServiceClass<BillPhoneResponse>>> postBillMci(
-                @Body BillPhoneRequest request
-        );
+    Single<Response<WebServiceClass<BillPhoneResponse>>> postBillMci(
+            @Body BillPhoneRequest request
+    );
 
     @POST(Const.BILL_WATER)
-Single<Response<WebServiceClass<BillCodeResponse>>> postBillWater(
-                @Body BillPhoneRequest request
-        );
+    Single<Response<WebServiceClass<BillCodeResponse>>> postBillWater(
+            @Body BillPhoneRequest request
+    );
 
 }

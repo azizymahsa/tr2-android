@@ -120,11 +120,12 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:id="@+id/rvCDisLike"
                     android:layout_width="@dimen/_30dp"
                     android:layout_height="@dimen/_30dp">
 
                     <ImageView
+                        android:id="@+id/rvCDisLike"
+
                         android:layout_width="@dimen/_20dp"
                         android:layout_height="@dimen/_20dp"
                         android:layout_centerInParent="true"
@@ -149,12 +150,13 @@
                     android:textSize="@dimen/textSize_12dp" />
 
                 <RelativeLayout
-                    android:id="@+id/rvCLike"
                     android:layout_width="@dimen/_30dp"
                     android:layout_height="@dimen/_30dp"
                     android:layout_marginLeft="5dp">
 
                     <ImageView
+                        android:id="@+id/rvCLike"
+
                         android:layout_width="@dimen/_20dp"
                         android:layout_height="@dimen/_20dp"
                         android:layout_centerInParent="true"
@@ -278,6 +280,9 @@
                 android:layout_height="@dimen/_30dp">
 
                 <ImageView
+
+                    android:id="@+id/rvRDisLike"
+
                     android:layout_width="@dimen/_20dp"
                     android:layout_height="@dimen/_20dp"
                     android:layout_centerInParent="true"
@@ -307,6 +312,8 @@
                 android:layout_marginLeft="5dp">
 
                 <ImageView
+                    android:id="@+id/rvRLike"
+
                     android:layout_width="@dimen/_20dp"
                     android:layout_height="@dimen/_20dp"
                     android:layout_centerInParent="true"

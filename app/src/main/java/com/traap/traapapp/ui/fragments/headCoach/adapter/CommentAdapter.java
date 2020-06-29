@@ -7,13 +7,9 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.traap.traapapp.R;
-import com.traap.traapapp.apiServices.listener.OnServiceStatus;
-import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.getAllComments.ResponseComments;
 import com.traap.traapapp.ui.fragments.headCoach.model.CoachCommentModel;
 
 import java.util.ArrayList;
@@ -65,19 +61,35 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             holder.llEdit.setVisibility(View.GONE);
             holder.commentUser.setText(coachCommentModel.get(position).getResults().getUser());
             holder.commentDate.setText(coachCommentModel.get(position).getResults().getCreateDate());
-            holder.commentLike.setText(coachCommentModel.get(position).getResults().getLikesCount()+"");
-            holder.commentDisLike.setText(coachCommentModel.get(position).getResults().getDislikesCount()+"");
+            holder.commentLike.setText(coachCommentModel.get(position).getResults().getLikesCount() + "");
+            holder.commentDisLike.setText(coachCommentModel.get(position).getResults().getDislikesCount() + "");
             holder.tvComment.setText(coachCommentModel.get(position).getResults().getBody());
+
+            if (coachCommentModel.get(position).getResults().getRated() == 1)
+            {
+                holder.rvCLike.setColorFilter(context.getResources().getColor(R.color.imageDislikedTintColor));
+
+            } else if (coachCommentModel.get(position).getResults().getRated() == 0)
+            {
+                holder.rvCDisLike.setColorFilter(context.getResources().getColor(R.color.textHint));
+            }
 
             if (coachCommentModel.get(position).getResults().getReplies().size() > 0)
             {
                 holder.llReply.setVisibility(View.VISIBLE);
-                holder.replyUser.setText(coachCommentModel.get(position).getResults().getUser());
-                holder.replyDate.setText(coachCommentModel.get(position).getResults().getCreateDate());
-                holder.replyText.setText(coachCommentModel.get(position).getResults().getBody());
-                holder.replyLike.setText(coachCommentModel.get(position).getResults().getLikesCount()+"");
-                holder.replyDisLike.setText(coachCommentModel.get(position).getResults().getDislikesCount()+"");
+                holder.replyUser.setText(coachCommentModel.get(position).getResults().getReplies().get(0).getUser());
+                holder.replyDate.setText(coachCommentModel.get(position).getResults().getReplies().get(0).getCreateDate());
+                holder.replyText.setText(coachCommentModel.get(position).getResults().getReplies().get(0).getBody());
+                holder.replyLike.setText(coachCommentModel.get(position).getResults().getReplies().get(0).getLikesCount() + "");
+                holder.replyDisLike.setText(coachCommentModel.get(position).getResults().getReplies().get(0).getDislikesCount() + "");
+                if (coachCommentModel.get(position).getResults().getRated() == 1)
+                {
+                    holder.rvRLike.setColorFilter(context.getResources().getColor(R.color.imageDislikedTintColor));
 
+                } else if (coachCommentModel.get(position).getResults().getRated() == 0)
+                {
+                    holder.rvRDisLike.setColorFilter(context.getResources().getColor(R.color.textHint));
+                }
 
             }
 
@@ -95,10 +107,54 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             adapterEvents.onEditCommentAdapter(position);
 
         });
-        holder.ivEdit.setOnClickListener(v ->
+        holder.rvCLike.setOnClickListener(v ->
         {
-            adapterEvents.onEditCommentAdapter(position);
+            adapterEvents.onLikedCommentAdapter(position, coachCommentModel.get(position).getResults().getId(),true);
+         /*   if (coachCommentModel.get(position).getResults().getRated() == 0)
+            {
+                holder.rvCLike.setColorFilter(context.getResources().getColor(R.color.imageDislikedTintColor));
 
+            } else if (coachCommentModel.get(position).getResults().getRated() == 1)
+            {
+                holder.rvCDisLike.setColorFilter(context.getResources().getColor(R.color.textHint));
+            }*/
+        });
+        holder.rvCDisLike.setOnClickListener(v ->
+        {
+            adapterEvents.onLikedCommentAdapter(position,coachCommentModel.get(position).getResults().getId(),false);
+           /* if (coachCommentModel.get(position).getResults().getRated() == 0)
+            {
+                holder.rvCLike.setColorFilter(context.getResources().getColor(R.color.imageDislikedTintColor));
+
+            } else if (coachCommentModel.get(position).getResults().getRated() == 1)
+            {
+                holder.rvCDisLike.setColorFilter(context.getResources().getColor(R.color.textHint));
+            }*/
+        });
+        //Reply
+        holder.rvRLike.setOnClickListener(v ->
+        {
+            adapterEvents.onLikedCommentAdapter(position, coachCommentModel.get(position).getResults().getReplies().get(0).getId(), true);
+            /*if (coachCommentModel.get(position).getResults().getReplies().get(0).getRated() == 0)
+            {
+                holder.rvRLike.setColorFilter(context.getResources().getColor(R.color.imageDislikedTintColor));
+
+            } else if (coachCommentModel.get(position).getResults().getReplies().get(0).getRated() == 1)
+            {
+                holder.rvRDisLike.setColorFilter(context.getResources().getColor(R.color.textHint));
+            }*/
+        });
+        holder.rvRDisLike.setOnClickListener(v ->
+        {
+            adapterEvents.onLikedCommentAdapter(position, coachCommentModel.get(position).getResults().getReplies().get(0).getId(), false);
+          /*  if (coachCommentModel.get(position).getResults().getReplies().get(0).getRated() == 0)
+            {
+                holder.rvRLike.setColorFilter(context.getResources().getColor(R.color.imageDislikedTintColor));
+
+            } else if (coachCommentModel.get(position).getResults().getReplies().get(0).getRated() == 1)
+            {
+                holder.rvRDisLike.setColorFilter(context.getResources().getColor(R.color.textHint));
+            }*/
         });
     }
 
@@ -116,7 +172,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         private TextView commentUser, commentDate, commentLike, commentDisLike, tvComment;
         private TextView replyUser, replyDate, replyText, replyLike, replyDisLike;
         private ImageView ivDelete, ivEdit;
-        private RelativeLayout rvCDisLike, rvCLike;
+        private ImageView rvCDisLike, rvCLike, rvRDisLike, rvRLike;
 
 
         public ViewHolder(View v)
@@ -127,6 +183,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             replyText = v.findViewById(R.id.replyText);
             replyDate = v.findViewById(R.id.replyDate);
             replyUser = v.findViewById(R.id.replyUser);
+
+
+            rvRDisLike = v.findViewById(R.id.rvRDisLike);
+            rvRLike = v.findViewById(R.id.rvRLike);
             commentDisLike = v.findViewById(R.id.commentDisLike);
             commentLike = v.findViewById(R.id.commentLike);
             commentUser = v.findViewById(R.id.commentUser);
@@ -140,8 +200,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             ivEdit = v.findViewById(R.id.ivEdit);
             rvCLike = v.findViewById(R.id.rvCLike);
             rvCDisLike = v.findViewById(R.id.rvCDisLike);
-          //  rvCDisLike.setOnClickListener(this);
-           // rvCLike.setOnClickListener(this);
+            //  rvCDisLike.setOnClickListener(this);
+            // rvCLike.setOnClickListener(this);
 
         }
     }
@@ -151,6 +211,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         void onDeleteCommentAdapter(Integer position);
 
         void onEditCommentAdapter(Integer position);
+
+        void onLikedCommentAdapter(Integer position, Integer id,Boolean flagLike);
     }
 
 }

@@ -6,6 +6,9 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.cup.CupResponse;
 import com.traap.traapapp.apiServices.model.getAllComments.ResponseComments;
 import com.traap.traapapp.apiServices.model.sendComment.RequestSendComment;
+import com.traap.traapapp.apiServices.model.sendComment.ResponsePostComment;
+import com.traap.traapapp.apiServices.model.sendCommentLike.RequestSendLike;
+import com.traap.traapapp.apiServices.model.sendCommentLike.ResponsePostLike;
 import com.traap.traapapp.apiServices.model.suggestions.RequestSuggestions;
 import com.traap.traapapp.apiServices.model.suggestions.ResponseSuggestions;
 import com.traap.traapapp.apiServices.model.techHistory.GetTechsHistoryResponse;
@@ -65,8 +68,23 @@ public class TractorTeamService extends BasePart
         start(getServiceGenerator().createService().getCommentsTechsId(id), listener);
     }
 
+    public void deleteCommentId(Integer id, OnServiceStatus<WebServiceClass<ResponseComments>> listener)
+    {
+        start(getServiceGenerator().createService().deleteCommentId(id), listener);
+    }
 
-    public void postCommentTechsId(Integer id, RequestSendComment request, OnServiceStatus<WebServiceClass<ResponseComments>> listener)
+    public void updateComment(Integer id, RequestSendComment request, OnServiceStatus<WebServiceClass<ResponsePostComment>> listener)
+    {
+        start(getServiceGenerator().createService().updateComment(id,request), listener);
+    }
+
+    public void postCommentLikes(Integer id, RequestSendLike request, OnServiceStatus<WebServiceClass<ResponsePostLike>> listener)
+    {
+        start(getServiceGenerator().createService().postCommentLikes(id, request), listener);
+    }
+
+
+    public void postCommentTechsId(Integer id, RequestSendComment request, OnServiceStatus<WebServiceClass<ResponsePostComment>> listener)
     {
 
         start(getServiceGenerator().createService().postCommentTechsId(id, request), listener);
