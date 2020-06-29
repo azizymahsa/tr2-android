@@ -44,6 +44,7 @@ import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.getE
 import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.setEvaluation.request.SetPlayerEvaluationQuestionsRequest;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesRequest;
 import com.traap.traapapp.apiServices.model.getAllBoxes.GetAllBoxesResponse;
+import com.traap.traapapp.apiServices.model.getAllComments.ResponseComments;
 import com.traap.traapapp.apiServices.model.getAllCompations.ResponseAllCompations;
 import com.traap.traapapp.apiServices.model.getAllMenuServices.response.GetAllMenuResponse;
 import com.traap.traapapp.apiServices.model.getBalancePasswordLess.ForgetPasswordWalletResponse;
@@ -135,6 +136,10 @@ import com.traap.traapapp.apiServices.model.profile.putProfile.request.SendProfi
 import com.traap.traapapp.apiServices.model.profile.putProfile.response.SendProfileResponse;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationRequest;
 import com.traap.traapapp.apiServices.model.reservationmatch.ReservationResponse;
+import com.traap.traapapp.apiServices.model.sendComment.RequestSendComment;
+import com.traap.traapapp.apiServices.model.sendComment.ResponsePostComment;
+import com.traap.traapapp.apiServices.model.sendCommentLike.RequestSendLike;
+import com.traap.traapapp.apiServices.model.sendCommentLike.ResponsePostLike;
 import com.traap.traapapp.apiServices.model.setAnswerQuestions.RequestSetAnswer;
 import com.traap.traapapp.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
 import com.traap.traapapp.apiServices.model.shetacForgotPass2.request.ShetacForgotPass2Request;
@@ -841,6 +846,34 @@ public interface RetroClient
     Single<Response<WebServiceClass<GetTechsIdResponse>>> getTechsId(
             @Path("id") Integer id);
 
+    @GET(Const.Get_Comments)
+    Single<Response<WebServiceClass<ResponseComments>>> getCommentsTechsId(
+            @Path("id") Integer id);
+
+
+    @POST(Const.post_Comment)
+    Single<Response<WebServiceClass<ResponsePostComment>>> postCommentTechsId(
+            @Path("id") Integer techId,
+            @Body RequestSendComment request);
+
+    @POST(Const.post_Likes)
+    Single<Response<WebServiceClass<ResponsePostLike>>> postCommentLikes(
+            @Path("comment_id") Integer techId,
+            @Body RequestSendLike request);
+
+    @POST(Const.post_Reply)
+    Single<Response<WebServiceClass<ResponseComments>>> postReplyId(
+            @Path("id") Integer techId,
+            @Body RequestSendComment request);
+
+    @DELETE(Const.delete_Comment)
+    Single<Response<WebServiceClass<ResponseComments>>> deleteCommentId(
+            @Path("id") Integer techId);
+
+    @PUT(Const.update_Comment)
+    Single<Response<WebServiceClass<ResponsePostComment>>> updateComment(
+            @Path("comment_id") Integer surveyId,
+            @Body RequestSendComment request);
     @GET(Const.TECHS_HISTORY)
     Single<Response<WebServiceClass<GetTechsHistoryResponse>>> getTechsHistory(
             @Path("id") Integer id);
