@@ -156,8 +156,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
-                        android:layout_marginRight="@dimen/_10dp"
-                        android:layout_marginBottom="@dimen/_5dp"
                         android:adjustViewBounds="true"
                         android:foreground="?attr/selectableItemBackground"
                         android:scaleType="fitXY"
@@ -314,19 +312,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize_12dp" />
 
-            <TextView
-                android:id="@+id/tvEmpty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_40dp"
-                android:layout_marginBottom="@dimen/_40dp"
-                android:gravity="center"
-                android:maxLines="2"
-                android:text="هیچ عکسی در این گروه یافت نشد."
-                android:textColor="@color/textColorPrimary"
-                android:textSize="@dimen/textSize_14dp"
-                android:textStyle="bold"
-                android:visibility="gone" />
+
 
             <View
                 android:layout_width="match_parent"
@@ -360,6 +346,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/textHint" />
+
+            <TextView
+                android:id="@+id/tvEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_40dp"
+                android:layout_marginBottom="@dimen/_40dp"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="هیچ عکسی در این گروه یافت نشد."
+                android:textColor="@color/textColorPrimary"
+                android:textSize="@dimen/textSize_14dp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCategories"
                 android:layout_width="match_parent"

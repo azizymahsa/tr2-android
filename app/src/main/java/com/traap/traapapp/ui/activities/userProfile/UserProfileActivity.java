@@ -386,7 +386,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             }
         });
         genderStrList = new ArrayList<String>();
-//        genderStrList.add("--انتخاب جنسیت--");
+        genderStrList.add("--انتخاب جنسیت--");
         genderStrList.add("مرد");
         genderStrList.add("زن");
 
@@ -438,9 +438,14 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
         });
         btnConfirm.setOnClickListener(v ->
         {
+            if (spinnerGender.getSelectedItem().toString().equals("--انتخاب جنسیت--")){
+
+                showError(UserProfileActivity.this, "لطفا جنسیت را انتخاب نمایید.");
+
+                return;
+            }
             btnConfirm.startAnimation();
             btnConfirm.setClickable(false);
-
             uploadProfileData();
         });
 
@@ -1027,7 +1032,7 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
 
             }
 
-            request.setGender(spinnerGender.getSelectedItemPosition() + 1);
+            request.setGender(spinnerGender.getSelectedItemPosition());
 
             SingletonService.getInstance().sendProfileService().sendProfileService(request,
                     new OnServiceStatus<WebServiceClass<SendProfileResponse>>()

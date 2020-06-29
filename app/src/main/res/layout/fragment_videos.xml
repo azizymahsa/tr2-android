@@ -168,11 +168,9 @@
 
                             <com.makeramen.roundedimageview.RoundedImageView
                                 android:id="@+id/ivFavorite2"
-                                android:layout_width="103dp"
-                                android:layout_height="83dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 android:layout_centerInParent="true"
-                                android:layout_marginRight="@dimen/_10dp"
-                                android:layout_marginBottom="@dimen/_5dp"
                                 android:adjustViewBounds="true"
                                 android:foreground="?attr/selectableItemBackground"
                                 android:scaleType="fitXY"
