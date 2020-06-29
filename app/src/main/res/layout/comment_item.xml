@@ -1,54 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:id="@+id/llRoot"
+    android:layout_marginTop="@dimen/_20dp"
     android:foreground="?attr/selectableItemBackground"
     android:gravity="center|right"
-    android:layout_marginTop="@dimen/_20dp">
+    android:orientation="vertical">
+
     <LinearLayout
         android:id="@+id/llUserComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50dp"
-            android:orientation="horizontal"
-            android:gravity="center|right">
+            android:gravity="center|right"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/llEdit"
                 android:layout_width="0dp"
-                android:layout_weight="100"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center|left">
+                android:layout_weight="100"
+                android:gravity="center|left"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/ivDelete"
                     android:layout_width="@dimen/_20dp"
                     android:layout_height="@dimen/_20dp"
-                    app:srcCompat="@drawable/delete_comment"
+                    android:layout_marginLeft="@dimen/_10dp"
                     android:foreground="?attr/selectableItemBackground"
-                    android:layout_marginLeft="@dimen/_10dp" />
+                    app:srcCompat="@drawable/delete_comment" />
 
                 <ImageView
                     android:id="@+id/ivEdit"
                     android:layout_width="@dimen/_20dp"
                     android:layout_height="@dimen/_20dp"
-                    app:srcCompat="@drawable/edit_comment"
+                    android:layout_marginLeft="@dimen/_10dp"
                     android:foreground="?attr/selectableItemBackground"
-                    android:layout_marginLeft="@dimen/_10dp" />
+                    app:srcCompat="@drawable/edit_comment" />
 
             </LinearLayout>
 
             <TextView
+                android:id="@+id/commentDate"
                 android:layout_width="0dp"
-                android:layout_weight="100"
                 android:layout_height="wrap_content"
+                android:layout_weight="100"
                 android:gravity="center|right"
                 android:text="چهارشنبه 18 دی 1398"
                 android:textColor="@color/warmGray"
@@ -57,16 +60,17 @@
             <View
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:background="@color/warmGray"
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp" />
+                android:background="@color/warmGray" />
 
             <TextView
+                android:id="@+id/commentUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:gravity="center|right"
                 android:text="امیر حسینی"
-                android:layout_marginRight="10dp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize_12dp" />
 
@@ -92,12 +96,12 @@
             android:id="@+id/tvComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center|right"
-            android:layout_marginTop="@dimen/_10dp"
-            android:text="بازیکنان بی تعصب بازی کردند فوتبال باید کمی غیرت  داشته باشه و من جنگندگی رو امروز در تیم ندیدم"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/black"
             android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center|right"
+            android:text="بازیکنان بی تعصب بازی کردند فوتبال باید کمی غیرت  داشته باشه و من جنگندگی رو امروز در تیم ندیدم"
+            android:textColor="@color/black"
 
             android:textSize="@dimen/textSize_14dp" />
 
@@ -105,35 +109,39 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center|right">
+            android:gravity="center|right"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="100"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center|left">
+                android:layout_weight="100"
+                android:gravity="center|left"
+                android:orientation="horizontal">
+
                 <RelativeLayout
                     android:layout_width="@dimen/_30dp"
                     android:layout_height="@dimen/_30dp">
+
                     <ImageView
+                        android:id="@+id/rvCDisLike"
+
                         android:layout_width="@dimen/_20dp"
                         android:layout_height="@dimen/_20dp"
-                        app:srcCompat="@drawable/like_coach"
                         android:layout_centerInParent="true"
                         android:foreground="?attr/selectableItemBackground"
-                        />
+                        app:srcCompat="@drawable/like_coach" />
+
                     <View
                         android:layout_width="1dp"
                         android:layout_height="@dimen/_30dp"
-                        android:background="@color/warmGray"
-                        android:rotation="50"
                         android:layout_centerInParent="true"
-                        />
+                        android:background="@color/warmGray"
+                        android:rotation="50" />
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/commentDisLike"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center|right"
@@ -145,38 +153,43 @@
                     android:layout_width="@dimen/_30dp"
                     android:layout_height="@dimen/_30dp"
                     android:layout_marginLeft="5dp">
+
                     <ImageView
+                        android:id="@+id/rvCLike"
+
                         android:layout_width="@dimen/_20dp"
                         android:layout_height="@dimen/_20dp"
-                        app:srcCompat="@drawable/like_coach"
                         android:layout_centerInParent="true"
                         android:foreground="?attr/selectableItemBackground"
-                        />
+                        app:srcCompat="@drawable/like_coach" />
 
                 </RelativeLayout>
+
                 <TextView
+                    android:id="@+id/commentLike"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center|right"
                     android:text="50"
                     android:textColor="@color/warmGray"
                     android:textSize="@dimen/textSize_12dp" />
+
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="100"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="100"
                     android:gravity="center|right"
                     android:text="پاسخ"
                     android:textColor="@color/warmGray"
-                    android:layout_marginRight="5dp"
                     android:textSize="@dimen/textSize_12dp" />
 
                 <ImageView
                     android:layout_width="@dimen/_10dp"
                     android:layout_height="@dimen/_10dp"
-                    app:srcCompat="@drawable/reply"
+                    android:layout_marginRight="@dimen/_20dp"
                     android:foreground="?attr/selectableItemBackground"
-                    android:layout_marginRight="@dimen/_20dp" />
+                    app:srcCompat="@drawable/reply" />
 
             </LinearLayout>
 
@@ -185,136 +198,24 @@
     </LinearLayout>
 
 
-
     <LinearLayout
         android:id="@+id/llReply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginRight="@dimen/_30dp">
+        android:layout_marginRight="@dimen/_30dp"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50dp"
-            android:orientation="horizontal"
-            android:gravity="center|right">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="100"
-                android:layout_height="wrap_content"
-                android:gravity="center|right"
-                android:text="چهارشنبه 18 دی 1398"
-                android:textColor="@color/warmGray"
-                android:textSize="@dimen/textSize_10dp" />
-
-            <View
-                android:layout_width="0.5dp"
-                android:layout_height="match_parent"
-                android:background="@color/warmGray"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center|right"
-                android:text="سپهر"
-                android:layout_marginRight="10dp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize_10dp" />
-
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_width="@dimen/_30dp"
-                android:layout_height="@dimen/_30dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/test_coach"
-                android:visibility="visible"
-                app:riv_border_color="@color/borderColorGray"
-                app:riv_border_width="1dip"
-                app:riv_corner_radius="30dip"
-                app:riv_mutate_background="true"
-                app:riv_oval="true"
-                app:riv_tile_mode="clamp" />
-
-
-        </LinearLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:gravity="center|right"
-            android:layout_marginTop="@dimen/_10dp"
-            android:text="بازی بسیار زیبایی بود. "
-            android:layout_marginRight="10dp"
-            android:textColor="@color/black"
-            android:layout_marginLeft="@dimen/_10dp"
-
-            android:textSize="@dimen/textSize_12dp" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center|left"
-           >
-
-            <RelativeLayout
-                android:layout_width="@dimen/_30dp"
-                android:layout_height="@dimen/_30dp">
-                <ImageView
-                    android:layout_width="@dimen/_20dp"
-                    android:layout_height="@dimen/_20dp"
-                    app:srcCompat="@drawable/like_coach"
-                    android:layout_centerInParent="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    />
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="@dimen/_30dp"
-                    android:background="@color/warmGray"
-                    android:rotation="50"
-                    android:layout_centerInParent="true"
-                    />
-            </RelativeLayout>
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center|right"
-                android:text="45"
-                android:textColor="@color/warmGray"
-                android:textSize="@dimen/textSize_12dp" />
-
-            <RelativeLayout
-                android:layout_width="@dimen/_30dp"
-                android:layout_height="@dimen/_30dp"
-                android:layout_marginLeft="5dp">
-                <ImageView
-                    android:layout_width="@dimen/_20dp"
-                    android:layout_height="@dimen/_20dp"
-                    app:srcCompat="@drawable/like_coach"
-                    android:layout_centerInParent="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    />
-
-            </RelativeLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center|right"
-                android:text="50"
-                android:textColor="@color/warmGray"
-                android:textSize="@dimen/textSize_12dp" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_50dp"
-            android:orientation="horizontal"
-            android:gravity="center|right">
-
-            <TextView
+                android:id="@+id/replyDate"
                 android:layout_width="0dp"
-                android:layout_weight="100"
                 android:layout_height="wrap_content"
+                android:layout_weight="100"
                 android:gravity="center|right"
                 android:text="چهارشنبه 18 دی 1398"
                 android:textColor="@color/warmGray"
@@ -323,16 +224,17 @@
             <View
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:background="@color/warmGray"
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp" />
+                android:background="@color/warmGray" />
 
             <TextView
+                android:id="@+id/replyUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:gravity="center|right"
                 android:text="سپهر"
-                android:layout_marginRight="10dp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize_10dp" />
 
@@ -352,44 +254,51 @@
 
 
         </LinearLayout>
+
         <TextView
+
+            android:id="@+id/replyText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center|right"
-            android:layout_marginTop="@dimen/_10dp"
-            android:text="من هم موافقم سپهرو باید بزنیم. "
-            android:layout_marginRight="10dp"
-            android:textColor="@color/black"
             android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center|right"
+            android:text="بازی بسیار زیبایی بود. "
+            android:textColor="@color/black"
 
             android:textSize="@dimen/textSize_12dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center|left"
-            >
+            android:orientation="horizontal">
 
             <RelativeLayout
                 android:layout_width="@dimen/_30dp"
                 android:layout_height="@dimen/_30dp">
+
                 <ImageView
+
+                    android:id="@+id/rvRDisLike"
+
                     android:layout_width="@dimen/_20dp"
                     android:layout_height="@dimen/_20dp"
-                    app:srcCompat="@drawable/like_coach"
                     android:layout_centerInParent="true"
                     android:foreground="?attr/selectableItemBackground"
-                    />
+                    app:srcCompat="@drawable/like_coach" />
+
                 <View
                     android:layout_width="1dp"
                     android:layout_height="@dimen/_30dp"
-                    android:background="@color/warmGray"
-                    android:rotation="50"
                     android:layout_centerInParent="true"
-                    />
+                    android:background="@color/warmGray"
+                    android:rotation="50" />
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/replyDisLike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center|right"
@@ -401,16 +310,20 @@
                 android:layout_width="@dimen/_30dp"
                 android:layout_height="@dimen/_30dp"
                 android:layout_marginLeft="5dp">
+
                 <ImageView
+                    android:id="@+id/rvRLike"
+
                     android:layout_width="@dimen/_20dp"
                     android:layout_height="@dimen/_20dp"
-                    app:srcCompat="@drawable/like_coach"
                     android:layout_centerInParent="true"
                     android:foreground="?attr/selectableItemBackground"
-                    />
+                    app:srcCompat="@drawable/like_coach" />
 
             </RelativeLayout>
+
             <TextView
+                android:id="@+id/replyLike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center|right"
@@ -418,6 +331,9 @@
                 android:textColor="@color/warmGray"
                 android:textSize="@dimen/textSize_12dp" />
         </LinearLayout>
+
+
+
     </LinearLayout>
 
 </LinearLayout>

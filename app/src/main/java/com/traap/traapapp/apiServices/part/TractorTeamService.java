@@ -4,6 +4,11 @@ import com.traap.traapapp.apiServices.generator.ServiceGenerator;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.cup.CupResponse;
+import com.traap.traapapp.apiServices.model.getAllComments.ResponseComments;
+import com.traap.traapapp.apiServices.model.sendComment.RequestSendComment;
+import com.traap.traapapp.apiServices.model.sendComment.ResponsePostComment;
+import com.traap.traapapp.apiServices.model.sendCommentLike.RequestSendLike;
+import com.traap.traapapp.apiServices.model.sendCommentLike.ResponsePostLike;
 import com.traap.traapapp.apiServices.model.suggestions.RequestSuggestions;
 import com.traap.traapapp.apiServices.model.suggestions.ResponseSuggestions;
 import com.traap.traapapp.apiServices.model.techHistory.GetTechsHistoryResponse;
@@ -32,7 +37,7 @@ public class TractorTeamService extends BasePart
         return this;
     }
 
-    public void traktor( OnServiceStatus<WebServiceClass<TractorTeamResponse>> listener)
+    public void traktor(OnServiceStatus<WebServiceClass<TractorTeamResponse>> listener)
     {
         start(getServiceGenerator().createService().traktor(), listener);
     }
@@ -40,8 +45,9 @@ public class TractorTeamService extends BasePart
     public void getTech(OnServiceStatus<WebServiceClass<TopPlayerResponse>> listener, String role__code_name,
                         Boolean is_present, Boolean tech_staff__is_featured)
     {
-        start(getServiceGenerator().createService().getTech(role__code_name,is_present,tech_staff__is_featured), listener);
+        start(getServiceGenerator().createService().getTech(role__code_name, is_present, tech_staff__is_featured), listener);
     }
+
     public void getSearchTech(OnServiceStatus<WebServiceClass<TopPlayerResponse>> listener, String name)
     {
         start(getServiceGenerator().createService().getSearchTech(name), listener);
@@ -52,22 +58,58 @@ public class TractorTeamService extends BasePart
         start(getServiceGenerator().createService().cup(), listener);
     }
 
-    public void getTechsId(Integer id,OnServiceStatus<WebServiceClass<GetTechsIdResponse>> listener)
+    public void getTechsId(Integer id, OnServiceStatus<WebServiceClass<GetTechsIdResponse>> listener)
     {
         start(getServiceGenerator().createService().getTechsId(id), listener);
     }
 
-public void getQuestionCompation(Integer id, QuestionCompationFragment listener)
+    public void getCommentsTechsId(Integer id, OnServiceStatus<WebServiceClass<ResponseComments>> listener)
+    {
+        start(getServiceGenerator().createService().getCommentsTechsId(id), listener);
+    }
+
+    public void deleteCommentId(Integer id, OnServiceStatus<WebServiceClass<ResponseComments>> listener)
+    {
+        start(getServiceGenerator().createService().deleteCommentId(id), listener);
+    }
+
+    public void updateComment(Integer id, RequestSendComment request, OnServiceStatus<WebServiceClass<ResponsePostComment>> listener)
+    {
+        start(getServiceGenerator().createService().updateComment(id,request), listener);
+    }
+
+    public void postCommentLikes(Integer id, RequestSendLike request, OnServiceStatus<WebServiceClass<ResponsePostLike>> listener)
+    {
+        start(getServiceGenerator().createService().postCommentLikes(id, request), listener);
+    }
+
+
+    public void postCommentTechsId(Integer id, RequestSendComment request, OnServiceStatus<WebServiceClass<ResponsePostComment>> listener)
+    {
+
+        start(getServiceGenerator().createService().postCommentTechsId(id, request), listener);
+    }
+
+    public void postReplyId(Integer id, RequestSendComment request, OnServiceStatus<WebServiceClass<ResponseComments>> listener)
+    {
+
+        start(getServiceGenerator().createService().postReplyId(id, request), listener);
+    }
+
+
+    public void getQuestionCompation(Integer id, QuestionCompationFragment listener)
     {
         start(getServiceGenerator().createService().getAllQuestions(id), listener);
     }
 
-    public void getTechsHistory(Integer id, OnServiceStatus<WebServiceClass<GetTechsHistoryResponse>> listener){
-        start(getServiceGenerator().createService().getTechsHistory(id),listener);
+    public void getTechsHistory(Integer id, OnServiceStatus<WebServiceClass<GetTechsHistoryResponse>> listener)
+    {
+        start(getServiceGenerator().createService().getTechsHistory(id), listener);
     }
 
-    public void getTechNews(Integer id, OnServiceStatus<WebServiceClass<GetTechNewsResponse>> listener){
-        start(getServiceGenerator().createService().getTechNews(id),listener);
+    public void getTechNews(Integer id, OnServiceStatus<WebServiceClass<GetTechNewsResponse>> listener)
+    {
+        start(getServiceGenerator().createService().getTechNews(id), listener);
     }
 
 

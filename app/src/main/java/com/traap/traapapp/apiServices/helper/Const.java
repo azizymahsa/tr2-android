@@ -1,17 +1,20 @@
 package com.traap.traapapp.apiServices.helper;
 
 
+import com.androidnetworking.common.ANRequest;
+
 public class Const
 {
     public static final boolean MOCK = false;
     public static final boolean TEST = false;
 
     //-----------------------------------------------------------------------------
-    public final static String BASEURL = "http://5.253.25.117:9000/";     //developing
+   public final static String BASEURL = "http://5.253.25.117:9000/";     //developing
     //public final static String BASEURL = "http:/stage-rest.traap.com/";     //developing
     //public final static String BASEURL = "http://5.253.25.117:5000/";     //pre Live
     //public final static String BASEURL = "http://79.175.146.58:8000/";     //pre Live
-    // public final static String BASEURL = "https://restapp.traap.com/";   //Live
+   // public final static String BASEURL = "https://restapp.traap.com/";   //Live
+//    public final static String BASEURL = "https://restapp.traap.com/";   //Live
 
     private static final String SubBASEURL = "api/";
     //-----------------------------------------------------------------------------
@@ -240,5 +243,13 @@ public class Const
     public final static String GET_PERFORMANCE_EVALUATION_QUESTION = SubBASEURL + "v1/evaluation/{id}/polls";
     public final static String SET_PLAYER_PERFORMANCE_EVALUATION = SubBASEURL + "v1/evaluation/poll_result/";
     public final static String GET_PLAYER_PERFORMANCE_EVALUATION_RESULT = SubBASEURL + "v1/evaluation/poll_result/user_polls/";
+    //tech comments
+    public final static String Get_Comments=SubBASEURL+"v1/team/techs/{id}/comments/";
+    public final static String post_Likes=SubBASEURL+"v1/team/id/comments/{comment_id}/likes/";
+    public final static String post_Comment=SubBASEURL+"v1/team/techs/{id}/comments/" ;
+    public final static String post_Reply=SubBASEURL+"v1/team/techs/{id}/comment/reply/" ;
+    public final static String delete_Comment=SubBASEURL+"v1/team/techs/comments/{id}" ;
+    public final static String update_Comment=SubBASEURL+"v1/team/id/comments_update/{comment_id}/" ;
+
 
 }
