@@ -72,6 +72,7 @@ import com.traap.traapapp.ui.drawer.MenuDrawerFragment;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.IntroducingTeamFragment;
 import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.allMenu.AllMenuFragment;
+import com.traap.traapapp.ui.fragments.barcodeReader.BarcodeReaderFragment;
 import com.traap.traapapp.ui.fragments.barcodeReader.QrCodeReader;
 import com.traap.traapapp.ui.fragments.billCarAndMotor.PayBillCarMotorFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
@@ -960,12 +961,12 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void onBill(String title,Integer idBillType)
+    public void onBill(String title,Integer idBillType,String qrCode)
     {
         isMainFragment = false;
         String titleBill = title;
         idBillType = idBillType;
-        setFragment(BillFragment.newInstance(this, titleBill, idBillType));
+        setFragment(BillFragment.newInstance(this, titleBill, idBillType,qrCode));
         replaceFragment(getFragment(), "billFragment");
 
     }
@@ -1075,16 +1076,16 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId)
+    public void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId, String name, String imageURL)
     {
-        setFragment(PlayerSetEvaluationFragment.newInstance(this, matchId, playerId));
+        setFragment(PlayerSetEvaluationFragment.newInstance(this, matchId, playerId, name, imageURL));
         replaceFragment(getFragment(), "PlayerSetEvaluationFragment");
     }
 
     @Override
-    public void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId)
+    public void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId, String name, String imageURL)
     {
-        setFragment(PlayerEvaluationResultFragment.newInstance(this, matchId, playerId));
+        setFragment(PlayerEvaluationResultFragment.newInstance(this, matchId, playerId, name, imageURL));
         replaceFragment(getFragment(), "PlayerEvaluationResultFragment");
     }
 
@@ -1098,8 +1099,9 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
 
     @Override
-    public void openBarcode(BarcodeType bill)
+    public void openBarcode(BarcodeType barcodeType)
     {
+
         new TedPermission(this)
                 .setPermissionListener(new PermissionListener()
                 {
@@ -1108,7 +1110,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                     {
                         try
                         {
-                            onBarcodeReader();
+                            onBarcodReader(barcodeType);
                         }
                         catch (Exception e)
                         {
@@ -1137,14 +1139,19 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void onBarcodeReader()
+    public void onBarcodReader(BarcodeType barcodeType)
     {
         isMainFragment = false;
 
-//        setFragment(BarcodeReaderFragment.newInstance(this));
-//        replaceFragment(getFragment(), "barcodeReaderFragment");
+        if (barcodeType.equals(BarcodeType.Bill))
+        {
+            setFragment(BarcodeReaderFragment.newInstance(this, barcodeType));
+            replaceFragment(getFragment(), "barcodeReaderFragment");
+        }else
+        {
         setFragment(QrCodeReader.newInstance(this));
         replaceFragment(getFragment(), "QrCodeReader");
+        }
     }
 
     @Override
@@ -2848,25 +2855,31 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             error = getString(R.string.networkErrorMessage);
         }
 
-
-        MessageAlertDialog dialog = new MessageAlertDialog(this, "", error,
-                false, "تلاش مجدد", "", false, MessageAlertDialog.TYPE_MESSAGE,
-                new MessageAlertDialog.OnConfirmListener()
-                {
-                    @Override
-                    public void onConfirmClick()
+        try
+        {
+            MessageAlertDialog dialog = new MessageAlertDialog(this, "", error,
+                    false, "تلاش مجدد", "", false, MessageAlertDialog.TYPE_MESSAGE,
+                    new MessageAlertDialog.OnConfirmListener()
                     {
-                        getAllServicesList();
-                    }
+                        @Override
+                        public void onConfirmClick()
+                        {
+                            getAllServicesList();
+                        }
 
-                    @Override
-                    public void onCancelClick()
-                    {
+                        @Override
+                        public void onCancelClick()
+                        {
 
-                    }
-                });
-        dialog.setCancelable(false);
-        dialog.show(getFragmentManager(), "messageDialog");
+                        }
+                    });
+            dialog.setCancelable(false);
+            dialog.show(getFragmentManager(), "messageDialog");
+        }
+        catch (IllegalStateException e)
+        {
+
+        }
 /*
         startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), 100);
         finish();*/

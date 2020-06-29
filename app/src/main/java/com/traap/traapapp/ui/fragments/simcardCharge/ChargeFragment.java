@@ -1684,7 +1684,7 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void onBill(String title,Integer idBillType)
+    public void onBill(String title,Integer idBillType,String barcode)
     {
 
     }
@@ -1732,7 +1732,7 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void onBarcodeReader()
+    public void onBarcodReader(BarcodeType barcodeType)
     {
 
     }
@@ -2145,16 +2145,17 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
-    public void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId)
+    public void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId, String name, String imageURL)
     {
 
     }
 
     @Override
-    public void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId)
+    public void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId, String name, String imageURL)
     {
 
     }
+
 
     private void closeAutoComplete()
     {

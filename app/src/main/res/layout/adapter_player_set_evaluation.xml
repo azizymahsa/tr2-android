@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,11 +11,44 @@
     android:paddingTop="8dp"
     android:paddingBottom="8dp">
 
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_weight="5"
+        android:layout_marginLeft="4dp"
+        android:layout_height="wrap_content">
+
+        <com.jaygoo.widget.RangeSeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:rsb_mode="single"
+            app:rsb_gravity="bottom"
+            app:rsb_step_auto_bonding="true"
+            app:rsb_step_height="4dp"
+            app:rsb_step_width="4dp"
+            app:rsb_tick_mark_layout_gravity="bottom"
+            app:rsb_tick_mark_text_margin="5dp"
+            app:rsb_progress_color="@color/colorProgress"
+            app:rsb_min_interval="1"
+            app:rsb_thumb_inactivated_drawable="@drawable/seekbar_thumb_activated"
+            app:rsb_thumb_drawable="@drawable/seekbar_thumb_inactivated"
+            app:rsb_indicator_show_mode="alwaysShow"
+            app:rsb_indicator_height="30dp"
+            app:rsb_indicator_width="50dp"
+            app:rsb_indicator_margin="5dp"
+            app:rsb_min="1"
+            app:rsb_steps="3"
+            app:rsb_indicator_background_color="@color/colorProgress"
+            app:rsb_tick_mark_mode="number" />
+
+    </RelativeLayout>
+
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:layout_weight="5"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layoutDirection="rtl"
         android:orientation="horizontal">
 
@@ -60,9 +94,10 @@
         android:id="@+id/tvEvaluationText"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="4"
-        android:gravity="right|center_vertical"
-        android:text="شاخص ارزیابی"
+        android:layout_weight="2"
+        android:gravity="right|bottom"
+        android:textStyle="bold"
+        android:text="شاخص ارزیابی بازیکن"
         android:textColor="@color/textColorSecondary"
         android:textSize="@dimen/textSize_12dp" />
 

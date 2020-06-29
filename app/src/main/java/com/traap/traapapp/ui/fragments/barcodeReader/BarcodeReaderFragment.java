@@ -7,10 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.google.zxing.Result;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.traap.traapapp.R;
 import com.traap.traapapp.enums.BarcodeType;
+import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 
@@ -42,9 +45,18 @@ public class BarcodeReaderFragment extends BaseFragment implements ZXingScannerV
         return f;
     }
 
-    private void setMainView(MainActionView mainView)
+    public static Fragment newInstance(MainActionView mainView, BarcodeType barcodeType)
     {
-        this.mainView = mainView;
+        BarcodeReaderFragment f = new BarcodeReaderFragment();
+        f.setMainView(mainView);
+
+        f.setBarcodeType(barcodeType);
+
+        return f;
+    }
+
+    private void setMainView(MainActionView mainView) {
+        this.mainView=mainView;
     }
 
 
@@ -52,8 +64,15 @@ public class BarcodeReaderFragment extends BaseFragment implements ZXingScannerV
     public void handleResult(Result result)
     {
         //presenter.barcode(result.getText());
-        Prefs.putString("qrCode", result.getText());
-        mainView.onShowPaymentWithoutCardFragment(null);
+        Prefs.putString("qrCode",result.getText());
+        if (barcodeType==BarcodeType.Bill){
+            mainView.onBill(Prefs.getString("TITLE_BILL", "قبض"),
+            Prefs.getInt("ID_BILL_TYPE", 1),result.getText());
+            //mainView.setBarcodeBillData()
+        }else
+        {
+            mainView.onShowPaymentWithoutCardFragment(null);
+        }
     }
 
     public void setBarcodeType(BarcodeType barcodeType)

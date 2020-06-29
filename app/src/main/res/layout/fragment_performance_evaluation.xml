@@ -189,6 +189,19 @@
                                 android:background="@color/white"
                                 android:scaleType="fitCenter"/>
 
+                            <TextView
+                                android:id="@+id/tvCurrentMatchResult"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text=""
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="12dp"
+                                android:textStyle="bold"
+                                android:textSize="@dimen/textSize_18dp"
+                                android:background="@color/white"
+                                android:textColor="@color/textColorSecondary"
+                                android:gravity="center"/>
+
                         </LinearLayout>
 
                     </RelativeLayout>
@@ -197,12 +210,29 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcSystemTeam"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/green"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <ImageView
+                    android:id="@+id/imgBackground"
+                    android:layout_alignBottom="@+id/rcSystemTeam"
+                    android:layout_alignTop="@+id/rcSystemTeam"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@color/green_light"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcSystemTeam"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@android:color/transparent"
+                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
 
         </LinearLayout>
 

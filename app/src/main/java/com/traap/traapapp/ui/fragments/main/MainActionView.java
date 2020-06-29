@@ -20,7 +20,7 @@ import java.util.List;
 
 public interface MainActionView extends BaseView
 {
-    void onBill(String title, Integer idBillType);
+    void onBill(String title,Integer idBillType,String qrCode);
 
     void onChargeSimCard(Integer status);
     void onBillMotor(Integer status);
@@ -32,7 +32,7 @@ public interface MainActionView extends BaseView
 
     void openBarcode(BarcodeType bill);
 
-    void onBarcodeReader();
+    void onBarcodReader(BarcodeType barcodeType);
 
     void onShowPaymentWithoutCardFragment(@Nullable QrModel model);
 
@@ -142,7 +142,7 @@ public interface MainActionView extends BaseView
 
     void onPerformanceEvaluation(Integer matchId, MatchItem matchItem);
 
-    void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId);
+    void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId, String name, String imageURL);
 
-    void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId);
+    void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId, String name, String imageURL);
 }
