@@ -179,7 +179,7 @@
             android:layout_toRightOf="@+id/imgBookmark"
             android:gravity="right"
             android:textColor="@color/textHint"
-            android:textSize="@dimen/textSize_14dp" />
+            android:textSize="@dimen/textSize_12dp" />
 
     </RelativeLayout>
 
