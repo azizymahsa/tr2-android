@@ -285,6 +285,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rlConfirm"
             android:layout_width="@dimen/_150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

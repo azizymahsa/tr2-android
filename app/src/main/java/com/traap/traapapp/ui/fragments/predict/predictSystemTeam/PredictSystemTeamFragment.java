@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -89,6 +90,8 @@ public class PredictSystemTeamFragment extends BaseFragment implements PredictPl
     private ImageView imgHomeHeader, imgAwayHeader, imgCupLogo, imgBackground;
     private LinearLayout llPredict;
     private FloatingActionButton fabSelectSystem;
+
+    private RelativeLayout rlConfirm;
 
     private AVLoadingIndicatorView progressImageBackground;
 
@@ -167,6 +170,7 @@ public class PredictSystemTeamFragment extends BaseFragment implements PredictPl
         spSystem = rootView.findViewById(R.id.spSystem);
         rcSystemTeam = rootView.findViewById(R.id.rcSystemTeam);
 
+        rlConfirm = rootView.findViewById(R.id.rlConfirm);
         btnConfirm = rootView.findViewById(R.id.btnConfirm);
         imgBackground = rootView.findViewById(R.id.imgBackground);
 
