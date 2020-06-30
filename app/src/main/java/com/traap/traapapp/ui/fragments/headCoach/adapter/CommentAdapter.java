@@ -69,9 +69,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             {
                 holder.rvCLike.setColorFilter(context.getResources().getColor(R.color.imageDislikedTintColor));
 
-            } else if (coachCommentModel.get(position).getResults().getRated() == 0)
+            } else if (coachCommentModel.get(position).getResults().getRated() == -1)
             {
-                holder.rvCDisLike.setColorFilter(context.getResources().getColor(R.color.textHint));
+                holder.rvCDisLike.setColorFilter(context.getResources().getColor(R.color.imageDislikedTintColor));
+            }else {
+                holder.rvCDisLike.setImageResource(R.drawable.like_coach);
+                holder.rvCLike.setImageResource(R.drawable.like_coach);
+
             }
 
             if (coachCommentModel.get(position).getResults().getReplies().size() > 0)
@@ -86,9 +90,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 {
                     holder.rvRLike.setColorFilter(context.getResources().getColor(R.color.imageDislikedTintColor));
 
-                } else if (coachCommentModel.get(position).getResults().getRated() == 0)
+                } else if (coachCommentModel.get(position).getResults().getRated() == -1)
                 {
-                    holder.rvRDisLike.setColorFilter(context.getResources().getColor(R.color.textHint));
+                    holder.rvRDisLike.setColorFilter(context.getResources().getColor(R.color.imageDislikedTintColor));
+                }else {
+                    holder.rvRDisLike.setImageResource(R.drawable.like_coach);
+                    holder.rvRLike.setImageResource(R.drawable.like_coach);
+
                 }
 
             }
@@ -107,54 +115,27 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             adapterEvents.onEditCommentAdapter(position);
 
         });
+        //comment
         holder.rvCLike.setOnClickListener(v ->
         {
             adapterEvents.onLikedCommentAdapter(position, coachCommentModel.get(position).getResults().getId(),true);
-         /*   if (coachCommentModel.get(position).getResults().getRated() == 0)
-            {
-                holder.rvCLike.setColorFilter(context.getResources().getColor(R.color.imageDislikedTintColor));
 
-            } else if (coachCommentModel.get(position).getResults().getRated() == 1)
-            {
-                holder.rvCDisLike.setColorFilter(context.getResources().getColor(R.color.textHint));
-            }*/
         });
         holder.rvCDisLike.setOnClickListener(v ->
         {
             adapterEvents.onLikedCommentAdapter(position,coachCommentModel.get(position).getResults().getId(),false);
-           /* if (coachCommentModel.get(position).getResults().getRated() == 0)
-            {
-                holder.rvCLike.setColorFilter(context.getResources().getColor(R.color.imageDislikedTintColor));
 
-            } else if (coachCommentModel.get(position).getResults().getRated() == 1)
-            {
-                holder.rvCDisLike.setColorFilter(context.getResources().getColor(R.color.textHint));
-            }*/
         });
         //Reply
         holder.rvRLike.setOnClickListener(v ->
         {
             adapterEvents.onLikedCommentAdapter(position, coachCommentModel.get(position).getResults().getReplies().get(0).getId(), true);
-            /*if (coachCommentModel.get(position).getResults().getReplies().get(0).getRated() == 0)
-            {
-                holder.rvRLike.setColorFilter(context.getResources().getColor(R.color.imageDislikedTintColor));
 
-            } else if (coachCommentModel.get(position).getResults().getReplies().get(0).getRated() == 1)
-            {
-                holder.rvRDisLike.setColorFilter(context.getResources().getColor(R.color.textHint));
-            }*/
         });
         holder.rvRDisLike.setOnClickListener(v ->
         {
             adapterEvents.onLikedCommentAdapter(position, coachCommentModel.get(position).getResults().getReplies().get(0).getId(), false);
-          /*  if (coachCommentModel.get(position).getResults().getReplies().get(0).getRated() == 0)
-            {
-                holder.rvRLike.setColorFilter(context.getResources().getColor(R.color.imageDislikedTintColor));
 
-            } else if (coachCommentModel.get(position).getResults().getReplies().get(0).getRated() == 1)
-            {
-                holder.rvRDisLike.setColorFilter(context.getResources().getColor(R.color.textHint));
-            }*/
         });
     }
 
