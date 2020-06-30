@@ -16,9 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
-import com.traap.traapapp.apiServices.model.predict.getMyPredict.MyPredictResults;
+import com.traap.traapapp.apiServices.model.predict.predictResult.getMyPredict.MyPredictResults;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyPredictAdapter extends RecyclerView.Adapter<MyPredictAdapter.ViewHolder>

@@ -9,7 +9,7 @@
         android:left="1dp"
         android:right="1dp">
         <shape android:shape="rectangle">
-            <solid android:color="#F8F6F6"/>
+            <solid android:color="#fff"/>
         </shape>
     </item>
 </layer-list>

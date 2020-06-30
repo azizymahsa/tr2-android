@@ -5,9 +5,15 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.mySupportProfile.ResponseMySupport;
-import com.traap.traapapp.apiServices.model.predict.getMyPredict.MyPredictResponse;
-import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
+import com.traap.traapapp.apiServices.model.predict.predictResult.getMyPredict.MyPredictResponse;
+import com.traap.traapapp.apiServices.model.predict.predictResult.getPredict.response.GetPredictResponse;
+import com.traap.traapapp.apiServices.model.predict.predictSystem.getMainPredict.GetMainPredictSystemResponse;
+import com.traap.traapapp.apiServices.model.predict.predictSystem.getSystem.request.GetPredictSystemFromIdRequest;
+import com.traap.traapapp.apiServices.model.predict.predictSystem.getSystem.response.GetPredictSystemFromIdResponse;
+import com.traap.traapapp.apiServices.model.predict.predictSystem.sendPredictPlayers.request.SendPredictSystemPlayersRequest;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
+
+import java.util.List;
 
 public class GetPredictService extends BasePart
 {
@@ -43,8 +49,24 @@ public class GetPredictService extends BasePart
         start(getServiceGenerator().createService().getMySupports(), listener);
     }
 
-    public void getRulsStadium(Integer id , OnServiceStatus<WebServiceClass<ResponseStadiumRules>> listener)
+    public void getRulesStadium(Integer id , OnServiceStatus<WebServiceClass<ResponseStadiumRules>> listener)
     {
-        start(getServiceGenerator().createService().getRulsStadium(id ), listener);
+        start(getServiceGenerator().createService().getRulsStadium(id), listener);
     }
+
+    public void getMainPredictSystem(int matchId, OnServiceStatus<WebServiceClass<GetMainPredictSystemResponse>> listener)
+    {
+        start(getServiceGenerator().createService().getMainPredictSystem(matchId), listener);
+    }
+
+    public void getPredictSystemFromId(Integer matchId, GetPredictSystemFromIdRequest request, OnServiceStatus<WebServiceClass<List<List<GetPredictSystemFromIdResponse>>>> listener)
+    {
+        start(getServiceGenerator().createService().getPredictSystemFromId(matchId, request), listener);
+    }
+
+    public void sendPredictSystemPlayers(Integer matchId, SendPredictSystemPlayersRequest request, OnServiceStatus<WebServiceClass<Object>> listener)
+    {
+        start(getServiceGenerator().createService().sendPredictSystemPlayers(matchId, request), listener);
+    }
+
 }

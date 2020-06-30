@@ -2,9 +2,9 @@ package com.traap.traapapp.apiServices.model.getLast5PastMatch.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.traap.traapapp.apiServices.model.predict.getMyPredict.Score;
-import com.traap.traapapp.apiServices.model.predict.getPredict.response.Cup;
-import com.traap.traapapp.apiServices.model.predict.getPredict.response.TeamDetails;
+import com.traap.traapapp.apiServices.model.predict.predictResult.getMyPredict.Score;
+import com.traap.traapapp.apiServices.model.predict.predictResult.getPredict.response.Cup;
+import com.traap.traapapp.apiServices.model.predict.predictResult.getPredict.response.TeamDetails;
 
 import lombok.Getter;
 import lombok.Setter;

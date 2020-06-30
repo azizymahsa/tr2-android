@@ -22,7 +22,7 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.lottery.Winner;
-import com.traap.traapapp.apiServices.model.predict.getMyPredict.MyPredictResponse;
+import com.traap.traapapp.apiServices.model.predict.predictResult.getMyPredict.MyPredictResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.ui.activities.lotteryWinnerList.LotteryWinnerDetailsActivity;
 import com.traap.traapapp.ui.adapters.myPredict.MyPredictAdapter;

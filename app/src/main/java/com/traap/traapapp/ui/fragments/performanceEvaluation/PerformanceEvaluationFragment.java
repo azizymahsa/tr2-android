@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,8 +31,8 @@ import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
-import com.traap.traapapp.ui.adapters.playerItemList.PlayerItemListAdapter;
-import com.traap.traapapp.ui.adapters.playerItemList.PlayerRowListAdapter;
+import com.traap.traapapp.ui.adapters.evaluationPlayerItemList.EvaluationPlayerItemListAdapter;
+import com.traap.traapapp.ui.adapters.evaluationPlayerItemList.EvaluationPlayerRowListAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.dialogs.PlayerEvaluationDialog;
@@ -44,7 +42,7 @@ import com.traap.traapapp.utilities.Tools;
 
 
 @SuppressLint("ValidFragment")
-public class PerformanceEvaluationFragment extends BaseFragment implements PlayerItemListAdapter.OnPlayerItemClick,
+public class PerformanceEvaluationFragment extends BaseFragment implements EvaluationPlayerItemListAdapter.OnPlayerItemClick,
         OnServiceStatus<WebServiceClass<PerformanceEvaluationMainResponse>>, PerformanceEvaluationActionView
 {
     private View rootView;
@@ -61,7 +59,7 @@ public class PerformanceEvaluationFragment extends BaseFragment implements Playe
     private Toolbar mToolbar;
     private TextView tvTitle, tvUserName, tvHeaderPopularNo;
 
-    private PlayerRowListAdapter adapter;
+    private EvaluationPlayerRowListAdapter adapter;
     private RecyclerView rcSystemTeam;
 
     public PerformanceEvaluationFragment()
@@ -206,16 +204,17 @@ public class PerformanceEvaluationFragment extends BaseFragment implements Playe
             tvHomeHeader.setText(response.data.getMatch().getHomeTeam().getTeamName());
 
             tvCurrentMatchResult.setText(
-                    response.data.getMatch().getLastMatchResult().getAwayScore() +
-                            " - " +
-                            response.data.getMatch().getLastMatchResult().getHomeScore()
+                    new StringBuilder()
+                            .append(response.data.getMatch().getLastMatchResult().getAwayScore())
+                            .append(" - ")
+                            .append(response.data.getMatch().getLastMatchResult().getHomeScore())
             );
 
             setImageIntoIV(imgAwayHeader, response.data.getMatch().getAwayTeam().getTeamLogo());
             setImageIntoIV(imgHomeHeader, response.data.getMatch().getHomeTeam().getTeamLogo());
             setImageIntoIV(imgCupLogo, response.data.getMatch().getCup().getCupLogo());
 
-            adapter = new PlayerRowListAdapter(context, response.data.getMatch().getMatchId(), response.data.getRowList(), rcSystemTeamWidth / 5, this);
+            adapter = new EvaluationPlayerRowListAdapter(context, response.data.getMatch().getMatchId(), response.data.getRowList(), rcSystemTeamWidth / 5, this);
             rcSystemTeam.setAdapter(adapter);
             rcSystemTeam.setNestedScrollingEnabled(false);
 

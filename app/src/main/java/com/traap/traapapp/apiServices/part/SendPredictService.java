@@ -3,7 +3,7 @@ package com.traap.traapapp.apiServices.part;
 import com.traap.traapapp.apiServices.generator.ServiceGenerator;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.predict.sendPredict.request.SendPredictRequest;
+import com.traap.traapapp.apiServices.model.predict.predictResult.sendPredict.request.SendPredictRequest;
 
 public class SendPredictService extends BasePart
 {

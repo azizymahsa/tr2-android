@@ -174,7 +174,7 @@ public class PlayerSetEvaluationFragment extends BaseFragment implements OnAnima
             btnConfirm.setClickable(false);
 
             //send Evaluation List + call API
-            SetPlayerEvaluationImpl.SetPlayerEvaluation(questionRequestList, this);
+            SetPlayerEvaluationImpl.SetPlayerEvaluation(matchId, questionRequestList, this);
         });
 
 //        mainView.showLoading();

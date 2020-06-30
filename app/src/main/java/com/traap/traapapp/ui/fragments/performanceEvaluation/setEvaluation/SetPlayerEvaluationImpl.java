@@ -11,14 +11,14 @@ import java.util.List;
 
 public class SetPlayerEvaluationImpl
 {
-    public static void SetPlayerEvaluation(List<QuestionItemRequest> questionItemRequest, onSetPlayerEvaluationListener listener)
+    public static void SetPlayerEvaluation(Integer matchId, List<QuestionItemRequest> questionItemRequest, onSetPlayerEvaluationListener listener)
     {
         SetPlayerEvaluationQuestionsRequest request = new SetPlayerEvaluationQuestionsRequest();
 //        request.setMatchId(matchId);
 //        request.setPlayerId(playerId);
         request.setQuestionRequestList(questionItemRequest);
 
-        SingletonService.getInstance().getPerformanceEvaluationService().setPlayerEvaluation(request, new OnServiceStatus<WebServiceClass<Object>>()
+        SingletonService.getInstance().getPerformanceEvaluationService().setPlayerEvaluation(matchId, request, new OnServiceStatus<WebServiceClass<Object>>()
         {
             @Override
             public void onReady(WebServiceClass<Object> response)

@@ -45,14 +45,14 @@ public class PerformanceEvaluationService extends BasePart
         start(getServiceGenerator().createService().getPlayerEvaluationQuestions(matchId), response);
     }
 
-    public void setPlayerEvaluation(SetPlayerEvaluationQuestionsRequest request, OnServiceStatus<WebServiceClass<Object>> response)
+    public void setPlayerEvaluation(Integer matchId, SetPlayerEvaluationQuestionsRequest request, OnServiceStatus<WebServiceClass<Object>> response)
     {
-        start(getServiceGenerator().createService().setPlayerEvaluation(request), response);
+        start(getServiceGenerator().createService().setPlayerEvaluation(matchId, request), response);
     }
 
-    public void getPlayerEvaluationResult(GetPlayerEvaluationResultRequest request, OnServiceStatus<WebServiceClass<List<GetPlayerEvaluationRequestResponse>>> response)
+    public void getPlayerEvaluationResult(Integer matchId, GetPlayerEvaluationResultRequest request, OnServiceStatus<WebServiceClass<List<GetPlayerEvaluationRequestResponse>>> response)
     {
-        start(getServiceGenerator().createService().getPlayerEvaluationResult(request), response);
+        start(getServiceGenerator().createService().getPlayerEvaluationResult(matchId, request), response);
     }
 
 }

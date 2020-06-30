@@ -12,7 +12,7 @@ public class RulesStadiumImpl implements RulesStadiumInteractor
     @Override
     public void rulesStadiumRequest(OnFinishedRulesStadiumListener listener, Integer ruls)
     {
-        SingletonService.getInstance().getPredictService().getRulsStadium(ruls, new OnServiceStatus<WebServiceClass<ResponseStadiumRules>>()
+        SingletonService.getInstance().getPredictService().getRulesStadium(ruls, new OnServiceStatus<WebServiceClass<ResponseStadiumRules>>()
         {
             @Override
             public void onReady(WebServiceClass<ResponseStadiumRules> response)
