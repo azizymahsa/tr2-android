@@ -660,7 +660,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 fragmentList.remove(fragmentList.size()-1); //remove BillFragment
                 fragmentList.remove(fragmentList.size()-1); //remove AllMenuFragment and add it again.
 
-                setFragment(AllMenuFragment.newInstance(this, allServiceList, backState,6));
+                setFragment(AllMenuFragment.newInstance(this, allServiceList, 2,6));
                 replaceFragment(getFragment(), "allMenuFragment");
 
             }
@@ -2384,7 +2384,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void backToAllServicePackage(Integer backState)
+    public void backToAllServicePackage(Integer backState,Integer idMenuClicked)
     {
 
         if (backState == 2)
@@ -2393,7 +2393,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
             isMainFragment = false;
 
-            setFragment(AllMenuFragment.newInstance(this, allServiceList, backState,4));
+            setFragment(AllMenuFragment.newInstance(this, allServiceList, backState,idMenuClicked));
             replaceFragment(getFragment(), "allMenuFragment");
         }
         else

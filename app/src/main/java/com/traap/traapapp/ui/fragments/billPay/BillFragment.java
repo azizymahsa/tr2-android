@@ -284,7 +284,7 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
         mToolbar.findViewById(R.id.imgMenu).setOnClickListener(v -> mainView.openDrawer());
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView ->
-                        mainView.backToAllServicePackage(2)
+                        mainView.backToAllServicePackage(2,6)
                 // onClickContinueBuyChargeListener.onBackClicked()
         );
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
@@ -1359,7 +1359,7 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
     }
 
     @Override
-    public void backToAllServicePackage(Integer backState)
+    public void backToAllServicePackage(Integer backState,Integer idMenuClicked)
     {
 
     }

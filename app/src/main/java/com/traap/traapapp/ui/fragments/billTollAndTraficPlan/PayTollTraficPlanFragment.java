@@ -104,7 +104,7 @@ public class PayTollTraficPlanFragment extends BaseFragment implements View.OnCl
         imgBack.setOnClickListener(v ->
         {
             // getActivity().onBackPressed();
-            mainView.backToAllServicePackage(2);
+            mainView.backToAllServicePackage(2,4);
 
         });
         if (billType == 110)
