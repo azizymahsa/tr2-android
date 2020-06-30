@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,7 +16,6 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.getLast5PastMatch.response.Last5PastMatchItem;
-import com.traap.traapapp.apiServices.model.predict.getMyPredict.MyPredictResults;
 
 import java.util.List;
 

@@ -16,7 +16,7 @@ public class PerformanceEvaluationMainResponse
 
     @SerializedName("main")
     @Expose @Getter @Setter
-    private List<RowItem> rowList;
+    private List<List<Column>> rowList;
 
     @SerializedName("match_background")
     @Expose @Getter @Setter

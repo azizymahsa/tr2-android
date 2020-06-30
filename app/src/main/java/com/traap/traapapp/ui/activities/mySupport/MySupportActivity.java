@@ -2,7 +2,6 @@ package com.traap.traapapp.ui.activities.mySupport;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
@@ -16,26 +15,20 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.lottery.Winner;
 import com.traap.traapapp.apiServices.model.mySupportProfile.ResponseMySupport;
-import com.traap.traapapp.apiServices.model.predict.getMyPredict.MyPredictResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.ui.activities.lotteryWinnerList.LotteryWinnerDetailsActivity;
 import com.traap.traapapp.ui.activities.myPredicts.MyPredictActionView;
 import com.traap.traapapp.ui.adapters.myPredict.MyPredictAdapter;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.LotteryWinnerListDialog;
-import com.traap.traapapp.ui.fragments.predict.PredictActionView;
 import com.traap.traapapp.ui.fragments.predict.predictResult.PredictResultActionView;
 import com.traap.traapapp.utilities.Logger;
 

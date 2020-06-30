@@ -127,9 +127,13 @@ import com.traap.traapapp.apiServices.model.photo.response.PhotosByIdResponse;
 import com.traap.traapapp.apiServices.model.points.groupBy.PointsGroupByResponse;
 import com.traap.traapapp.apiServices.model.points.guide.PointsGuideResponse;
 import com.traap.traapapp.apiServices.model.points.records.PointsRecordResponse;
-import com.traap.traapapp.apiServices.model.predict.getMyPredict.MyPredictResponse;
-import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
-import com.traap.traapapp.apiServices.model.predict.sendPredict.request.SendPredictRequest;
+import com.traap.traapapp.apiServices.model.predict.predictResult.getMyPredict.MyPredictResponse;
+import com.traap.traapapp.apiServices.model.predict.predictResult.getPredict.response.GetPredictResponse;
+import com.traap.traapapp.apiServices.model.predict.predictResult.sendPredict.request.SendPredictRequest;
+import com.traap.traapapp.apiServices.model.predict.predictSystem.getMainPredict.GetMainPredictSystemResponse;
+import com.traap.traapapp.apiServices.model.predict.predictSystem.getSystem.request.GetPredictSystemFromIdRequest;
+import com.traap.traapapp.apiServices.model.predict.predictSystem.getSystem.response.GetPredictSystemFromIdResponse;
+import com.traap.traapapp.apiServices.model.predict.predictSystem.sendPredictPlayers.request.SendPredictSystemPlayersRequest;
 import com.traap.traapapp.apiServices.model.profile.deleteProfile.DeleteProfileResponse;
 import com.traap.traapapp.apiServices.model.profile.getProfile.response.GetProfileResponse;
 import com.traap.traapapp.apiServices.model.profile.putProfile.request.SendProfileRequest;
@@ -955,13 +959,34 @@ public interface RetroClient
 
     @POST(Const.SET_PLAYER_PERFORMANCE_EVALUATION)
     Single<Response<WebServiceClass<Object>>> setPlayerEvaluation(
+            @Path("match_id") Integer matchId,
             @Body SetPlayerEvaluationQuestionsRequest request
     );
 
 
     @POST(Const.GET_PLAYER_PERFORMANCE_EVALUATION_RESULT)
     Single<Response<WebServiceClass<List<GetPlayerEvaluationRequestResponse>>>> getPlayerEvaluationResult(
+            @Path("match_id") Integer matchId,
             @Body GetPlayerEvaluationResultRequest request
+    );
+
+
+    @GET(Const.GET_MAIN_PREDICT_SYSTEM)
+    Single<Response<WebServiceClass<GetMainPredictSystemResponse>>> getMainPredictSystem(
+            @Path("id") Integer matchId
+    );
+
+
+    @POST(Const.GET_PREDICT_SYSTEM_FROM_ID)
+    Single<Response<WebServiceClass<List<List<GetPredictSystemFromIdResponse>>>>> getPredictSystemFromId(
+            @Path("match_id") Integer matchId,
+            @Body GetPredictSystemFromIdRequest request
+    );
+
+    @POST(Const.SEND_PREDICT_SYSTEM_PLAYERS)
+    Single<Response<WebServiceClass<Object>>> sendPredictSystemPlayers(
+            @Path("match_id") Integer matchId,
+            @Body SendPredictSystemPlayersRequest request
     );
 
 

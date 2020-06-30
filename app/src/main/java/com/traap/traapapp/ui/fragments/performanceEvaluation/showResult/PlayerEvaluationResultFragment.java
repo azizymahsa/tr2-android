@@ -187,7 +187,7 @@ public class PlayerEvaluationResultFragment extends BaseFragment implements OnSe
         }
         GetPlayerEvaluationResultRequest request = new GetPlayerEvaluationResultRequest();
         request.setPlayerId(playerId);
-        SingletonService.getInstance().getPerformanceEvaluationService().getPlayerEvaluationResult(request, this);
+        SingletonService.getInstance().getPerformanceEvaluationService().getPlayerEvaluationResult(matchId, request, this);
     }
 
     @Override
