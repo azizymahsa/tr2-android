@@ -23,6 +23,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.gun0912.tedpermission.PermissionListener;
@@ -59,11 +60,11 @@ import com.traap.traapapp.models.otherModels.qrModel.QrModel;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.singleton.SingletonLastPredictItem;
 import com.traap.traapapp.singleton.SingletonNewsArchiveClick;
-import com.traap.traapapp.ui.activities.points.PointsActivity;
 import com.traap.traapapp.ui.activities.card.add.AddCardActivity;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultIncreaseInventoryActivity;
+import com.traap.traapapp.ui.activities.points.PointsActivity;
 import com.traap.traapapp.ui.activities.ticket.BuyTicketsActivity;
 import com.traap.traapapp.ui.base.BaseMainActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
@@ -143,7 +144,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         , SelectPositionFragment.OnListFragmentInteractionListener
 {
     private Boolean isMainFragment = true;
-//    private Boolean isNewsFragment = false;
+    //    private Boolean isNewsFragment = false;
     private Boolean isFirst = true;
     private ImageView indicator_0, indicator_1, indicator_2;
     private CompositeDisposable disposable = new CompositeDisposable();
@@ -174,7 +175,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     private boolean hasPaymentPackageSimcard = false;
     private int PAYMENT_STATUS = 0;
     private boolean hasPaymentIncreaseWallet = false;
-    private boolean hasPaymentBill=false;
+    private boolean hasPaymentBill = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -263,17 +264,22 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_ChargeSimCard)
                 {
                     hasPaymentCharge = true;
-                } else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_PackSimCard)
+                }
+                else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_PackSimCard)
                 {
                     hasPaymentPackageSimcard = true;
-                } else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_STADIUM_TICKET)
+                }
+                else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_STADIUM_TICKET)
                 {
                     hasPaymentTicket = true;
-                } else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_INCREASE_WALLET)
+                }
+                else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_INCREASE_WALLET)
                 {
                     hasPaymentIncreaseWallet = true;
-                }else if (Integer.valueOf(typeTransaction)==TrapConfig.PAYMENT_STATUS_BILL){
-                    hasPaymentBill=true;
+                }
+                else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_BILL)
+                {
+                    hasPaymentBill = true;
                 }
 
             }
@@ -371,7 +377,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
                         isMainFragment = false;
 
-                        setFragment(AllMenuFragment.newInstance(this, allServiceList, 0,4));
+                        setFragment(AllMenuFragment.newInstance(this, allServiceList, 0, 4));
                         replaceFragment(getFragment(), "allMenuFragment");
                     }
                     break;
@@ -631,10 +637,10 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             }
             else if (getFragment() instanceof SelectPaymentGatewayFragment)
             {
-                fragmentList.remove(fragmentList.size()-1); //remove SelectPaymentGatewayFragment
-                fragmentList.remove(fragmentList.size()-1); //remove ChargeFragment and add it again.
+                fragmentList.remove(fragmentList.size() - 1); //remove SelectPaymentGatewayFragment
+                fragmentList.remove(fragmentList.size() - 1); //remove ChargeFragment and add it again.
 
-                onBackToChargFragment(Prefs.getInt("PAYMENT_STATUS", PAYMENT_STATUS),  Prefs.getInt("ID_BILL",0));
+                onBackToChargFragment(Prefs.getInt("PAYMENT_STATUS", PAYMENT_STATUS), Prefs.getInt("ID_BILL", 0));
             }
             else if (getFragment() instanceof ChargeFragment && backState == 2 || getFragment() instanceof PackFragment && backState == 2)
             {
@@ -646,21 +652,21 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 fragmentList.remove(fragmentList.size() - 1); //remove ChargeFragment || PackFragment
                 fragmentList.remove(fragmentList.size() - 1); //remove AllMenuFragment and add it again.
 
-                setFragment(AllMenuFragment.newInstance(this, allServiceList, backState,4));
+                setFragment(AllMenuFragment.newInstance(this, allServiceList, backState, 4));
                 replaceFragment(getFragment(), "allMenuFragment");
 
             }
-            else if (getFragment() instanceof BillFragment  )
+            else if (getFragment() instanceof BillFragment)
             {
 //                        setCheckedBNV(bottomNavigationView, 3);
                 setCheckedBNV(bottomNavigationView, 2);
 
                 isMainFragment = false;
 
-                fragmentList.remove(fragmentList.size()-1); //remove BillFragment
-                fragmentList.remove(fragmentList.size()-1); //remove AllMenuFragment and add it again.
+                fragmentList.remove(fragmentList.size() - 1); //remove BillFragment
+                fragmentList.remove(fragmentList.size() - 1); //remove AllMenuFragment and add it again.
 
-                setFragment(AllMenuFragment.newInstance(this, allServiceList, 2,6));
+                setFragment(AllMenuFragment.newInstance(this, allServiceList, 2, 6));
                 replaceFragment(getFragment(), "allMenuFragment");
 
             }
@@ -961,12 +967,12 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void onBill(String title,Integer idBillType,String qrCode)
+    public void onBill(String title, Integer idBillType, String qrCode)
     {
         isMainFragment = false;
         String titleBill = title;
         idBillType = idBillType;
-        setFragment(BillFragment.newInstance(this, titleBill, idBillType,qrCode));
+        setFragment(BillFragment.newInstance(this, titleBill, idBillType, qrCode));
         replaceFragment(getFragment(), "billFragment");
 
     }
@@ -987,7 +993,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         this.backState = backState;
         isMainFragment = false;
 
-        setFragment(PayBillCarMotorFragment.newInstance(this,10));
+        setFragment(PayBillCarMotorFragment.newInstance(this, 10));
         replaceFragment(getFragment(), "onBillMotor");
     }
 
@@ -997,7 +1003,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         this.backState = backState;
         isMainFragment = false;
 
-        setFragment(PayBillCarMotorFragment.newInstance(this,9));
+        setFragment(PayBillCarMotorFragment.newInstance(this, 9));
         replaceFragment(getFragment(), "onBillCar");
     }
 
@@ -1007,7 +1013,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         this.backState = backState;
         isMainFragment = false;
 
-        setFragment(PayTollTraficPlanFragment.newInstance(this,110));
+        setFragment(PayTollTraficPlanFragment.newInstance(this, 110));
         replaceFragment(getFragment(), "onBillToll");
     }
 
@@ -1017,7 +1023,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         this.backState = backState;
         isMainFragment = false;
 
-        setFragment(PayTollTraficPlanFragment.newInstance(this,111));
+        setFragment(PayTollTraficPlanFragment.newInstance(this, 111));
         replaceFragment(getFragment(), "onBillTrafic");
     }
 
@@ -1056,14 +1062,14 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void openBillPaymentFragment(String url, String textBillPayment, String number, Integer idSelectedBillType,String amount,int
+    public void openBillPaymentFragment(String url, String textBillPayment, String number, Integer idSelectedBillType, String amount, int
             PAYMENT_STATUS_BILL)
     {
         isMainFragment = false;
         Prefs.putInt("PAYMENT_STATUS", PAYMENT_STATUS_BILL);
-        Prefs.putInt("ID_BILL",idSelectedBillType);
-        setFragment(SelectPaymentGatewayFragment.newInstance( url, this,
-                textBillPayment, number, idSelectedBillType,amount,PAYMENT_STATUS_BILL));
+        Prefs.putInt("ID_BILL", idSelectedBillType);
+        setFragment(SelectPaymentGatewayFragment.newInstance(url, this,
+                textBillPayment, number, idSelectedBillType, amount, PAYMENT_STATUS_BILL));
         replaceFragment(getFragment(), "selectPaymentGatewayFragment");
 
     }
@@ -1147,10 +1153,11 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         {
             setFragment(BarcodeReaderFragment.newInstance(this, barcodeType));
             replaceFragment(getFragment(), "barcodeReaderFragment");
-        }else
+        }
+        else
         {
-        setFragment(QrCodeReader.newInstance(this));
-        replaceFragment(getFragment(), "QrCodeReader");
+            setFragment(QrCodeReader.newInstance(this));
+            replaceFragment(getFragment(), "QrCodeReader");
         }
     }
 
@@ -1394,9 +1401,9 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             int PAYMENTstatus = data.getIntExtra("PaymentStatus", 0);
 
             onBackToChargFragment(PAYMENTstatus, 0);
-        }else if ( resultCode == Activity.RESULT_OK && requestCode ==44){
-
-
+        }
+        else if (resultCode == Activity.RESULT_OK && requestCode == 44)
+        {
             onBackToHomeWallet(0);
         }
         else if (resultCode == Activity.RESULT_OK)
@@ -2373,18 +2380,19 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             isMainFragment = false;
             setFragment(PayBillCarMotorFragment.newInstance(this, idBill));//IncreaseInventoryFragment
             replaceFragment(getFragment(), "PayBillCarMotorFragment");
-        }else if (PAYMENT_STATUS==TrapConfig.PAYMENT_STATUS_BILL)
+        }
+        else if (PAYMENT_STATUS == TrapConfig.PAYMENT_STATUS_BILL)
         {
-          //  fragmentList.remove(fragmentList.size() - 1); //remove SelectPaymentGatewayFragment
+            //  fragmentList.remove(fragmentList.size() - 1); //remove SelectPaymentGatewayFragment
             //fragmentList.remove(fragmentList.size() - 1); //remove ChargeFragment and add it again.
             isMainFragment = false;
-            setFragment(BillFragment.newInstance(this,idBill));
+            setFragment(BillFragment.newInstance(this, idBill));
             replaceFragment(getFragment(), "BillFragment");
         }
     }
 
     @Override
-    public void backToAllServicePackage(Integer backState,Integer idMenuClicked)
+    public void backToAllServicePackage(Integer backState, Integer idMenuClicked)
     {
 
         if (backState == 2)
@@ -2393,7 +2401,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
             isMainFragment = false;
 
-            setFragment(AllMenuFragment.newInstance(this, allServiceList, backState,idMenuClicked));
+            setFragment(AllMenuFragment.newInstance(this, allServiceList, backState, idMenuClicked));
             replaceFragment(getFragment(), "allMenuFragment");
         }
         else
@@ -2775,7 +2783,8 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
-                } else
+                }
+                else
                 {
                     showError(MainActivity.this, getString(R.string.networkErrorMessage));
 
@@ -2922,7 +2931,8 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             //   Animation animation = AnimationUtils.loadAnimation(this, R.anim.movedown);
             //    findViewById(R.id.llBottomNavigation).startAnimation(animation);
             findViewById(R.id.llBottomNavigation).setVisibility(View.GONE);
-        } else
+        }
+        else
         {
             //  Animation animation = AnimationUtils.loadAnimation(this, R.anim.moveup);
             //   findViewById(R.id.llBottomNavigation).startAnimation(animation);
