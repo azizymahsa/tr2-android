@@ -256,6 +256,7 @@ public class Const
 
     //Predict System
     public final static String GET_MAIN_PREDICT_SYSTEM = SubBASEURL + "v1/match/{id}/predict_formation_info/";
+    public final static String GET_MAIN_PREDICT_SYSTEM_IN_DEACTIVE = SubBASEURL + "v1/predict_formation/formation/main/{match_id}";
     public final static String GET_PREDICT_SYSTEM_FROM_ID = SubBASEURL + "v1/predict_formation/formation/{match_id}";
     public final static String SEND_PREDICT_SYSTEM_PLAYERS = SubBASEURL + "v1/predict_formation/user/{match_id}";
 }

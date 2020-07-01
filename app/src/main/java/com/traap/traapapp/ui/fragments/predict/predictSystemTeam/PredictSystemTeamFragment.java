@@ -40,12 +40,14 @@ import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.predict.predictSystem.getMainPredict.FormationItem;
 import com.traap.traapapp.apiServices.model.predict.predictSystem.getMainPredict.GetMainPredictSystemResponse;
 import com.traap.traapapp.apiServices.model.predict.predictSystem.getMainPredict.PlayerItem;
+import com.traap.traapapp.apiServices.model.predict.predictSystem.getMainPredictInDeActive.GetMainPredictSystemInDeActiveResponse;
 import com.traap.traapapp.apiServices.model.predict.predictSystem.getSystem.response.GetPredictSystemFromIdResponse;
 import com.traap.traapapp.apiServices.model.predict.predictSystem.sendPredictPlayers.request.PlayerPositioning;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.adapters.predict.predictSystem.PredictPlayerItemListAdapter;
 import com.traap.traapapp.ui.adapters.predict.predictSystem.PredictPlayerRowListAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.base.BaseView;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.dialogs.PlayerPredictListDialog;
 import com.traap.traapapp.ui.fragments.predict.PredictActionView;
@@ -65,7 +67,8 @@ import static android.graphics.Paint.ANTI_ALIAS_FLAG;
 
 @SuppressLint("ValidFragment")
 public class PredictSystemTeamFragment extends BaseFragment implements PredictPlayerItemListAdapter.OnPositionItemClick, OnAnimationEndListener,
-        OnServiceStatus<WebServiceClass<GetMainPredictSystemResponse>>, PredictSystemActionView, PredictGetFormationContentImpl.onGetFormationContentListener
+        OnServiceStatus<WebServiceClass<GetMainPredictSystemResponse>>, PredictSystemActionView, PredictGetFormationContentImpl.onGetFormationContentListener,
+        PredictGetMainFormationContentInDeActiveImpl.onGetFormationContentInDeActiveListener
 {
     private CompositeDisposable disposable;
     private List<FormationItem> formationItemList;
@@ -79,7 +82,7 @@ public class PredictSystemTeamFragment extends BaseFragment implements PredictPl
     private int defaultFormationId;
 
     private View rootView;
-    private PredictActionView mainView;
+    private BaseView mainView;
     private TextView tvAwayHeader, tvHomeHeader, tvMatchDate;
     private ImageView imgHomeHeader, imgAwayHeader, imgCupLogo, imgBackground;
     private LinearLayout llPredict;
@@ -108,7 +111,7 @@ public class PredictSystemTeamFragment extends BaseFragment implements PredictPl
 
     }
 
-    public static PredictSystemTeamFragment newInstance(PredictActionView mainView, Integer matchId, Boolean isFormationPredict)
+    public static PredictSystemTeamFragment newInstance(BaseView mainView, Integer matchId, Boolean isFormationPredict)
     {
         PredictSystemTeamFragment f = new PredictSystemTeamFragment();
         f.setMainView(mainView);
@@ -122,7 +125,7 @@ public class PredictSystemTeamFragment extends BaseFragment implements PredictPl
         return f;
     }
 
-    private void setMainView(PredictActionView mainView)
+    private void setMainView(BaseView mainView)
     {
         this.mainView = mainView;
     }
@@ -143,6 +146,8 @@ public class PredictSystemTeamFragment extends BaseFragment implements PredictPl
         {
             matchId = getArguments().getInt("matchId");
             isFormationPredict = getArguments().getBoolean("isFormationPredict");
+
+            Logger.e("-isPredictable System-", " " + isFormationPredict);
         }
     }
 
@@ -214,7 +219,10 @@ public class PredictSystemTeamFragment extends BaseFragment implements PredictPl
         }
         else
         {
+            llPredict.setVisibility(View.GONE);
+            rlConfirm.setVisibility(View.GONE);
 
+            PredictGetMainFormationContentInDeActiveImpl.GetFormationContentInDeActive(matchId, this);
         }
 
         btnConfirm.setText("ثبت پیش\u200cبینی");
@@ -604,4 +612,46 @@ public class PredictSystemTeamFragment extends BaseFragment implements PredictPl
         super.onDestroyView();
     }
 
+    @Override
+    public void onGetFormationContentInDeActiveCompleted(GetMainPredictSystemInDeActiveResponse response)
+    {
+        mainView.hideLoading();
+        progressImageBackground.setVisibility(View.GONE);
+
+        tvMatchDate.setText(response.getMatch().getMatchDatetimeStr());
+        tvAwayHeader.setText(response.getMatch().getAwayTeam().getTeamName());
+        tvHomeHeader.setText(response.getMatch().getHomeTeam().getTeamName());
+
+        setImageIntoIV(imgAwayHeader, response.getMatch().getAwayTeam().getTeamLogo());
+        setImageIntoIV(imgHomeHeader, response.getMatch().getHomeTeam().getTeamLogo());
+        setImageIntoIV(imgCupLogo, response.getMatch().getCup().getCupLogo());
+
+        Picasso.with(context).load(response.getBackgroundImage()).into(imgBackground);
+
+        formationContentNestedList = response.getRowList();
+
+        adapter = new PredictPlayerRowListAdapter(context, defaultFormationId, matchId, formationContentNestedList, rcSystemTeamWidth / 5, this);
+        rcSystemTeam.setAdapter(adapter);
+        adapter.GetAllItemHeight(heightItems ->
+        {
+            int rcHeight = 0;
+            for (int height: heightItems)
+            {
+                rcHeight += height;
+            }
+
+            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, rcHeight);
+            Logger.e("--rcSystemTeam height--", "height: " + rcHeight);
+            rcSystemTeam.setLayoutParams(params);
+        });
+
+    }
+
+    @Override
+    public void onGetFormationContentInDeActiveError(String message)
+    {
+        mainView.hideLoading();
+        progressImageBackground.setVisibility(View.GONE);
+        showAlertFailure(context, message, getResources().getString(R.string.error), false);
+    }
 }

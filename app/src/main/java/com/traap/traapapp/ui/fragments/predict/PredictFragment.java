@@ -34,6 +34,7 @@ import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.predict.predictResult.PredictResultResultFragment;
 import com.traap.traapapp.ui.fragments.predict.predictSystemTeam.PredictSystemTeamFragment;
+import com.traap.traapapp.utilities.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -110,6 +111,8 @@ public class PredictFragment extends BaseFragment implements PredictActionView
             matchId = getArguments().getInt("matchId");
             isPredictable = getArguments().getBoolean("isPredictable");
             isFormationPredict = getArguments().getBoolean("isFormationPredict");
+
+            Logger.e("-isPredictable result,System-", isPredictable + "," + isFormationPredict);
 
             SingletonLastPredictItem.getInstance().setPredictPosition(PredictPosition.PredictResult);
             SingletonLastPredictItem.getInstance().setMatchId(matchId);

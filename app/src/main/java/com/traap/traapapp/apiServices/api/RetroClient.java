@@ -131,6 +131,7 @@ import com.traap.traapapp.apiServices.model.predict.predictResult.getMyPredict.M
 import com.traap.traapapp.apiServices.model.predict.predictResult.getPredict.response.GetPredictResponse;
 import com.traap.traapapp.apiServices.model.predict.predictResult.sendPredict.request.SendPredictRequest;
 import com.traap.traapapp.apiServices.model.predict.predictSystem.getMainPredict.GetMainPredictSystemResponse;
+import com.traap.traapapp.apiServices.model.predict.predictSystem.getMainPredictInDeActive.GetMainPredictSystemInDeActiveResponse;
 import com.traap.traapapp.apiServices.model.predict.predictSystem.getSystem.request.GetPredictSystemFromIdRequest;
 import com.traap.traapapp.apiServices.model.predict.predictSystem.getSystem.response.GetPredictSystemFromIdResponse;
 import com.traap.traapapp.apiServices.model.predict.predictSystem.sendPredictPlayers.request.SendPredictSystemPlayersRequest;
@@ -974,6 +975,11 @@ public interface RetroClient
     @GET(Const.GET_MAIN_PREDICT_SYSTEM)
     Single<Response<WebServiceClass<GetMainPredictSystemResponse>>> getMainPredictSystem(
             @Path("id") Integer matchId
+    );
+
+    @GET(Const.GET_MAIN_PREDICT_SYSTEM_IN_DEACTIVE)
+    Single<Response<WebServiceClass<GetMainPredictSystemInDeActiveResponse>>> getMainPredictSystemInDeActive(
+            @Path("match_id") Integer matchId
     );
 
 
