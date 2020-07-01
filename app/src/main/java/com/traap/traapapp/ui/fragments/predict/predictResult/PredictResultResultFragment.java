@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,9 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -104,7 +107,7 @@ public class PredictResultResultFragment extends BaseFragment implements OnServi
 
     private Pie pieChart;
 
-    private Boolean isPredictable;
+    private Boolean isPredictable, isFormationPredict;
 
     private PredictActionView mainView;
 
@@ -124,7 +127,7 @@ public class PredictResultResultFragment extends BaseFragment implements OnServi
     {
     }
 
-    public static PredictResultResultFragment newInstance(PredictActionView mainView, Integer matchId, Boolean isPredictable)
+    public static PredictResultResultFragment newInstance(PredictActionView mainView, Integer matchId, Boolean isPredictable, Boolean isFormationPredict)
     {
         PredictResultResultFragment f = new PredictResultResultFragment();
         f.setMainView(mainView);
@@ -132,6 +135,7 @@ public class PredictResultResultFragment extends BaseFragment implements OnServi
         Bundle arg = new Bundle();
         arg.putInt("matchId", matchId);
         arg.putBoolean("isPredictable", isPredictable);
+        arg.putBoolean("isFormationPredict", isFormationPredict);
 
         f.setArguments(arg);
 
@@ -158,10 +162,7 @@ public class PredictResultResultFragment extends BaseFragment implements OnServi
         {
             matchId = getArguments().getInt("matchId");
             isPredictable = getArguments().getBoolean("isPredictable");
-
-            SingletonLastPredictItem.getInstance().setPredictPosition(PredictPosition.PredictResult);
-            SingletonLastPredictItem.getInstance().setMatchId(matchId);
-            SingletonLastPredictItem.getInstance().setIsPredictable(isPredictable);
+            isFormationPredict = getArguments().getBoolean("isFormationPredict");
         }
     }
 
@@ -345,7 +346,7 @@ public class PredictResultResultFragment extends BaseFragment implements OnServi
                     }
                     else
                     {
-                        mainView.onSetPredictCompleted(matchId, true, response.info.message);
+                        mainView.onSetPredictCompleted(matchId, true, isFormationPredict, response.info.message);
                     }
                 }
                 catch (NullPointerException e)
@@ -446,9 +447,12 @@ public class PredictResultResultFragment extends BaseFragment implements OnServi
                     if (response.data.getMatchPredict().getLastMatchResult().getHomeScore() != null || response.data.getMatchPredict().getLastMatchResult().getAwayScore() != null)
                     {
                         tvCurrentMatchResult.setText(
-                                response.data.getMatchPredict().getLastMatchResult().getAwayScore() +
-                                        " - " +
-                                        response.data.getMatchPredict().getLastMatchResult().getHomeScore());
+                                new StringBuilder().append(
+                                        response.data.getMatchPredict().getLastMatchResult().getAwayScore())
+                                        .append(" - ")
+                                        .append(response.data.getMatchPredict().getLastMatchResult().getHomeScore())
+                                        .toString()
+                        );
                     }
                     else
                     {
@@ -481,8 +485,20 @@ public class PredictResultResultFragment extends BaseFragment implements OnServi
                     long predictTime = response.data.getMatchPredict().getPredictTime().longValue() * 1000;
                     long dateTimeNow = response.data.getMatchPredict().getServerTime().longValue() * 1000;
                     long remainPredictTime = predictTime - dateTimeNow;
-                    Logger.e("--PredictTime--", "predictTime: " + predictTime + ", dateTimeNow: " + dateTimeNow);
+
+                    //------------------------------For Test----------------------------------
+                    Calendar cal_predict = Calendar.getInstance(Locale.ENGLISH);
+                    Calendar cal_Server = Calendar.getInstance(Locale.ENGLISH);
+
+                    cal_predict.setTimeInMillis(predictTime);
+                    cal_Server.setTimeInMillis(dateTimeNow);
+
+                    Logger.e("--PredictTimeStamp--", "predictTime: " + predictTime + ", dateTimeNow: " + dateTimeNow);
+                    Logger.e("--PredictDateTime--", "predictTime: " + DateFormat.format("dd/MM/yyyy", cal_predict) +
+                            ", dateTimeNow: " + DateFormat.format("dd/MM/yyyy", cal_Server)
+                    );
                     Logger.e("--diff PredictTime--", "remainPredictTime: " + remainPredictTime);
+                    //------------------------------For Test----------------------------------
 
                     if (remainPredictTime > 0)
                     {

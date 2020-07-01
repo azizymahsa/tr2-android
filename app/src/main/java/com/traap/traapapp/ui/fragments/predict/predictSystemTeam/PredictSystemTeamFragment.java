@@ -30,7 +30,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -54,13 +53,8 @@ import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.wang.avi.AVLoadingIndicatorView;
 
-import org.checkerframework.checker.nullness.compatqual.NullableDecl;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -102,7 +96,7 @@ public class PredictSystemTeamFragment extends BaseFragment implements PredictPl
     private int rcSystemTeamHeight = 0;
 
     private Integer matchId;
-    private Boolean isPredictable;
+    private Boolean isFormationPredict;
     private Context context;
 
     private PredictPlayerRowListAdapter adapter;
@@ -114,14 +108,14 @@ public class PredictSystemTeamFragment extends BaseFragment implements PredictPl
 
     }
 
-    public static PredictSystemTeamFragment newInstance(PredictActionView mainView, Integer matchId, Boolean isPredictable)
+    public static PredictSystemTeamFragment newInstance(PredictActionView mainView, Integer matchId, Boolean isFormationPredict)
     {
         PredictSystemTeamFragment f = new PredictSystemTeamFragment();
         f.setMainView(mainView);
 
         Bundle arg = new Bundle();
         arg.putInt("matchId", matchId);
-        arg.putBoolean("isPredictable", isPredictable);
+        arg.putBoolean("isFormationPredict", isFormationPredict);
 
         f.setArguments(arg);
 
@@ -148,7 +142,7 @@ public class PredictSystemTeamFragment extends BaseFragment implements PredictPl
         if (getArguments() != null)
         {
             matchId = getArguments().getInt("matchId");
-            isPredictable = getArguments().getBoolean("isPredictable");
+            isFormationPredict = getArguments().getBoolean("isFormationPredict");
         }
     }
 
@@ -214,7 +208,14 @@ public class PredictSystemTeamFragment extends BaseFragment implements PredictPl
         rcSystemTeam.setLayoutManager(new LinearLayoutManager(context));
         rcSystemTeam.setNestedScrollingEnabled(false);
 
-        SingletonService.getInstance().getPredictService().getMainPredictSystem(matchId, this);
+        if (isFormationPredict)
+        {
+            SingletonService.getInstance().getPredictService().getMainPredictSystem(matchId, this);
+        }
+        else
+        {
+
+        }
 
         btnConfirm.setText("ثبت پیش\u200cبینی");
 
@@ -317,12 +318,32 @@ public class PredictSystemTeamFragment extends BaseFragment implements PredictPl
     }
 
     @Override
+    public void onPlayerAvailableAdd2List(int positionId, int playerId)
+    {
+        if (positionId > 0 && positionId <= 5)
+        {
+            playerPositioningList = new ArrayList<>();
+        }
+
+        Logger.e("--- onPlayerAvailableAdd2List ---", "positionId,playerId: " + positionId + "," + playerId);
+        playerPositioningList.add(new PlayerPositioning(playerId, positionId));
+        playerRequestList.add(playerId);
+        Logger.e("--- New Size ---", "size: " + playerPositioningList.size());
+    }
+
+    @Override
     public void onSelectPlayerFromDialog(int positionId, PlayerItem playerItem, int rowPosition, int columnPosition)
     {
         Logger.e("--- onSelectPlayer row:column ---", rowPosition + ":" + columnPosition);
         formationContentNestedList.get(rowPosition).get(columnPosition).setPlayer(playerItem);
 
-        adapter = new PredictPlayerRowListAdapter(context, matchId, formationContentNestedList, rcSystemTeamWidth / 5, this);
+        if (defaultFormationId != 0)
+        {
+            playerPositioningList = new ArrayList<>();
+            playerRequestList = new ArrayList<>();
+        }
+
+        adapter = new PredictPlayerRowListAdapter(context, defaultFormationId, matchId, formationContentNestedList, rcSystemTeamWidth / 5, this);
         rcSystemTeam.setAdapter(adapter);
 
         addPlayerRequest(positionId, playerItem.getPlayerId());
@@ -359,8 +380,9 @@ public class PredictSystemTeamFragment extends BaseFragment implements PredictPl
 //                        Logger.e("--remove item--", "failure");
 //                    }
                 }
-                catch (ArrayIndexOutOfBoundsException e)
+                catch (Exception e)
                 {
+                    Logger.e("--isPosIdAvailable--", "Exception: " + e.getMessage());
 //                    playerPositioningList.add(new PlayerPositioning(playerId, positionId));
 //                    playerRequestList.add(playerId);
                 }
@@ -546,7 +568,7 @@ public class PredictSystemTeamFragment extends BaseFragment implements PredictPl
 
         formationContentNestedList = response;
 
-        adapter = new PredictPlayerRowListAdapter(context, matchId, formationContentNestedList, rcSystemTeamWidth / 5, this);
+        adapter = new PredictPlayerRowListAdapter(context, defaultFormationId, matchId, formationContentNestedList, rcSystemTeamWidth / 5, this);
         rcSystemTeam.setAdapter(adapter);
         adapter.GetAllItemHeight(heightItems ->
         {

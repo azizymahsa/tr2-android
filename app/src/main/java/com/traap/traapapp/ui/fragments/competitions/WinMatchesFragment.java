@@ -116,10 +116,7 @@ public class WinMatchesFragment extends BaseFragment implements CompationsWinAda
     @Override
     public void onItemPredictClick(View view, int position, Result matchItem)
     {
-//        PredictFragment pastResultFragment = PredictFragment.newInstance(mainActionView, matchItem.getId(), matchItem.getIsPredict());
-//
-//        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_container, pastResultFragment).commit();
-        mainActionView.onPredict(PredictPosition.PredictResult, matchItem.getId(), matchItem.getIsActive());
+//        mainActionView.onPredict(PredictPosition.PredictResult, matchItem.getId(), matchItem.getIsActive(), matchItem.getIsActive());
     }
 
     @Override

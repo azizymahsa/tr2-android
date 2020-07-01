@@ -632,7 +632,8 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             {
                 onBackToPredict(SingletonLastPredictItem.getInstance().getPredictPosition(),
                         SingletonLastPredictItem.getInstance().getMatchId(),
-                        SingletonLastPredictItem.getInstance().getIsPredictable()
+                        SingletonLastPredictItem.getInstance().getIsPredictable(),
+                        SingletonLastPredictItem.getInstance().getIsFormationPredict()
                 );
             }
             else if (getFragment() instanceof SelectPaymentGatewayFragment)
@@ -1513,21 +1514,21 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void onPredict(PredictPosition position, Integer matchId, Boolean isPredictable)
+    public void onPredict(PredictPosition position, Integer matchId, Boolean isPredictable, Boolean isFormationPredict)
     {
         isMainFragment = false;
-        setFragment(PredictFragment.newInstance(this, position, matchId, isPredictable));
+        setFragment(PredictFragment.newInstance(this, position, matchId, isPredictable, isFormationPredict));
         replaceFragment(getFragment(), "predictFragment");
     }
 
     @Override
-    public void onBackToPredict(PredictPosition position, Integer matchId, Boolean isPredictable)
+    public void onBackToPredict(PredictPosition position, Integer matchId, Boolean isPredictable, Boolean isFormationPredict)
     {
         fragmentList.remove(fragmentList.size() - 1); //remove current Fragment
         fragmentList.remove(fragmentList.size() - 1); //remove Predict Fragment
 
         isMainFragment = false;
-        setFragment(PredictFragment.newInstance(this, position, matchId, isPredictable));
+        setFragment(PredictFragment.newInstance(this, position, matchId, isPredictable, isFormationPredict));
         replaceFragment(getFragment(), "predictFragment");
     }
 
@@ -2328,7 +2329,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void onSetPredictCompleted(Integer matchId, Boolean isPredictable, String message)
+    public void onSetPredictCompleted(Integer matchId, Boolean isPredictable, Boolean isFormationPredict, String message)
     {
         MessageAlertDialog dialog = new MessageAlertDialog(this, "", message, false,
                 "تایید", "", MessageAlertDialog.TYPE_SUCCESS, new MessageAlertDialog.OnConfirmListener()
@@ -2340,7 +2341,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 fragmentList.remove(fragmentList.size() - 1); //remove current Fragment
 //                setFragment(PredictFragment.newInstance(MainActivity.this, matchId, isPredictable));
 //                replaceFragment(getFragment(), "predictFragment");
-                onPredict(PredictPosition.PredictResult, matchId, isPredictable);
+                onPredict(PredictPosition.PredictResult, matchId, isPredictable, isFormationPredict);
             }
 
             @Override

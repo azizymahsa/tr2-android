@@ -60,6 +60,7 @@ public class Const
     public final static String GetHappyCardInfo = SubBASEURL + "Happy/v1/GetCardInfo";
     public final static String GetShetabCardInfo = SubBASEURL + "Shetab/v1/GetCardInfo";
     public final static String DoTransferCard = SubBASEURL + "Shetab/v1/DoTransfer";
+
     //wallet
     public final static String GetInfoWallet = SubBASEURL + "v1/shetac/get_info/";
     public final static String IncreaseInventoryWallet = SubBASEURL + "v1/shetac/increase_inventory_ipg/";
@@ -217,12 +218,16 @@ public class Const
     public final static String Get_All_Compations = SubBASEURL + "v1/competition/";
     public final static String Get_All_Questions = SubBASEURL + "v1/competition/{id}/";
     public final static String Post_Answer = SubBASEURL + "v1/competition/{id}/answers/";
+
     //favorite player interview
     public final static String Post_Favorite = SubBASEURL + "v1/team/techs/fan_page/";
+
     //MySupportProfile
     public final static String GET_MY_Supportes = SubBASEURL + "v1/team/techs/fan_page/";
+
     //Suggestions
     public final static String POST_Suggestions = SubBASEURL + "v1/feedback/";
+
     //bil car & motor
     public final static String POST_BillCar = SubBASEURL + "v1/bill/car/";
     public final static String POST_BillMotorcycle = SubBASEURL + "v1/bill/motorcycle/";

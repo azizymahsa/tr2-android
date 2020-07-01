@@ -26,14 +26,17 @@ public class PredictPlayerRowListAdapter extends RecyclerView.Adapter<PredictPla
     private int rowPosition = 0;
     private float itemWidth;
     private Integer matchId;
+    private int defaultFormationId;
     private Integer[] heightItems = { 0, 0, 0, 0, 0, 0, 0 };
 
-    public PredictPlayerRowListAdapter(Context context, Integer matchId, List<List<GetPredictSystemFromIdResponse>> rowList, float itemWidth, PredictPlayerItemListAdapter.OnPositionItemClick listener)
+    public PredictPlayerRowListAdapter(Context context, int defaultFormationId, Integer matchId, List<List<GetPredictSystemFromIdResponse>> rowList, float itemWidth,
+                                       PredictPlayerItemListAdapter.OnPositionItemClick listener)
     {
         this.context = context;
         this.matchId = matchId;
         this.rowList = rowList;
         this.itemWidth = itemWidth;
+        this.defaultFormationId = defaultFormationId;
         this.listener = listener;
     }
 
@@ -56,7 +59,7 @@ public class PredictPlayerRowListAdapter extends RecyclerView.Adapter<PredictPla
 
         holder.recyclerView.setLayoutManager(new GridLayoutManager(context, 5, RecyclerView.VERTICAL, false));
 
-        holder.recyclerView.setAdapter(new PredictPlayerItemListAdapter(context, rowPosition, item, itemWidth, listener));
+        holder.recyclerView.setAdapter(new PredictPlayerItemListAdapter(context, defaultFormationId, rowPosition, item, itemWidth, listener));
         holder.recyclerView.setNestedScrollingEnabled(false);
 
         //-------------------------------get dimension------------------------------------

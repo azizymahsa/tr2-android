@@ -28,6 +28,7 @@ import com.traap.traapapp.enums.PredictPosition;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.predict.PredictTabModel;
 import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.singleton.SingletonLastPredictItem;
 import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -58,7 +59,7 @@ public class PredictFragment extends BaseFragment implements PredictActionView
 
     private Context context;
     private Integer matchId;
-    private Boolean isPredictable;
+    private Boolean isPredictable, isFormationPredict;
     private TextView tvTitle, tvUserName, tvHeaderPopularNo;
 
 
@@ -67,7 +68,7 @@ public class PredictFragment extends BaseFragment implements PredictActionView
 
     }
 
-    public static PredictFragment newInstance(MainActionView mainView, PredictPosition parent, Integer matchId, Boolean isPredictable)
+    public static PredictFragment newInstance(MainActionView mainView, PredictPosition parent, Integer matchId, Boolean isPredictable, Boolean isFormationPredict)
     {
         PredictFragment f = new PredictFragment();
         f.setMainView(mainView);
@@ -76,6 +77,7 @@ public class PredictFragment extends BaseFragment implements PredictActionView
         Bundle arg = new Bundle();
         arg.putInt("matchId", matchId);
         arg.putBoolean("isPredictable", isPredictable);
+        arg.putBoolean("isFormationPredict", isFormationPredict);
 
         f.setArguments(arg);
 
@@ -107,6 +109,12 @@ public class PredictFragment extends BaseFragment implements PredictActionView
         {
             matchId = getArguments().getInt("matchId");
             isPredictable = getArguments().getBoolean("isPredictable");
+            isFormationPredict = getArguments().getBoolean("isFormationPredict");
+
+            SingletonLastPredictItem.getInstance().setPredictPosition(PredictPosition.PredictResult);
+            SingletonLastPredictItem.getInstance().setMatchId(matchId);
+            SingletonLastPredictItem.getInstance().setIsPredictable(isPredictable);
+            SingletonLastPredictItem.getInstance().setIsFormationPredict(isFormationPredict);
         }
     }
 
@@ -224,9 +232,9 @@ public class PredictFragment extends BaseFragment implements PredictActionView
     }
 
     @Override
-    public void onSetPredictCompleted(Integer matchId, Boolean isPredictable, String message)
+    public void onSetPredictCompleted(Integer matchId, Boolean isPredictable, Boolean isFormationPredict, String message)
     {
-        mainView.onSetPredictCompleted(matchId, isPredictable, message);
+        mainView.onSetPredictCompleted(matchId, isPredictable, isFormationPredict, message);
     }
 
     @Override
@@ -282,12 +290,12 @@ public class PredictFragment extends BaseFragment implements PredictActionView
             {
                 case PREDICT_SYSTEM_TEAM_ID:
                 {
-                    return PredictSystemTeamFragment.newInstance(this.actionView, matchId, isPredictable);
+                    return PredictSystemTeamFragment.newInstance(this.actionView, matchId, isFormationPredict);
                 }
                 case PREDICT_RESULT_ID:
                 default:
                 {
-                    return PredictResultResultFragment.newInstance(this.actionView, matchId, isPredictable);
+                    return PredictResultResultFragment.newInstance(this.actionView, matchId, isPredictable, isFormationPredict);
                 }
             }
         }

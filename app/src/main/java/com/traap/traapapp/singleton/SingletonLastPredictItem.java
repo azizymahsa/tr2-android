@@ -28,5 +28,8 @@ public class SingletonLastPredictItem
     @Getter @Setter
     private Boolean isPredictable;
 
+    @Getter @Setter
+    private Boolean isFormationPredict;
+
 }
 
