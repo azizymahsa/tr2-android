@@ -8,6 +8,7 @@ import com.traap.traapapp.apiServices.model.mySupportProfile.ResponseMySupport;
 import com.traap.traapapp.apiServices.model.predict.predictResult.getMyPredict.MyPredictResponse;
 import com.traap.traapapp.apiServices.model.predict.predictResult.getPredict.response.GetPredictResponse;
 import com.traap.traapapp.apiServices.model.predict.predictSystem.getMainPredict.GetMainPredictSystemResponse;
+import com.traap.traapapp.apiServices.model.predict.predictSystem.getMainPredictInDeActive.GetMainPredictSystemInDeActiveResponse;
 import com.traap.traapapp.apiServices.model.predict.predictSystem.getSystem.request.GetPredictSystemFromIdRequest;
 import com.traap.traapapp.apiServices.model.predict.predictSystem.getSystem.response.GetPredictSystemFromIdResponse;
 import com.traap.traapapp.apiServices.model.predict.predictSystem.sendPredictPlayers.request.SendPredictSystemPlayersRequest;
@@ -57,6 +58,11 @@ public class GetPredictService extends BasePart
     public void getMainPredictSystem(int matchId, OnServiceStatus<WebServiceClass<GetMainPredictSystemResponse>> listener)
     {
         start(getServiceGenerator().createService().getMainPredictSystem(matchId), listener);
+    }
+
+    public void getMainPredictSystemInDeActive(int matchId, OnServiceStatus<WebServiceClass<GetMainPredictSystemInDeActiveResponse>> listener)
+    {
+        start(getServiceGenerator().createService().getMainPredictSystemInDeActive(matchId), listener);
     }
 
     public void getPredictSystemFromId(Integer matchId, GetPredictSystemFromIdRequest request, OnServiceStatus<WebServiceClass<List<List<GetPredictSystemFromIdResponse>>>> listener)
