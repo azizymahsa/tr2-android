@@ -1200,16 +1200,17 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
     }
 
     @Override
-    public void onPredict(PredictPosition position, Integer matchId, Boolean isPredictable)
+    public void onPredict(PredictPosition position, Integer matchId, Boolean isPredictable, Boolean isFormationPredict)
     {
 
     }
 
     @Override
-    public void onBackToPredict(PredictPosition position, Integer matchId, Boolean isPredictable)
+    public void onBackToPredict(PredictPosition position, Integer matchId, Boolean isPredictable, Boolean isFormationPredict)
     {
 
     }
+
 
     @Override
     public void onPredictLeagueTable(Integer teamId, Integer matchId, Boolean isPredictable)
@@ -1347,7 +1348,7 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
     }
 
     @Override
-    public void onSetPredictCompleted(Integer matchId, Boolean isPredictable, String message)
+    public void onSetPredictCompleted(Integer matchIdt, Boolean isPredictable, Boolean isFormationPredict, String message)
     {
 
     }

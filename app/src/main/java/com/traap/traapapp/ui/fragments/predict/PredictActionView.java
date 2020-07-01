@@ -13,7 +13,7 @@ public interface PredictActionView extends BaseView
 
     void onPredictLeagueTable(Integer teamId, Integer matchId, Boolean isPredictable);
 
-    void onSetPredictCompleted(Integer matchIdt, Boolean isPredictable, String message);
+    void onSetPredictCompleted(Integer matchIdt, Boolean isPredictable, Boolean isFormationPredict, String message);
 
     void onShowDetailWinnerList(List<Winner> winnerList);
 }

@@ -29,13 +29,15 @@ public class PredictPlayerItemListAdapter extends RecyclerView.Adapter<PredictPl
     private Context context;
     private int rowPosition;
     private float itemWidth;
+    private int defaultFormationId;
 
-    public PredictPlayerItemListAdapter(Context context, int rowPosition, List<GetPredictSystemFromIdResponse> columnList, float itemWidth, OnPositionItemClick listener)
+    public PredictPlayerItemListAdapter(Context context, int defaultFormationId, int rowPosition, List<GetPredictSystemFromIdResponse> columnList, float itemWidth, OnPositionItemClick listener)
     {
         this.context = context;
         this.rowPosition = rowPosition;
         this.columnList = columnList;
         this.itemWidth = itemWidth;
+        this.defaultFormationId = defaultFormationId;
         this.listener = listener;
     }
 
@@ -82,6 +84,11 @@ public class PredictPlayerItemListAdapter extends RecyclerView.Adapter<PredictPl
                     );
                 }
             });
+
+            if (item.getPlayer().getPlayerId() != 0 && defaultFormationId != 0)
+            {
+                listener.onPlayerAvailableAdd2List(item.getPositionId(), item.getPlayer().getPlayerId());
+            }
         }
     }
 
@@ -147,5 +154,7 @@ public class PredictPlayerItemListAdapter extends RecyclerView.Adapter<PredictPl
     public interface OnPositionItemClick
     {
         void onPositionClick(int positionId, int playerId, int rowPosition, int columnPosition);
+
+        void onPlayerAvailableAdd2List(int positionId, int playerId);
     }
 }

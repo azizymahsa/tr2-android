@@ -61,6 +61,10 @@ public class MatchItem implements Parcelable
     @Expose @Getter @Setter
     private Boolean isPredict;
 
+    @SerializedName("is_formation_predict")
+    @Expose @Getter @Setter
+    private Boolean isFormationPredict;
+
     @SerializedName("is_chart_predict")
     @Expose @Getter @Setter
     private Boolean is_chart_predict;
