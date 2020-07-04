@@ -250,6 +250,11 @@ public class Const
     public final static String post_Reply=SubBASEURL+"v1/team/techs/{id}/comment/reply/" ;
     public final static String delete_Comment=SubBASEURL+"v1/team/techs/comments/{id}" ;
     public final static String update_Comment=SubBASEURL+"v1/team/id/comments_update/{comment_id}/" ;
+    //event
+    public final static String Get_events=SubBASEURL+"v1/event/" ;
+    public final static String Get_event_id=SubBASEURL+"v1/event/{id}/" ;
+    public final static String Get_workshops_Id=SubBASEURL+"v1/event/{id}/workshop_list/" ;
+    public final static String Get_participant_retrieve=SubBASEURL+"v1/event/id/workshop/id/participant_retrieve/{participant_id}/" ;
 
 
 }
