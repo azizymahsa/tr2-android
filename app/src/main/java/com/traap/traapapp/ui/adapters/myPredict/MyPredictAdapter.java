@@ -29,8 +29,6 @@ public class MyPredictAdapter extends RecyclerView.Adapter<MyPredictAdapter.View
     public MyPredictAdapter(Context mContext, List<MyPredictResults> list, OnItemClickListener listener)
     {
         this.mContext = mContext;
-//        this.list = new ArrayList<>(list.size());
-//        this.list.addAll(list);
         this.list = list;
         mItemClickListener = listener;
     }
@@ -60,13 +58,11 @@ public class MyPredictAdapter extends RecyclerView.Adapter<MyPredictAdapter.View
             holder.tvLeagueName.setText(item.getMatchMyPredict().getCup().getCupName());
             holder.tvStadiumName.setText(item.getMatchMyPredict().getStadium());
 
-            holder.tvMatchResult.setText(item.getMatchMyPredict().getResultScore().getAwayScore() + " - " +
-                    item.getMatchMyPredict().getResultScore().getHomeScore());
+            holder.tvMatchResult.setText(new StringBuilder().append(item.getMatchMyPredict().getResultScore().getAwayScore()).append(" - ").append(item.getMatchMyPredict().getResultScore().getHomeScore()).toString());
 
-            holder.tvPoint.setText("امتیاز این پیش بینی: " + item.getPoint() + " تراپ");
+            holder.tvPoint.setText(new StringBuilder().append("امتیاز این پیش بینی: ").append(item.getPoint()).append(" تراپ").toString());
 
-            holder.tvPredictResult.setText(item.getPredictScore().getAwayScore() + " - " +
-                    item.getPredictScore().getHomeScore());
+            holder.tvPredictResult.setText(new StringBuilder().append(item.getPredictScore().getAwayScore()).append(" - ").append(item.getPredictScore().getHomeScore()).toString());
 
             setImageBackground(holder.imgAway, item.getMatchMyPredict().getAwayTeam().getTeamLogo());
             setImageBackground(holder.imgHome, item.getMatchMyPredict().getHomeTeam().getTeamLogo());
@@ -83,6 +79,24 @@ public class MyPredictAdapter extends RecyclerView.Adapter<MyPredictAdapter.View
                 holder.llYourPredict.setBackgroundColor(mContext.getResources().getColor(R.color.predeictedFalseBackgroundColor));
                 holder.tvPredictTitle.setTextColor(mContext.getResources().getColor(R.color.predeictedFalseTextColor));
                 holder.tvPredictResult.setTextColor(mContext.getResources().getColor(R.color.predeictedFalseTextColor));
+            }
+
+            if (item.getFormationPredict() != null)
+            {
+                holder.llFormationPredict.setVisibility(View.VISIBLE);
+
+                holder.tvFPredictFormation.setText(item.getFormationPredict().getYourFormationPredict());
+                holder.tvTrueFormation.setText(item.getFormationPredict().getTrueFormationResult());
+
+                if (item.getFormationPredict().getPlayerAccuracy() == 0)
+                {
+                    holder.llPlayerAccuracy.setVisibility(View.GONE);
+                    holder.rlShowTrueFormation.setVisibility(View.GONE);
+                }
+                else
+                {
+                    holder.tvPlayerAccuracy.setText(new StringBuilder(String.valueOf(item.getFormationPredict().getPlayerAccuracy())).append(" %"));
+                }
             }
 
         }
@@ -127,9 +141,10 @@ public class MyPredictAdapter extends RecyclerView.Adapter<MyPredictAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener
     {
         private ImageView imgCupLogo, imgAway, imgHome;
-        private RelativeLayout rlAway, rlHome, rlWinnerList;
-        private LinearLayout llYourPredict;
-        private TextView tvLeagueName, tvStadiumName, tvDate, tvMatchResult, tvAway, tvHome, tvPredictTitle, tvPredictResult, tvPoint;
+        private RelativeLayout rlAway, rlHome, rlWinnerList, rlShowTrueFormation;
+        private LinearLayout llYourPredict, llFormationPredict, llPlayerAccuracy;
+        private TextView tvLeagueName, tvStadiumName, tvDate, tvMatchResult, tvAway, tvHome, tvPredictTitle,
+                tvPredictResult, tvPoint, tvFPredictFormation, tvTrueFormation, tvPlayerAccuracy;
 
         public ViewHolder(@NonNull View rootView)
         {
@@ -142,7 +157,10 @@ public class MyPredictAdapter extends RecyclerView.Adapter<MyPredictAdapter.View
             rlAway = rootView.findViewById(R.id.rlAway);
             rlHome = rootView.findViewById(R.id.rlHome);
             rlWinnerList = rootView.findViewById(R.id.rlWinnerList);
+            rlShowTrueFormation = rootView.findViewById(R.id.rlShowTrueFormation);
             llYourPredict = rootView.findViewById(R.id.llYourPredict);
+            llFormationPredict = rootView.findViewById(R.id.llFormationPredict);
+            llPlayerAccuracy = rootView.findViewById(R.id.llPlayerAccuracy);
 
             tvLeagueName = rootView.findViewById(R.id.tvLeagueName);
             tvStadiumName = rootView.findViewById(R.id.tvStadiumName);
@@ -153,10 +171,14 @@ public class MyPredictAdapter extends RecyclerView.Adapter<MyPredictAdapter.View
             tvPredictTitle = rootView.findViewById(R.id.tvPredictTitle);
             tvPredictResult = rootView.findViewById(R.id.tvPredictResult);
             tvPoint = rootView.findViewById(R.id.tvPoint);
+            tvFPredictFormation = rootView.findViewById(R.id.tvFPredictFormation);
+            tvTrueFormation = rootView.findViewById(R.id.tvTrueFormation);
+            tvPlayerAccuracy = rootView.findViewById(R.id.tvPlayerAccuracy);
 
             rlAway.setOnClickListener(this);
             rlHome.setOnClickListener(this);
             rlWinnerList.setOnClickListener(this);
+            rlShowTrueFormation.setOnClickListener(this);
         }
 
         @Override
@@ -181,6 +203,11 @@ public class MyPredictAdapter extends RecyclerView.Adapter<MyPredictAdapter.View
                         mItemClickListener.onShowWinnerList(list.get(getAdapterPosition()).getMatchMyPredict().getId());
                         break;
                     }
+                    case R.id.rlShowTrueFormation:
+                    {
+                        mItemClickListener.onShowTrueFormation(list.get(getAdapterPosition()).getMatchMyPredict().getId());
+                        break;
+                    }
                 }
             }
         }
@@ -189,11 +216,13 @@ public class MyPredictAdapter extends RecyclerView.Adapter<MyPredictAdapter.View
 
     public interface OnItemClickListener
     {
-        public void onShowWinnerList(Integer matchId);
+        void onShowWinnerList(Integer matchId);
 
-        public void onHomeTeamClick(Integer teamId);
+        void onHomeTeamClick(Integer teamId);
 
-        public void onAwayTeamClick(Integer teamId);
+        void onAwayTeamClick(Integer teamId);
+
+        void onShowTrueFormation(Integer matchId);
     }
 //
 //    public void SetOnShowWinnerListListener(final OnItemClickListener mItemClickListener)

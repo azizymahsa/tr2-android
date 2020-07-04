@@ -680,6 +680,7 @@ public interface RetroClient
     @GET(Const.GET_MY_PREDICTS)
     Single<Response<WebServiceClass<MyPredictResponse>>> getMyPredict();
 
+
     @GET(Const.GET_MY_Supportes)
     Single<Response<WebServiceClass<ResponseMySupport>>> getMySupports();
 
@@ -692,6 +693,7 @@ public interface RetroClient
     Single<Response<WebServiceClass<Object>>> sendPredict(
             @Body SendPredictRequest request
     );
+
 
     @GET(Const.GET_RULES + "{id}/stadium_rules/")
     Single<Response<WebServiceClass<ResponseStadiumRules>>> getRulsStadium(

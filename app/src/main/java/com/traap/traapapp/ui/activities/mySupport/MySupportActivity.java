@@ -35,7 +35,7 @@ import com.traap.traapapp.utilities.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySupportActivity extends BaseActivity implements MyPredictActionView, PredictResultActionView,
+public class MySupportActivity extends BaseActivity implements MySupportActionView, PredictResultActionView,
         OnServiceStatus<WebServiceClass<ResponseMySupport>>, MyPredictAdapter.OnItemClickListener
 {
     private Toolbar mToolbar;
@@ -179,6 +179,12 @@ public class MySupportActivity extends BaseActivity implements MyPredictActionVi
 
     @Override
     public void onAwayTeamClick(Integer teamId)
+    {
+
+    }
+
+    @Override
+    public void onShowTrueFormation(Integer matchId)
     {
 
     }
