@@ -10,7 +10,7 @@ public class GetPlayerEvaluationRequestResponse
 {
     @SerializedName("poll_user_score")
     @Expose @Getter @Setter
-    private int score;
+    private float score;
 
     @SerializedName("poll_average_score")
     @Expose @Getter @Setter
