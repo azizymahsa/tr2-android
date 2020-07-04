@@ -57,6 +57,7 @@
                         android:layout_marginRight="@dimen/_10dp"
                         >
                         <TextView
+                            android:id="@+id/txtTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/textSize_14dp"
@@ -66,6 +67,7 @@
                             android:layout_marginTop="@dimen/_20dp"/>
 
                         <TextView
+                            android:id="@+id/txtDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/textSize_12dp"
@@ -75,6 +77,7 @@
                             android:textColor="@color/team_text_color"/>
 
                         <TextView
+                            android:id="@+id/txtTeacher"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/textSize_12dp"

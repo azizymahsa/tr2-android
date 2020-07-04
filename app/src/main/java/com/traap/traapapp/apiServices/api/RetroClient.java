@@ -35,6 +35,10 @@ import com.traap.traapapp.apiServices.model.doTransferCard.request.DoTransferReq
 import com.traap.traapapp.apiServices.model.doTransferCard.response.DoTransferResponse;
 import com.traap.traapapp.apiServices.model.editUser.sendCodeReq.SendCodeReq;
 import com.traap.traapapp.apiServices.model.editUser.sendCodeRes.SendCodeRes;
+import com.traap.traapapp.apiServices.model.event.GetAllEventResponse;
+import com.traap.traapapp.apiServices.model.event.getEventByid.GetEventByIdResponse;
+import com.traap.traapapp.apiServices.model.event.getWorkshopById.GetWorkShopByIdResponse;
+import com.traap.traapapp.apiServices.model.event.participant.ParticipantEventIdResponse;
 import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.getEvaluationResult.request.GetPlayerEvaluationResultRequest;
 import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.getEvaluationResult.response.GetPlayerEvaluationRequestResponse;
 import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.main.PerformanceEvaluationMainResponse;
@@ -881,6 +885,8 @@ public interface RetroClient
     Single<Response<WebServiceClass<ResponsePostComment>>> updateComment(
             @Path("comment_id") Integer surveyId,
             @Body RequestSendComment request);
+
+
     @GET(Const.TECHS_HISTORY)
     Single<Response<WebServiceClass<GetTechsHistoryResponse>>> getTechsHistory(
             @Path("id") Integer id);
@@ -973,6 +979,19 @@ public interface RetroClient
             @Body GetPlayerEvaluationResultRequest request
     );
 
+    @GET(Const.Get_events)
+    Single<Response<WebServiceClass<GetAllEventResponse>>> getAllEvent();
+
+    @GET(Const.Get_participant_retrieve)
+    Single<Response<WebServiceClass<ParticipantEventIdResponse>>> getParticipantRetrieve(
+            @Path("participant_id") Integer participant_id);
+
+    @GET(Const.Get_event_id)
+    Single<Response<WebServiceClass<GetEventByIdResponse>>> getEventById(
+            @Path("id") Integer eventId);
+  @GET(Const.Get_workshops_Id)
+    Single<Response<WebServiceClass<GetWorkShopByIdResponse>>> getWorkshopsById(
+            @Path("id") Integer event_id);
 
     @GET(Const.GET_MAIN_PREDICT_SYSTEM)
     Single<Response<WebServiceClass<GetMainPredictSystemResponse>>> getMainPredictSystem(

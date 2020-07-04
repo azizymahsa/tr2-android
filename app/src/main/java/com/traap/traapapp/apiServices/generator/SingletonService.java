@@ -17,6 +17,7 @@ import com.traap.traapapp.apiServices.part.DeleteCardService;
 import com.traap.traapapp.apiServices.part.DoTransferCardService;
 import com.traap.traapapp.apiServices.part.DoTransferWalletService;
 import com.traap.traapapp.apiServices.part.EditCardService;
+import com.traap.traapapp.apiServices.part.EventsService;
 import com.traap.traapapp.apiServices.part.FlightService;
 import com.traap.traapapp.apiServices.part.ForgetPasswordWalletService;
 import com.traap.traapapp.apiServices.part.GetAllBillsService;
@@ -426,6 +427,11 @@ public class SingletonService
     public TractorTeamService tractorTeamService()
     {
         return new TractorTeamService(serviceGenerator);
+    }
+
+    public EventsService AllEventsService()
+    {
+        return new EventsService(serviceGenerator);
     }
 
     public BillService billService()

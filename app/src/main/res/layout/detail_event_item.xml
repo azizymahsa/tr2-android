@@ -20,6 +20,7 @@
         android:tag="allBox"
         android:background="@drawable/background_spinner_custom" />
     <TextView
+        android:id="@+id/txtPrice"
         android:layout_width="0dp"
         android:layout_weight="60"
         android:layout_height="wrap_content"
@@ -29,6 +30,9 @@
         android:textSize="@dimen/textSize_14dp"/>
 
     <TextView
+
+        android:id="@+id/txtDate"
+
         android:layout_width="0dp"
         android:layout_weight="60"
         android:layout_height="wrap_content"
@@ -38,6 +42,8 @@
         android:textSize="@dimen/textSize_14dp"/>
 
     <TextView
+        android:id="@+id/txtClass"
+
         android:layout_width="0dp"
         android:layout_weight="50"
         android:layout_height="wrap_content"

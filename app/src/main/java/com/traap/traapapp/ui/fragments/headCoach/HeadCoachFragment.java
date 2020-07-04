@@ -524,18 +524,18 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
                     public void run()
                     {
 
-                        if (isEdit)
+                       /* if (isEdit)
                         {
 
 
                             editeComment(cmIdInsert, etComment.getText().toString());
 
                         } else
-                        {
+                        {*/
                             sendComment(coachId, etComment.getText().toString());
 
 
-                        }
+                       // }
 
 
                         btnSendCommentCoach.setEnabled(true);
@@ -569,11 +569,11 @@ public class HeadCoachFragment extends BaseFragment implements View.OnClickListe
                 {
                     if (response.info.statusCode == 200)
                     {
-
+                        etComment.setText("");
                         showToast(getActivity(), response.info.message, R.color.gray);
-                        cmIdInsert = response.data.getCommentId();
-                        coachCommentList.add(0, new CoachCommentModel(etComment.getText().toString(), true, result));
-                        commentAdapter.notifyItemInserted(0);
+                      //  cmIdInsert = response.data.getCommentId();
+                       // coachCommentList.add(0, new CoachCommentModel(etComment.getText().toString(), true, result));
+                      //  commentAdapter.notifyItemInserted(0);
                     } else
                     {
                         showToast(getActivity(), response.info.message, R.color.red);
