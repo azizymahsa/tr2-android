@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.event.getWorkshopById.Result;
 import com.traap.traapapp.utilities.ConvertPersianNumberToString;
+import com.traap.traapapp.utilities.Utility;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class DetailEventAdapter extends RecyclerView.Adapter<DetailEventAdapter.
     public void onBindViewHolder(final ViewHolder holder, final int position)
     {
 
-        holder.txtPrice.setText(ConvertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(results.get(position).getPrice()), "ریال")+"");
+        holder.txtPrice.setText(Utility.priceFormat(results.get(position).getPrice().intValue())+"ریال");
         holder.txtDate.setText(results.get(position).getRegisterEndDate()+"");
         holder.txtClass.setText(results.get(position).getName()+"");
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(activity, R.layout.my_spinner_item, count);
@@ -65,7 +66,7 @@ public class DetailEventAdapter extends RecyclerView.Adapter<DetailEventAdapter.
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int spPosition, long id)
             {
-                events.onItemCountSelected(count.get(spPosition),position);
+                events.onItemCountSelected(count.get(spPosition),position,results.get(position).getId());
             }
 
             @Override
@@ -103,7 +104,7 @@ public class DetailEventAdapter extends RecyclerView.Adapter<DetailEventAdapter.
     }
     public interface DetailEventAdapterEvents{
 
-        public void onItemCountSelected(String count,Integer position);
+        public void onItemCountSelected(String count,Integer position,Integer workshopId);
     }
 
 
