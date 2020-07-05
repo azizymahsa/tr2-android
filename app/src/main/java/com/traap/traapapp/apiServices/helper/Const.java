@@ -9,12 +9,11 @@ public class Const
     public static final boolean TEST = false;
 
     //-----------------------------------------------------------------------------
-   public final static String BASEURL = "http://5.253.25.117:9000/";     //developing
+    public final static String BASEURL = "http://5.253.25.117:9000/";     //developing
     //public final static String BASEURL = "http:/stage-rest.traap.com/";     //developing
     //public final static String BASEURL = "http://5.253.25.117:5000/";     //pre Live
     //public final static String BASEURL = "http://79.175.146.58:8000/";     //pre Live
-   // public final static String BASEURL = "https://restapp.traap.com/";   //Live
-//    public final static String BASEURL = "https://restapp.traap.com/";   //Live
+    // public final static String BASEURL = "https://restapp.traap.com/";   //Live
 
     private static final String SubBASEURL = "api/";
     //-----------------------------------------------------------------------------
@@ -63,6 +62,7 @@ public class Const
     public final static String GetHappyCardInfo = SubBASEURL + "Happy/v1/GetCardInfo";
     public final static String GetShetabCardInfo = SubBASEURL + "Shetab/v1/GetCardInfo";
     public final static String DoTransferCard = SubBASEURL + "Shetab/v1/DoTransfer";
+
     //wallet
     public final static String GetInfoWallet = SubBASEURL + "v1/shetac/get_info/";
     public final static String IncreaseInventoryWallet = SubBASEURL + "v1/shetac/increase_inventory_ipg/";
@@ -119,7 +119,7 @@ public class Const
     //Leagues
     public final static String GET_League = SubBASEURL + "v1/livescore/get_leagues/";
 
-    //Predict
+    //Predict Result
     public final static String GET_PREDICT = SubBASEURL + "v2/predict/";
     public final static String SEND_PREDICT = SubBASEURL + "v2/predict/";
     public final static String GET_MY_PREDICTS = SubBASEURL + "v1/user/my_predicts/";
@@ -149,7 +149,6 @@ public class Const
     public final static String Get_Main_Video = SubBASEURL + "v1/video/video_main/";
     public final static String Get_VIDEOS_ARCHIVE_CATEGORY = SubBASEURL + "v1/video/category/";
     public final static String Get_VIDEOS_ARCHIVE_BY_IDs = SubBASEURL + "v1/video/";
-    //  public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/{id}/recent_by_category/";
     public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/";
 
 
@@ -220,12 +219,16 @@ public class Const
     public final static String Get_All_Compations = SubBASEURL + "v1/competition/";
     public final static String Get_All_Questions = SubBASEURL + "v1/competition/{id}/";
     public final static String Post_Answer = SubBASEURL + "v1/competition/{id}/answers/";
+
     //favorite player interview
     public final static String Post_Favorite = SubBASEURL + "v1/team/techs/fan_page/";
+
     //MySupportProfile
     public final static String GET_MY_Supportes = SubBASEURL + "v1/team/techs/fan_page/";
+
     //Suggestions
     public final static String POST_Suggestions = SubBASEURL + "v1/feedback/";
+
     //bil car & motor
     public final static String POST_BillCar = SubBASEURL + "v1/bill/car/";
     public final static String POST_BillMotorcycle = SubBASEURL + "v1/bill/motorcycle/";
@@ -238,24 +241,25 @@ public class Const
     public final static String BILL_WATER = SubBASEURL + "v1/bill/water/";
 
     //tech comments
-    public final static String Get_Comments=SubBASEURL+"v1/team/techs/{id}/comments/";
-    public final static String post_Likes=SubBASEURL+"v1/team/id/comments/{comment_id}/likes/";
-    public final static String post_Comment=SubBASEURL+"v1/team/techs/{id}/comments/" ;
-    public final static String post_Reply=SubBASEURL+"v1/team/techs/{id}/comment/reply/" ;
-    public final static String delete_Comment=SubBASEURL+"v1/team/techs/comments/{id}" ;
-    public final static String update_Comment=SubBASEURL+"v1/team/id/comments_update/{comment_id}/" ;
-    //event
-    public final static String Get_events=SubBASEURL+"v1/event/" ;
-    public final static String Get_event_id=SubBASEURL+"v1/event/{id}/" ;
-    public final static String Get_workshops_Id=SubBASEURL+"v1/event/{id}/workshop_list/" ;
-    public final static String Get_participant_retrieve=SubBASEURL+"v1/event/id/workshop/id/participant_retrieve/{participant_id}/" ;
+    public final static String Get_Comments = SubBASEURL + "v1/team/techs/{id}/comments/";
+    public final static String post_Likes = SubBASEURL + "v1/team/id/comments/{comment_id}/likes/";
+    public final static String post_Comment = SubBASEURL + "v1/team/techs/{id}/comments/";
+    public final static String post_Reply = SubBASEURL + "v1/team/techs/{id}/comment/reply/";
+    public final static String delete_Comment = SubBASEURL + "v1/team/techs/comments/{id}";
+    public final static String update_Comment = SubBASEURL + "v1/team/id/comments_update/{comment_id}/";
 
     //PerformanceEvaluation
     public final static String GET_MAIN_PERFORMANCE_EVALUATION = SubBASEURL + "v1/match/{id}/formation/";
     public final static String GET_PERFORMANCE_EVALUATION_SUBSTITUTION = SubBASEURL + "v1/match/{id}/substitution/";
     public final static String GET_PERFORMANCE_EVALUATION_QUESTION = SubBASEURL + "v1/evaluation/{id}/polls";
-    public final static String SET_PLAYER_PERFORMANCE_EVALUATION = SubBASEURL + "v1/evaluation/{match_id}/polls/";
-    public final static String GET_PLAYER_PERFORMANCE_EVALUATION_RESULT = SubBASEURL + "v1/evaluation/{match_id}/user/polls/";
+    public final static String SET_PLAYER_PERFORMANCE_EVALUATION = SubBASEURL + "v1/evaluation/poll_result/";
+    public final static String GET_PLAYER_PERFORMANCE_EVALUATION_RESULT = SubBASEURL + "v1/evaluation/poll_result/user_polls/";
+    //event
+    public final static String Get_events=SubBASEURL+"v1/event/" ;
+    public final static String Get_event_id=SubBASEURL+"v1/event/{id}/" ;
+    public final static String Get_workshops_Id=SubBASEURL+"v1/event/{id}/workshop_list/" ;
+    public final static String Get_participant_retrieve=SubBASEURL+"v1/event/id/workshop/id/participant_retrieve/{participant_id}/" ;
+    
 
     //Predict System
     public final static String GET_MAIN_PREDICT_SYSTEM = SubBASEURL + "v1/match/{id}/predict_formation_info/";
