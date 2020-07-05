@@ -1,6 +1,8 @@
 package com.traap.traapapp.apiServices.helper;
 
 
+import com.androidnetworking.common.ANRequest;
+
 public class Const
 {
     public static final boolean MOCK = false;
@@ -252,13 +254,6 @@ public class Const
     public final static String GET_PERFORMANCE_EVALUATION_QUESTION = SubBASEURL + "v1/evaluation/{id}/polls";
     public final static String SET_PLAYER_PERFORMANCE_EVALUATION = SubBASEURL + "v1/evaluation/poll_result/";
     public final static String GET_PLAYER_PERFORMANCE_EVALUATION_RESULT = SubBASEURL + "v1/evaluation/poll_result/user_polls/";
-    //tech comments
-    public final static String Get_Comments=SubBASEURL+"v1/team/techs/{id}/comments/";
-    public final static String post_Likes=SubBASEURL+"v1/team/id/comments/{comment_id}/likes/";
-    public final static String post_Comment=SubBASEURL+"v1/team/techs/{id}/comments/" ;
-    public final static String post_Reply=SubBASEURL+"v1/team/techs/{id}/comment/reply/" ;
-    public final static String delete_Comment=SubBASEURL+"v1/team/techs/comments/{id}" ;
-    public final static String update_Comment=SubBASEURL+"v1/team/id/comments_update/{comment_id}/" ;
     //event
     public final static String Get_events=SubBASEURL+"v1/event/" ;
     public final static String Get_event_id=SubBASEURL+"v1/event/{id}/" ;
@@ -266,4 +261,9 @@ public class Const
     public final static String Get_participant_retrieve=SubBASEURL+"v1/event/id/workshop/id/participant_retrieve/{participant_id}/" ;
 
 
+    //Predict System
+    public final static String GET_MAIN_PREDICT_SYSTEM = SubBASEURL + "v1/match/{id}/predict_formation_info/";
+    public final static String GET_MAIN_PREDICT_SYSTEM_IN_DEACTIVE = SubBASEURL + "v1/predict_formation/formation/main/{match_id}";
+    public final static String GET_PREDICT_SYSTEM_FROM_ID = SubBASEURL + "v1/predict_formation/formation/{match_id}";
+    public final static String SEND_PREDICT_SYSTEM_PLAYERS = SubBASEURL + "v1/predict_formation/user/{match_id}";
 }
