@@ -219,6 +219,7 @@
                     android:id="@+id/imgBackground"
                     android:layout_alignBottom="@+id/rcSystemTeam"
                     android:layout_alignTop="@+id/rcSystemTeam"
+                    android:scaleType="fitXY"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@color/green_light"/>

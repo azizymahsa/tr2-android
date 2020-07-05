@@ -58,7 +58,7 @@
             app:tabBackground="@drawable/tab_background"
             app:tabTextColor="@drawable/tab_text_color"
             app:tabMode="fixed"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"

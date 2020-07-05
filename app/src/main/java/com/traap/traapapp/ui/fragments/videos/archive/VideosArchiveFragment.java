@@ -185,7 +185,7 @@ public class VideosArchiveFragment extends BaseFragment implements OnServiceStat
 
         mToolbar = rootView.findViewById(R.id.toolbar);
 
-        ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText("آرشیو ویدئو");
+        ((TextView) mToolbar.findViewById(R.id.tvTitle)).setText("آرشیو ویدیو");
         disposable.add(RxView.clicks(mToolbar.findViewById(R.id.imgBack))
                 .subscribe(v ->
                 {

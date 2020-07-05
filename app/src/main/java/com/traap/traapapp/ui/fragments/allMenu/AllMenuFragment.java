@@ -124,6 +124,7 @@ public class AllMenuFragment extends BaseFragment implements
     private StartEniacFlightActivity startEniacFlightActivity;
 
     Integer backState;
+    private Integer idMenuClicked=0;
 
     public AllMenuFragment()
     {
@@ -131,7 +132,7 @@ public class AllMenuFragment extends BaseFragment implements
     }
 
 
-    public static AllMenuFragment newInstance(MainActionView mainView, ArrayList<GetMenuItemResponse> allServicesList, Integer backState)
+    public static AllMenuFragment newInstance(MainActionView mainView, ArrayList<GetMenuItemResponse> allServicesList, Integer backState,Integer idMenuClicked)
     {
         AllMenuFragment f = new AllMenuFragment();
         Bundle args = new Bundle();
@@ -141,7 +142,13 @@ public class AllMenuFragment extends BaseFragment implements
         f.setArguments(args);
         f.setMainView(mainView);
         f.setBackState(backState);
+        f.setIdMenuClicked(idMenuClicked);
         return f;
+    }
+
+    private void setIdMenuClicked(Integer idMenuClicked)
+    {
+        this.idMenuClicked=idMenuClicked;
     }
 
     private void setMainView(MainActionView mainView)
@@ -249,14 +256,11 @@ public class AllMenuFragment extends BaseFragment implements
 
             if (list != null && backState == 2)
             {
-                Log.e("injaaaaaa", "salaaaam");
 
                 for (int i = 0; i < list.size(); i++)
                 {
-                    Log.e("teeeeeeeeeeeeeeest", list.get(i).getId() + "");
-                    if (list.get(i).getId() == 4)
+                    if (list.get(i).getId() == idMenuClicked)
                     {
-                        Log.e("teeeeeeeeeeeeeeest", "ok");
 
                         adapter.setRow_index(i);
                         OnItemAllMenuClick(null, list.get(i).getId(), list.get(i).getSubMenu());

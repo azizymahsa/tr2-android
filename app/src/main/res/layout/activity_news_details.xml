@@ -92,18 +92,21 @@
                             android:visibility="visible"
                             android:gravity="right" />
 
-                        <com.wang.avi.AVLoadingIndicatorView
-                            android:id="@+id/aviNext"
-                            style="@style/AVLoadingIndicatorView"
-                            android:layout_width="26dp"
-                            android:layout_centerInParent="true"
-                            android:layout_height="30dp"
-                            android:layout_marginBottom="5dp"
-                            android:visibility="invisible"
-                            app:indicatorColor="@color/aviColor"
-                            app:indicatorName="BallPulseIndicator" />
-
                     </RelativeLayout>
+
+                    <com.wang.avi.AVLoadingIndicatorView
+                        android:id="@+id/aviNext"
+                        style="@style/AVLoadingIndicatorView"
+                        android:layout_width="26dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/_20dp"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:visibility="invisible"
+                        app:indicatorColor="@color/aviColor"
+                        app:indicatorName="BallPulseIndicator" />
+
 
                     <RelativeLayout
                         android:id="@+id/rlPrevNews"
@@ -137,18 +140,22 @@
                             android:textSize="@dimen/textSize_14dp"
                             android:gravity="left" />
 
-                        <com.wang.avi.AVLoadingIndicatorView
-                            android:id="@+id/aviPrev"
-                            style="@style/AVLoadingIndicatorView"
-                            android:layout_width="26dp"
-                            android:layout_centerInParent="true"
-                            android:layout_height="30dp"
-                            android:layout_marginBottom="5dp"
-                            android:visibility="invisible"
-                            app:indicatorColor="@color/aviColor"
-                            app:indicatorName="BallPulseIndicator" />
-
                     </RelativeLayout>
+
+                    <com.wang.avi.AVLoadingIndicatorView
+                        android:id="@+id/aviPrev"
+                        style="@style/AVLoadingIndicatorView"
+                        android:layout_width="26dp"
+                        android:layout_centerInParent="true"
+                        android:layout_height="30dp"
+
+                        android:layout_marginLeft="@dimen/_20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="5dp"
+                        android:visibility="invisible"
+                        app:indicatorColor="@color/aviColor"
+                        app:indicatorName="BallPulseIndicator" />
 
 
                 </RelativeLayout>

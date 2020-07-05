@@ -11,12 +11,7 @@ import lombok.Setter;
 public class ResponseStadiumRules
 {
     @SerializedName("rules")
-    @Expose
-    @Getter
-    @Setter
+    @Expose @Getter @Setter
     @Nullable
     private String rules ;
-
-
-
 }

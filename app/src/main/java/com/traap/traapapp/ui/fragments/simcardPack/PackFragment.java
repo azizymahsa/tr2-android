@@ -1408,7 +1408,7 @@ public class PackFragment
         mToolbar.findViewById(R.id.flLogoToolbar).setOnClickListener(v -> mainView.backToMainFragment());
 
         mToolbar.findViewById(R.id.imgBack).setOnClickListener(rootView ->
-                mainView.backToAllServicePackage(backState));
+                mainView.backToAllServicePackage(backState,4));
         tvUserName = mToolbar.findViewById(R.id.tvUserName);
         tvHeaderPopularNo = mToolbar.findViewById(R.id.tvPopularPlayer);
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);

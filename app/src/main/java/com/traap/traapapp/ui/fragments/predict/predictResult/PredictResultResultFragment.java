@@ -3,15 +3,14 @@ package com.traap.traapapp.ui.fragments.predict.predictResult;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,12 +38,13 @@ import com.anychart.enums.WordWrap;
 import com.anychart.graphics.vector.text.Direction;
 import com.anychart.graphics.vector.text.HAlign;
 import com.anychart.graphics.vector.text.VAlign;
-import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -56,31 +55,23 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.lottery.Winner;
-import com.traap.traapapp.apiServices.model.predict.getPredict.response.BarChart;
-import com.traap.traapapp.apiServices.model.predict.getPredict.response.PieChart;
-import com.traap.traapapp.apiServices.model.predict.getPredict.response.GetPredictResponse;
-import com.traap.traapapp.apiServices.model.predict.sendPredict.request.SendPredictRequest;
-import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.apiServices.model.predict.predictResult.getPredict.response.BarChart;
+import com.traap.traapapp.apiServices.model.predict.predictResult.getPredict.response.PieChart;
+import com.traap.traapapp.apiServices.model.predict.predictResult.getPredict.response.GetPredictResponse;
+import com.traap.traapapp.apiServices.model.predict.predictResult.sendPredict.request.SendPredictRequest;
 import com.traap.traapapp.enums.PredictPosition;
-import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
-import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.singleton.SingletonLastPredictItem;
-import com.traap.traapapp.ui.adapters.predict.PredictBarChartProgressAdapter;
-import com.traap.traapapp.ui.adapters.predict.PredictMatchResultAdapter;
+import com.traap.traapapp.ui.adapters.predict.predictResult.PredictBarChartProgressAdapter;
+import com.traap.traapapp.ui.adapters.predict.predictResult.PredictMatchResultAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.dialogs.LotteryWinnerListDialog;
 import com.traap.traapapp.ui.fragments.main.CountDownTimerView;
-import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.fragments.predict.PredictActionView;
 import com.traap.traapapp.utilities.CountDownTimerPredict;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.wang.avi.AVLoadingIndicatorView;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 /**
  * Created by Javad.Abadi on 7/14/2018.
@@ -116,7 +107,7 @@ public class PredictResultResultFragment extends BaseFragment implements OnServi
 
     private Pie pieChart;
 
-    private Boolean isPredictable;
+    private Boolean isPredictable, isFormationPredict;
 
     private PredictActionView mainView;
 
@@ -136,7 +127,7 @@ public class PredictResultResultFragment extends BaseFragment implements OnServi
     {
     }
 
-    public static PredictResultResultFragment newInstance(PredictActionView mainView, Integer matchId, Boolean isPredictable)
+    public static PredictResultResultFragment newInstance(PredictActionView mainView, Integer matchId, Boolean isPredictable, Boolean isFormationPredict)
     {
         PredictResultResultFragment f = new PredictResultResultFragment();
         f.setMainView(mainView);
@@ -144,6 +135,7 @@ public class PredictResultResultFragment extends BaseFragment implements OnServi
         Bundle arg = new Bundle();
         arg.putInt("matchId", matchId);
         arg.putBoolean("isPredictable", isPredictable);
+        arg.putBoolean("isFormationPredict", isFormationPredict);
 
         f.setArguments(arg);
 
@@ -170,10 +162,7 @@ public class PredictResultResultFragment extends BaseFragment implements OnServi
         {
             matchId = getArguments().getInt("matchId");
             isPredictable = getArguments().getBoolean("isPredictable");
-
-            SingletonLastPredictItem.getInstance().setPredictPosition(PredictPosition.PredictResult);
-            SingletonLastPredictItem.getInstance().setMatchId(matchId);
-            SingletonLastPredictItem.getInstance().setIsPredictable(isPredictable);
+            isFormationPredict = getArguments().getBoolean("isFormationPredict");
         }
     }
 
@@ -357,7 +346,7 @@ public class PredictResultResultFragment extends BaseFragment implements OnServi
                     }
                     else
                     {
-                        mainView.onSetPredictCompleted(matchId, true, response.info.message);
+                        mainView.onSetPredictCompleted(matchId, true, isFormationPredict, response.info.message);
                     }
                 }
                 catch (NullPointerException e)
@@ -458,9 +447,12 @@ public class PredictResultResultFragment extends BaseFragment implements OnServi
                     if (response.data.getMatchPredict().getLastMatchResult().getHomeScore() != null || response.data.getMatchPredict().getLastMatchResult().getAwayScore() != null)
                     {
                         tvCurrentMatchResult.setText(
-                                response.data.getMatchPredict().getLastMatchResult().getAwayScore() +
-                                        " - " +
-                                        response.data.getMatchPredict().getLastMatchResult().getHomeScore());
+                                new StringBuilder().append(
+                                        response.data.getMatchPredict().getLastMatchResult().getAwayScore())
+                                        .append(" - ")
+                                        .append(response.data.getMatchPredict().getLastMatchResult().getHomeScore())
+                                        .toString()
+                        );
                     }
                     else
                     {
@@ -493,8 +485,20 @@ public class PredictResultResultFragment extends BaseFragment implements OnServi
                     long predictTime = response.data.getMatchPredict().getPredictTime().longValue() * 1000;
                     long dateTimeNow = response.data.getMatchPredict().getServerTime().longValue() * 1000;
                     long remainPredictTime = predictTime - dateTimeNow;
-                    Logger.e("--PredictTime--", "predictTime: " + predictTime + ", dateTimeNow: " + dateTimeNow);
+
+                    //------------------------------For Test----------------------------------
+                    Calendar cal_predict = Calendar.getInstance(Locale.ENGLISH);
+                    Calendar cal_Server = Calendar.getInstance(Locale.ENGLISH);
+
+                    cal_predict.setTimeInMillis(predictTime);
+                    cal_Server.setTimeInMillis(dateTimeNow);
+
+                    Logger.e("--PredictTimeStamp--", "predictTime: " + predictTime + ", dateTimeNow: " + dateTimeNow);
+                    Logger.e("--PredictDateTime--", "predictTime: " + DateFormat.format("dd/MM/yyyy", cal_predict) +
+                            ", dateTimeNow: " + DateFormat.format("dd/MM/yyyy", cal_Server)
+                    );
                     Logger.e("--diff PredictTime--", "remainPredictTime: " + remainPredictTime);
+                    //------------------------------For Test----------------------------------
 
                     if (remainPredictTime > 0)
                     {

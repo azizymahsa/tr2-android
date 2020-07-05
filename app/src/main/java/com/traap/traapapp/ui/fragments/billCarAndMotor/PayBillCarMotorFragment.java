@@ -101,7 +101,7 @@ public class PayBillCarMotorFragment extends BaseFragment implements View.OnClic
         imgBack.setOnClickListener(v ->
         {
             // getActivity().onBackPressed();
-            mainView.backToAllServicePackage(2);
+            mainView.backToAllServicePackage(2,4);
 
         });
         if (billType == 9)

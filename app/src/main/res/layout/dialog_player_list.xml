@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layoutDirection="rtl"
+    android:layout_margin="20dp"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="5dp">
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@drawable/background_page_main"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/colorPrimary">
+
+            <com.traap.traapapp.utilities.ClearableEditText
+                android:id="@+id/edtSearch"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_centerInParent="true"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:background="@drawable/background_border_main"
+                android:gravity="right|center_vertical"
+                android:drawableRight="@drawable/ic_search"
+                android:drawableTint="@color/borderColorGray"
+                android:maxLines="1"
+                android:hint="نام بازیکن را وارد نمایید."
+                android:textColor="@color/textColorSecondary"
+                android:textColorHint="@color/textColorSubTitle"
+                android:textSize="14dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/toolbar_container"
+            android:backgroundTint="@color/borderColorGray"
+            android:background="@drawable/shadow_b" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

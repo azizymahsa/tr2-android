@@ -66,9 +66,9 @@ public interface MainActionView extends BaseView
 
     void onLeageClick(ArrayList<MatchItem> matchBuyable);
 
-    void onPredict(PredictPosition position, Integer matchId, Boolean isPredictable);
+    void onPredict(PredictPosition position, Integer matchId, Boolean isPredictable, Boolean isFormationPredict);
 
-    void onBackToPredict(PredictPosition position, Integer matchId, Boolean isPredictable);
+    void onBackToPredict(PredictPosition position, Integer matchId, Boolean isPredictable, Boolean isFormationPredict);
 
     void onPredictLeagueTable(Integer teamId, Integer matchId, Boolean isPredictable);
 
@@ -114,11 +114,11 @@ public interface MainActionView extends BaseView
 
     void getBuyEnable(BuyTicketAction buyTicketAction);
 
-    void onSetPredictCompleted(Integer matchIdt, Boolean isPredictable, String message);
+    void onSetPredictCompleted(Integer matchIdt, Boolean isPredictable, Boolean isFormationPredict, String message);
 
     void onBackToChargFragment(int PAYMENT_STATUS, Integer idBill);
 
-    void backToAllServicePackage(Integer backState);
+    void backToAllServicePackage(Integer backState,Integer idMenuClicked);
 
     void onBackToHomeWallet(int i);
 

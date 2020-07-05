@@ -32,7 +32,7 @@
             android:maxLines="2"
             android:gravity="center"
             android:textSize="@dimen/textSize_14dp"
-            android:text="هیچ ویدئویی در این گروه یافت نشد."/>
+            android:text="هیچ ویدیویی در این گروه یافت نشد."/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"

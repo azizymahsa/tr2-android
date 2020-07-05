@@ -195,6 +195,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -205,19 +207,27 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:backgroundTint="@color/backgroundButton"
                     app:rippleColor="@color/colorPrimaryDark"
                     app:elevation="3dp"
                     app:fabSize="mini" />
 
-                <Spinner
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spSystem"
                     android:layout_toRightOf="@+id/fabSelectSystem"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="8dp"
                     android:layoutDirection="rtl"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="16dp"
+                    android:background="@color/borderColorGray"/>
 
             </RelativeLayout>
 
@@ -235,10 +245,58 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:background="@color/green"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <ImageView
+                android:id="@+id/imgBackground"
+                android:layout_alignBottom="@+id/rcSystemTeam"
+                android:layout_alignTop="@+id/rcSystemTeam"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@color/green_light"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcSystemTeam"
+                android:layout_width="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@android:color/transparent"
+                android:layout_marginTop="8dp"
+                android:layout_height="wrap_content"/>
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/progressImageProfile"
+                android:layout_alignBottom="@+id/rcSystemTeam"
+                android:layout_alignTop="@+id/rcSystemTeam"
+                android:layout_alignLeft="@+id/rcSystemTeam"
+                android:layout_alignRight="@+id/rcSystemTeam"
+                style="@style/AVLoadingIndicatorView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:translationZ="3dp"
+                android:visibility="gone"
+                app:indicatorColor="@color/textColorPrimary"
+                app:indicatorName="BallScaleMultipleIndicator" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlConfirm"
+            android:layout_width="@dimen/_150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:layout_gravity="center">
+
+            <include
+                android:id="@+id/btnConfirm"
+                layout="@layout/filter_confirm_button" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 
