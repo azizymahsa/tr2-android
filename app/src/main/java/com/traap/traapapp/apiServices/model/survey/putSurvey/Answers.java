@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Answers
 {
-    public Answers(String questionId, String answerId, String answerText)
+    public Answers(Integer questionId, Integer answerId, String answerText)
     {
         this.questionId = questionId;
         this.answerId = answerId;
@@ -17,27 +17,27 @@ public class Answers
 
     @SerializedName("question_id")
     @Expose
-    private String questionId;
+    private Integer questionId;
     @SerializedName("answer_id")
     @Expose
-    private String answerId;
+    private Integer answerId;
     @SerializedName("answer_text")
     @Expose
     private String answerText;
 
-    public String getQuestionId() {
+    public Integer getQuestionId() {
         return questionId;
     }
 
-    public void setQuestionId(String questionId) {
+    public void setQuestionId(Integer questionId) {
         this.questionId = questionId;
     }
 
-    public String getAnswerId() {
+    public Integer getAnswerId() {
         return answerId;
     }
 
-    public void setAnswerId(String answerId) {
+    public void setAnswerId(Integer answerId) {
         this.answerId = answerId;
     }
 
