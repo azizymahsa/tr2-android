@@ -343,8 +343,8 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
                             {
                                 SurveyDetailRadioGroupAdapter.SurveyDetailViewHolder detailViewHolder = groupAdapterHolders.getMyViewHolders().get(j);
                                 if (surveyDetailList.get(i).getOptions().get(j).getCheck()){
-                                    answers.add(new Answers(surveyDetailList.get(i).getId().toString()
-                                            ,surveyDetailList.get(i).getOptions().get(j).getId().toString()
+                                    answers.add(new Answers(surveyDetailList.get(i).getId()
+                                            ,surveyDetailList.get(i).getOptions().get(j).getId()
                                             ,"" ));
                                 }
 
@@ -357,8 +357,8 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
                             {
                                 SurveyDetailRadioGroupAdapter.SurveyDetailViewHolder detailViewHolder = groupAdapterHolders.getMyViewHolders().get(k);
                                 if (surveyDetailList.get(i).getOptions().get(k).getCheck()){
-                                    answers.add(new Answers(surveyDetailList.get(i).getId().toString()
-                                            ,surveyDetailList.get(i).getOptions().get(k).getId().toString()
+                                    answers.add(new Answers(surveyDetailList.get(i).getId()
+                                            ,surveyDetailList.get(i).getOptions().get(k).getId()
                                             ,"" ));
 
                                 }
@@ -370,8 +370,8 @@ public class SurveyFragment extends BaseFragment implements OnServiceStatus<WebS
                         {
                             if (!TextUtils.isEmpty(holder.etAnswer.getText()) )
                             {
-                                answers.add(new Answers(surveyDetailList.get(i).getId().toString()
-                                        ,""
+                                answers.add(new Answers(surveyDetailList.get(i).getId()
+                                        ,null
                                         ,holder.etAnswer.getText().toString() ));
 
                             } else if (item.isMandatory())
