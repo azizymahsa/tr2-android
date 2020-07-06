@@ -1,6 +1,8 @@
 package com.traap.traapapp.apiServices.helper;
 
 
+import com.androidnetworking.common.ANRequest;
+
 public class Const
 {
     public static final boolean MOCK = false;
@@ -147,7 +149,6 @@ public class Const
     public final static String Get_Main_Video = SubBASEURL + "v1/video/video_main/";
     public final static String Get_VIDEOS_ARCHIVE_CATEGORY = SubBASEURL + "v1/video/category/";
     public final static String Get_VIDEOS_ARCHIVE_BY_IDs = SubBASEURL + "v1/video/";
-    //  public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/{id}/recent_by_category/";
     public final static String Get_Category_By_Id_Video = SubBASEURL + "v1/video/";
 
 
@@ -251,8 +252,14 @@ public class Const
     public final static String GET_MAIN_PERFORMANCE_EVALUATION = SubBASEURL + "v1/match/{id}/formation/";
     public final static String GET_PERFORMANCE_EVALUATION_SUBSTITUTION = SubBASEURL + "v1/match/{id}/substitution/";
     public final static String GET_PERFORMANCE_EVALUATION_QUESTION = SubBASEURL + "v1/evaluation/{id}/polls";
-    public final static String SET_PLAYER_PERFORMANCE_EVALUATION = SubBASEURL + "v1/evaluation/{match_id}/polls/";
-    public final static String GET_PLAYER_PERFORMANCE_EVALUATION_RESULT = SubBASEURL + "v1/evaluation/{match_id}/user/polls/";
+    public final static String SET_PLAYER_PERFORMANCE_EVALUATION = SubBASEURL + "v1/evaluation/poll_result/";
+    public final static String GET_PLAYER_PERFORMANCE_EVALUATION_RESULT = SubBASEURL + "v1/evaluation/poll_result/user_polls/";
+    //event
+    public final static String Get_events=SubBASEURL+"v1/event/" ;
+    public final static String Get_event_id=SubBASEURL+"v1/event/{id}/" ;
+    public final static String Get_workshops_Id=SubBASEURL+"v1/event/{id}/workshop_list/" ;
+    public final static String Get_participant_retrieve=SubBASEURL+"v1/event/id/workshop/id/participant_retrieve/{participant_id}/" ;
+
 
     //Predict System
     public final static String GET_MAIN_PREDICT_SYSTEM = SubBASEURL + "v1/match/{id}/predict_formation_info/";

@@ -7,10 +7,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.traap.traapapp.R;
+import com.traap.traapapp.apiServices.model.event.getWorkshopById.Result;
+import com.traap.traapapp.utilities.ConvertPersianNumberToString;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,13 +31,14 @@ public class DetailEventAdapter extends RecyclerView.Adapter<DetailEventAdapter.
     private Activity activity;
     private ArrayList<String> count;
     private DetailEventAdapterEvents events;
-
-    public DetailEventAdapter(Activity activity, DetailEventAdapterEvents events, ArrayList<String> count)
+    List<Result> results=new ArrayList<>();
+    public DetailEventAdapter(Activity activity, List<Result> results, DetailEventAdapterEvents events, ArrayList<String> count)
     {
 
         this.activity=activity;
         this.events=events;
         this.count=count;
+        this.results=results;
 
     }
 
@@ -49,7 +55,9 @@ public class DetailEventAdapter extends RecyclerView.Adapter<DetailEventAdapter.
     public void onBindViewHolder(final ViewHolder holder, final int position)
     {
 
-
+        holder.txtPrice.setText(ConvertPersianNumberToString.getNumberConvertToString(BigDecimal.valueOf(results.get(position).getPrice()), "ریال")+"");
+        holder.txtDate.setText(results.get(position).getRegisterEndDate()+"");
+        holder.txtClass.setText(results.get(position).getName()+"");
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(activity, R.layout.my_spinner_item, count);
         holder.spCount.setAdapter(dataAdapter);
         holder.spCount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
@@ -73,18 +81,23 @@ public class DetailEventAdapter extends RecyclerView.Adapter<DetailEventAdapter.
     @Override
     public int getItemCount()
     {
-        return 2;
+        return results.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
         private Spinner spCount;
+        private TextView txtClass,txtDate,txtPrice;
+
 
 
         public ViewHolder(View v)
         {
             super(v);
             spCount=v.findViewById(R.id.spCount);
+            txtPrice=v.findViewById(R.id.txtPrice);
+            txtDate=v.findViewById(R.id.txtDate);
+            txtClass=v.findViewById(R.id.txtClass);
 
         }
     }

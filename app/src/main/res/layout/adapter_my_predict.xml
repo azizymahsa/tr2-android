@@ -200,7 +200,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="8dp"
             android:padding="6dp"
             android:gravity="center"
             android:background="@drawable/background_rectangle_dotted_green">
@@ -262,6 +261,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/llPlayerAccuracy"
                 android:layout_width="wrap_content"
                 android:padding="1dp"
                 android:orientation="horizontal"
@@ -276,7 +276,7 @@
                     android:textStyle="bold"
                     android:layout_marginRight="8dp"
                     android:textColor="@color/textColorSecondary"
-                    android:text="؟-؟-؟"/>
+                    android:text="؟ %"/>
 
                 <TextView
                     android:layout_width="wrap_content"

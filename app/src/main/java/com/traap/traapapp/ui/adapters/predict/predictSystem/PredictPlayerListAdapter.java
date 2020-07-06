@@ -51,7 +51,14 @@ public class PredictPlayerListAdapter extends RecyclerView.Adapter<PredictPlayer
     @Override
     public int getItemCount()
     {
-        return playerItemList.size();
+        try
+        {
+            return playerItemList.size();
+        }
+        catch (NullPointerException e)
+        {
+            return 0;
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
@@ -68,7 +75,14 @@ public class PredictPlayerListAdapter extends RecyclerView.Adapter<PredictPlayer
             {
                 if (listener != null)
                 {
-                    listener.onPlayerSelectedFromAdapter(playerItemList.get(getAdapterPosition()));
+                    try
+                    {
+                        listener.onPlayerSelectedFromAdapter(playerItemList.get(getAdapterPosition()));
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
                 }
             });
         }

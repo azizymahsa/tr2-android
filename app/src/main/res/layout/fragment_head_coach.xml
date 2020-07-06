@@ -63,31 +63,33 @@
                         app:cardUseCompatPadding="true"
                         app:contentPadding="8dp"
                         app:strokeColor="@color/borderColorGray">
+
                         <FrameLayout
                             android:id="@+id/flFragment"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_below="@+id/rlImageProfile"
                             android:layout_marginTop="@dimen/_70sdp"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
+
                         <ImageView
                             android:id="@+id/btnShare"
                             android:layout_width="@dimen/_35dp"
                             android:layout_height="@dimen/_35dp"
                             android:background="@drawable/button_small_border"
-                            app:srcCompat="@drawable/share_nn"
+                            android:foreground="?attr/selectableItemBackground"
                             android:padding="@dimen/_5sdp"
                             android:tint="@color/shadowColor"
-                            android:foreground="?attr/selectableItemBackground" />
+                            app:srcCompat="@drawable/share_nn" />
 
                         <ImageView
                             android:id="@+id/btnFavorit"
                             android:layout_width="@dimen/_35dp"
                             android:layout_height="@dimen/_35dp"
+                            android:layout_gravity="right"
                             android:background="@drawable/button_small_border"
                             android:foreground="?attr/selectableItemBackground"
                             android:padding="@dimen/_5sdp"
-                            android:layout_gravity="right"
                             android:tint="@color/shadowColor"
                             app:srcCompat="@drawable/ic_star" />
 
@@ -96,8 +98,8 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginTop="@dimen/_70sdp">
+                            android:layout_marginTop="@dimen/_70sdp"
+                            android:orientation="vertical">
 
                             <RelativeLayout
                                 android:id="@+id/llInfoFromShare"
@@ -109,10 +111,10 @@
 
                                 <View
                                     android:id="@+id/v1"
-                                    android:layout_marginTop="@dimen/_10dp"
                                     android:layout_width="match_parent"
                                     android:layout_height="0.5dp"
                                     android:layout_below="@+id/llTeamDetails"
+                                    android:layout_marginTop="@dimen/_10dp"
                                     android:background="@color/textHint"
                                     app:layout_constraintTop_toBottomOf="@+id/llTeamDetails" />
 
@@ -121,30 +123,30 @@
                                     style="@style/TabLayoutStyle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="48dp"
-                                    android:layout_gravity="center"
-
                                     android:layout_below="@+id/v1"
+
                                     android:layout_centerHorizontal="true"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/_10dp"
+                                    android:layout_marginRight="@dimen/_10dp"
                                     app:tabBackground="@drawable/tab_background"
                                     app:tabGravity="center"
                                     app:tabIndicatorHeight="0dp"
-                                    android:layout_marginRight="@dimen/_10dp"
-                                    android:layout_marginLeft="@dimen/_10dp"
                                     app:tabMode="scrollable"
                                     app:tabTextColor="@drawable/tab_text_color" />
 
                                 <View
                                     android:id="@+id/v2"
-                                    android:layout_below="@+id/tabLayout"
                                     android:layout_width="match_parent"
                                     android:layout_height="0.5dp"
+                                    android:layout_below="@+id/tabLayout"
                                     android:background="@color/textHint" />
 
 
                                 <com.traap.traapapp.utilities.WrapContentHeightViewPager
+                                    android:id="@+id/view_pager"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:id="@+id/view_pager"
                                     android:layout_below="@+id/v2" />
 
                                 <FrameLayout
@@ -164,49 +166,52 @@
                                         android:id="@+id/imgF2"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
+                                        android:scaleType="fitXY"
+                                        android:src="@drawable/test_coach"
                                         app:riv_corner_radius="0dp"
                                         app:riv_mutate_background="true"
-                                        android:scaleType="fitXY"
-                                        app:riv_oval="false"
-                                        android:src="@drawable/test_coach"/>
+                                        app:riv_oval="false" />
+
                                     <View
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:background="@drawable/overlay"/>
+                                        android:background="@drawable/overlay" />
 
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
                                         android:gravity="center"
-                                        android:textStyle="bold"
                                         android:text="گالری فیلم و عکس"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                         android:textColor="@color/textColorTitle"
-                                        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                                        android:textStyle="bold" />
 
 
                                 </RelativeLayout>
 
                             </RelativeLayout>
+
                             <LinearLayout
                                 android:id="@+id/llSendComment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/_50dp"
-                                    android:orientation="horizontal"
+                                    android:layout_marginTop="@dimen/_10dp"
                                     android:gravity="center|right"
-                                    android:layout_marginTop="@dimen/_10dp">
+                                    android:orientation="horizontal">
 
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_marginRight="10dp"
                                         android:gravity="center|right"
                                         android:text="امیر حسینی"
-                                        android:layout_marginRight="10dp"
                                         android:textColor="@color/black"
                                         android:textSize="@dimen/textSize_12dp" />
 
@@ -226,17 +231,21 @@
 
 
                                 </LinearLayout>
+
                                 <androidx.appcompat.widget.AppCompatEditText
                                     android:id="@+id/etComment"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:hint="متن نظر شما"
-                                    android:gravity="right"/>
+                                    android:gravity="right"
+                                    android:hint="متن نظر شما" />
+
                                 <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
                                     android:id="@+id/btnSendCommentCoach"
                                     android:layout_width="@dimen/_120dp"
                                     android:layout_height="@dimen/_35dp"
                                     android:layout_gravity="center"
+                                    android:layout_marginTop="@dimen/_10dp"
+                                    android:layout_marginBottom="2dp"
                                     android:background="@drawable/background_button_login"
                                     android:text="ارسال"
                                     android:textColor="@color/textColorButton"
@@ -244,12 +253,9 @@
                                     android:textStyle="bold"
                                     android:transitionName="transition"
                                     app:finalCornerAngle="50dp"
-                                    android:layout_marginTop="@dimen/_10dp"
-                                    app:spinning_bar_color="@color/white"
                                     app:initialCornerAngle="50dp"
-                                    app:spinning_bar_width="2dp"
-                                    android:layout_marginBottom="2dp"
-                                />
+                                    app:spinning_bar_color="@color/white"
+                                    app:spinning_bar_width="2dp" />
 
                             </LinearLayout>
 
@@ -257,11 +263,12 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="right"
-                                android:textSize="@dimen/textSize_18dp"
-                                android:textColor="@color/faded_Red"
                                 android:layout_marginTop="@dimen/_10dp"
-                                android:text="3 نظر ثبت شده است." />
+                                android:gravity="right"
+                                android:text="3 نظر ثبت شده است."
+                                android:textColor="@color/faded_Red"
+                                android:textSize="@dimen/textSize_18dp"
+                                android:visibility="gone" />
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rvComment"
@@ -304,13 +311,14 @@
 
 
                 </RelativeLayout>
+
                 <ProgressBar
                     android:id="@+id/pb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/_150sdp"/>
+                    android:layout_marginTop="@dimen/_150sdp" />
 
             </RelativeLayout>
 

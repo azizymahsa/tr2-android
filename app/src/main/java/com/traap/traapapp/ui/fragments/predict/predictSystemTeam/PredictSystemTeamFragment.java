@@ -213,6 +213,7 @@ public class PredictSystemTeamFragment extends BaseFragment implements PredictPl
         rcSystemTeam.setLayoutManager(new LinearLayoutManager(context));
         rcSystemTeam.setNestedScrollingEnabled(false);
 
+        mainView.showLoading();
         if (isFormationPredict)
         {
             SingletonService.getInstance().getPredictService().getMainPredictSystem(matchId, this);
@@ -321,8 +322,14 @@ public class PredictSystemTeamFragment extends BaseFragment implements PredictPl
     public void onPositionClick(int positionId, int playerId, int rowPosition, int columnPosition)
     {
         Logger.e("--- onPositionClick row:column ---", rowPosition + ":" + columnPosition);
-        PlayerPredictListDialog dialog = new PlayerPredictListDialog((Activity) context, rowPosition, columnPosition, positionId, allPlayerList, this);
-        dialog.show(((Activity) context).getFragmentManager(), "playerPredictListDialog");
+        if (allPlayerList != null)
+        {
+            if (!allPlayerList.isEmpty())
+            {
+                PlayerPredictListDialog dialog = new PlayerPredictListDialog((Activity) context, rowPosition, columnPosition, positionId, allPlayerList, this);
+                dialog.show(((Activity) context).getFragmentManager(), "playerPredictListDialog");
+            }
+        }
     }
 
     @Override
@@ -652,6 +659,6 @@ public class PredictSystemTeamFragment extends BaseFragment implements PredictPl
     {
         mainView.hideLoading();
         progressImageBackground.setVisibility(View.GONE);
-        showAlertFailure(context, message, getResources().getString(R.string.error), false);
+        showAlertFailure(context, message, getResources().getString(R.string.error), true);
     }
 }
