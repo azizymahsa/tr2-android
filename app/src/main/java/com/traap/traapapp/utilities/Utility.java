@@ -1006,16 +1006,16 @@ public class Utility
 
         if (Arrays.asList(typeMCI_No).contains(startPhoneNo))
         {
-            return TrapConfig.SIM_TYPE_MCI;
+            return TrapConfig.OPERATOR_TYPE_MCI;
         } else if (Arrays.asList(typeMTN_No).contains(startPhoneNo))
         {
-            return TrapConfig.SIM_TYPE_MTN;
+            return TrapConfig.OPERATOR_TYPE_MTN;
         } else if (Arrays.asList(typeRightel_No).contains(startPhoneNo))
         {
-            return TrapConfig.SIM_TYPE_RIGHTELL;
+            return TrapConfig.OPERATOR_TYPE_RIGHTELL;
         } else
         {
-            return TrapConfig.SIM_TYPE_OTHERS;
+            return TrapConfig.OPERATOR_TYPE_OTHERS;
         }
 
     }

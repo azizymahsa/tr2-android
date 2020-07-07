@@ -48,6 +48,8 @@ public class Const
     public final static String GET_PACKAGE_RIGHTEL = SubBASEURL + "v1/internetpackage/get_package_rightel/";
     public final static String GET_PACKAGE_MCI = SubBASEURL + "v1/internetpackage/get_package_mci/";
     public final static String GET_PACKAGE_IRANCELL = SubBASEURL + "v1/internetpackage/get_package_irancell/";
+    public final static String GET_INTERNET_PACKAGE_LIST = SubBASEURL + "v2/internetpackage/get_list_packages/";
+
 
     //Bill
     public final static String GetMyBills = SubBASEURL + "v1/bill/";

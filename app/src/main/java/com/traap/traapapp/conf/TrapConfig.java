@@ -44,9 +44,16 @@ public class TrapConfig
 
     public static String HEADER_USER_NAME = "";
 
-    public static final int SIM_TYPE_MTN = 1;
-    public static final int SIM_TYPE_MCI = 2;
-    public static final int SIM_TYPE_RIGHTELL = 3;
-    public static final int SIM_TYPE_OTHERS = 4;
+    public static final int OPERATOR_TYPE_MTN = 1;
+    public static final int OPERATOR_TYPE_MCI = 2;
+    public static final int OPERATOR_TYPE_RIGHTELL = 3;
+    public static final int OPERATOR_TYPE_OTHERS = 4;
+
+    public static final int SIM_MCI_TYPE = 0;
+    public static final int SIM_TYPE_CREDIT = 1;
+    public static final int SIM_TYPE_FULL = 2;
+    public static final int SIM_TYPE_DATA = 3;
+
+
 
 }
