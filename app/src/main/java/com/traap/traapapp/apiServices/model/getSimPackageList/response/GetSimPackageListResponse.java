@@ -9,6 +9,10 @@ import lombok.Setter;
 
 public class GetSimPackageListResponse
 {
+    @SerializedName("request_id")
+    @Expose @Getter @Setter
+    private String requestId;
+
     @SerializedName("packages")
     @Expose @Getter @Setter
     private List<SimPackage> packageList;

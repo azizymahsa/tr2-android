@@ -2185,7 +2185,7 @@ public class PackFragment extends BaseFragment implements CompoundButton.OnCheck
     }
 
     @Override
-    public void onGetSimPackagesCompleted(int operatorType, List<SimPackage> packageList)
+    public void onGetSimPackagesCompleted(int operatorType, List<SimPackage> packageList, String requestId)
     {
         mainView.hideLoading();
         this.allPackageList = packageList;
@@ -2233,7 +2233,7 @@ public class PackFragment extends BaseFragment implements CompoundButton.OnCheck
                 btnChargeConfirmRightel.revertAnimation(this);
                 btnChargeConfirmRightel.setClickable(true);
                 llDetailDescriptionRightel.setVisibility(View.GONE);
-//                requestId = packResponse.data.getPackages().getRequestId();
+                this.requestId = requestId;
                 rightelRecycler.setNestedScrollingEnabled(false);
 
                 rightelRecycler.setAdapter(new TitlePackAdapter(operatorType, TrapConfig.SIM_TYPE_CREDIT, packageList, this));

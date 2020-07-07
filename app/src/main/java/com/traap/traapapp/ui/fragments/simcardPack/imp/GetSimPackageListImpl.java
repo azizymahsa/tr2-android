@@ -35,7 +35,7 @@ public class GetSimPackageListImpl
                 }
                 else
                 {
-                    listener.onGetSimPackagesCompleted(operatorType, response.data.getPackageList());
+                    listener.onGetSimPackagesCompleted(operatorType, response.data.getPackageList(), response.data.getRequestId());
                 }
             }
 
@@ -49,7 +49,7 @@ public class GetSimPackageListImpl
 
     public interface GetSimPackagesListener
     {
-        void onGetSimPackagesCompleted(int operatorType, List<SimPackage> packageList);
+        void onGetSimPackagesCompleted(int operatorType, List<SimPackage> packageList, String requestId);
 
         void onGetSimPackagesError(String message);
     }
