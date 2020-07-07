@@ -275,22 +275,23 @@
         android:layout_marginLeft="32dp"
         android:visibility="gone"
         android:orientation="vertical">
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayoutIrancell"
-        style="@style/TabLayoutStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_10dp"
-        android:background="@drawable/background_border_gray"
-        app:tabBackground="@drawable/tab_background"
-        app:tabGravity="fill"
-        app:tabIndicatorFullWidth="true"
-        app:tabIndicatorHeight="0dp"
 
-        app:tabMaxWidth="0dp"
-        app:tabMode="fixed"
-        app:tabTextColor="@color/textHint" />
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayoutIrancell"
+            style="@style/TabLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10dp"
+            android:background="@drawable/background_border_gray"
+            app:tabBackground="@drawable/tab_background"
+            app:tabGravity="fill"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorHeight="0dp"
+
+            app:tabMaxWidth="0dp"
+            app:tabMode="fixed"
+            app:tabTextColor="@color/textHint" />
 
 
 

@@ -41,17 +41,8 @@ public class GetSimContentListByTypeImp
             filteredContentList = Lists.newArrayList(Iterables.filter(contentList, simContentItem ->
                     simContentItem.getTitlePackageType().contains(finalContainer1)));
 
-//            Iterable<SimContentItem> iterable = Iterables.filter(contentList, new Predicate<SimContentItem>()
-//            {
-//                @Override
-//                public boolean apply(@NullableDecl SimContentItem simContentItem)
-//                {
-//                    return simContentItem.getTitlePackageType().contains(finalContainer1);
-//                }
-//            });
-//
-//            filteredContentList = Lists.newArrayList(iterable);
         }
+
         return filteredContentList;
     }
 }
