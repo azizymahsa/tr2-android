@@ -1973,6 +1973,18 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
+    public void onFootBallServiceLottery()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceCharity()
+    {
+
+    }
+
+    @Override
     public void onNewsArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
 

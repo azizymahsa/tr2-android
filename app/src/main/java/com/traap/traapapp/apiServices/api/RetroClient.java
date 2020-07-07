@@ -83,6 +83,8 @@ import com.traap.traapapp.apiServices.model.getReport.response.GetReportResponse
 import com.traap.traapapp.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 import com.traap.traapapp.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
 import com.traap.traapapp.apiServices.model.getShetabCardInfo.request.ShetabCardInfoRequest;
+import com.traap.traapapp.apiServices.model.getSimPackageList.request.GetSimPackageListRequest;
+import com.traap.traapapp.apiServices.model.getSimPackageList.response.GetSimPackageListResponse;
 import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoRequest;
 import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
@@ -471,8 +473,13 @@ public interface RetroClient
 
 
     @POST(Const.BUY_MOBILE_PACKAGE)
-    Single<Response<WebServiceClass<PackageBuyResponse>>> buySimcardPackage(
+    Single<Response<WebServiceClass<PackageBuyResponse>>> buySimCardPackage(
             @Body PackageBuyRequest mciPackageBuyRequest
+    );
+
+    @POST(Const.GET_INTERNET_PACKAGE_LIST)
+    Single<Response<WebServiceClass<GetSimPackageListResponse>>> getSimCardPackageList(
+            @Body GetSimPackageListRequest request
     );
 
 

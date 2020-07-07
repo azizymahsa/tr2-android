@@ -5,14 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <!--    <androidx.cardview.widget.CardView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        card_view:cardCornerRadius="5dp"-->
-    <!--        card_view:cardElevation="0dp">-->
-
-    <!--    </androidx.cardview.widget.CardView>-->
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,12 +19,7 @@
             android:layout_height="40dp"
             app:corner_radius="500dp"
             android:layout_marginBottom="5dp"
-            android:id="@+id/dialog"
-
-
-            >
-
-
+            android:id="@+id/dialog">
 
             <RelativeLayout
                 android:id="@+id/buttonLayout"
@@ -50,20 +37,15 @@
                     android:layout_marginLeft="5dp"
                     android:layout_centerVertical="true"
                     android:gravity="center">
+
                     <ImageView
                         android:id="@+id/imgArrow"
                         android:layout_width="@dimen/_20dp"
                         android:layout_height="@dimen/_20dp"
-
-
-
-                        android:tint="@color/white"
-                        app:srcCompat="@drawable/ic_arrow_down" />
-
+                        app:srcCompat="@drawable/ic_arrow_down"
+                        app:tint="@color/white" />
 
                 </LinearLayout>
-
-
 
                 <TextView
                     android:id="@+id/tvTitle"
@@ -79,6 +61,7 @@
                     android:textSize="@dimen/textSize_12dp" />
 
             </RelativeLayout>
+
         </com.jcminarro.roundkornerlayout.RoundKornerRelativeLayout>
 
         <com.github.aakira.expandablelayout.ExpandableLinearLayout
@@ -109,6 +92,5 @@
         </com.github.aakira.expandablelayout.ExpandableLinearLayout>
 
     </RelativeLayout>
-
 
 </RelativeLayout>

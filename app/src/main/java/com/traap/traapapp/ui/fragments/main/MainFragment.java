@@ -129,9 +129,9 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
     private Toolbar mToolbar;
 
-    private RelativeLayout rlF1, rlF2, rlF3, rlF4, rlF5, rlF6, rlPredict;
-    private TextView tvF1, tvF2, tvF3, tvF4, tvF5, tvF6, tvUserName;
-    private ImageView imgF1, imgF2, imgF3, imgF4, imgF5, imgF6;
+    private RelativeLayout rlF1, rlF2, rlF3, rlF4, rlF5, rlF6, rlF7, rlF8, rlPredict;
+    private TextView tvF1, tvF2, tvF3, tvF4, tvF5, tvF6, tvF7, tvF8, tvUserName;
+    private ImageView imgF1, imgF2, imgF3, imgF4, imgF5, imgF6, imgF7, imgF8;
 
     private List<MainServiceModelItem> list = new ArrayList<>();
 
@@ -382,6 +382,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         rlF4 = rootView.findViewById(R.id.rlF4);
         rlF5 = rootView.findViewById(R.id.rlF5);
         rlF6 = rootView.findViewById(R.id.rlF6);
+        rlF7 = rootView.findViewById(R.id.rlF7);
+        rlF8 = rootView.findViewById(R.id.rlF8);
 
         imgF1 = rootView.findViewById(R.id.imgF1);
         imgF2 = rootView.findViewById(R.id.imgF2);
@@ -389,6 +391,8 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         imgF4 = rootView.findViewById(R.id.imgF4);
         imgF5 = rootView.findViewById(R.id.imgF5);
         imgF6 = rootView.findViewById(R.id.imgF6);
+        imgF7 = rootView.findViewById(R.id.imgF7);
+        imgF8 = rootView.findViewById(R.id.imgF8);
 
         tvF1 = rootView.findViewById(R.id.tvF1);
         tvF2 = rootView.findViewById(R.id.tvF2);
@@ -396,14 +400,19 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         tvF4 = rootView.findViewById(R.id.tvF4);
         tvF5 = rootView.findViewById(R.id.tvF5);
         tvF6 = rootView.findViewById(R.id.tvF6);
+        tvF7 = rootView.findViewById(R.id.tvF7);
+        tvF8 = rootView.findViewById(R.id.tvF8);
+
         try
         {
             tvF2.setText(footballServiceList.get(0).getTitle());
             tvF1.setText(footballServiceList.get(1).getTitle());
-            tvF4.setText(footballServiceList.get(2).getTitle());
-            tvF3.setText(footballServiceList.get(3).getTitle());
-            tvF6.setText(footballServiceList.get(4).getTitle());
-            tvF5.setText(footballServiceList.get(5).getTitle());
+//            tvF4.setText(footballServiceList.get(2).getTitle());
+//            tvF3.setText(footballServiceList.get(3).getTitle());
+//            tvF6.setText(footballServiceList.get(4).getTitle());
+//            tvF5.setText(footballServiceList.get(5).getTitle());
+            tvF8.setText(footballServiceList.get(2).getTitle());
+            tvF7.setText(footballServiceList.get(3).getTitle());
 
         } catch (Exception e)
         {
@@ -416,16 +425,22 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
         rlF4.setOnClickListener(this);
         rlF5.setOnClickListener(this);
         rlF6.setOnClickListener(this);
+        rlF7.setOnClickListener(this);
+        rlF8.setOnClickListener(this);
         rlShirt.setOnClickListener(this);
+
         try
         {
             setImageIntoIV(imgF2, footballServiceList.get(0).getImageName().replace(" ", "%20"));
             setImageIntoIV(imgF1, footballServiceList.get(1).getImageName().replace(" ", "%20"));
-            setImageIntoIV(imgF4, footballServiceList.get(2).getImageName().replace(" ", "%20"));
-            setImageIntoIV(imgF3, footballServiceList.get(3).getImageName().replace(" ", "%20"));
-            setImageIntoIV(imgF6, footballServiceList.get(4).getImageName().replace(" ", "%20"));
-            setImageIntoIV(imgF5, footballServiceList.get(5).getImageName().replace(" ", "%20"));
-        } catch (Exception e)
+//            setImageIntoIV(imgF4, footballServiceList.get(2).getImageName().replace(" ", "%20"));
+//            setImageIntoIV(imgF3, footballServiceList.get(3).getImageName().replace(" ", "%20"));
+//            setImageIntoIV(imgF6, footballServiceList.get(4).getImageName().replace(" ", "%20"));
+//            setImageIntoIV(imgF5, footballServiceList.get(5).getImageName().replace(" ", "%20"));
+            setImageIntoIV(imgF8, footballServiceList.get(2).getImageName().replace(" ", "%20"));
+            setImageIntoIV(imgF7, footballServiceList.get(3).getImageName().replace(" ", "%20"));
+        }
+        catch (Exception e)
         {
             e.getMessage();
         }
@@ -434,7 +449,6 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
         layoutManagerBanner = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true);
         recyclerViewBaner.setLayoutManager(layoutManagerBanner);
-
 
         sliderLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         sliderRecyclerView.setLayoutManager(sliderLayoutManager);
@@ -1084,16 +1098,27 @@ public class MainFragment extends BaseFragment implements onConfirmUserPassGDS, 
 
                 break;
             }
+//            case R.id.rlF5:
+//            {
+//
+//                break;
+//            }
+//            case R.id.rlF6:
+//            {
+//
+//                break;
+//            }
 
-            case R.id.rlF5:
+            //قرعه کشی
+            case R.id.rlF7:
             {
-
+                mainView.onFootBallServiceLottery();
                 break;
             }
-
-            case R.id.rlF6:
+            //نیکوکاری
+            case R.id.rlF8:
             {
-
+                mainView.onFootBallServiceCharity();
                 break;
             }
         }

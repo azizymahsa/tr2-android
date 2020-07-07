@@ -13,7 +13,6 @@ import com.github.aakira.expandablelayout.ExpandableLayout;
 import com.github.aakira.expandablelayout.Utils;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.availableAmount.Result;
-import com.traap.traapapp.ui.adapters.pack.DetailPackAdapter;
 import com.traap.traapapp.utilities.Utility;
 
 import java.util.List;

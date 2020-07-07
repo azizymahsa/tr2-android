@@ -1755,6 +1755,18 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
+    public void onFootBallServiceLottery()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceCharity()
+    {
+
+    }
+
+    @Override
     public void onNewsArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
         isMainFragment = false;
