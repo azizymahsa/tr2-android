@@ -5,6 +5,7 @@ import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.buyPackage.request.PackageBuyRequest;
 import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
+import com.traap.traapapp.apiServices.model.getBoughtFor.GetBoughtForResponse;
 import com.traap.traapapp.apiServices.model.getSimPackageList.request.GetSimPackageListRequest;
 import com.traap.traapapp.apiServices.model.getSimPackageList.response.GetSimPackageListResponse;
 
@@ -32,6 +33,11 @@ public class PackageBuyService extends BasePart
     public void getSimCardPackageList(GetSimPackageListRequest request, OnServiceStatus<WebServiceClass<GetSimPackageListResponse>> listener)
     {
         start(getServiceGenerator().createService().getSimCardPackageList(request), listener);
+    }
+
+    public void getBoughtFor_InPackage(OnServiceStatus<WebServiceClass<GetBoughtForResponse>> listener)
+    {
+        start(getServiceGenerator().createService().getBoughtFor_InPackage(), listener);
     }
 
 }

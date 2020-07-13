@@ -1273,6 +1273,18 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
     }
 
     @Override
+    public void onLotteryPrimaryResultDetails(int id)
+    {
+
+    }
+
+    @Override
+    public void onLotteryPrimaryHistoryWinnerList(int id)
+    {
+
+    }
+
+    @Override
     public void onNewsArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
 

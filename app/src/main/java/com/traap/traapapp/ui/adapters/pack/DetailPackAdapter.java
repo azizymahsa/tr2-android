@@ -103,7 +103,7 @@ public class DetailPackAdapter extends RecyclerView.Adapter<DetailPackAdapter.Vi
 
     public interface GetPackFromAdapterListener
     {
-        //        void getPackRightel(Detail o, Integer operatorType);
+//        void getPackRightel(Detail o, Integer operatorType);
         void getPackDetails(int operatorType, SimContentItem simContentItem);
     }
 }

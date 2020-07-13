@@ -39,17 +39,17 @@ public class Const
     public final static String GetSpectatorList = SubBASEURL + "v1/match/spectator";
 
     //Mobile
-    public final static String GET_BOUGHT_FOR = SubBASEURL + "v1/topupcharge/bought_for/";
+    public final static String GET_BOUGHT_FOR_IN_CHARGE = SubBASEURL + "v1/topupcharge/bought_for/";
     public final static String BUY_MOBILE_CHARGE = SubBASEURL + "v1/topupcharge/buy_charge/";
     public final static String BUY_CHARGE_WALLET = SubBASEURL + "v1/topupcharge/buy_charge_wallet/";
     public final static String AvailableAmount = SubBASEURL + "v1/topupcharge/available_amount/";
-    public final static String BUY_PACKAGE_WALLET = SubBASEURL + "v1/internetpackage/package_buy_wallet/";
-    public final static String BUY_MOBILE_PACKAGE = SubBASEURL + "v1/internetpackage/package_buy/";
+    public final static String GET_BOUGHT_FOR_IN_PACKAGE = SubBASEURL + "v2/internetpackage/bought_for/";
+    public final static String BUY_PACKAGE_WALLET = SubBASEURL + "v2/internetpackage/package_buy_wallet/";
+    public final static String BUY_MOBILE_PACKAGE = SubBASEURL + "v2/internetpackage/package_buy/";
     public final static String GET_PACKAGE_RIGHTEL = SubBASEURL + "v1/internetpackage/get_package_rightel/";
     public final static String GET_PACKAGE_MCI = SubBASEURL + "v1/internetpackage/get_package_mci/";
     public final static String GET_PACKAGE_IRANCELL = SubBASEURL + "v1/internetpackage/get_package_irancell/";
     public final static String GET_INTERNET_PACKAGE_LIST = SubBASEURL + "v2/internetpackage/get_list_packages/";
-
 
     //Bill
     public final static String GetMyBills = SubBASEURL + "v1/bill/";

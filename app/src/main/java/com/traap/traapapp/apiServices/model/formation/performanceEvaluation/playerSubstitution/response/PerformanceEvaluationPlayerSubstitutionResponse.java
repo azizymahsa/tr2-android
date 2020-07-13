@@ -15,4 +15,5 @@ public class PerformanceEvaluationPlayerSubstitutionResponse
     @SerializedName("player")
     @Expose @Getter @Setter
     private Player playerItem;
+
 }

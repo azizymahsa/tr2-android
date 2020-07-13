@@ -73,11 +73,11 @@ public class TitlePackAdapter extends RecyclerView.Adapter<TitlePackAdapter.View
         holder.detailRecycler.setAdapter(adapter);
 
         holder.tvTitle.setText(new StringBuilder(
-                        simPackage.getDurationPackage())
-                        .append(" (")
+                simPackage.getDurationPackage())
+                .append(" (")
 //                .append(simPackage.getContentList().size())
-                        .append(contentList.size())
-                        .append(")")
+                .append(contentList.size())
+                .append(")")
         );
 
         holder.detailRecycler.addItemDecoration(new SimpleDividerItemDecoration(context));

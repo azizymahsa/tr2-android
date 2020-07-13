@@ -27,6 +27,10 @@ public class Winner implements Parcelable
     @Expose @Getter @Setter
     private String mobile;
 
+    public Winner()
+    {
+    }
+
     protected Winner(Parcel in)
     {
         firstName = in.readString();
