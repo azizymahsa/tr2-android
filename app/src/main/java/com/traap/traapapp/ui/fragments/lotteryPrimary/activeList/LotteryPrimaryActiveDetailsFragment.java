@@ -40,15 +40,15 @@ public class LotteryPrimaryActiveDetailsFragment extends BaseFragment
     private Context context;
     private View rootView;
     //    private List<PointGuide> guideList;
-    private TextView tvCardTitle, tvCardSubTitle, tvDesc, tvFail;
+    private TextView tvCardTitle, tvCardSubTitle, tvDesc, tvFail, tvPointScore, tvChanceScore;
     private ImageView imgBackground;
     private RelativeLayout rlImage;
     private CircularProgressButton btnConfirm;
     private TextView tvTitle, tvUserName, tvHeaderPopularNo;
     private Toolbar mToolbar;
 
-    private int pointScore = 123, chanceScore = 0;
-    private int stepPointScore = 100, stepChanceScore = 10;
+    private int pointScore = 15, chanceScore = 0;
+    private int stepPointScore = 10, stepChanceScore = 10;
 
     public LotteryPrimaryActiveDetailsFragment()
     {
@@ -118,6 +118,11 @@ public class LotteryPrimaryActiveDetailsFragment extends BaseFragment
         tvCardSubTitle = rootView.findViewById(R.id.tvCardSubTitle);
         tvDesc = rootView.findViewById(R.id.tvDesc);
         tvFail = rootView.findViewById(R.id.tvFail);
+        tvChanceScore = rootView.findViewById(R.id.tvChanceScore);
+        tvPointScore = rootView.findViewById(R.id.tvPointScore);
+
+        tvChanceScore.setText(String.valueOf(chanceScore));
+        tvPointScore.setText(String.valueOf(pointScore));
 
         tvCardTitle.setText("فقط با یه کلیک، میتونی برنده قرعه کشی شی.");
         tvCardSubTitle.setText("قرعه کشی 500 میلیون تومانی");
@@ -154,7 +159,7 @@ public class LotteryPrimaryActiveDetailsFragment extends BaseFragment
 
     private void getSelectedScore()
     {
-        new LotteryGetScoreDialog((Activity) context, 1, 10, 15, score ->
+        new LotteryGetScoreDialog((Activity) context, 1, pointScore, pointScore, score ->
         {
 
         }).show(((Activity) context).getFragmentManager(), "dialog");
