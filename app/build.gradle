@@ -10,8 +10,8 @@ android {
         applicationId "com.traap.traapapp"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 81
-        versionName "2.2.2"
+        versionCode 82
+        versionName "2.3.0"
 
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -429,6 +429,7 @@ android {
         implementation 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
 //        implementation 'com.github.arefbhrn:JustifiedTextView:1.0.5'
         implementation 'com.uncopt:android.justified:1.0'
+
 
 
     }

@@ -283,7 +283,6 @@
             app:tabGravity="fill"
             app:tabIndicatorFullWidth="true"
             app:tabIndicatorHeight="0dp"
-
             app:tabMaxWidth="0dp"
             app:tabMode="fixed"
             app:tabTextColor="@color/textHint" />

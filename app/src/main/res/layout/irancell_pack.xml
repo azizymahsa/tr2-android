@@ -273,7 +273,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="32dp"
         android:layout_marginLeft="32dp"
-        android:visibility="gone"
+        android:visibility="visible"
         android:orientation="vertical">
 
         <com.google.android.material.tabs.TabLayout
@@ -288,7 +288,6 @@
             app:tabGravity="fill"
             app:tabIndicatorFullWidth="true"
             app:tabIndicatorHeight="0dp"
-
             app:tabMaxWidth="0dp"
             app:tabMode="fixed"
             app:tabTextColor="@color/textHint" />
@@ -297,7 +296,6 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_marginTop="@dimen/_10dp"
-
             android:id="@+id/irancellRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
