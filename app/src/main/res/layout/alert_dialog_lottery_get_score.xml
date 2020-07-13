@@ -78,7 +78,22 @@
                         app:rsb_min="1"
                         app:rsb_steps="3"
                         app:rsb_indicator_background_color="@color/colorProgress"
-                        app:rsb_tick_mark_mode="number" />
+                        app:rsb_tick_mark_mode="number"
+                        android:visibility="gone"/>
+
+                    <com.traap.traapapp.utilities.ClearableEditText
+                        android:id="@+id/edtScore"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right|center_vertical"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:imeOptions="actionDone"
+                        android:textColorHint="@color/textHint"
+                        android:drawableTint="@color/textHint"
+                        android:textColor="@color/textColorSecondary" />
 
                 </RelativeLayout>
 

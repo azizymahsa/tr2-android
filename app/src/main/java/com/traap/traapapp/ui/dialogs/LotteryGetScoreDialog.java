@@ -9,7 +9,10 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,13 +23,15 @@ import com.jaygoo.widget.RangeSeekBar;
 import com.traap.traapapp.R;
 import com.traap.traapapp.utilities.Logger;
 
+import java.text.DecimalFormat;
+
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 /**
  * Created by Javad.Abadi on 6/24/2019.
  */
 @SuppressLint("ValidFragment")
-public class LotteryGetScoreDialog extends DialogFragment
+public class LotteryGetScoreDialog extends DialogFragment implements TextWatcher
 {
     private OnConfirmListener listener;
 
@@ -35,6 +40,7 @@ public class LotteryGetScoreDialog extends DialogFragment
     private Dialog dialog;
     private RangeSeekBar seekBar;
     private Activity activity;
+    private EditText edtScore;
     private CircularProgressButton btnConfirm;
     private TextView tvTitle, tvScore;
     private int minScore;
@@ -87,6 +93,8 @@ public class LotteryGetScoreDialog extends DialogFragment
         tvScore = dialog.findViewById(R.id.tvScore);
         seekBar = dialog.findViewById(R.id.seekBar);
         btnConfirm = dialog.findViewById(R.id.btnConfirm);
+        edtScore = dialog.findViewById(R.id.edtScore);
+        edtScore.addTextChangedListener(this);
 
         tvTitle.setText("تعداد امتیاز مورد نظر جهت تبدیل به کد شانس را معین نمایید.");
         tvScore.setText("مجموع امتیازات شما: " + yourScore);
@@ -107,6 +115,39 @@ public class LotteryGetScoreDialog extends DialogFragment
         });
 
         return dialog;
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after)
+    {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count)
+    {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable)
+    {
+        edtScore.removeTextChangedListener(this);
+
+        String s = edtScore.getText().toString();
+
+        s = s.replace(",", "");
+        if (s.length() > 0)
+        {
+            DecimalFormat sdd = new DecimalFormat("#,###");
+            Double doubleNumber = Double.parseDouble(s);
+
+            String format = sdd.format(doubleNumber);
+            edtScore.setText(format);
+            edtScore.setSelection(format.length());
+
+        }
+        edtScore.addTextChangedListener(this);
     }
 
     public interface OnConfirmListener
