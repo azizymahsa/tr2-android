@@ -114,7 +114,7 @@ public class LotteryPrimaryHistoryAdapter extends RecyclerView.Adapter<LotteryPr
             rlImage = rootView.findViewById(R.id.rlImage);
             imgBackground = rootView.findViewById(R.id.image);
             tvTitle = rootView.findViewById(R.id.tvTitle);
-            tvSubTitle = rootView.findViewById(R.id.tvSubTitlePanel);
+            tvSubTitle = rootView.findViewById(R.id.tvSubTitle);
             tvStatus = rootView.findViewById(R.id.tvStatus);
 
             progress = rootView.findViewById(R.id.progress);

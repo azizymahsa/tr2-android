@@ -106,7 +106,7 @@ public class CharityListAdapter extends RecyclerView.Adapter<CharityListAdapter.
 
             imageView = rootView.findViewById(R.id.image);
             tvTitle = rootView.findViewById(R.id.tvTitle);
-            tvSubTitle = rootView.findViewById(R.id.tvSubTitlePanel);
+            tvSubTitle = rootView.findViewById(R.id.tvSubTitle);
             progress = rootView.findViewById(R.id.progress);
 
             rootView.setOnClickListener(this);
