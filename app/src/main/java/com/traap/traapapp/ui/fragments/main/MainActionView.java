@@ -90,6 +90,10 @@ public interface MainActionView extends BaseView
 
     void onFootBallServiceCharity();
 
+    void onLotteryPrimaryResultDetails(int id);
+
+    void onLotteryPrimaryHistoryWinnerList(int id);
+
     void onNewsArchiveClick(SubMediaParent parent, MediaPosition mediaPosition);
 
     void onNewsFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition);
