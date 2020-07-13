@@ -1,4 +1,5 @@
 package com.traap.traapapp.apiServices.model.getSimPackageList.response;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

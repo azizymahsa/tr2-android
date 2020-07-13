@@ -850,13 +850,13 @@ public class PackFragment extends BaseFragment implements CompoundButton.OnCheck
                         {
                             filterType = "2";
 //                            new ChangeData().execute();
-                            irancellRecycler.setAdapter(new TitlePackAdapter(operatorType, TrapConfig.SIM_TYPE_FULL, allPackageList, PackFragment.this));
+                            irancellRecycler.setAdapter(new TitlePackAdapter(TrapConfig.OPERATOR_TYPE_MTN, TrapConfig.SIM_TYPE_FULL, allPackageList, PackFragment.this));
                         }
                         else
                         {
                             filterType = "1";
 //                            new ChangeData().execute();
-                            irancellRecycler.setAdapter(new TitlePackAdapter(operatorType, TrapConfig.SIM_TYPE_CREDIT, allPackageList, PackFragment.this));
+                            irancellRecycler.setAdapter(new TitlePackAdapter(TrapConfig.OPERATOR_TYPE_MTN, TrapConfig.SIM_TYPE_CREDIT, allPackageList, PackFragment.this));
                         }
                     }
 
@@ -885,19 +885,19 @@ public class PackFragment extends BaseFragment implements CompoundButton.OnCheck
                         {
                             filterType = "3";
 //                            new ChangeData().execute();
-                            rightelRecycler.setAdapter(new TitlePackAdapter(operatorType, TrapConfig.SIM_TYPE_DATA, allPackageList, PackFragment.this));
+                            rightelRecycler.setAdapter(new TitlePackAdapter(TrapConfig.OPERATOR_TYPE_RIGHTELL, TrapConfig.SIM_TYPE_DATA, allPackageList, PackFragment.this));
                         }
                         else if (tabLayoutRightel.getSelectedTabPosition() == 1)
                         {
                             filterType = "2";
 //                            new ChangeData().execute();
-                            rightelRecycler.setAdapter(new TitlePackAdapter(operatorType, TrapConfig.SIM_TYPE_FULL, allPackageList, PackFragment.this));
+                            rightelRecycler.setAdapter(new TitlePackAdapter(TrapConfig.OPERATOR_TYPE_RIGHTELL, TrapConfig.SIM_TYPE_FULL, allPackageList, PackFragment.this));
                         }
                         else
                         {
                             filterType = "1";
 //                            new ChangeData().execute();
-                            rightelRecycler.setAdapter(new TitlePackAdapter(operatorType, TrapConfig.SIM_TYPE_CREDIT, allPackageList, PackFragment.this));
+                            rightelRecycler.setAdapter(new TitlePackAdapter(TrapConfig.OPERATOR_TYPE_RIGHTELL, TrapConfig.SIM_TYPE_CREDIT, allPackageList, PackFragment.this));
 
                         }
                     }
@@ -1150,22 +1150,22 @@ public class PackFragment extends BaseFragment implements CompoundButton.OnCheck
                 case 0:
                     filterType = "all";
 //                    new ChangeData().execute();
-                    mciRecycler.setAdapter(new TitlePackAdapter(operatorType, TrapConfig.SIM_TYPE_FULL, allPackageList, PackFragment.this));
+                    mciRecycler.setAdapter(new TitlePackAdapter(TrapConfig.OPERATOR_TYPE_MCI, TrapConfig.SIM_TYPE_FULL, allPackageList, PackFragment.this));
                     break;
                 case 1:
                     filterType = "2";
 //                    new ChangeData().execute();
-                    mciRecycler.setAdapter(new TitlePackAdapter(operatorType, TrapConfig.SIM_TYPE_FULL, allPackageList, PackFragment.this));
+                    mciRecycler.setAdapter(new TitlePackAdapter(TrapConfig.OPERATOR_TYPE_MCI, TrapConfig.SIM_TYPE_FULL, allPackageList, PackFragment.this));
                     break;
                 case 2:
                     filterType = "1";
 //                    new ChangeData().execute();
-                    mciRecycler.setAdapter(new TitlePackAdapter(operatorType, TrapConfig.SIM_TYPE_FULL, allPackageList, PackFragment.this));
+                    mciRecycler.setAdapter(new TitlePackAdapter(TrapConfig.OPERATOR_TYPE_MCI, TrapConfig.SIM_TYPE_FULL, allPackageList, PackFragment.this));
                     break;
                 case 3:
                     filterType = "0";
 //                    new ChangeData().execute();
-                    mciRecycler.setAdapter(new TitlePackAdapter(operatorType, TrapConfig.SIM_TYPE_FULL, allPackageList, PackFragment.this));
+                    mciRecycler.setAdapter(new TitlePackAdapter(TrapConfig.OPERATOR_TYPE_MCI, TrapConfig.SIM_TYPE_FULL, allPackageList, PackFragment.this));
                     break;
             }
         }
@@ -1313,7 +1313,7 @@ public class PackFragment extends BaseFragment implements CompoundButton.OnCheck
 
     private void getBoughtForRequest()
     {
-        SingletonService.getInstance().getBoughtForService().getBoughtFor(new OnServiceStatus<WebServiceClass<GetBoughtForResponse>>()
+        SingletonService.getInstance().packageBuyService().getBoughtFor_InPackage(new OnServiceStatus<WebServiceClass<GetBoughtForResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<GetBoughtForResponse> response)

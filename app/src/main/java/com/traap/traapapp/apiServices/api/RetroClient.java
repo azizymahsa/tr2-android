@@ -386,28 +386,38 @@ public interface RetroClient
     );
 
 
-    @GET(Const.GET_BOUGHT_FOR)
-    Single<Response<WebServiceClass<GetBoughtForResponse>>> getBoughtFor();
+    @GET(Const.GET_BOUGHT_FOR_IN_CHARGE)
+    Single<Response<WebServiceClass<GetBoughtForResponse>>> getBoughtFor_InCharge();
+
+
+    @GET(Const.GET_BOUGHT_FOR_IN_PACKAGE)
+    Single<Response<WebServiceClass<GetBoughtForResponse>>> getBoughtFor_InPackage();
+
 
     @POST(Const.BUY_MOBILE_CHARGE)
     Single<Response<WebServiceClass<MobileChargeResponse>>> getMobileCharge(
             @Body MobileChargeRequest request);
 
+
     @POST(Const.BUY_CHARGE_WALLET)
     Single<Response<WebServiceClass<BuyChargeWalletResponse>>> buyChargeWallet(
             @Body BuyChargeWalletRequest request);
+
 
     @POST(Const.BUY_PACKAGE_WALLET)
     Single<Response<WebServiceClass<BuyPackageWalletResponse>>> buyPackageWallet(
             @Body BuyPackageWalletRequest request);
 
+
     @POST(Const.Get_Withdraw_Wallet)
     Single<Response<WebServiceClass<WithdrawWalletResponse>>> withdrawWallet(
             @Body WithdrawWalletRequest request);
 
+
     @POST(Const.GET_League)
     Single<Response<WebServiceClass<ResponseLeage>>> getLeage(
             @Body GetLeagueRequest request);
+
 
     @POST(Const.Get_Past_Result)
     Single<Response<WebServiceClass<ResponsePastResult>>> getPastResult(
@@ -892,8 +902,6 @@ public interface RetroClient
     Single<Response<WebServiceClass<ResponsePostComment>>> updateComment(
             @Path("comment_id") Integer surveyId,
             @Body RequestSendComment request);
-
-
     @GET(Const.TECHS_HISTORY)
     Single<Response<WebServiceClass<GetTechsHistoryResponse>>> getTechsHistory(
             @Path("id") Integer id);

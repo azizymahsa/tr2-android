@@ -43,6 +43,10 @@ public class News implements Parcelable
     @SerializedName("id")
     private int id;
 
+    public News()
+    {
+    }
+
     protected News(Parcel in)
     {
 //        dislikes = in.readInt();

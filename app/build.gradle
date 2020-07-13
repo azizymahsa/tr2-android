@@ -431,7 +431,6 @@ android {
         implementation 'com.uncopt:android.justified:1.0'
 
 
-
     }
 }
 

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="ltr"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/background_border_white_16dp">
+
+        <ImageView
+            android:id="@+id/imgCharityClose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            app:srcCompat="@drawable/ic_arrow_down"
+            app:tint="@color/textHint" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_toLeftOf="@+id/rlImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_80dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvTitlePanel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:textColor="@color/textColorSecondary"
+                        android:layout_marginTop="8dp"
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        android:gravity="right"
+                        android:textSize="@dimen/textSize_14dp"
+                        android:text="عنوان"/>
+
+                    <TextView
+                        android:id="@+id/tvSubTitlePanel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/textColorSecondary"
+                        android:gravity="right"
+                        android:textSize="@dimen/textSize_12dp"
+                        android:text="محتوا"/>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlImage"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_alignParentRight="true">
+
+                    <ProgressBar
+                        android:id="@+id/progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"/>
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/imageLogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_80dp"
+                        android:scaleType="fitXY"
+                        app:riv_corner_radius="15dp"
+                        app:riv_border_width="1dp"
+                        app:riv_border_color="@color/imageColorBorder"
+                        app:riv_mutate_background="true"
+                        app:riv_oval="false" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvPriceTitlePanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/textColorSecondary"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:maxLines="2"
+                android:gravity="right"
+                android:textSize="@dimen/textSize_14dp"
+                android:text="عنوان"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_gravity="center|right"
+                android:layout_marginTop="8dp"
+                android:hint="مبلغ را به ریال وارد نمایید."
+                android:theme="@style/EditTextHint"
+                app:hintTextAppearance="@style/TextLabelProfile">
+
+                <com.traap.traapapp.utilities.ClearableEditText
+                    android:id="@+id/edtPricePanel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|center_vertical"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textSize="@dimen/textSize_14dp"
+                    android:imeOptions="actionDone"
+                    android:textColorHint="@color/textHint"
+                    android:drawableTint="@color/textHint"
+                    android:textColor="@color/textColorSecondary" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:gravity="center|end"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="40" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100">
+
+                    <include
+                        android:id="@+id/btnConfirm"
+                        layout="@layout/filter_confirm_button" />
+
+                </FrameLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="40" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

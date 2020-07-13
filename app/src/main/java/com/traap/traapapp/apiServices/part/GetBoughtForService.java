@@ -21,8 +21,8 @@ public class GetBoughtForService extends BasePart
         return this;
     }
 
-    public void getBoughtFor(OnServiceStatus<WebServiceClass<GetBoughtForResponse>> listener)
+    public void getBoughtFor_InCharge(OnServiceStatus<WebServiceClass<GetBoughtForResponse>> listener)
     {
-        start(getServiceGenerator().createService().getBoughtFor(), listener);
+        start(getServiceGenerator().createService().getBoughtFor_InCharge(), listener);
     }
 }
