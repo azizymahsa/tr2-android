@@ -88,6 +88,7 @@ import com.traap.traapapp.ui.fragments.inviteFriend.InviteFriendsFragment;
 import com.traap.traapapp.ui.fragments.lastPast5Match.Last5PastMatchFragment;
 import com.traap.traapapp.ui.fragments.leagueTable.LeagueTableMainFragment;
 import com.traap.traapapp.ui.fragments.lotteryPrimary.LotteryPrimaryFragment;
+import com.traap.traapapp.ui.fragments.lotteryPrimary.activeList.LotteryPrimaryActiveDetailsFragment;
 import com.traap.traapapp.ui.fragments.lotteryPrimary.history.LotteryHistoryWinnersFragment;
 import com.traap.traapapp.ui.fragments.lotteryWinnerList.LotteryWinnerDetailsFragment;
 import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
@@ -1774,7 +1775,8 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     @Override
     public void onLotteryPrimaryResultDetails(int id)
     {
-
+        setFragment(LotteryPrimaryActiveDetailsFragment.newInstance(this));
+        replaceFragment(getFragment(), "LotteryPrimaryActiveDetailsFragment");
     }
 
     @Override

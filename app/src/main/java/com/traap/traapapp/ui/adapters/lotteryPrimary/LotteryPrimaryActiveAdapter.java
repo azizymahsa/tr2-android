@@ -59,10 +59,7 @@ public class LotteryPrimaryActiveAdapter extends RecyclerView.Adapter<LotteryPri
         holder.tvTitle.setText("فقط با یه کلیک، میتونی برنده قرعه کشی شی.");
         holder.tvSubTitle.setText("قرعه کشی 500 میلیون تومانی");
 
-//        if (news.getImageName().getThumbnailLarge() != null)
-//        {
-            setImageBackground(holder.progress, holder.imgBackground, item.getTitle());
-//        }
+        setImageBackground(holder.progress, holder.imgBackground, item.getTitle());
 
     }
 
@@ -114,7 +111,7 @@ public class LotteryPrimaryActiveAdapter extends RecyclerView.Adapter<LotteryPri
             rlImage = rootView.findViewById(R.id.rlImage);
             imgBackground = rootView.findViewById(R.id.image);
             tvTitle = rootView.findViewById(R.id.tvTitle);
-            tvSubTitle = rootView.findViewById(R.id.tvSubTitlePanel);
+            tvSubTitle = rootView.findViewById(R.id.tvSubTitle);
 
             progress = rootView.findViewById(R.id.progress);
 

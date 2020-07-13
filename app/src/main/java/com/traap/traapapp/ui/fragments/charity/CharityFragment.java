@@ -126,7 +126,7 @@ public class CharityFragment extends BaseFragment implements CharityListAdapter.
         recyclerView = rootView.findViewById(R.id.recyclerView);
         btnConfirm = rootView.findViewById(R.id.btnConfirm);
         tvTitlePanel = rootView.findViewById(R.id.tvTitlePanel);
-        tvSubTitlePanel = rootView.findViewById(R.id.tvSubTitlePanel);
+        tvSubTitlePanel = rootView.findViewById(R.id.tvSubTitle);
         tvPriceTitlePanel = rootView.findViewById(R.id.tvPriceTitlePanel);
         imageLogo = rootView.findViewById(R.id.imageLogo);
         imgCharityClose = rootView.findViewById(R.id.imgCharityClose);
