@@ -1370,14 +1370,16 @@ public class UserProfileActivity extends BaseActivity implements UserProfileActi
             etCountryName.setText(data.getExtras().getString("name"));
             etCountryCode.setText(data.getExtras().getString("code").replace("+", ""));
 
-            Prefs.putString("Country_Code", data.getExtras().getString("code").replace("+", ""));
+            Prefs.putString("Country_Code", data.getExtras().getString("code")
+                    .replace("+", ""));
             if (etCountryCode.getText().toString().equals("98"))
             {
                 if (tvMobileNew.getText().toString().startsWith("0"))
                 {
-
-                    tvMobileNew.setText(tvMobileNew.getText().toString().replaceFirst("0", "")
-                            .replaceFirst("٠", ""));
+                    tvMobileNew.setText(tvMobileNew.getText().toString()
+                            .replaceFirst("0", "")
+                            .replaceFirst("٠", "")
+                    );
                 }
                 tvMobileNew.setLength(10);
                 tvMobileNew.addTextChangedListener(textWatcher);
