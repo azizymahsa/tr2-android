@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.Browser;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -20,36 +18,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.browser.customtabs.CustomTabsIntent;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import library.android.eniac.StartEniacBusActivity;
-import library.android.eniac.StartEniacFlightActivity;
-import library.android.eniac.StartEniacHotelActivity;
-import library.android.eniac.interfaces.BusLockSeat;
-import library.android.eniac.interfaces.FlightReservationData;
-import library.android.eniac.interfaces.HotelReservationData;
-import library.android.eniac.model.FlightReservation;
-import library.android.service.model.Hotel.getBookingInfo.subModel.HotelItem;
-import library.android.service.model.bus.lockSeat.response.LockSeatResponse;
-import library.android.service.model.bus.saleVerify.response.SaleVerifyResponse;
-import library.android.service.model.bus.searchBus.response.Company;
-import library.android.service.model.flight.reservation.response.ReservationResponse;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.pixplicity.easyprefs.library.Prefs;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -64,21 +42,26 @@ import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.mainService.MainServiceModelItem;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.activities.main.MainActivity;
-import com.traap.traapapp.ui.activities.web.WebActivity;
+import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.ui.adapters.allMenu.AllMenuServiceModelAdapter;
-//import com.traap.traapapp.ui.adapters.AllMenuServiceModelAdapter;
-import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.adapters.allMenu.ItemRecyclerViewAdapter;
+import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.main.onConfirmUserPassGDS;
-import com.traap.traapapp.ui.activities.myProfile.MyProfileActivity;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import library.android.eniac.StartEniacFlightActivity;
+
+//import com.traap.traapapp.ui.adapters.AllMenuServiceModelAdapter;
 
 //import library.android.eniac.StartEniacBusActivity;
 //import library.android.eniac.StartEniacFlightActivity;
@@ -124,7 +107,7 @@ public class AllMenuFragment extends BaseFragment implements
     private StartEniacFlightActivity startEniacFlightActivity;
 
     Integer backState;
-    private Integer idMenuClicked=0;
+    private Integer idMenuClicked = 0;
 
     public AllMenuFragment()
     {
@@ -132,7 +115,7 @@ public class AllMenuFragment extends BaseFragment implements
     }
 
 
-    public static AllMenuFragment newInstance(MainActionView mainView, ArrayList<GetMenuItemResponse> allServicesList, Integer backState,Integer idMenuClicked)
+    public static AllMenuFragment newInstance(MainActionView mainView, ArrayList<GetMenuItemResponse> allServicesList, Integer backState, Integer idMenuClicked)
     {
         AllMenuFragment f = new AllMenuFragment();
         Bundle args = new Bundle();
@@ -148,7 +131,7 @@ public class AllMenuFragment extends BaseFragment implements
 
     private void setIdMenuClicked(Integer idMenuClicked)
     {
-        this.idMenuClicked=idMenuClicked;
+        this.idMenuClicked = idMenuClicked;
     }
 
     private void setMainView(MainActionView mainView)
@@ -202,19 +185,19 @@ public class AllMenuFragment extends BaseFragment implements
             tvTitle = rootView.findViewById(R.id.tvTitle);
             tvTitle.setText("سرویس ها");
             imgMenu = rootView.findViewById(R.id.imgMenu);
-            imgMenu = rootView.findViewById(R.id.imgMenu);
 
             imgMenu.setOnClickListener(v -> mainView.openDrawer());
             flLogoToolbar.setOnClickListener(v -> mainView.backToMainFragment());
             imgBack = rootView.findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->
             {
-                getActivity().onBackPressed();
+                mainView.backToMainFragment();
             });
 
             tvPopularPlayer = mToolbar.findViewById(R.id.tvPopularPlayer);
             tvPopularPlayer.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.getMessage();
         }
@@ -309,7 +292,8 @@ public class AllMenuFragment extends BaseFragment implements
                     newList.add(item);
                 }
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -353,7 +337,8 @@ public class AllMenuFragment extends BaseFragment implements
 
 
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             mainView.showError(e.getMessage());
             mainView.hideLoading();
@@ -371,7 +356,8 @@ public class AllMenuFragment extends BaseFragment implements
         {
             Logger.e("-OnError-", "Error: " + message);
             showError(getActivity(), "خطا در دریافت اطلاعات از سرور!");
-        } else
+        }
+        else
         {
             // showError(getApplicationContext(),String.valueOf(R.string.networkErrorMessage));
 
@@ -545,11 +531,11 @@ public class AllMenuFragment extends BaseFragment implements
     private void loadSubMenu(List<SubMenu> list)
     {
         rvGrid.setLayoutManager(new GridLayoutManager(getContext(), 3));
-        rvGrid.setAdapter(new ItemRecyclerViewAdapter(getContext(), list, this,getActivity()));//, interactionListener));
+        rvGrid.setAdapter(new ItemRecyclerViewAdapter(getContext(), list, this, getActivity()));//, interactionListener));
     }
 
     @Override
-    public void onChosenItemClickk(View view, Integer id, String URl,String baseUrl)
+    public void onChosenItemClickk(View view, Integer id, String URl, String baseUrl)
     {
 
 
@@ -565,15 +551,16 @@ public class AllMenuFragment extends BaseFragment implements
                 startActivityForResult(intent, 100);*/
 
 
-
                 if (baseUrl != null)
                 {
                     Utility.openUrlCustomTab(getActivity(), baseUrl);
-                }else{
+                }
+                else
+                {
                     Bundle headers = new Bundle();
-                    headers.putString("Authorization",Prefs.getString("accessToken",""));
+                    headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
-                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
                 }
 
 
@@ -635,19 +622,17 @@ public class AllMenuFragment extends BaseFragment implements
 */
 
 
-
-
-
                 if (baseUrl != null)
                 {
                     Utility.openUrlCustomTab(getActivity(), baseUrl);
-                }else{
-                    Bundle headers = new Bundle();
-                    headers.putString("Authorization",Prefs.getString("accessToken",""));
-
-                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
                 }
+                else
+                {
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
+                }
 
 
                 break;
@@ -688,11 +673,13 @@ public class AllMenuFragment extends BaseFragment implements
                 if (baseUrl != null)
                 {
                     Utility.openUrlCustomTab(getActivity(), baseUrl);
-                }else{
+                }
+                else
+                {
                     Bundle headers = new Bundle();
-                    headers.putString("Authorization",Prefs.getString("accessToken",""));
+                    headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
-                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
                 }
 
                 break;
@@ -731,15 +718,14 @@ public class AllMenuFragment extends BaseFragment implements
                 if (baseUrl != null)
                 {
                     Utility.openUrlCustomTab(getActivity(), baseUrl);
-                }else{
-                    Bundle headers = new Bundle();
-                    headers.putString("Authorization",Prefs.getString("accessToken",""));
-
-                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
                 }
+                else
+                {
+                    Bundle headers = new Bundle();
+                    headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
-
-
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
+                }
 
 
                 //mainView.onPackSimCard();
@@ -749,7 +735,7 @@ public class AllMenuFragment extends BaseFragment implements
 
             case 4:
             {
-                mainView.onBill("title",0,"");
+                mainView.onBill("title", 0, "");
                 break;
             }
 
@@ -779,27 +765,27 @@ public class AllMenuFragment extends BaseFragment implements
 
             case 61: //قبض برق
             {
-                mainView.onBill("قبض برق" ,2,"");
+                mainView.onBill("قبض برق", 2, "");
                 break;
             }
             case 62: //قبض آبفا
             {
-                mainView.onBill("قبض آبفا" ,1,"");
+                mainView.onBill("قبض آبفا", 1, "");
                 break;
             }
             case 63: //قبض گاز
             {
-                mainView.onBill("قبض گاز" ,3,"");
+                mainView.onBill("قبض گاز", 3, "");
                 break;
             }
             case 64: //قبض تلفن ثابت
             {
-                mainView.onBill("قبض تلفن ثابت" ,4,"");
+                mainView.onBill("قبض تلفن ثابت", 4, "");
                 break;
             }
             case 65: //قبض تلفن همراه
             {
-                mainView.onBill("قبض تلفن همراه" ,5,"");
+                mainView.onBill("قبض تلفن همراه", 5, "");
                 break;
             }
 
@@ -826,11 +812,13 @@ public class AllMenuFragment extends BaseFragment implements
                 if (baseUrl != null)
                 {
                     Utility.openUrlCustomTab(getActivity(), baseUrl);
-                }else{
+                }
+                else
+                {
                     Bundle headers = new Bundle();
-                    headers.putString("Authorization",Prefs.getString("accessToken",""));
+                    headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
-                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
                 }
 
 
@@ -843,11 +831,13 @@ public class AllMenuFragment extends BaseFragment implements
                 if (baseUrl != null)
                 {
                     Utility.openUrlCustomTab(getActivity(), baseUrl);
-                }else{
+                }
+                else
+                {
                     Bundle headers = new Bundle();
-                    headers.putString("Authorization",Prefs.getString("accessToken",""));
+                    headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
-                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
                 }
 
 
@@ -858,26 +848,33 @@ public class AllMenuFragment extends BaseFragment implements
                 if (baseUrl != null)
                 {
                     Utility.openUrlCustomTab(getActivity(), baseUrl);
-                }else{
+                }
+                else
+                {
                     Bundle headers = new Bundle();
-                    headers.putString("Authorization",Prefs.getString("accessToken",""));
+                    headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
-                    Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                    Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
                 }
                 break;
             }
             case 920: //  موتورسیکلت
             {
-               mainView.onBillMotor(1);
+                mainView.onBillMotor(1);
                 break;
             }
-
+            case 910: //  پخش زنده
+            {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(baseUrl));
+                startActivityForResult(intent, 100);
+                break;
+            }
             case 919: //  خودرو
             {
                 mainView.onBillCar(1);
                 break;
             }
-
             case 111: //  طرح ترافیک
             {
                 mainView.onBillTrafic(111);
@@ -912,9 +909,9 @@ public class AllMenuFragment extends BaseFragment implements
                         startActivityForResult(intent, 100);*/
 
                         Bundle headers = new Bundle();
-                        headers.putString("Authorization",Prefs.getString("accessToken",""));
+                        headers.putString("Authorization", Prefs.getString("accessToken", ""));
 
-                        Utility.openUrlCustomTabWithBundle(getActivity(), URl,headers);
+                        Utility.openUrlCustomTabWithBundle(getActivity(), URl, headers);
                     }
 
                     @Override

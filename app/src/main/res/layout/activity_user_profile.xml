@@ -155,6 +155,7 @@
                                             android:layout_height="match_parent"
                                             android:layout_gravity="center|right"
                                             android:orientation="horizontal">
+
                                             <ImageView
                                                 android:id="@+id/imgDeleteUser"
                                                 style="?android:attr/borderlessButtonStyle"
@@ -176,7 +177,6 @@
                                                 android:scaleType="center"
                                                 android:visibility="visible"
                                                 app:srcCompat="@drawable/ic_refresh" />
-
 
                                             <com.traap.traapapp.utilities.ClearableEditText
                                                 android:id="@+id/tvMobileEdit"
