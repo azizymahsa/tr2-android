@@ -115,6 +115,42 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
 
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState)
+    {
+        if (rootView != null)
+        {
+            rootView = null;
+        }
+
+        rootView = inflater.inflate(R.layout.fragment_payment_gateway, container, false);
+
+        listener = new MessageAlertDialog.OnConfirmListener()
+        {
+
+
+            @Override
+            public void onConfirmClick()
+            {
+                mainView.backToMainFragment();
+
+            }
+
+            @Override
+            public void onCancelClick()
+            {
+
+                //   mainView.backToMainFragment();
+            }
+        };
+        initView();
+        setContent();
+        addDataRecyclerList();
+
+        return rootView;
+    }
+
 
     public void initView()
     {
@@ -209,44 +245,6 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
             dialog.show(getActivity().getFragmentManager(), "dialog");*/
         }
     };
-
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
-        if (rootView != null)
-        {
-            rootView = null;
-        }
-
-        rootView = inflater.inflate(R.layout.fragment_payment_gateway, container, false);
-
-        listener = new MessageAlertDialog.OnConfirmListener()
-        {
-
-
-            @Override
-            public void onConfirmClick()
-            {
-                mainView.backToMainFragment();
-
-            }
-
-            @Override
-            public void onCancelClick()
-            {
-
-             //   mainView.backToMainFragment();
-            }
-        };
-        initView();
-        setContent();
-        addDataRecyclerList();
-
-        return rootView;
-    }
 
     private void addDataRecyclerList()
     {

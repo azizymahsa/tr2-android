@@ -8,5 +8,5 @@ public interface FavoriteCardParentActionView
 
     void startAddCardActivity();
 
-
+    void onEmptyCard();
 }
