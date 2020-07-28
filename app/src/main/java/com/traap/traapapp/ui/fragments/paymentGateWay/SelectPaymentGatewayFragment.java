@@ -1,8 +1,8 @@
 package com.traap.traapapp.ui.fragments.paymentGateWay;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,32 +18,32 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-
-import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
-
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
-import com.traap.traapapp.ui.activities.main.MainActivity;
+import com.traap.traapapp.models.otherModels.predict.PredictTabModel;
 import com.traap.traapapp.ui.adapters.paymentGateway.SelectPaymentAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.ui.fragments.payment.PaymentParentActionView;
-import com.traap.traapapp.ui.fragments.simcardCharge.ChargeFragment;
 import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
 import com.traap.traapapp.utilities.CustomViewPager;
+import com.traap.traapapp.utilities.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
 /**
  * Created by MahsaAzizi on 11/20/2019.
  */
 public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener, PaymentGateWayParentActionView
 {
-
+    private Context context;
+    private List<PredictTabModel> tabList;
     private static SelectPaymentGatewayFragment fragment;
     private PaymentMatchRequest paymentMatchRequest;
     private String url = "";
@@ -66,92 +66,98 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
     private int PAYMENT_STATUS;
     private SimPackPaymentInstance simPackPaymentInstance;
     private PaymentGateWayParentActionView pActionView;
-    private Integer idBill=0;
-
-    public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount, PaymentMatchRequest paymentMatchRequest)
-    {
-        this.url = url;
-        this.mainView = mainView;
-        this.imageDrawable = imageDrawable;
-        this.title = title;
-        this.amount = amount;
-        this.paymentMatchRequest = paymentMatchRequest;
-    }
-
-    public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount, int PAYMENT_STATUS)
-    {
-        this.url = url;
-        this.mainView = mainView;
-        this.imageDrawable = imageDrawable;
-        this.title = title;
-        this.amount = amount;
-        this.PAYMENT_STATUS = PAYMENT_STATUS;
-
-    }
+    private Integer idBill = 0;
 
     public SelectPaymentGatewayFragment()
     {
     }
 
-    public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount)
-    {
-        this.url = url;
-        this.mainView = mainView;
-        this.imageDrawable = imageDrawable;
-        this.title = title;
-        this.amount = amount;
+//    public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount, PaymentMatchRequest paymentMatchRequest)
+//    {
+//        this.url = url;
+//        this.mainView = mainView;
+//        this.imageDrawable = imageDrawable;
+//        this.title = title;
+//        this.amount = amount;
+//        this.paymentMatchRequest = paymentMatchRequest;
+//    }
 
-    }
+//    public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount, int PAYMENT_STATUS)
+//    {
+//        this.url = url;
+//        this.mainView = mainView;
+//        this.imageDrawable = imageDrawable;
+//        this.title = title;
+//        this.amount = amount;
+//        this.PAYMENT_STATUS = PAYMENT_STATUS;
+//
+//    }
 
- /*   public static SelectPaymentGatewayFragment newInstance(String urlPayment, MainActionView mainView, int imageDrawable, String title, String amount, SimChargePaymentInstance paymentInstance)
-    {
-        fragment = new SelectPaymentGatewayFragment();
-        fragment.setParentActionView(mainView);
-        Bundle args = new Bundle();
-        args.putString("url", urlPayment);
-        args.putString("amount", amount);
-        args.putInt("imageDrawable", imageDrawable);
-        args.putString("mobile", mobile);
-        args.putString("title", title);
-        args.putParcelable("paymentInstance", (Parcelable) paymentInstance);
+//    public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount)
+//    {
+//        this.url = url;
+//        this.mainView = mainView;
+//        this.imageDrawable = imageDrawable;
+//        this.title = title;
+//        this.amount = amount;
+//
+//    }
 
-        fragment.setArguments(args);
+//    public static SelectPaymentGatewayFragment newInstance(String urlPayment, MainActionView mainView, int imageDrawable, String title, String amount, SimChargePaymentInstance paymentInstance)
+//    {
+//        fragment = new SelectPaymentGatewayFragment();
+//        fragment.setParentActionView(mainView);
+//        Bundle args = new Bundle();
+//        args.putString("url", urlPayment);
+//        args.putString("amount", amount);
+//        args.putInt("imageDrawable", imageDrawable);
+//        args.putString("mobile", mobile);
+//        args.putString("title", title);
+//        args.putParcelable("paymentInstance", (Parcelable) paymentInstance);
+//
+//        fragment.setArguments(args);
+//
+//        return fragment;
+//    }
 
-        return fragment;
-    }*/
+//       public static Fragment newInstance(String url,MainActionView mainView, String amount, String title, int imageDrawable, SimChargePaymentInstance paymentInstance,String mobile)
+//       {
+//
+//
+//           SelectPaymentGatewayFragment fragment = new SelectPaymentGatewayFragment();
+//           fragment.setParentActionView(mainView);
+//
+//           Bundle args = new Bundle();
+//           args.putString("url", url);
+//           args.putString("amount", amount);
+//           args.putInt("imageDrawable", imageDrawable);
+//           args.putString("mobile", mobile);
+//           args.putString("title", title);
+//           args.putParcelable("paymentInstance", (Parcelable) paymentInstance);
+//
+//           fragment.setArguments(args);
+//
+//           return fragment;
+//
+//       }
 
-    /*   public static Fragment newInstance(String url,MainActionView mainView, String amount, String title, int imageDrawable, SimChargePaymentInstance paymentInstance,String mobile)
-       {
+///* public static <T, I extends PaymentParentActionView> PaymentFragment newInstance(I paymentParentActionView,
+//                                                                                  String price,
+//                                                                                  String title,
+//                                                                                  int imgLogo,
+//                                                                                  String mobile,
+//                                                                                  T response)
+// {
+//     PaymentFragment fragment = new PaymentFragment();
+//     fragment.setParentActionView(paymentParentActionView);
+//
+//     Bundle args = new Bundle();*/
 
-
-           SelectPaymentGatewayFragment fragment = new SelectPaymentGatewayFragment();
-           fragment.setParentActionView(mainView);
-
-           Bundle args = new Bundle();
-           args.putString("url", url);
-           args.putString("amount", amount);
-           args.putInt("imageDrawable", imageDrawable);
-           args.putString("mobile", mobile);
-           args.putString("title", title);
-           args.putParcelable("paymentInstance", (Parcelable) paymentInstance);
-
-           fragment.setArguments(args);
-
-           return fragment;
-
-       }
-   */
-/* public static <T, I extends PaymentParentActionView> PaymentFragment newInstance(I paymentParentActionView,
-                                                                                  String price,
-                                                                                  String title,
-                                                                                  int imgLogo,
-                                                                                  String mobile,
-                                                                                  T response)
- {
-     PaymentFragment fragment = new PaymentFragment();
-     fragment.setParentActionView(paymentParentActionView);
-
-     Bundle args = new Bundle();*/
+//    private void setMainView(MainActionView mainView, ArrayList<MatchItem> matchBuyable)
+//    {
+//        this.mainView = mainView;
+//        this.matchBuyable = matchBuyable;
+//    }
 
     public static <I extends PaymentGateWayParentActionView> SelectPaymentGatewayFragment newInstance(int PAYMENT_STATUS, OnClickContinueSelectPayment paymentParentActionView, String urlPayment, MainActionView mainView, int imageDrawable, String title, String amount, SimPackPaymentInstance paymentInstance, String mobile)
     {
@@ -201,7 +207,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         return fragment;
     }
 
-    public static Fragment newInstance(String url, MainActionView mainView, String textBillPayment, String number, Integer idSelectedBillType,String amount,int PAYMENT_STATUS)
+    public static Fragment newInstance(String url, MainActionView mainView, String textBillPayment, String number, Integer idSelectedBillType, String amount, int PAYMENT_STATUS)
     {
         SelectPaymentGatewayFragment fragment = new SelectPaymentGatewayFragment();
         fragment.setParentActionView(mainView);
@@ -216,17 +222,18 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
 
         fragment.setArguments(args);
 
-        return fragment;    }
+        return fragment;
+    }
 
     private void setIdBill(Integer idSelectedBillType)
     {
-        this.idBill=idSelectedBillType;
+        this.idBill = idSelectedBillType;
     }
 
 
     private void setParentActionView(MainActionView mainView)
     {
-        this.mainView=mainView;
+        this.mainView = mainView;
     }
 
     private void setStatus(int payment_status)
@@ -235,10 +242,6 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
 
     }
 
-    /* private void setParentActionView(MainActionView mainView)
-     {
-         this.mainView = mainView;
-     }*/
     private void setParentActionView(PaymentGateWayParentActionView pActionView, MainActionView mainView)
     {
         this.pActionView = pActionView;
@@ -246,20 +249,17 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
     }
 
     @Override
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
-        if (rootView != null)
-        {
-            rootView = null;
-        }
         if (getArguments() != null)
         {
             amount = getArguments().getString("amount");
@@ -269,21 +269,29 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
             url = getArguments().getString("url", "");
             simChargePaymentInstance = getArguments().getParcelable("paymentInstance");
             simPackPaymentInstance = getArguments().getParcelable("paymentPackInstance");
+        }
+    }
 
-
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        if (rootView != null)
+        {
+            rootView = null;
         }
 
-
         rootView = inflater.inflate(R.layout.select_payment_fragment, container, false);
+
         initView();
+
         if (PAYMENT_STATUS == 13)//در پرداخت کیف پول تب کیف پول باید غیر فعال باشد
         {
             tvWallet.setTextColor(getResources().getColor(R.color.gray));
         }
 
         setContent();
-        createTabLayout(amount, title, imageDrawable, mobile, simChargePaymentInstance, simPackPaymentInstance);
 
+        createTabLayout(amount, title, imageDrawable, mobile, simChargePaymentInstance, simPackPaymentInstance);
 
         return rootView;
     }
@@ -296,7 +304,8 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         if (imageDrawable == 0)
         {
             imgLogo.setVisibility(View.GONE);
-        } else
+        }
+        else
         {
             Picasso.with(getActivity()).load(imageDrawable).into(imgLogo);
         }
@@ -305,10 +314,20 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
     private void createTabLayout(String amount, String title, int imageDrawable, String mobile, SimChargePaymentInstance simChargePaymentInstance, SimPackPaymentInstance simPackPaymentInstance)
     {
         // define TabLayout
-        tabLayout.addTab(tabLayout.newTab().setText("درگاه بانکی"));
-        tabLayout.addTab(tabLayout.newTab().setText("کارت"));
-        tabLayout.addTab(tabLayout.newTab().setText("کیف پول"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+//        tabLayout.addTab(tabLayout.newTab().setText("درگاه پرداخت"));
+//        tabLayout.addTab(tabLayout.newTab().setText("کارت های شتابی"));
+//        tabLayout.addTab(tabLayout.newTab().setText("کیف پول"));
+//        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        tabList = new ArrayList<>(3);
+
+        PredictTabModel tabItem = new PredictTabModel(2, "درگاه پرداخت");
+        tabList.add(tabItem);
+        PredictTabModel tabItem2 = new PredictTabModel(1, "کارت های شتابی");
+        tabList.add(tabItem2);
+        PredictTabModel tabItem3 = new PredictTabModel(0, "کیف پول");
+        tabList.add(tabItem3);
+
 
 
        /* SimChargePaymentInstance paymentInstance = new SimChargePaymentInstance();
@@ -318,8 +337,8 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         paymentInstance.setTypeCharge(Integer.valueOf(1));*/
 
         final SelectPaymentAdapter adapter = new SelectPaymentAdapter
-                (getFragmentManager(), tabLayout.getTabCount(), mainView, amount, title, imageDrawable, mobile,
-                        url, this.simChargePaymentInstance, simPackPaymentInstance, PAYMENT_STATUS,idBill);
+                (context, getFragmentManager(), tabList, mainView, amount, title, imageDrawable, mobile,
+                        url, this.simChargePaymentInstance, simPackPaymentInstance, PAYMENT_STATUS, idBill);
 
         viewPager.setAdapter(adapter);
         //viewPager.beginFakeDrag();
@@ -327,13 +346,19 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setupWithViewPager(viewPager);
-    }
 
+        for (int i = 0; i < tabLayout.getTabCount(); i++)
+        {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            tab.setCustomView(adapter.getTabView(i));
+        }
+
+        viewPager.setCurrentItem(0);
+
+    }
 
     private void initView()
     {
-
-
         try
         {
             tvTitle = rootView.findViewById(R.id.tvTitle);
@@ -350,7 +375,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
             imgBack.setOnClickListener(v ->
             {
                 //getActivity().onBackPressed();
-                mainView.onBackToChargFragment(PAYMENT_STATUS,idBill);
+                mainView.onBackToChargFragment(PAYMENT_STATUS, idBill);
 
                 // pActionView.onPaymentCancelAndBack();
 
@@ -360,11 +385,10 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
             tvAmount = rootView.findViewById(R.id.tvAmount);
             tvTitlePay = rootView.findViewById(R.id.tvTitlePay);
             imgLogo = rootView.findViewById(R.id.imgLogo);
-
-
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
-            Log.e(getActivity().getPackageName(), e.getMessage());
+            Logger.e(getActivity().getPackageName(), e.getMessage());
         }
         tabLayout = rootView.findViewById(R.id.tab_layout);
         viewPager = rootView.findViewById(R.id.pager);
@@ -377,13 +401,6 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         tvGateway.setOnClickListener(this);
 
         mainView.hideLoading();
-
-    }
-
-    private void setMainView(MainActionView mainView, ArrayList<MatchItem> matchBuyable)
-    {
-        this.mainView = mainView;
-        this.matchBuyable = matchBuyable;
     }
 
     /**
@@ -428,8 +445,8 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
     {
         switch (v.getId())
         {
-
             case R.id.tvGateway:
+            {
                 viewPager.setCurrentItem(0, true);
                 tvGateway.setBackgroundResource(R.drawable.background_border_a);
                 tvWallet.setBackgroundColor(Color.TRANSPARENT);
@@ -439,7 +456,9 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
                 tvCardsShetab.setTextColor(getResources().getColor(R.color.gray));
 
                 break;
+            }
             case R.id.tvWallet:
+            {
                 if (tvWallet.getCurrentTextColor() == getResources().getColor(R.color.returnButtonColor))
                 {
                     viewPager.setCurrentItem(2, true);
@@ -451,16 +470,19 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
                     tvGateway.setTextColor(getResources().getColor(R.color.returnButtonColor));
                 }
                 break;
+            }
             case R.id.tvCardsShetab:
-               /* viewPager.setCurrentItem(1, true);
+            {
+                viewPager.setCurrentItem(1, true);
                 tvCardsShetab.setBackgroundResource(R.drawable.background_border_a);
                 tvWallet.setBackgroundColor(Color.TRANSPARENT);
                 tvGateway.setBackgroundColor(Color.TRANSPARENT);
 
                 tvGateway.setTextColor(getResources().getColor(R.color.returnButtonColor));
                 tvWallet.setTextColor(getResources().getColor(R.color.returnButtonColor));
-                tvCardsShetab.setTextColor(getResources().getColor(R.color.borderColorRed));*/
+                tvCardsShetab.setTextColor(getResources().getColor(R.color.borderColorRed));
                 break;
+            }
         }
     }
 

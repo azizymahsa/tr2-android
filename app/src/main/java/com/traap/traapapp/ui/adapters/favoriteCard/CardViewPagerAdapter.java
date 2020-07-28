@@ -62,14 +62,14 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
     {
         Result item = cardList.get(position);
 
-        if (position == 0)
-        {
-            holder.cvAddCard.setVisibility(View.VISIBLE);
-            holder.cvContent.setVisibility(View.INVISIBLE);
-            holder.rlBackView.setVisibility(View.INVISIBLE);
-        }
-        else
-        {
+//        if (position == 0)
+//        {
+//            holder.cvAddCard.setVisibility(View.VISIBLE);
+//            holder.cvContent.setVisibility(View.INVISIBLE);
+//            holder.rlBackView.setVisibility(View.INVISIBLE);
+//        }
+//        else
+//        {
             holder.cvAddCard.setVisibility(View.INVISIBLE);
             holder.cvContent.setVisibility(View.VISIBLE);
             holder.rlBackView.setVisibility(View.VISIBLE);
@@ -125,7 +125,7 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 //            }
 
 
-        }
+//        }
 
 
         holder.imgEdit.setOnClickListener(view ->
@@ -143,7 +143,6 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
         holder.imgDelete.setOnClickListener(view ->
         {
             actionView.onShowConfirmDeleteDialog(item, position);
-
         });
 
 
@@ -164,21 +163,21 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 //
 //        });
 
-        holder.cvContent.setOnClickListener(view ->
-        {
-            if (position != 0)
-            {
-                holder.myEasyFlipView.flipTheView();
-            }
-        });
+//        holder.cvContent.setOnClickListener(view ->
+//        {
+//            if (position != 0)
+//            {
+//                holder.myEasyFlipView.flipTheView();
+//            }
+//        });
 
-        holder.rlBackView.setOnClickListener(view ->
-        {
-            if (position != 0)
-            {
-                holder.myEasyFlipView.flipTheView();
-            }
-        });
+//        holder.rlBackView.setOnClickListener(view ->
+//        {
+//            if (position != 0)
+//            {
+//                holder.myEasyFlipView.flipTheView();
+//            }
+//        });
 
         holder.cvAddCard.setOnClickListener(view ->
         {

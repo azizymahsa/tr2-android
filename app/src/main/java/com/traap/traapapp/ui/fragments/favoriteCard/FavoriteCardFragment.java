@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -42,8 +43,8 @@ import com.traap.traapapp.ui.base.GoToActivity;
 import com.traap.traapapp.ui.dialogs.ChangePasswordDialog;
 import com.traap.traapapp.ui.dialogs.DialogDeleteCard;
 import com.traap.traapapp.ui.dialogs.DialogEditCard;
-import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
 import com.traap.traapapp.utilities.LinearLayoutManagerWithSmoothScroller;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Tools;
 
@@ -181,7 +182,7 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
     {
         parentView.showFavoriteCardParentLoading();
 
-        SingletonService.getInstance().getCardListService().getMenu(this);
+        SingletonService.getInstance().getCardListService().getCardList(this);
     }
 
     View.OnClickListener clickListener = view ->
@@ -199,7 +200,8 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
     @Override
     public void onReady(WebServiceClass<GetCardListResponse> response)
     {
-        try{
+        try
+        {
             parentView.hideFavoriteCardParentLoading();
 
             progress.setVisibility(View.GONE);
@@ -209,41 +211,58 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
             //fill adapter
             if (response.info.statusCode == 200)
             {
-                Result result = new Result();
-                result.setBankBin("");
-                cardList.add(result);
-                cardList.addAll(response.data.getResults());
-//            adapter = new CardViewPagerAdapter(cardList, this, this);
-                adapter.notifyDataSetChanged();
-
-                rvListCard.setAdapter(adapter);
-                indicator.attachToRecyclerView(rvListCard);
-
-                if (cardList.size() > 2)
+                if (response.data.getResults() != null)
                 {
-                    int favorittePos = 0;
-                    for (int i = 1 ; i <= response.data.getResults().size() ; i++)
+                    if (!response.data.getResults().isEmpty())
                     {
-                        if (response.data.getResults().get(i-1).getIsFavorite())
+//                Result result = new Result();
+//                result.setBankBin("");
+//                cardList.add(result);
+                        cardList.addAll(response.data.getResults());
+//            adapter = new CardViewPagerAdapter(cardList, this, this);
+                        adapter.notifyDataSetChanged();
+
+                        rvListCard.setAdapter(adapter);
+                        indicator.attachToRecyclerView(rvListCard);
+
+                        if (cardList.size() > 2)
                         {
-                            favorittePos = i;
+                            int favorittePos = 0;
+                            for (int i = 1; i <= response.data.getResults().size(); i++)
+                            {
+                                if (response.data.getResults().get(i - 1).getIsFavorite())
+                                {
+                                    favorittePos = i;
+                                }
+                            }
+                            rvListCard.smoothScrollToPosition(favorittePos == 0 ? 1 : favorittePos);
+                        }
+                        else
+                        {
+                            rvListCard.smoothScrollToPosition(1);
                         }
                     }
-                    rvListCard.smoothScrollToPosition(favorittePos == 0 ? 1 : favorittePos);
+                    else
+                    {
+                        parentView.onEmptyCard();
+                    }
                 }
                 else
                 {
-                    rvListCard.smoothScrollToPosition(1);
+                    parentView.onEmptyCard();
                 }
             }
             else
             {
-
+                parentView.onEmptyCard();
             }
 
-        }catch (Exception e){}
-
-
+        }
+        catch (Exception e)
+        {
+            parentView.onEmptyCard();
+            Logger.e("","message: " + e.getMessage());
+        }
     }
 
     @Override
@@ -255,15 +274,14 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
 
         if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
         {
-            showAlert(getActivity(), "خطای ارتباط با سرور!", R.string.error);
+            showAlert(getActivity(), "خطای جستجوی کارت از سرور!", R.string.error);
         }
         else
         {
             showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
         }
 
-
-
+        parentView.onEmptyCard();
     }
 
     @Override
@@ -361,7 +379,8 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
                     showToast(getActivity(), "کارت با موفقیت ویرایش و بروزرسانی شد.", R.color.green);
                     cardList.set(position, cardDetail);
                     adapter.notifyDataSetChanged();
-                }catch (Exception e){}
+                }
+                catch (Exception e){}
 
             }
 
@@ -371,7 +390,7 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
                 parentView.hideFavoriteCardParentLoading();
                 if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
                 {
-                    showAlert(getActivity(), "خطای ارتباط با سرور!", R.string.error);
+                    showAlert(getActivity(), "خطای دریافت اطلاعات کارت از سرور!", R.string.error);
                 }
                 else
                 {

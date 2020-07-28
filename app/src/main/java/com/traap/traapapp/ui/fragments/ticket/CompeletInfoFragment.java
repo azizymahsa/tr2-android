@@ -62,6 +62,7 @@ import com.traap.traapapp.apiServices.model.spectatorInfo.SpectatorInfoResponse;
 import com.traap.traapapp.apiServices.model.stadium_rules.ResponseStadiumRules;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
+import com.traap.traapapp.models.otherModels.predict.PredictTabModel;
 import com.traap.traapapp.models.otherModels.ticket.SpectatorInfoModel;
 import com.traap.traapapp.singleton.SingletonNeedGetAllBoxesRequest;
 import com.traap.traapapp.ui.activities.paymentResult.PaymentResultChargeActivity;
@@ -97,6 +98,7 @@ public class CompeletInfoFragment
     private Context context;
     private static final String KEY_MODEL = "KEY_MODEL";
     private View view;
+    List<PredictTabModel> tabList;
     private TextView txtCondition, tvBalance, tvDate;
     private View btnBackToDetail, btnPaymentConfirm;
     private int count = 1;
@@ -2649,10 +2651,19 @@ public class CompeletInfoFragment
     private void createTabLayout(String amount, String title, int imageDrawable, String mobile, SimChargePaymentInstance simChargePaymentInstance, SimPackPaymentInstance simPackPaymentInstance)
     {
         // define TabLayout
-        tabLayout.addTab(tabLayout.newTab().setText("درگاه بانکی"));
-        tabLayout.addTab(tabLayout.newTab().setText("کارت"));
-        tabLayout.addTab(tabLayout.newTab().setText("کیف پول"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+//        tabLayout.addTab(tabLayout.newTab().setText("درگاه بانکی"));
+//        tabLayout.addTab(tabLayout.newTab().setText("کارت"));
+//        tabLayout.addTab(tabLayout.newTab().setText("کیف پول"));
+//        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        tabList = new ArrayList<>(3);
+
+        PredictTabModel tabItem = new PredictTabModel(2, "درگاه پرداخت");
+        tabList.add(tabItem);
+        PredictTabModel tabItem2 = new PredictTabModel(1, "کارت های شتابی");
+        tabList.add(tabItem2);
+        PredictTabModel tabItem3 = new PredictTabModel(0, "کیف پول");
+        tabList.add(tabItem3);
 
 
        /* SimChargePaymentInstance paymentInstance = new SimChargePaymentInstance();
@@ -2662,7 +2673,7 @@ public class CompeletInfoFragment
         paymentInstance.setTypeCharge(Integer.valueOf(1));*/
 
         final SelectPaymentAdapter adapter = new SelectPaymentAdapter
-                (getFragmentManager(), tabLayout.getTabCount(), null, amount, title, imageDrawable, mobile,
+                (context, getFragmentManager(), tabList, null, amount, title, imageDrawable, mobile,
                         url, this.simChargePaymentInstance, simPackPaymentInstance, PAYMENT_STATUS,0);
 
         viewPager.setAdapter(adapter);

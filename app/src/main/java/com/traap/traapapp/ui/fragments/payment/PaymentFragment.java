@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Parcelable;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,8 +57,11 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     private Fragment cardFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
+    private TextView tvEmpty;
 
-    private TextView tvUserName, tvHeaderPopularNo;
+    private LinearLayout llContent;
+
+//    private TextView tvUserName, tvHeaderPopularNo;
 
     private Toolbar mToolbar;
 
@@ -356,6 +360,8 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
         buyPackage = new BuyPackageImpl();
         tvAmount = rootView.findViewById(R.id.tvAmount);
         tvTitle = rootView.findViewById(R.id.tvTitle);
+        tvEmpty = rootView.findViewById(R.id.tvEmpty);
+        llContent = rootView.findViewById(R.id.llContent);
         imgLogo = rootView.findViewById(R.id.imgLogo);
         btnBack = rootView.findViewById(R.id.btnBack);
         btnConfirmPayment = rootView.findViewById(R.id.btnBuy);
@@ -367,6 +373,10 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
         llPass = rootView.findViewById(R.id.llPass);
         llExpireDate = rootView.findViewById(R.id.llExpireDate);
         rlTitle = rootView.findViewById(R.id.rlTitle);
+
+        etCvv2.setFilters(new InputFilter[] { new InputFilter.LengthFilter(4) });
+        edtExpMound.setFilters(new InputFilter[] { new InputFilter.LengthFilter(2) });
+        edtExpYear.setFilters(new InputFilter[] { new InputFilter.LengthFilter(2) });
 
         btnBack.setOnClickListener(clickListener);
         btnConfirmPayment.setOnClickListener(clickListener);
@@ -541,6 +551,13 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     }
 
     @Override
+    public void onEmptyCard()
+    {
+        llContent.setVisibility(View.INVISIBLE);
+        tvEmpty.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void showPaymentParentLoading()
     {
         pActionView.showPaymentParentLoading();
@@ -625,16 +642,16 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     {
 
     }
-
-    @Subscribe
-    public void getHeaderContent(HeaderModel headerModel)
-    {
-        if (headerModel.getPopularNo() != 0)
-        {
-            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
-        }
-        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
-    }
+//
+//    @Subscribe
+//    public void getHeaderContent(HeaderModel headerModel)
+//    {
+//        if (headerModel.getPopularNo() != 0)
+//        {
+//            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
+//        }
+//        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+//    }
 
 
     @Override
