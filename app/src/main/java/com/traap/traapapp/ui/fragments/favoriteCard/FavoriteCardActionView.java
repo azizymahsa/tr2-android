@@ -2,7 +2,7 @@ package com.traap.traapapp.ui.fragments.favoriteCard;
 
 import android.view.View;
 
-import com.traap.traapapp.apiServices.model.card.Result;
+import com.traap.traapapp.apiServices.model.card.CardBankItem;
 import com.traap.traapapp.ui.base.GoToActivity;
 
 public interface FavoriteCardActionView
@@ -11,13 +11,13 @@ public interface FavoriteCardActionView
 
     void onSlideLeft();
 
-    void onShowEditDialog(Result result, int Position);
+    void onShowEditDialog(CardBankItem cardBankItem, int Position);
 
-    void onShowChangePasswordDialog(Result result, int Position);
+    void onShowChangePasswordDialog(CardBankItem cardBankItem, int Position);
 
-    void onShowConfirmDeleteDialog(Result result, int Position);
+    void onShowConfirmDeleteDialog(CardBankItem cardBankItem, int Position);
 
-    void onEditCard(Result cardDetail, int position);
+    void onEditCard(CardBankItem cardDetail, int position);
 
     void onDeleteCard(Integer cardId, int position);
 

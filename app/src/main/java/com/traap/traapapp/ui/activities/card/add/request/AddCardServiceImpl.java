@@ -6,7 +6,7 @@ import org.greenrobot.eventbus.EventBus;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.card.Result;
+import com.traap.traapapp.apiServices.model.card.CardBankItem;
 import com.traap.traapapp.apiServices.model.card.addCard.request.AddCardRequest;
 import com.traap.traapapp.models.otherModels.addCard.AddCardModel;
 
@@ -25,10 +25,10 @@ public class AddCardServiceImpl implements AddCardIntractor
         addCardRequest.setOrderList(1);
 
 
-        SingletonService.getInstance().addCardService().addCardService(addCardRequest, new OnServiceStatus<WebServiceClass<Result>>()
+        SingletonService.getInstance().addCardService().addCardService(addCardRequest, new OnServiceStatus<WebServiceClass<CardBankItem>>()
         {
             @Override
-            public void onReady(WebServiceClass<Result> responseBody)
+            public void onReady(WebServiceClass<CardBankItem> responseBody)
             {
                 try
                 {

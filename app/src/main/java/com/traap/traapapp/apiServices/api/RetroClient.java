@@ -22,7 +22,7 @@ import com.traap.traapapp.apiServices.model.buyPackage.request.BuyPackageWalletR
 import com.traap.traapapp.apiServices.model.buyPackage.request.PackageBuyRequest;
 import com.traap.traapapp.apiServices.model.buyPackage.response.BuyPackageWalletResponse;
 import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
-import com.traap.traapapp.apiServices.model.card.Result;
+import com.traap.traapapp.apiServices.model.card.CardBankItem;
 import com.traap.traapapp.apiServices.model.card.addCard.request.AddCardRequest;
 import com.traap.traapapp.apiServices.model.card.editCard.request.EditCardRequest;
 import com.traap.traapapp.apiServices.model.card.getCardList.GetCardListResponse;
@@ -452,7 +452,7 @@ public interface RetroClient
 
 
     @POST(Const.AddCard)
-    Single<Response<WebServiceClass<Result>>> addCard(
+    Single<Response<WebServiceClass<CardBankItem>>> addCard(
             @Body AddCardRequest request
     );
 
@@ -464,7 +464,7 @@ public interface RetroClient
 
 
     @PUT(Const.EditCard + "{id}/")
-    Single<Response<WebServiceClass<Result>>> editCard(
+    Single<Response<WebServiceClass<CardBankItem>>> editCard(
             @Path("id") Integer cardId,
             @Body EditCardRequest request
     );

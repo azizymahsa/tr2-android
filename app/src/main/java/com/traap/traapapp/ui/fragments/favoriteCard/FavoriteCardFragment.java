@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -31,9 +30,9 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.card.CardBankItem;
 import com.traap.traapapp.apiServices.model.card.editCard.request.EditCardRequest;
 import com.traap.traapapp.apiServices.model.card.getCardList.GetCardListResponse;
-import com.traap.traapapp.apiServices.model.card.Result;
 import com.traap.traapapp.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
 import com.traap.traapapp.apiServices.model.shetacForgotPass2.request.ShetacForgotPass2Request;
 import com.traap.traapapp.models.otherModels.addCard.AddCardModel;
@@ -65,7 +64,7 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
 
     private FavoriteCardParentActionView parentView;
 
-    private List<Result> cardList = new ArrayList<>();;
+    private List<CardBankItem> cardList = new ArrayList<>();;
 
     public FavoriteCardFragment()
     {
@@ -211,14 +210,14 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
             //fill adapter
             if (response.info.statusCode == 200)
             {
-                if (response.data.getResults() != null)
+                if (response.data.getCardBankItems() != null)
                 {
-                    if (!response.data.getResults().isEmpty())
+                    if (!response.data.getCardBankItems().isEmpty())
                     {
 //                Result result = new Result();
 //                result.setBankBin("");
 //                cardList.add(result);
-                        cardList.addAll(response.data.getResults());
+                        cardList.addAll(response.data.getCardBankItems());
 //            adapter = new CardViewPagerAdapter(cardList, this, this);
                         adapter.notifyDataSetChanged();
 
@@ -228,9 +227,9 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
                         if (cardList.size() > 2)
                         {
                             int favorittePos = 0;
-                            for (int i = 1; i <= response.data.getResults().size(); i++)
+                            for (int i = 1; i <= response.data.getCardBankItems().size(); i++)
                             {
-                                if (response.data.getResults().get(i - 1).getIsFavorite())
+                                if (response.data.getCardBankItems().get(i - 1).getIsFavorite())
                                 {
                                     favorittePos = i;
                                 }
@@ -326,28 +325,28 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
     }
 
     @Override
-    public void onShowEditDialog(Result result, int position)
+    public void onShowEditDialog(CardBankItem cardBankItem, int position)
     {
-        DialogEditCard editCardDialog = new DialogEditCard(getActivity(), result, this, position);
+        DialogEditCard editCardDialog = new DialogEditCard(getActivity(), cardBankItem, this, position);
         editCardDialog.show(getActivity().getSupportFragmentManager(), "editCard");
     }
 
     @Override
-    public void onShowChangePasswordDialog(Result result, int Position)
+    public void onShowChangePasswordDialog(CardBankItem cardBankItem, int Position)
     {
-        ChangePasswordDialog dialog = new ChangePasswordDialog(getActivity(), this, result);
+        ChangePasswordDialog dialog = new ChangePasswordDialog(getActivity(), this, cardBankItem);
         dialog.show(getActivity().getSupportFragmentManager(), "changePasswordDialog");
     }
 
     @Override
-    public void onShowConfirmDeleteDialog(Result result, int position)
+    public void onShowConfirmDeleteDialog(CardBankItem cardBankItem, int position)
     {
-        new DialogDeleteCard(getActivity(), "آیا از حذف کارت " + result.getCardNumber() + " اطمینان دارید؟",
-                this, result.getCardId(), position).show(getActivity().getSupportFragmentManager(), "deleteCard");
+        new DialogDeleteCard(getActivity(), "آیا از حذف کارت " + cardBankItem.getCardNumber() + " اطمینان دارید؟",
+                this, cardBankItem.getCardId(), position).show(getActivity().getSupportFragmentManager(), "deleteCard");
     }
 
     @Override
-    public void onEditCard(Result cardDetail, int position)
+    public void onEditCard(CardBankItem cardDetail, int position)
     {
         parentView.showFavoriteCardParentLoading();
 
@@ -357,10 +356,10 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
         request.setIsMainCard(false);
         request.setOrderList(2);
 
-        SingletonService.getInstance().editCardService().editCardService(cardDetail.getCardId(), request, new OnServiceStatus<WebServiceClass<Result>>()
+        SingletonService.getInstance().editCardService().editCardService(cardDetail.getCardId(), request, new OnServiceStatus<WebServiceClass<CardBankItem>>()
         {
             @Override
-            public void onReady(WebServiceClass<Result> response)
+            public void onReady(WebServiceClass<CardBankItem> response)
             {
                 try{
                     parentView.hideFavoriteCardParentLoading();

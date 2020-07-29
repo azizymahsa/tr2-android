@@ -24,7 +24,6 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
@@ -35,10 +34,9 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
-import com.traap.traapapp.apiServices.model.card.Result;
+import com.traap.traapapp.apiServices.model.card.CardBankItem;
 import com.traap.traapapp.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import com.traap.traapapp.conf.TrapConfig;
-import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.TicketPaymentInstance;
@@ -49,7 +47,6 @@ import com.traap.traapapp.ui.fragments.favoriteCard.FavoriteCardParentActionView
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.irancell.IrancellBuyImpl;
 import com.traap.traapapp.ui.fragments.simcardPack.imp.BuyPackageImpl;
 import com.traap.traapapp.utilities.ClearableEditText;
-import com.traap.traapapp.utilities.Tools;
 
 public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseFragment implements FavoriteCardParentActionView,
         PaymentParentActionView, PaymentActionView
@@ -65,7 +62,7 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
 
     private Toolbar mToolbar;
 
-    private Result mCard;
+    private CardBankItem mCard;
 
     private TextView tvAmount, tvTitle;
     private ImageView imgLogo;
@@ -264,7 +261,7 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     {
         super.onCreate(savedInstanceState);
 
-        mCard = new Result();
+        mCard = new CardBankItem();
 
         if (getArguments() != null)
         {
@@ -446,7 +443,7 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onGetCardDetails(Result card)
+    public void onGetCardDetails(CardBankItem card)
     {
         mCard = card;
         if (mCard.getBankBin().equals(""))
