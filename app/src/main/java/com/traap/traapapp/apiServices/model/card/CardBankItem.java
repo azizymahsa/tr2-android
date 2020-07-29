@@ -8,7 +8,7 @@ import javax.annotation.Nullable;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Result
+public class CardBankItem
 {
     @SerializedName("id")
     @Expose @Getter @Setter

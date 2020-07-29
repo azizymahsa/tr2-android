@@ -78,6 +78,7 @@ import com.traap.traapapp.ui.fragments.barcodeReader.QrCodeReader;
 import com.traap.traapapp.ui.fragments.billCarAndMotor.PayBillCarMotorFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.billTollAndTraficPlan.PayTollTraficPlanFragment;
+import com.traap.traapapp.ui.fragments.cardManagement.CardManagementFragment;
 import com.traap.traapapp.ui.fragments.charity.CharityFragment;
 import com.traap.traapapp.ui.fragments.competitions.CompationsFragment;
 import com.traap.traapapp.ui.fragments.competitions.QuestionCompationFragment;
@@ -807,6 +808,9 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             {
 //                showToast(this, "مدیریت کارت ها", R.color.green);
                 isMainFragment = false;
+
+                setFragment(CardManagementFragment.newInstance(this));
+                replaceFragment(getFragment(), "CardManagementFragment");
 
                 break;
             }

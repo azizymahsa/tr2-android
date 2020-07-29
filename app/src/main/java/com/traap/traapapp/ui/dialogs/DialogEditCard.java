@@ -22,10 +22,9 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import com.traap.traapapp.R;
-import com.traap.traapapp.apiServices.model.card.Result;
+import com.traap.traapapp.apiServices.model.card.CardBankItem;
 import com.traap.traapapp.ui.fragments.favoriteCard.FavoriteCardActionView;
 import com.traap.traapapp.utilities.Logger;
-import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
 /**
@@ -38,7 +37,7 @@ public class DialogEditCard extends DialogFragment implements View.OnClickListen
     private Dialog dialog;
     private TextInputLayout etLayoutCardNameEdit, etLayoutNumberCardEdit;
     private EditText etCardNameEdit, etNumberCardEdit;
-    private Result item;
+    private CardBankItem item;
 //    private LottieAnimationView lottieViewEdit;
     private CircularProgressButton btnConfirmEdit, btnCancelEdit;
     private FavoriteCardActionView mainView;
@@ -50,7 +49,7 @@ public class DialogEditCard extends DialogFragment implements View.OnClickListen
     private TextView tvTitle;
     private String title;
 
-    public DialogEditCard(Context context, Result item, FavoriteCardActionView mainView, int position)
+    public DialogEditCard(Context context, CardBankItem item, FavoriteCardActionView mainView, int position)
     {
         this.context = context;
         this.item = item;
