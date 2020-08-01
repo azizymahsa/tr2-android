@@ -153,4 +153,6 @@ public interface MainActionView extends BaseView
     void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId, String name, String imageURL);
 
     void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId, String name, String imageURL);
+
+    void onCardManagement();
 }

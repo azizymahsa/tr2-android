@@ -17,12 +17,7 @@ public class EditCardRequest
     @Expose @Getter @Setter
     private String fullName;
 
-    @SerializedName("order_list")
+    @SerializedName("is_favorite")
     @Expose @Getter @Setter
-    private Integer orderList;
-
-    @SerializedName("is_main_card")
-    @Expose @Getter @Setter
-    private Boolean isMainCard = false;
-
+    private Boolean isFavorite;
 }

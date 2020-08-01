@@ -21,7 +21,11 @@ public class CardBankItem
     @SerializedName("card_number")
     @Expose @Getter @Setter
     private String cardNumber;
-    
+
+    @SerializedName("bank_logo")
+    @Expose @Getter @Setter
+    private String bankLogo;
+
     @SerializedName("full_name")
     @Expose @Getter @Setter
     private String fullName;

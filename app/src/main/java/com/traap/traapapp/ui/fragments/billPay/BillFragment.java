@@ -1467,6 +1467,12 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
     }
 
+    @Override
+    public void onCardManagement()
+    {
+
+    }
+
 
     @Override
     public void onBill(String title,Integer idBillType,String barcode)
