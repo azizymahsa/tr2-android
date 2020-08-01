@@ -353,8 +353,6 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
         EditCardRequest request = new EditCardRequest();
         request.setCardNumber(cardDetail.getCardNumber());
         request.setFullName(cardDetail.getFullName());
-        request.setIsMainCard(false);
-        request.setOrderList(2);
 
         SingletonService.getInstance().editCardService().editCardService(cardDetail.getCardId(), request, new OnServiceStatus<WebServiceClass<CardBankItem>>()
         {

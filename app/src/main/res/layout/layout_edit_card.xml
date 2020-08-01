@@ -71,7 +71,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/textColorSecondary"
-                        android:digits="0,1,2,3,4,5,6,7,8,9,-"
+                        android:digits="0,1,2,3,4,5,6,7,8,9,-,*"
                         android:gravity="right|center"
                         android:imeOptions="actionNext"
                         android:inputType="number"

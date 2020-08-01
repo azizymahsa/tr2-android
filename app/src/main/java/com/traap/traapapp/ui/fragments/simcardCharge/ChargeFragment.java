@@ -2182,6 +2182,12 @@ public class ChargeFragment extends BaseFragment
 
     }
 
+    @Override
+    public void onCardManagement()
+    {
+
+    }
+
 
     private void closeAutoComplete()
     {

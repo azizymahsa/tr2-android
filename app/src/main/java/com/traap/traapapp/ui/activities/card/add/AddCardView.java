@@ -8,9 +8,6 @@ import com.traap.traapapp.ui.base.BaseView;
  */
 public interface AddCardView extends BaseView
 {
-    void getData();
     void onSuccess(String message);
     void onError(String message);
-    void onFinish(int code);
-
 }

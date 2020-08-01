@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -42,17 +45,22 @@ import com.traap.traapapp.utilities.KeyboardUtils;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.NestedScrollableViewHelper;
 import com.traap.traapapp.utilities.Tools;
+import com.traap.traapapp.utilities.Utility;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import kotlin.Unit;
 
 
-public class CardManagementFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<GetCardListResponse>>
+public class CardManagementFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<GetCardListResponse>>,
+        CardManagementAdapter.onCardActionListener
 {
     private CompositeDisposable disposable;
 
@@ -76,6 +84,7 @@ public class CardManagementFragment extends BaseFragment implements OnServiceSta
     private View rootView;
 
     private MainActionView mainView;
+    private CardBankItem selectedCardBankItem = null;
 
     public CardManagementFragment()
     {
@@ -245,7 +254,7 @@ public class CardManagementFragment extends BaseFragment implements OnServiceSta
             hideKeyboard((Activity) context);
 
             slidingUpPanelLayout = rootView.findViewById(R.id.slidingLayout);
-            slidingUpPanelLayout.setScrollableViewHelper(new NestedScrollableViewHelper());
+//            slidingUpPanelLayout.setScrollableViewHelper(new NestedScrollableViewHelper());
 
             layEditCard = rootView.findViewById(R.id.layEditCard);
             layFunctionCard = rootView.findViewById(R.id.layFunctionCard);
@@ -270,50 +279,129 @@ public class CardManagementFragment extends BaseFragment implements OnServiceSta
             layFunctionCard.setVisibility(View.GONE);
             layEditCard.setVisibility(View.GONE);
 
+//            slidingUpPanelLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener()
+//            {
+//                @Override
+//                public void onPanelSlide(View panel, float slideOffset) { }
+//
+//                @Override
+//                public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState)
+//                {
+//                    if (previousState != SlidingUpPanelLayout.PanelState.COLLAPSED)
+//                    {
+//                        new Handler().postDelayed(() ->
+//                        {
+//                            layFunctionCard.setVisibility(View.GONE);
+//                            layEditCard.setVisibility(View.GONE);
+//
+//                        }, 250);
+//
+//                    }
+//                }
+//            });
+
+            disposable.add(RxView.clicks(btnCancelEdit)
+                    .mergeWith(RxView.clicks(imgCloseEditCard))
+                    .mergeWith(RxView.clicks(imgCloseFunction))
+                    .subscribe(unit -> slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED))
+            );
+
             disposable.add(RxView.clicks(btnConfirmEdit).map(unit -> "btnConfirmEdit")
-                    .mergeWith(RxView.clicks(btnCancelEdit).map(unit -> "btnCancelEdit"))
+//                    .mergeWith(RxView.clicks(btnCancelEdit).map(unit -> "btnCancelEdit"))
+//                    .mergeWith(RxView.clicks(imgCloseEditCard).map(unit -> "imgCloseEditCard"))
+//                    .mergeWith(RxView.clicks(imgCloseFunction).map(unit -> "imgCloseFunction"))
                     .mergeWith(RxView.clicks(btnDeleteCard).map(unit -> "btnDeleteCard"))
                     .mergeWith(RxView.clicks(btnEditCard).map(unit -> "btnEditCard"))
                     .mergeWith(RxView.clicks(btnDefaultCard).map(unit -> "btnDefaultCard"))
                     .mergeWith(RxView.clicks(btnAdd).map(unit -> "btnAdd"))
-                    .throttleFirst(200, TimeUnit.MILLISECONDS)
                     .subscribe(tagButton ->
                     {
                         switch (tagButton)
                         {
                             case "btnConfirmEdit":
                             {
-                                KeyboardUtils.forceCloseKeyboard(btnConfirmEdit);
+                                KeyboardUtils.forceCloseKeyboard(rootView);
+                                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                                new Handler().postDelayed(() ->
+                                {
+                                    layFunctionCard.setVisibility(View.GONE);
+                                    layEditCard.setVisibility(View.GONE);
 
+                                }, 200);
+
+                                if (setErrorEditCard())
+                                {
+
+                                }
                                 break;
                             }
-                            case "btnCancelEdit":
-                            {
-                                KeyboardUtils.forceCloseKeyboard(btnCancelEdit);
-
-                                break;
-                            }
+//                            case "imgCloseFunction":
+//                            case "imgCloseEditCard":
+//                            case "btnCancelEdit":
+//                            {
+////                                KeyboardUtils.forceCloseKeyboard(btnCancelEdit);
+//                                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+//                                new Handler().postDelayed(() ->
+//                                {
+//                                    layFunctionCard.setVisibility(View.GONE);
+//                                    layEditCard.setVisibility(View.GONE);
+//
+//                                }, 250);
+//
+//                                selectedCardBankItem = null;
+//                                break;
+//                            }
                             case "btnDeleteCard":
                             {
-                                KeyboardUtils.forceCloseKeyboard(btnDeleteCard);
+//                                KeyboardUtils.forceCloseKeyboard(btnDeleteCard);
+                                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                                new Handler().postDelayed(() ->
+                                {
+                                    layFunctionCard.setVisibility(View.GONE);
+                                    layEditCard.setVisibility(View.GONE);
+
+                                }, 200);
 
                                 break;
                             }
                             case "btnEditCard":
                             {
-                                KeyboardUtils.forceCloseKeyboard(btnEditCard);
+//                                KeyboardUtils.forceCloseKeyboard(btnEditCard);
+                                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                                new Handler().postDelayed(() ->
+                                {
+                                    layFunctionCard.setVisibility(View.GONE);
+                                    layEditCard.setVisibility(View.VISIBLE);
+
+                                }, 200);
+
+                                edtNumberCardEdit.setText(selectedCardBankItem.getCardNumber());
+                                edtFullName.setText(selectedCardBankItem.getFullName());
+
+                                new Handler().postDelayed(() -> slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED), 200);
+
+
+//                                edtExpMound.setText(selectedCardBankItem.get());
+//                                edtExpYear.setText(selectedCardBankItem.get());
 
                                 break;
                             }
                             case "btnDefaultCard":
                             {
-                                KeyboardUtils.forceCloseKeyboard(btnDefaultCard);
+//                                KeyboardUtils.forceCloseKeyboard(btnDefaultCard);
+                                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                                new Handler().postDelayed(() ->
+                                {
+                                    layFunctionCard.setVisibility(View.GONE);
+                                    layEditCard.setVisibility(View.GONE);
 
+                                }, 250);
                                 break;
                             }
                             case "btnAdd":
                             {
-                                startActivityForResult(new Intent(context, AddCardActivity.class), 1400);
+//                                startActivityForResult(new Intent(context, AddCardActivity.class), 1400);
+                                startActivity(new Intent(context, AddCardActivity.class));
                                 break;
                             }
                         }
@@ -368,6 +456,14 @@ public class CardManagementFragment extends BaseFragment implements OnServiceSta
             slidingUpPanelLayout.setFadeOnClickListener(v ->
             {
                 slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                new Handler().postDelayed(() ->
+                {
+                    layFunctionCard.setVisibility(View.GONE);
+                    layEditCard.setVisibility(View.GONE);
+
+                }, 200);
+
+                selectedCardBankItem = null;
             });
 
         }
@@ -376,6 +472,44 @@ public class CardManagementFragment extends BaseFragment implements OnServiceSta
             Logger.e("-Exception-", "message: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    private boolean setErrorEditCard()
+    {
+        boolean err = true;
+        String message = "";
+        if (edtNumberCardEdit.getText().toString().replaceAll("-", "").length() != 16)
+        {
+            message = message + "شماره کارت نامعتبر است." + '\n';
+            err = false;
+        }
+        else if (edtNumberCardEdit.getText().toString().replaceAll("-", "").contains("*"))
+        {
+            message = message + "شماره کارت صحیح نمی باشد." + '\n';
+            err = false;
+        }
+        else if (!Utility.CheckCartDigit(edtNumberCardEdit.getText().toString().replaceAll("-", "").trim()))
+        {
+            message = message + "شماره کارت صحیح نمی باشد." + '\n';
+            err = false;
+        }
+        if (TextUtils.isEmpty(edtFullName.getText().toString()))
+        {
+            message = message + "نام و نام خانوادگی نمیتواند خالی باشد." + '\n';
+            err = false;
+        }
+        else if (edtFullName.getText().toString().length() < 2 || Utility.containsNumber(edtFullName.getText().toString()))
+        {
+            message = message + "نام و نام خانوادگی نامعتبر است." + '\n';
+            err = false;
+        }
+
+        if (!err)
+        {
+            showError(context, message);
+        }
+
+        return err;
     }
 
     private void getData(boolean isFiltered)
@@ -465,6 +599,17 @@ public class CardManagementFragment extends BaseFragment implements OnServiceSta
         tvUserName.setText(TrapConfig.HEADER_USER_NAME);
     }
 
+    @Subscribe
+    public void addCard(CardBankItem cardBankItem)
+    {
+        if (cardBankList == null)
+        {
+            cardBankList = new ArrayList<>();
+        }
+        cardBankList.add(cardBankItem);
+        adapter = new CardManagementAdapter(cardBankList, this);
+        rcCardList.setAdapter(adapter);
+    }
 
     @Override
     public void onReady(WebServiceClass<GetCardListResponse> response)
@@ -482,7 +627,7 @@ public class CardManagementFragment extends BaseFragment implements OnServiceSta
                 if (!response.data.getCardBankItems().isEmpty())
                 {
                     cardBankList = response.data.getCardBankItems();
-                    adapter = new CardManagementAdapter(cardBankList);
+                    adapter = new CardManagementAdapter(cardBankList, this);
                     rcCardList.setAdapter(adapter);
                 }
             }
@@ -511,12 +656,29 @@ public class CardManagementFragment extends BaseFragment implements OnServiceSta
     }
 
     @Override
+    public void onMenuItemClick(int position, CardBankItem cardBankItem)
+    {
+        layFunctionCard.setVisibility(View.VISIBLE);
+        layEditCard.setVisibility(View.GONE);
+        selectedCardBankItem = cardBankItem;
+        new Handler().postDelayed(() -> slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED), 200);
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1400 && resultCode == Activity.RESULT_OK)
         {
-
+            Gson gson = new Gson();
+            CardBankItem cardBankItem = gson.fromJson(data.getStringExtra("CardBankItem"), CardBankItem.class);
+            if (cardBankList == null)
+            {
+                cardBankList = new ArrayList<>();
+            }
+            cardBankList.add(cardBankItem);
+            adapter = new CardManagementAdapter(cardBankList, this);
+            rcCardList.setAdapter(adapter);
         }
     }
 
@@ -534,5 +696,4 @@ public class CardManagementFragment extends BaseFragment implements OnServiceSta
         EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
-
 }

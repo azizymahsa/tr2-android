@@ -641,12 +641,11 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                         SingletonLastPredictItem.getInstance().getIsFormationPredict()
                 );
             }
-            else if (getFragment() instanceof SelectPaymentGatewayFragment)
+            else if (fragmentList.get(fragmentList.size() - 2) instanceof SelectPaymentGatewayFragment)
             {
-                fragmentList.remove(fragmentList.size() - 1); //remove SelectPaymentGatewayFragment
-                fragmentList.remove(fragmentList.size() - 1); //remove ChargeFragment and add it again.
+                fragmentList.remove(fragmentList.size() - 1); //remove current to remove SelectPaymentGatewayFragment after back pressed.
 
-                onBackToChargFragment(Prefs.getInt("PAYMENT_STATUS", PAYMENT_STATUS), Prefs.getInt("ID_BILL", 0));
+                backToParentFragment();
             }
             else if (getFragment() instanceof ChargeFragment && backState == 2 || getFragment() instanceof PackFragment && backState == 2)
             {
@@ -807,10 +806,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             case 85: //مدیریت کارت ها
             {
 //                showToast(this, "مدیریت کارت ها", R.color.green);
-                isMainFragment = false;
-
-                setFragment(CardManagementFragment.newInstance(this));
-                replaceFragment(getFragment(), "CardManagementFragment");
+                onCardManagement();
 
                 break;
             }
@@ -1102,6 +1098,15 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     {
         setFragment(PlayerEvaluationResultFragment.newInstance(this, matchId, playerId, name, imageURL));
         replaceFragment(getFragment(), "PlayerEvaluationResultFragment");
+    }
+
+    @Override
+    public void onCardManagement()
+    {
+        isMainFragment = false;
+
+        setFragment(CardManagementFragment.newInstance(this));
+        replaceFragment(getFragment(), "CardManagementFragment");
     }
 
     public void onPackSimCard(Integer status)

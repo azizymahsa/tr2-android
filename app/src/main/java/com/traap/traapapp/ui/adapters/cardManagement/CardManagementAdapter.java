@@ -1,6 +1,7 @@
 package com.traap.traapapp.ui.adapters.cardManagement;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.card.CardBankItem;
 import com.traap.traapapp.singleton.SingletonContext;
+import com.traap.traapapp.ui.adapters.favoriteCard.CardViewPagerAdapter;
 import com.traap.traapapp.utilities.Utility;
 
 import java.util.List;
@@ -27,17 +31,10 @@ public class CardManagementAdapter extends RecyclerView.Adapter<CardManagementAd
     private List<CardBankItem> cardBankList;
     private Context context;
 
-    public CardManagementAdapter(List<CardBankItem> cardBankList)
+    public CardManagementAdapter(List<CardBankItem> cardBankList, onCardActionListener listener)
     {
-        for (int i = 0; i < cardBankList.size(); i++)
-        {
-//            if (cardBankList.get(i).getPic() == 100)
-//            {
-//                cardBankList.remove(i);
-//            }
-        }
         this.cardBankList = cardBankList;
-//        this.archiveView = archiveView;
+        this.listener = listener;
     }
 
     @NonNull
@@ -45,46 +42,57 @@ public class CardManagementAdapter extends RecyclerView.Adapter<CardManagementAd
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         context = parent.getContext();
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.adapter_card_bank, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_card_bank, parent, false);
+
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position)
     {
+        CardBankItem item = cardBankList.get(position);
 
 
-//        holder.llLayout.startAnimation(AnimationUtils.loadAnimation(SingletonContext.getInstance().getContext(), R.anim.scale_up_fast));
+        holder.tvName.setText(item.getFullName());
 
-//        holder.tvName.setText(cardBankList.get(position).getfullName());
-
-//        holder.tvNumber.setText(Utility.cardFormat(cardBankList.get(position).getNumber()));
+        holder.tvNumber.setText(Utility.cardFormat(item.getCardNumber()));
 
 //        String cardNumberCheck = cardBankList.get(position).getNumber().substring(0, 6);
 
-//        holder.llLayout.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View view)
-//            {
-////                archiveView.showDialogs(position, cardNumberCheck.equals("003825") || cardNumberCheck.equals("003725"), cardBankList.get(position).isMainCard());
-//            }
-//        });
+        try
+        {
+            if (item.getIsFavorite())
+            {
+                holder.imgBookmark.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                holder.imgBookmark.setVisibility(View.GONE);
+            }
+        }
+        catch (NullPointerException e)
+        {
+            holder.imgBookmark.setVisibility(View.GONE);
+        }
 
-//        if (cardBankList.get(position).isFavorite())
-//        {
-//            holder.lottieView.setMinFrame(1);
-//            holder.lottieView.setVisibility(View.VISIBLE);
-//
-//        } else
-//        {
-//            holder.lottieView.setVisibility(View.GONE);
-//
-//
-//        }
-//        GlideApp.with(SingletonContext.getInstance().getContext()).load(archiveCardDBModels.get(position).getImageLogo()).into(holder.ivBankLogo);
+        loadImageIntoIV(item.getBankLogo(), holder.imgBankLogo);
 
+        holder.imgMenu.setOnClickListener(view -> listener.onMenuItemClick(position, item));
+    }
+
+    private void loadImageIntoIV(String link, ImageView imageView)
+    {
+        Picasso.with(context).load(link).into(imageView, new Callback()
+        {
+            @Override
+            public void onSuccess() { }
+
+            @Override
+            public void onError()
+            {
+                Picasso.with(context).load(R.drawable.img_failure).into(imageView);
+            }
+        });
     }
 
     @Override
@@ -95,20 +103,17 @@ public class CardManagementAdapter extends RecyclerView.Adapter<CardManagementAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder
     {
-//        TextView tvName, tvNumber;
-//        LinearLayout llLayout;
-//        LottieAnimationView lottieView;
-//        ImageView ivBankLogo;
+        private TextView tvName, tvNumber;
+        private ImageView imgBankLogo, imgBookmark, imgMenu;
 
         private MyViewHolder(View convertView)
         {
             super(convertView);
-//            tvName = (TextView) convertView.findViewById(R.id.tvName);
-//            tvNumber = (TextView) convertView.findViewById(R.id.tvNumber);
-//            llLayout = (LinearLayout) convertView.findViewById(R.id.llLayout);
-//            lottieView = (LottieAnimationView) convertView.findViewById(R.id.lottieView);
-//            ivBankLogo = convertView.findViewById(R.id.ivBankLogo);
-
+            tvName = convertView.findViewById(R.id.tvName);
+            tvNumber = convertView.findViewById(R.id.tvNumber);
+            imgBankLogo = convertView.findViewById(R.id.imgBankLogo);
+            imgBookmark = convertView.findViewById(R.id.imgBookmark);
+            imgMenu = convertView.findViewById(R.id.imgMenu);
         }
     }
 
