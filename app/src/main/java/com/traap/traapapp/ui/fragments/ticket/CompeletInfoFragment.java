@@ -1147,7 +1147,7 @@ public class CompeletInfoFragment
                 tvCardsShetab.setBackgroundColor(Color.TRANSPARENT);
                 tvWallet.setTextColor(getResources().getColor(R.color.returnButtonColor));
                 tvGateway.setTextColor(getResources().getColor(R.color.borderColorRed));
-                tvCardsShetab.setTextColor(getResources().getColor(R.color.gray));
+                tvCardsShetab.setTextColor(getResources().getColor(R.color.returnButtonColor));
                 break;
 
             case R.id.tvWallet:
@@ -1159,7 +1159,20 @@ public class CompeletInfoFragment
                 tvCardsShetab.setBackgroundColor(Color.TRANSPARENT);
                 tvGateway.setBackgroundColor(Color.TRANSPARENT);
                 tvWallet.setTextColor(getResources().getColor(R.color.borderColorRed));
-                tvCardsShetab.setTextColor(getResources().getColor(R.color.gray));
+                tvCardsShetab.setTextColor(getResources().getColor(R.color.returnButtonColor));
+                tvGateway.setTextColor(getResources().getColor(R.color.returnButtonColor));
+                break;
+
+            case R.id.tvCardsShetab:
+                //viewPager.setCurrentItem(2, true);
+//                requestGetBalance();
+                llPaymentGateway.setVisibility(View.GONE);
+                llPaymentWallet.setVisibility(View.VISIBLE);
+                tvCardsShetab.setBackgroundResource(R.drawable.background_border_a);
+                tvWallet.setBackgroundColor(Color.TRANSPARENT);
+                tvGateway.setBackgroundColor(Color.TRANSPARENT);
+                tvCardsShetab.setTextColor(getResources().getColor(R.color.borderColorRed));
+                tvWallet.setTextColor(getResources().getColor(R.color.returnButtonColor));
                 tvGateway.setTextColor(getResources().getColor(R.color.returnButtonColor));
                 break;
 

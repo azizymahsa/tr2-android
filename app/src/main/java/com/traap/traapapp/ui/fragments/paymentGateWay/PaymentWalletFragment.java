@@ -97,7 +97,6 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     }
 
 
-
     public static PaymentWalletFragment newInstance(MainActionView mainActionView, int imageDrawable, SimChargePaymentInstance simChargePaymentInstance, String amount, String mobile, String title, SimPackPaymentInstance simPackPaymentInstance,int PAYMENT_STATUS,int idBill)
     {
         PaymentWalletFragment fragment = new PaymentWalletFragment();
