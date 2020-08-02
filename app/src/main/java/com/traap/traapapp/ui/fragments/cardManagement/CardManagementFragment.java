@@ -3,6 +3,7 @@ package com.traap.traapapp.ui.fragments.cardManagement;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -31,6 +32,7 @@ import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
 import com.traap.traapapp.apiServices.model.card.CardBankItem;
+import com.traap.traapapp.apiServices.model.card.editCard.request.EditCardRequest;
 import com.traap.traapapp.apiServices.model.card.getCardList.GetCardListResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
@@ -43,7 +45,6 @@ import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.KeyboardUtils;
 import com.traap.traapapp.utilities.Logger;
-import com.traap.traapapp.utilities.NestedScrollableViewHelper;
 import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
@@ -52,11 +53,12 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
-import kotlin.Unit;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class CardManagementFragment extends BaseFragment implements OnServiceStatus<WebServiceClass<GetCardListResponse>>,
@@ -306,150 +308,121 @@ public class CardManagementFragment extends BaseFragment implements OnServiceSta
                     .subscribe(unit -> slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED))
             );
 
-            disposable.add(RxView.clicks(btnConfirmEdit).map(unit -> "btnConfirmEdit")
-//                    .mergeWith(RxView.clicks(btnCancelEdit).map(unit -> "btnCancelEdit"))
-//                    .mergeWith(RxView.clicks(imgCloseEditCard).map(unit -> "imgCloseEditCard"))
-//                    .mergeWith(RxView.clicks(imgCloseFunction).map(unit -> "imgCloseFunction"))
-                    .mergeWith(RxView.clicks(btnDeleteCard).map(unit -> "btnDeleteCard"))
-                    .mergeWith(RxView.clicks(btnEditCard).map(unit -> "btnEditCard"))
-                    .mergeWith(RxView.clicks(btnDefaultCard).map(unit -> "btnDefaultCard"))
-                    .mergeWith(RxView.clicks(btnAdd).map(unit -> "btnAdd"))
-                    .subscribe(tagButton ->
+            disposable.add(RxView.clicks(btnDefaultCard)
+                    .subscribe(unit ->
                     {
-                        switch (tagButton)
+                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
+                        new Handler().postDelayed(() ->
                         {
-                            case "btnConfirmEdit":
+                            hideSlidingContent();
+                        }, 200);
+
+                        mainView.showLoading();
+
+                        CallEditCard(true,
+                                selectedCardBankItem.getCardNumber(),
+                                selectedCardBankItem.getFullName()
+                        );
+                    })
+            );
+
+            disposable.add(RxView.clicks(btnDeleteCard)
+                    .subscribe(unit ->
+                    {
+                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
+                        new Handler().postDelayed(() ->
+                        {
+                            hideSlidingContent();
+                        }, 200);
+
+                        mainView.showLoading();
+
+                        SingletonService.getInstance().deleteCardService().deleteCardService(selectedCardBankItem.getCardId(),
+                                new OnServiceStatus<WebServiceClass<Object>>()
+                                {
+                                    @Override
+                                    public void onReady(WebServiceClass<Object> response)
+                                    {
+                                        mainView.hideLoading();
+
+                                        if (response.info.statusCode != 204)
+                                        {
+                                            showAlertFailure(context, response.info.message, getString(R.string.error), false);
+                                        }
+                                        else
+                                        {
+                                            int index = cardBankList.indexOf(selectedCardBankItem);
+                                            cardBankList.remove(index);
+                                            adapter.notifyDataSetChanged();
+
+                                            selectedCardBankItem = null;
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onError(String message)
+                                    {
+                                        CardManagementFragment.this.onError(message);
+                                    }
+                                });
+                    })
+            );
+
+            disposable.add(RxView.clicks(btnEditCard)
+                    .subscribe(unit ->
+                    {
+                        edtNumberCardEdit.setText(selectedCardBankItem.getCardNumber());
+                        edtFullName.setText(selectedCardBankItem.getFullName());
+
+                        slidingUpCollapse();
+
+                        new Handler().postDelayed(() ->
+                        {
+                            hideSlidingContent();
+                        }, 200);
+
+                        new Handler().postDelayed(() ->
+                        {
+                            slidingUpExpand();
+
+                        }, 350);
+                    })
+            );
+
+            disposable.add(RxView.clicks(btnConfirmEdit)
+                    .subscribe(unit ->
+                    {
+                        slidingUpCollapse();
+
+                        new Handler().postDelayed(() ->
+                        {
+                            if (setErrorEditCard())
                             {
                                 KeyboardUtils.forceCloseKeyboard(rootView);
-                                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                                new Handler().postDelayed(() ->
-                                {
-                                    layFunctionCard.setVisibility(View.GONE);
-                                    layEditCard.setVisibility(View.GONE);
 
-                                }, 200);
+                                mainView.showLoading();
 
-                                if (setErrorEditCard())
-                                {
-
-                                }
-                                break;
+                                CallEditCard(selectedCardBankItem.getIsFavorite(),
+                                        edtNumberCardEdit.getText().toString().replaceAll("_", "").replaceAll("-",""),
+                                        edtFullName.getText().toString().trim()
+                                );
                             }
-//                            case "imgCloseFunction":
-//                            case "imgCloseEditCard":
-//                            case "btnCancelEdit":
-//                            {
-////                                KeyboardUtils.forceCloseKeyboard(btnCancelEdit);
-//                                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-//                                new Handler().postDelayed(() ->
-//                                {
-//                                    layFunctionCard.setVisibility(View.GONE);
-//                                    layEditCard.setVisibility(View.GONE);
-//
-//                                }, 250);
-//
-//                                selectedCardBankItem = null;
-//                                break;
-//                            }
-                            case "btnDeleteCard":
-                            {
-//                                KeyboardUtils.forceCloseKeyboard(btnDeleteCard);
-                                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                                new Handler().postDelayed(() ->
-                                {
-                                    layFunctionCard.setVisibility(View.GONE);
-                                    layEditCard.setVisibility(View.GONE);
 
-                                }, 200);
+                        }, 350);
+                    })
+            );
 
-                                break;
-                            }
-                            case "btnEditCard":
-                            {
-//                                KeyboardUtils.forceCloseKeyboard(btnEditCard);
-                                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                                new Handler().postDelayed(() ->
-                                {
-                                    layFunctionCard.setVisibility(View.GONE);
-                                    layEditCard.setVisibility(View.VISIBLE);
-
-                                }, 200);
-
-                                edtNumberCardEdit.setText(selectedCardBankItem.getCardNumber());
-                                edtFullName.setText(selectedCardBankItem.getFullName());
-
-                                new Handler().postDelayed(() -> slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED), 200);
-
-
-//                                edtExpMound.setText(selectedCardBankItem.get());
-//                                edtExpYear.setText(selectedCardBankItem.get());
-
-                                break;
-                            }
-                            case "btnDefaultCard":
-                            {
-//                                KeyboardUtils.forceCloseKeyboard(btnDefaultCard);
-                                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                                new Handler().postDelayed(() ->
-                                {
-                                    layFunctionCard.setVisibility(View.GONE);
-                                    layEditCard.setVisibility(View.GONE);
-
-                                }, 250);
-                                break;
-                            }
-                            case "btnAdd":
-                            {
-//                                startActivityForResult(new Intent(context, AddCardActivity.class), 1400);
-                                startActivity(new Intent(context, AddCardActivity.class));
-                                break;
-                            }
-                        }
+            disposable.add(RxView.clicks(btnAdd)
+                    .subscribe(tagButton ->
+                    {
+                        startActivity(new Intent(context, AddCardActivity.class));
 
                         layFunctionCard.setVisibility(View.GONE);
                         layEditCard.setVisibility(View.GONE);
 
                         slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
-//                        if (isFilterEnable)
-//                        {
-//                            Logger.e("getFilterId", idFilteredList + " #List size:" + filteredCategoryList.size());
-//                            llDeleteFilter.setVisibility(View.VISIBLE);
-//                        }
-//                        else
-//                        {
-//                            Logger.e("getFilterId", "Empty, " + idFilteredList);
-//                            llDeleteFilter.setVisibility(View.GONE);
-//                            filteredCategoryList = new ArrayList<>();
-//                        }
-//                        if (filteredCategoryList.isEmpty())
-//                        {
-//                            filteredCategoryList = new ArrayList<>();
-//                            for (TypeCategory item: typeCategoryList)
-//                            {
-//                                FilterItem filterItem = new FilterItem();
-//                                filterItem.setId(item.getId());
-//                                filterItem.setTitle(item.getTitle());
-//                                filterItem.setChecked(false);
-//
-//                                filteredCategoryList.add(filterItem);
-//                            }
-//                            Collections.reverse(filteredCategoryList);
-//                        }
-//
-//                        tempFilteredCategoryList = new ArrayList<>();
-//                        tempFilteredCategoryList.addAll(filteredCategoryList);
-//                        adapter = new FilterArchiveAdapter(getActivity(), tempFilteredCategoryList);
-//                        adapter.notifyDataSetChanged();
-//                        rcFilterCategory.setAdapter(adapter);
-//                        rangeBar.setProgress(rangeLeft, rangeRight);
-//                        adapter.SetOnItemCheckedChangeListener(this);
-//                        rcFilterCategory.setLayoutManager(new GridLayoutManager(getActivity(), 5, RecyclerView.HORIZONTAL, true));
-//
-//                        //----------------------------------------------
-//                        Logger.e("--rangeBar--", rangeBar.getMinProgress() + " , " + rangeBar.getMaxProgress());
-//                        Logger.e("--rangeBar2--", rangeBar.getLeftSeekBar().getProgress() + " , " + rangeBar.getRightSeekBar().getProgress());
-//                        Logger.e("--rangeBar4--", rangeLeft + " , " + rangeRight);
-//                        //----------------------------------------------
                     })
             );
 
@@ -461,7 +434,7 @@ public class CardManagementFragment extends BaseFragment implements OnServiceSta
                     layFunctionCard.setVisibility(View.GONE);
                     layEditCard.setVisibility(View.GONE);
 
-                }, 200);
+                }, 500);
 
                 selectedCardBankItem = null;
             });
@@ -474,26 +447,101 @@ public class CardManagementFragment extends BaseFragment implements OnServiceSta
         }
     }
 
+    private void CallEditCard(boolean isFavorite, String cardNumber, String fullName)
+    {
+        EditCardRequest request = new EditCardRequest();
+        request.setCardNumber(cardNumber);
+        request.setFullName(fullName);
+        request.setIsFavorite(isFavorite);
+
+        SingletonService.getInstance().editCardService().editCardService(selectedCardBankItem.getCardId(), request,
+                new OnServiceStatus<WebServiceClass<CardBankItem>>()
+                {
+                    @Override
+                    public void onReady(WebServiceClass<CardBankItem> response)
+                    {
+                        mainView.hideLoading();
+
+                        if (response.info.statusCode != 200)
+                        {
+                            showAlertFailure(context, response.info.message, getString(R.string.error), false);
+                        }
+                        else
+                        {
+                            int index = cardBankList.indexOf(selectedCardBankItem);
+                            cardBankList.set(index, response.data);
+                            adapter.notifyDataSetChanged();
+
+                            selectedCardBankItem = null;
+                        }
+                    }
+
+                    @Override
+                    public void onError(String message)
+                    {
+                        CardManagementFragment.this.onError(message);
+                    }
+                });
+    }
+
+    private boolean setEditText()
+    {
+        edtNumberCardEdit.setText(selectedCardBankItem.getCardNumber());
+        edtFullName.setText(selectedCardBankItem.getFullName());
+        return true;
+    }
+
+    private Object EditCard()
+    {
+        slidingUpCollapse();
+
+        hideSlidingContent();
+
+        edtNumberCardEdit.setText(selectedCardBankItem.getCardNumber());
+        edtFullName.setText(selectedCardBankItem.getFullName());
+
+        slidingUpExpand();
+
+        return 0;
+    }
+
+    private boolean slidingUpCollapse()
+    {
+        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+
+        return true;
+    }
+
+    private boolean slidingUpExpand()
+    {
+        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+
+        return true;
+    }
+
+    private boolean hideSlidingContent()
+    {
+        layFunctionCard.setVisibility(View.GONE);
+        layEditCard.setVisibility(View.VISIBLE);
+
+        return true;
+    }
+
     private boolean setErrorEditCard()
     {
         boolean err = true;
         String message = "";
-        if (edtNumberCardEdit.getText().toString().replaceAll("-", "").length() != 16)
+        if (edtNumberCardEdit.getText().toString().replaceAll("-", "").replaceAll("_", "").length() != 16)
         {
             message = message + "شماره کارت نامعتبر است." + '\n';
             err = false;
         }
-        else if (edtNumberCardEdit.getText().toString().replaceAll("-", "").contains("*"))
+        else if (edtNumberCardEdit.getText().toString().replaceAll("-", "").replaceAll("_", "").contains("*"))
         {
             message = message + "شماره کارت صحیح نمی باشد." + '\n';
             err = false;
         }
-        else if (!Utility.CheckCartDigit(edtNumberCardEdit.getText().toString().replaceAll("-", "").trim()))
-        {
-            message = message + "شماره کارت صحیح نمی باشد." + '\n';
-            err = false;
-        }
-        if (TextUtils.isEmpty(edtFullName.getText().toString()))
+        if (TextUtils.isEmpty(edtFullName.getText().toString().trim()))
         {
             message = message + "نام و نام خانوادگی نمیتواند خالی باشد." + '\n';
             err = false;
@@ -510,54 +558,6 @@ public class CardManagementFragment extends BaseFragment implements OnServiceSta
         }
 
         return err;
-    }
-
-    private void getData(boolean isFiltered)
-    {
-        mainView.showLoading();
-
-//        if (!isFiltered)
-//        {
-//            SingletonService.getInstance().getTransactionService().getTransactionList(this);
-//        }
-//        else
-//        {
-//            if (chbFailedPayment.isChecked() != chbSuccessPayment.isChecked())
-//            {
-//                boolean status = false;
-//                if (chbSuccessPayment.isChecked())
-//                {
-//                    status = true;
-//                }
-//                else if (chbFailedPayment.isChecked())
-//                {
-//                    status = false;
-//                }
-//
-//                SingletonService.getInstance().getTransactionService().getTransactionListByFilter(
-//                        idFilteredList,
-//                        minPrice,
-//                        maxPrice,
-//                        tvStartDate.getText().toString().trim().equalsIgnoreCase("") ? "" : Utility.getGrgDate(tvStartDate.getText().toString()),
-//                        tvEndDate.getText().toString().trim().equalsIgnoreCase("") ? "" : Utility.getGrgDate(tvEndDate.getText().toString()),
-//                        status,
-////                        edtSearchText.getText().toString().trim(),
-//                        this
-//                );
-//            }
-//            else
-//            {
-//                SingletonService.getInstance().getTransactionService().getTransactionListByFilterForAllStatus(
-//                        idFilteredList,
-//                        minPrice,
-//                        maxPrice,
-//                        tvStartDate.getText().toString().trim().equalsIgnoreCase("") ? "" : Utility.getGrgDate(tvStartDate.getText().toString()),
-//                        tvEndDate.getText().toString().trim().equalsIgnoreCase("") ? "" : Utility.getGrgDate(tvEndDate.getText().toString()),
-////                        edtSearchText.getText().toString().trim(),
-//                        this
-//                );
-//            }
-//        }
     }
 
     private void showAlertAndFinish(String message)

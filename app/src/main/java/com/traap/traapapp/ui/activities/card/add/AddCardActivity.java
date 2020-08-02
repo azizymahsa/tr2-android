@@ -127,12 +127,13 @@ public class AddCardActivity extends BaseActivity implements OnAnimationEndListe
 
         btnConfirm.setOnClickListener(view ->
         {
-            btnConfirm.startAnimation();
-            btnConfirm.setClickable(false);
            if (setError())
            {
+               btnConfirm.startAnimation();
+               btnConfirm.setClickable(false);
+
                AddCardRequest request = new AddCardRequest();
-               request.setCardNumber(edtNumberCardEdit.getText().toString().replaceAll("-", ""));
+               request.setCardNumber(edtNumberCardEdit.getText().toString().replaceAll("-", "").replaceAll("_", ""));
                request.setFullName(edtFullName.getText().toString().trim());
                SingletonService.getInstance().addCardService().addCardService(request, this);
            }
@@ -147,12 +148,12 @@ public class AddCardActivity extends BaseActivity implements OnAnimationEndListe
     {
         boolean err = true;
         String message = "";
-        if (edtNumberCardEdit.getText().toString().replaceAll("-", "").length() != 16)
+        if (edtNumberCardEdit.getText().toString().replaceAll("-", "").replaceAll("_", "").length() != 16)
         {
             message = message + "شماره کارت نامعتبر است." + '\n';
             err = false;
         }
-        else if (!Utility.CheckCartDigit(edtNumberCardEdit.getText().toString().replaceAll("-", "").trim()))
+        else if (!Utility.CheckCartDigit(edtNumberCardEdit.getText().toString().replaceAll("-", "").replaceAll("_", "").trim()))
         {
             message = message + "شماره کارت صحیح نمی باشد." + '\n';
             err = false;
@@ -198,7 +199,7 @@ public class AddCardActivity extends BaseActivity implements OnAnimationEndListe
 //    @Override
 //    public void getData()
 //    {
-////        presenter.setCardDetail(etNumberAddCard.getText().toString().replaceAll("-", "").replaceAll("-", "").replaceAll(" ", ""),
+////        presenter.setCardDetail(etNumberAddCard.getText().toString().replaceAll("-", "").replaceAll("_", "").replaceAll(" ", ""),
 ////                etFullName.getText().toString(), false);
 //    }
 

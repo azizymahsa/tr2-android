@@ -74,7 +74,7 @@
                         android:digits="0,1,2,3,4,5,6,7,8,9,-,*"
                         android:gravity="right|center"
                         android:imeOptions="actionNext"
-                        android:inputType="number"
+                        android:inputType="numberSigned"
                         android:maxLines="1"
                         android:paddingTop="15dp"
                         android:singleLine="true"
