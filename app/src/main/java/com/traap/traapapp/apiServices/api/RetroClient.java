@@ -39,6 +39,7 @@ import com.traap.traapapp.apiServices.model.event.GetAllEventResponse;
 import com.traap.traapapp.apiServices.model.event.getEventByid.GetEventByIdResponse;
 import com.traap.traapapp.apiServices.model.event.getWorkshopById.GetWorkShopByIdResponse;
 import com.traap.traapapp.apiServices.model.event.participant.ParticipantEventIdResponse;
+import com.traap.traapapp.apiServices.model.event.payment.RequestEventPay;
 import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.getEvaluationResult.request.GetPlayerEvaluationResultRequest;
 import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.getEvaluationResult.response.GetPlayerEvaluationRequestResponse;
 import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.main.PerformanceEvaluationMainResponse;
@@ -979,6 +980,12 @@ public interface RetroClient
             @Body GetPlayerEvaluationResultRequest request
     );
 
+    //events
+       @POST(Const.Post_workshop_pay)
+    Single<Response<WebServiceClass<BillPaymentResponse>>> postWorkshopPay(
+            @Body RequestEventPay request
+    );
+
     @GET(Const.Get_events)
     Single<Response<WebServiceClass<GetAllEventResponse>>> getAllEvent();
 
@@ -989,7 +996,8 @@ public interface RetroClient
     @GET(Const.Get_event_id)
     Single<Response<WebServiceClass<GetEventByIdResponse>>> getEventById(
             @Path("id") Integer eventId);
-  @GET(Const.Get_workshops_Id)
+
+    @GET(Const.Get_workshops_Id)
     Single<Response<WebServiceClass<GetWorkShopByIdResponse>>> getWorkshopsById(
             @Path("id") Integer event_id);
 
@@ -997,7 +1005,7 @@ public interface RetroClient
     Single<Response<WebServiceClass<GetMainPredictSystemResponse>>> getMainPredictSystem(
             @Path("id") Integer matchId
     );
-
+    //
     @GET(Const.GET_MAIN_PREDICT_SYSTEM_IN_DEACTIVE)
     Single<Response<WebServiceClass<GetMainPredictSystemInDeActiveResponse>>> getMainPredictSystemInDeActive(
             @Path("match_id") Integer matchId

@@ -28,20 +28,25 @@ import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.fragments.Introducing_the_team.adapter.FragmentsPagerAdapter;
 import com.traap.traapapp.ui.fragments.about.AboutFragment;
 import com.traap.traapapp.ui.fragments.events.adapter.DetailEventAdapter;
+import com.traap.traapapp.ui.fragments.events.adapter.RegisterEventAdapter;
 import com.traap.traapapp.ui.fragments.events.subFragments.MyEventsFragment;
 import com.traap.traapapp.ui.fragments.events.subFragments.NextEventFragment;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.CustomViewPager;
+import com.traap.traapapp.utilities.JustifiedTextView;
 import com.traap.traapapp.utilities.Tools;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
+import java.util.TreeMap;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
+
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 import static com.traap.traapapp.utilities.Utility.changeFontInViewGroup;
@@ -57,27 +62,33 @@ public class EventDetailFragment extends BaseFragment implements View.OnClickLis
     private MainActionView mainView;
     private Toolbar mToolbar;
     private View imgBack, imgMenu, rlShirt;
-    private TextView tvUserName, tvPopularPlayer;
+    private TextView tvUserName, tvPopularPlayer, txtTitleHeader;
+    private com.uncopt.android.widget.text.justify.JustifiedTextView txtDesc;
     private RecyclerView rvDetail;
     private CircularProgressButton btnConfirm;
-    private Integer totalCount=0;
-    private HashMap<Integer,Integer> counts= new HashMap<>();
-    private ArrayList<String> countPerson= new ArrayList<>();
-    private int eventId=0;
-    public TextView txtTeacher,txtTitle,txtDate;
+    private Integer totalCount = 0;
+    private TreeMap<Integer, Integer> counts = new TreeMap<>();
+    private TreeMap<Integer, Integer> workShopIds = new TreeMap<>();
+    private TreeMap<Integer, Integer> priceDoubles = new TreeMap<>();
+    private ArrayList<String> countPerson = new ArrayList<>();
+    private int eventId = 0;
+    private String description, title = "";
+    public TextView txtTeacher, txtTitle, txtDate;
     private RoundedImageView imgBackground;
 
-    public static EventDetailFragment newInstance(MainActionView mainView,int eventId)
+    public static EventDetailFragment newInstance(MainActionView mainView, int eventId, String title, String description)
     {
         EventDetailFragment f = new EventDetailFragment();
-        f.setMainView(mainView,eventId);
+        f.setMainView(mainView, eventId, title, description);
         return f;
     }
 
-    private void setMainView(MainActionView mainView,int eventId)
+    private void setMainView(MainActionView mainView, int eventId, String title, String description)
     {
         this.mainView = mainView;
         this.eventId = eventId;
+        this.title = title;
+        this.description = description;
     }
 
     public EventDetailFragment()
@@ -102,6 +113,7 @@ public class EventDetailFragment extends BaseFragment implements View.OnClickLis
 
         return view;
     }
+
     private void initViews()
     {
         mToolbar = view.findViewById(R.id.toolbar);
@@ -112,14 +124,18 @@ public class EventDetailFragment extends BaseFragment implements View.OnClickLis
         txtDate = view.findViewById(R.id.txtDate);
         imgBackground = view.findViewById(R.id.imgBackground);
 
+        txtDesc = view.findViewById(R.id.txtDesc);
+        txtTitleHeader = view.findViewById(R.id.txtTitleHeader);
+        txtTitle.setText(title + "");
+        txtDesc.setText(description + "");
         rvDetail = view.findViewById(R.id.rvDetail);
         btnConfirm = view.findViewById(R.id.btnConfirm);
         countPerson.add("1");
         countPerson.add("2");
         countPerson.add("3");
         countPerson.add("4");
-        counts.put(0,0);
-        counts.put(1,0);
+        counts.put(0, 0);
+        counts.put(1, 0);
 
 
         TextView tvTitle = mToolbar.findViewById(R.id.tvTitle);
@@ -150,27 +166,60 @@ public class EventDetailFragment extends BaseFragment implements View.OnClickLis
 
         btnConfirm.setOnClickListener(v ->
         {
-            totalCount=0;
+            totalCount = 0;
+
+            ArrayList<PersonEvent> personEvents=new ArrayList<>();
             Iterator myVeryOwnIterator = counts.keySet().iterator();
-            while(myVeryOwnIterator.hasNext()) {
-                Integer key=(Integer)myVeryOwnIterator.next();
-                Integer value= counts.get(key);
-                totalCount+=value;
+            while (myVeryOwnIterator.hasNext())
+            {
+                Integer key = (Integer) myVeryOwnIterator.next();
+                Integer value = counts.get(key);
+                totalCount += value;
 
+                PersonEvent personEvent = new PersonEvent();
+                personEvent.setWorkshopId(workShopIds.get(key));
+                personEvent.setCount(counts.get(key));
+                personEvent.setPrice(priceDoubles.get(key)+"");
 
+                personEvents.add(key,personEvent);
             }
-            ((MainActivity)getActivity()).setFragment(RegisterEventFragment.newInstance(mainView,totalCount));
-            ((MainActivity)getActivity()).replaceFragment(((MainActivity)getActivity()).getFragment(), "RegisterEventFragment");
+           /* for (int i = 0; i <totalCount ; i++)
+            {
+                PersonEvent personEvent = new PersonEvent();
+                personEvent.setWorkshopId(workshopId);
+                personEvent.setCount(Integer.valueOf(counts.get(i).));
+            }*/
+            ArrayList<PersonEvent> personEventArrayList = new ArrayList<>();
+
+            for (int i = 0; i < personEvents.size(); i++)
+            {
+                for (int j = 0; j < personEvents.get(i).getCount(); j++)
+                {
+                    PersonEvent personEvent = new PersonEvent();
+                    personEvent.setWorkshopId(personEvents.get(i).getWorkshopId());
+                    personEvent.setFirst_name(personEvents.get(i).getFirst_name());
+                    personEvent.setLast_name(personEvents.get(i).getLast_name());
+                    personEvent.setNational_code(personEvents.get(i).getNational_code());
+                    personEvent.setMobile(personEvents.get(i).getMobile());
+                    personEvent.setPrice(personEvents.get(i).getPrice());
+
+                    personEventArrayList.add(personEvent);
+                }
+            }
+
+            ((MainActivity) getActivity()).setFragment(RegisterEventFragment.newInstance(mainView, totalCount,personEventArrayList));
+            ((MainActivity) getActivity()).replaceFragment(((MainActivity) getActivity()).getFragment(), "RegisterEventFragment");
         });
         getEventById(eventId);
-        getWorkshopsById(eventId,this);
+        getWorkshopsById(eventId, this);
     }
+
     private void getWorkshopsById(Integer idEvent, DetailEventAdapter.DetailEventAdapterEvents events)
     {
-        {
+
             mainView.showLoading();
 
-            SingletonService.getInstance().AllEventsService().getWorkshopsById(idEvent,new OnServiceStatus<WebServiceClass<GetWorkShopByIdResponse>>()
+            SingletonService.getInstance().AllEventsService().getWorkshopsById(idEvent, new OnServiceStatus<WebServiceClass<GetWorkShopByIdResponse>>()
             {
                 @Override
                 public void onReady(WebServiceClass<GetWorkShopByIdResponse> response)
@@ -183,7 +232,7 @@ public class EventDetailFragment extends BaseFragment implements View.OnClickLis
                         if (response.info.statusCode == 200)
                         {
 
-                            rvDetail.setAdapter(new DetailEventAdapter(getActivity(),response.data.getResults(),events,countPerson));
+                            rvDetail.setAdapter(new DetailEventAdapter(getActivity(), response.data.getResults(), events, countPerson));
 
                         } else
                         {
@@ -222,14 +271,15 @@ public class EventDetailFragment extends BaseFragment implements View.OnClickLis
 
                 }
             });
-        }
+
     }
+
     private void getEventById(Integer idEvent)
     {
         {
             mainView.showLoading();
 
-            SingletonService.getInstance().AllEventsService().getEventById(idEvent,new OnServiceStatus<WebServiceClass<GetEventByIdResponse>>()
+            SingletonService.getInstance().AllEventsService().getEventById(idEvent, new OnServiceStatus<WebServiceClass<GetEventByIdResponse>>()
             {
 
                 @Override
@@ -242,8 +292,8 @@ public class EventDetailFragment extends BaseFragment implements View.OnClickLis
 
                         if (response.info.statusCode == 200)
                         {
-                            txtTeacher.setText(response.data.getTeacher()+"");
-                            txtTitle.setText(" ◄ "+response.data.getTitle()+"");
+                            txtTeacher.setText(response.data.getTeacher() + "");
+                            txtTitle.setText(" ◄ " + response.data.getTitle() + "");
                             txtDate.setText(response.data.getCreateDate().toString());
 
                             imgBackground.setImageDrawable(getContext().getResources().getDrawable(R.drawable.test_event_2));
@@ -251,10 +301,10 @@ public class EventDetailFragment extends BaseFragment implements View.OnClickLis
                             {
                                 Picasso.with(getContext()).load(response.data.getImageUrl()).into(imgBackground);
 
-                             //   progressBar.setVisibility(View.GONE);
+                                //   progressBar.setVisibility(View.GONE);
                             } catch (Exception e1)
                             {
-                              //  holder.progressBar.setVisibility(View.GONE);
+                                //  holder.progressBar.setVisibility(View.GONE);
                                 Picasso.with(getContext()).load(R.drawable.ic_logo_red).into(imgBackground);
                             }
                         } else
@@ -305,14 +355,21 @@ public class EventDetailFragment extends BaseFragment implements View.OnClickLis
     }
 
     @Override
-    public void onItemCountSelected(String count, Integer position)
+    public void onItemCountSelected(String count, Integer position, Integer workshopId,Integer priceDouble)
     {
+        PersonEvent personEvent = new PersonEvent();
+
         Iterator myVeryOwnIterator = counts.keySet().iterator();
-        while(myVeryOwnIterator.hasNext()) {
-            Integer key=(Integer)myVeryOwnIterator.next();
-            Integer value= counts.get(key);
-            if (position.equals(key)){
-                counts.put(position,Integer.valueOf(count));
+        while (myVeryOwnIterator.hasNext())
+        {
+            Integer key = (Integer) myVeryOwnIterator.next();
+            Integer value = counts.get(key);
+            if (position.equals(key))
+            {
+                counts.put(position, Integer.valueOf(count));
+                workShopIds.put(position, workshopId);
+                priceDoubles.put(position, priceDouble);
+
             }
 
         }

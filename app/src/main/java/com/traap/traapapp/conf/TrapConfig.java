@@ -34,6 +34,7 @@ public class TrapConfig
     public static final int PAYMENT_STATUS_PAYMENT_WITHOUT_CARD = 14;
 
     public static final int PAYMENT_STATUS_BILL = 9;
+    public static final int PAYMENT_STATUS_EVENT = 16;
     public static final int PAYMENT_STATUS_BILL_CAR = 15;
 
 

@@ -66,7 +66,7 @@ public class DetailEventAdapter extends RecyclerView.Adapter<DetailEventAdapter.
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int spPosition, long id)
             {
-                events.onItemCountSelected(count.get(spPosition),position,results.get(position).getId());
+                events.onItemCountSelected(count.get(spPosition),position,results.get(position).getId(),results.get(position).getPrice().intValue());
             }
 
             @Override
@@ -104,7 +104,7 @@ public class DetailEventAdapter extends RecyclerView.Adapter<DetailEventAdapter.
     }
     public interface DetailEventAdapterEvents{
 
-        public void onItemCountSelected(String count,Integer position,Integer workshopId);
+        public void onItemCountSelected(String count,Integer position,Integer workshopId,Integer priceDouble);
     }
 
 

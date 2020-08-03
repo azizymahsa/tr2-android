@@ -25,6 +25,7 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.singleton.SingletonPaymentPlace;
 import com.traap.traapapp.ui.adapters.leagues.DataBean;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.ui.fragments.events.PersonEvent;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.utilities.Utility;
 import com.uncopt.android.widget.text.justify.JustifiedTextView;
@@ -54,6 +55,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     private ImageView imgLogo;
     private int PAYMENT_STATUS =0;
     private int idBill=0;
+    private ArrayList<PersonEvent> personEvents=new ArrayList<>();
 
     public PaymentGatewayFragment()
     {
@@ -82,14 +84,21 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     }
 
 
-    public static PaymentGatewayFragment newInstance(MainActionView mainActionView, String url, int imageDrawable, String amount, String title, int PAYMENT_STATUS,int idBill)
+    public static PaymentGatewayFragment newInstance(MainActionView mainActionView, String url, int imageDrawable, String amount, String title, int PAYMENT_STATUS, int idBill, ArrayList<PersonEvent> personEvents)
     {
         PaymentGatewayFragment fragment = new PaymentGatewayFragment();
         fragment.setIdBill(idBill);
+        fragment.setPersonEvents(personEvents);
         Bundle args = new Bundle();
 
         fragment.setMainView(mainActionView, url, imageDrawable, amount, title,PAYMENT_STATUS);
         return fragment;
+    }
+
+    private void setPersonEvents(ArrayList<PersonEvent> personEvents)
+    {
+
+        this.personEvents=personEvents;
     }
 
     private void setIdBill(int idBill)
@@ -203,7 +212,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
         } else if (v.getId() == R.id.btnBack)
         {
 
-            mainView.onBackToChargFragment(PAYMENT_STATUS, idBill);
+            mainView.onBackToChargFragment(PAYMENT_STATUS, PAYMENT_STATUS, idBill, personEvents);
            /* MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟",
                     true, "بله", "خیر", listener);
             dialog.show(getActivity().getFragmentManager(), "dialog");*/

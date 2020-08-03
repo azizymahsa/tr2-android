@@ -259,6 +259,7 @@ public class Const
     public final static String Get_event_id=SubBASEURL+"v1/event/{id}/" ;
     public final static String Get_workshops_Id=SubBASEURL+"v1/event/{id}/workshop_list/" ;
     public final static String Get_participant_retrieve=SubBASEURL+"v1/event/id/workshop/id/participant_retrieve/{participant_id}/" ;
+    public final static String Post_workshop_pay=SubBASEURL+"v1/event/payment//workshop_payment/" ;
 
 
     //Predict System

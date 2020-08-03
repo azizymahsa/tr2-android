@@ -81,6 +81,8 @@ import com.traap.traapapp.ui.fragments.billTollAndTraficPlan.PayTollTraficPlanFr
 import com.traap.traapapp.ui.fragments.competitions.CompationsFragment;
 import com.traap.traapapp.ui.fragments.competitions.QuestionCompationFragment;
 import com.traap.traapapp.ui.fragments.events.EventsFragment;
+import com.traap.traapapp.ui.fragments.events.PersonEvent;
+import com.traap.traapapp.ui.fragments.events.RegisterEventFragment;
 import com.traap.traapapp.ui.fragments.gateWay.WalletFragment;
 import com.traap.traapapp.ui.fragments.headCoach.HeadCoachFragment;
 import com.traap.traapapp.ui.fragments.inviteFriend.InviteFriendsFragment;
@@ -176,6 +178,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     private int PAYMENT_STATUS = 0;
     private boolean hasPaymentIncreaseWallet = false;
     private boolean hasPaymentBill = false;
+    private ArrayList<PersonEvent> personEvents=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -641,7 +644,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 fragmentList.remove(fragmentList.size() - 1); //remove SelectPaymentGatewayFragment
                 fragmentList.remove(fragmentList.size() - 1); //remove ChargeFragment and add it again.
 
-                onBackToChargFragment(Prefs.getInt("PAYMENT_STATUS", PAYMENT_STATUS), Prefs.getInt("ID_BILL", 0));
+                onBackToChargFragment(PAYMENT_STATUS, Prefs.getInt("PAYMENT_STATUS", PAYMENT_STATUS), Prefs.getInt("ID_BILL", 0), personEvents);
             }
             else if (getFragment() instanceof ChargeFragment && backState == 2 || getFragment() instanceof PackFragment && backState == 2)
             {
@@ -853,8 +856,11 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             {
 
                 isMainFragment = false;
-                setFragment(SurveyFragment.newInstance(this));
-                replaceFragment(getFragment(), "QuestionCompationFragment");
+
+                setFragment(EventsFragment.newInstance(this));
+                replaceFragment(getFragment(), "EventsFragment");
+               /* setFragment(SurveyFragment.newInstance(this));
+                replaceFragment(getFragment(), "QuestionCompationFragment");*/
                 break;
             }
 
@@ -891,7 +897,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 break;
             }
 
-            case 93:
+            case 93://events
                 setFragment(EventsFragment.newInstance(this));
                 replaceFragment(getFragment(), "EventsFragment");
                 break;
@@ -1071,6 +1077,19 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         Prefs.putInt("ID_BILL", idSelectedBillType);
         setFragment(SelectPaymentGatewayFragment.newInstance(url, this,
                 textBillPayment, number, idSelectedBillType, amount, PAYMENT_STATUS_BILL));
+        replaceFragment(getFragment(), "selectPaymentGatewayFragment");
+
+    }
+
+    @Override
+    public void openEventPaymentFragment(String url, String textEventPayment, Integer count, ArrayList<PersonEvent> personEvents, String amount, int
+            PAYMENT_STATUS_BILL)
+    {
+        isMainFragment = false;
+        Prefs.putInt("PAYMENT_STATUS", PAYMENT_STATUS_BILL);
+        Prefs.putInt("ID_BILL", 0);
+        setFragment(SelectPaymentGatewayFragment.newInstance(url, this,
+                textEventPayment, count, personEvents, amount, PAYMENT_STATUS_BILL));
         replaceFragment(getFragment(), "selectPaymentGatewayFragment");
 
     }
@@ -1401,7 +1420,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             fragmentList.remove(fragmentList.size() - 1); //remove ChargeFragment and add it again.
             int PAYMENTstatus = data.getIntExtra("PaymentStatus", 0);
 
-            onBackToChargFragment(PAYMENTstatus, 0);
+            onBackToChargFragment(PAYMENT_STATUS, PAYMENTstatus, 0, personEvents);
         }
         else if (resultCode == Activity.RESULT_OK && requestCode == 44)
         {
@@ -2355,7 +2374,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void onBackToChargFragment(int PAYMENT_STATUS, Integer idBill)
+    public void onBackToChargFragment(int PAYMENT_STATUS, int idBill,int count, ArrayList<PersonEvent> personEvents)
     {
 
         if (PAYMENT_STATUS == 3)
@@ -2388,6 +2407,13 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             //fragmentList.remove(fragmentList.size() - 1); //remove ChargeFragment and add it again.
             isMainFragment = false;
             setFragment(BillFragment.newInstance(this, idBill));
+            replaceFragment(getFragment(), "BillFragment");
+        }else if (PAYMENT_STATUS == TrapConfig.PAYMENT_STATUS_EVENT)
+        {
+            //  fragmentList.remove(fragmentList.size() - 1); //remove SelectPaymentGatewayFragment
+            //fragmentList.remove(fragmentList.size() - 1); //remove ChargeFragment and add it again.
+            isMainFragment = false;
+            setFragment(RegisterEventFragment.newInstance(this, count,personEvents));
             replaceFragment(getFragment(), "BillFragment");
         }
     }

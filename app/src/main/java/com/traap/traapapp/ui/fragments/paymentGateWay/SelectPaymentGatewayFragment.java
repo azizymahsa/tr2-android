@@ -32,6 +32,7 @@ import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInsta
 import com.traap.traapapp.ui.activities.main.MainActivity;
 import com.traap.traapapp.ui.adapters.paymentGateway.SelectPaymentAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.fragments.events.PersonEvent;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.payment.PaymentParentActionView;
 import com.traap.traapapp.ui.fragments.simcardCharge.ChargeFragment;
@@ -66,7 +67,9 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
     private int PAYMENT_STATUS;
     private SimPackPaymentInstance simPackPaymentInstance;
     private PaymentGateWayParentActionView pActionView;
-    private Integer idBill=0;
+    private Integer idBill = 0;
+    private Integer countWorkshop=0;
+    private ArrayList<PersonEvent> personEvents;
 
     public SelectPaymentGatewayFragment(String url, MainActionView mainView, int imageDrawable, String title, String amount, PaymentMatchRequest paymentMatchRequest)
     {
@@ -201,7 +204,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
         return fragment;
     }
 
-    public static Fragment newInstance(String url, MainActionView mainView, String textBillPayment, String number, Integer idSelectedBillType,String amount,int PAYMENT_STATUS)
+    public static Fragment newInstance(String url, MainActionView mainView, String textBillPayment, String number, Integer idSelectedBillType, String amount, int PAYMENT_STATUS)
     {
         SelectPaymentGatewayFragment fragment = new SelectPaymentGatewayFragment();
         fragment.setParentActionView(mainView);
@@ -216,17 +219,50 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
 
         fragment.setArguments(args);
 
-        return fragment;    }
+        return fragment;
+    }
+
+    public static Fragment newInstance(String url, MainActivity mainView, String textEventPayment, Integer count, ArrayList<PersonEvent> personEvents, String amount, int PAYMENT_STATUS)
+    {
+
+        SelectPaymentGatewayFragment fragment = new SelectPaymentGatewayFragment();
+        fragment.setParentActionView(mainView);
+        fragment.setStatus(PAYMENT_STATUS);
+        fragment.setIdBill(0);
+        fragment.setCountWorkshop(count);
+        fragment.setPersonEvents(personEvents);
+
+        Bundle args = new Bundle();
+        args.putString("url", url);
+        args.putString("amount", amount);
+        args.putString("mobile", "0");
+        args.putString("title", textEventPayment);
+
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
+    private void setPersonEvents(ArrayList<PersonEvent> personEvents)
+    {
+        this.personEvents = personEvents;
+
+    }
+
+    private void setCountWorkshop(Integer countWorkshop)
+    {
+        this.countWorkshop = countWorkshop;
+    }
 
     private void setIdBill(Integer idSelectedBillType)
     {
-        this.idBill=idSelectedBillType;
+        this.idBill = idSelectedBillType;
     }
 
 
     private void setParentActionView(MainActionView mainView)
     {
-        this.mainView=mainView;
+        this.mainView = mainView;
     }
 
     private void setStatus(int payment_status)
@@ -319,7 +355,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
 
         final SelectPaymentAdapter adapter = new SelectPaymentAdapter
                 (getFragmentManager(), tabLayout.getTabCount(), mainView, amount, title, imageDrawable, mobile,
-                        url, this.simChargePaymentInstance, simPackPaymentInstance, PAYMENT_STATUS,idBill);
+                        url, this.simChargePaymentInstance, simPackPaymentInstance, PAYMENT_STATUS, idBill,personEvents);
 
         viewPager.setAdapter(adapter);
         //viewPager.beginFakeDrag();
@@ -350,7 +386,7 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
             imgBack.setOnClickListener(v ->
             {
                 //getActivity().onBackPressed();
-                mainView.onBackToChargFragment(PAYMENT_STATUS,idBill);
+                mainView.onBackToChargFragment(PAYMENT_STATUS, idBill,countWorkshop,personEvents);
 
                 // pActionView.onPaymentCancelAndBack();
 

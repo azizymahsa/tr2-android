@@ -35,6 +35,7 @@ import com.traap.traapapp.ui.activities.ticket.ShowTicketActivity;
 import com.traap.traapapp.ui.adapters.leagues.DataBean;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
+import com.traap.traapapp.ui.fragments.events.PersonEvent;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.paymentGateWay.paymentWallet.PaymentWalletImpl;
 import com.traap.traapapp.ui.fragments.paymentGateWay.paymentWallet.PaymentWalletInteractor;
@@ -79,6 +80,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     private int PAYMENT_STATUS =0;
     public Integer balance=0;
     private int idBill=0;
+    private ArrayList<PersonEvent> personEvents=new ArrayList<>();
 
 
     public PaymentWalletFragment()
@@ -98,14 +100,20 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
 
 
-    public static PaymentWalletFragment newInstance(MainActionView mainActionView, int imageDrawable, SimChargePaymentInstance simChargePaymentInstance, String amount, String mobile, String title, SimPackPaymentInstance simPackPaymentInstance,int PAYMENT_STATUS,int idBill)
+    public static PaymentWalletFragment newInstance(MainActionView mainActionView, int imageDrawable, SimChargePaymentInstance simChargePaymentInstance, String amount, String mobile, String title, SimPackPaymentInstance simPackPaymentInstance, int PAYMENT_STATUS, int idBill, ArrayList<PersonEvent> personEvents)
     {
         PaymentWalletFragment fragment = new PaymentWalletFragment();
         fragment.setIdBill(idBill);
+        fragment.setPersonEvents(personEvents);
         Bundle args = new Bundle();
 
         fragment.setMainView(mainActionView, imageDrawable, amount, title,simChargePaymentInstance,mobile,simPackPaymentInstance,PAYMENT_STATUS);
         return fragment;
+    }
+
+    private void setPersonEvents(ArrayList<PersonEvent> personEvents)
+    {
+        this.personEvents=personEvents;
     }
 
     private void setIdBill(int idBill)
@@ -290,7 +298,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
         }
         else if (v.getId() == R.id.btnBack)
         {
-            mainView.onBackToChargFragment(PAYMENT_STATUS, idBill);
+            mainView.onBackToChargFragment(PAYMENT_STATUS, PAYMENT_STATUS, idBill, personEvents);
         }
     };
 

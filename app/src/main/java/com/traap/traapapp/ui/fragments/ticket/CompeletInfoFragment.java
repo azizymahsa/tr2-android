@@ -2663,7 +2663,7 @@ public class CompeletInfoFragment
 
         final SelectPaymentAdapter adapter = new SelectPaymentAdapter
                 (getFragmentManager(), tabLayout.getTabCount(), null, amount, title, imageDrawable, mobile,
-                        url, this.simChargePaymentInstance, simPackPaymentInstance, PAYMENT_STATUS,0);
+                        url, this.simChargePaymentInstance, simPackPaymentInstance, PAYMENT_STATUS,0,null);
 
         viewPager.setAdapter(adapter);
         //viewPager.beginFakeDrag();

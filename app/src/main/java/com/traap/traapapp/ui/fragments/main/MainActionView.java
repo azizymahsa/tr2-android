@@ -13,6 +13,7 @@ import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentIns
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.models.otherModels.qrModel.QrModel;
 import com.traap.traapapp.ui.base.BaseView;
+import com.traap.traapapp.ui.fragments.events.PersonEvent;
 import com.traap.traapapp.ui.fragments.simcardCharge.OnClickContinueSelectPayment;
 
 import java.util.ArrayList;
@@ -20,12 +21,16 @@ import java.util.List;
 
 public interface MainActionView extends BaseView
 {
-    void onBill(String title,Integer idBillType,String qrCode);
+    void onBill(String title, Integer idBillType, String qrCode);
 
     void onChargeSimCard(Integer status);
+
     void onBillMotor(Integer status);
+
     void onBillCar(Integer status);
+
     void onBillToll(Integer status);
+
     void onBillTrafic(Integer status);
 
     void onPackSimCard(Integer status);
@@ -116,9 +121,9 @@ public interface MainActionView extends BaseView
 
     void onSetPredictCompleted(Integer matchIdt, Boolean isPredictable, Boolean isFormationPredict, String message);
 
-    void onBackToChargFragment(int PAYMENT_STATUS, Integer idBill);
+    void onBackToChargFragment(int payment_status, int PAYMENT_STATUS, int idBill, ArrayList<PersonEvent> personEvents);
 
-    void backToAllServicePackage(Integer backState,Integer idMenuClicked);
+    void backToAllServicePackage(Integer backState, Integer idMenuClicked);
 
     void onBackToHomeWallet(int i);
 
@@ -145,4 +150,7 @@ public interface MainActionView extends BaseView
     void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId, String name, String imageURL);
 
     void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId, String name, String imageURL);
+
+    void openEventPaymentFragment(String url, String textEventPayment, Integer count, ArrayList<PersonEvent> personEvents, String amount, int
+            PAYMENT_STATUS_BILL);
 }

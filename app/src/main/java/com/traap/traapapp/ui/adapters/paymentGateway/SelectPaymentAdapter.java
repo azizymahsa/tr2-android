@@ -12,6 +12,7 @@ import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
+import com.traap.traapapp.ui.fragments.events.PersonEvent;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.payment.PaymentFragment;
 import com.traap.traapapp.ui.fragments.payment.PaymentParentActionView;
@@ -27,6 +28,7 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
     private final MainActionView mainActionView;
     private final String amount;
     private final String title;
+    private ArrayList<PersonEvent> personEvents=new ArrayList<>();
     private  int idBill=0;
     private  String url;
     private final int imageDrawable;
@@ -77,7 +79,7 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
     }
 
 
-    public SelectPaymentAdapter(FragmentManager fragmentManager, int tabCount, MainActionView mainView, String amount, String title, int imageDrawable, String mobile, String url, SimChargePaymentInstance simChargePaymentInstance, SimPackPaymentInstance simPackPaymentInstance,int payment_status,int idBill)
+    public SelectPaymentAdapter(FragmentManager fragmentManager, int tabCount, MainActionView mainView, String amount, String title, int imageDrawable, String mobile, String url, SimChargePaymentInstance simChargePaymentInstance, SimPackPaymentInstance simPackPaymentInstance, int payment_status, int idBill, ArrayList<PersonEvent> personEvents)
     {
         super(fragmentManager);
         this.url = url;
@@ -91,6 +93,7 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
         this.simPackPaymentInstance=simPackPaymentInstance;
         this.PAYMENT_STATUS=payment_status;
         this.idBill=idBill;
+        this.personEvents=personEvents;
 
     }
 
@@ -111,12 +114,12 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
         switch (position)
         {
             case 2:
-                PaymentWalletFragment tab2 = PaymentWalletFragment.newInstance(mainActionView,imageDrawable, simChargePaymentInstance,amount,mobile,title ,simPackPaymentInstance,PAYMENT_STATUS,idBill);
+                PaymentWalletFragment tab2 = PaymentWalletFragment.newInstance(mainActionView,imageDrawable, simChargePaymentInstance,amount,mobile,title ,simPackPaymentInstance,PAYMENT_STATUS,idBill,personEvents);
 
                 return tab2;
             case 0:
 
-                PaymentGatewayFragment tab1 = PaymentGatewayFragment.newInstance(mainActionView,url,imageDrawable,amount,title,PAYMENT_STATUS,idBill);
+                PaymentGatewayFragment tab1 = PaymentGatewayFragment.newInstance(mainActionView,url,imageDrawable,amount,title,PAYMENT_STATUS,idBill,personEvents);
 
                 return tab1;
 
