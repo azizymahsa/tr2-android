@@ -1,5 +1,6 @@
 package com.traap.traapapp.ui.fragments.paymentGateWay;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
@@ -36,6 +38,7 @@ import com.traap.traapapp.ui.adapters.leagues.DataBean;
 import com.traap.traapapp.ui.base.BaseFragment;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.ui.fragments.payment.PaymentParentActionView;
 import com.traap.traapapp.ui.fragments.paymentGateWay.paymentWallet.PaymentWalletImpl;
 import com.traap.traapapp.ui.fragments.paymentGateWay.paymentWallet.PaymentWalletInteractor;
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.BuyChargeWalletImpl;
@@ -49,11 +52,13 @@ import com.uncopt.android.widget.text.justify.JustifiedTextView;
 /**
  * Created by MahsaAzizi on 11/25/2019.
  */
-public class PaymentWalletFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener, PaymentWalletInteractor.OnFinishedPaymentWalletListener, BuyChargeWalletInteractor.OnBuyChargeWalletListener, BuyPackageWalletInteractor.OnBuyPackageWalletListener
+public class PaymentWalletFragment extends BaseFragment implements OnAnimationEndListener, View.OnClickListener, PaymentWalletInteractor.OnFinishedPaymentWalletListener,
+        BuyChargeWalletInteractor.OnBuyChargeWalletListener, BuyPackageWalletInteractor.OnBuyPackageWalletListener
 {
     private View rootView;
+    private Context context;
 
-    private MainActionView mainView;
+    private PaymentParentActionView mainView;
 
     /*scroll view*/
     public List<DataBean> data = new ArrayList<>();
@@ -87,17 +92,17 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     }
 
 
-    public static PaymentWalletFragment newInstance(MainActionView mainActionView, PaymentMatchRequest paymentMatchRequest)
-    {
-        PaymentWalletFragment fragment = new PaymentWalletFragment();
-        Bundle args = new Bundle();
+//    public static PaymentWalletFragment newInstance(MainActionView mainActionView, PaymentMatchRequest paymentMatchRequest)
+//    {
+//        PaymentWalletFragment fragment = new PaymentWalletFragment();
+//        Bundle args = new Bundle();
+//
+//        fragment.setMainView(mainActionView, paymentMatchRequest);
+//        return fragment;
+//    }
 
-        fragment.setMainView(mainActionView, paymentMatchRequest);
-        return fragment;
-    }
 
-
-    public static PaymentWalletFragment newInstance(MainActionView mainActionView, int imageDrawable, SimChargePaymentInstance simChargePaymentInstance, String amount, String mobile, String title, SimPackPaymentInstance simPackPaymentInstance,int PAYMENT_STATUS,int idBill)
+    public static PaymentWalletFragment newInstance(PaymentParentActionView mainActionView, int imageDrawable, SimChargePaymentInstance simChargePaymentInstance, String amount, String mobile, String title, SimPackPaymentInstance simPackPaymentInstance,int PAYMENT_STATUS,int idBill)
     {
         PaymentWalletFragment fragment = new PaymentWalletFragment();
         fragment.setIdBill(idBill);
@@ -112,7 +117,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
         this.idBill=idBill;
     }
 
-    private void setMainView(MainActionView mainView, int imageDrawable, String amount, String title, SimChargePaymentInstance simChargePaymentInstance, String mobile, SimPackPaymentInstance simPackPaymentInstance,int PAYMENT_STATUS)
+    private void setMainView(PaymentParentActionView mainView, int imageDrawable, String amount, String title, SimChargePaymentInstance simChargePaymentInstance, String mobile, SimPackPaymentInstance simPackPaymentInstance, int PAYMENT_STATUS)
     {
         this.mainView = mainView;
         this.imageDrawable=imageDrawable;
@@ -126,10 +131,17 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     }
 
 
-    private void setMainView(MainActionView mainView, PaymentMatchRequest paymentMatchRequest)
+    private void setMainView(PaymentParentActionView mainView, PaymentMatchRequest paymentMatchRequest)
     {
         this.mainView = mainView;
         this.paymentMatchRequest = paymentMatchRequest;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        this.context = context;
     }
 
     @Override
@@ -195,7 +207,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
     private void requestGetBalance()
     {
-        mainView.showLoading();
+        mainView.showPaymentParentLoading();
         GetBalancePasswordLessRequest request = new GetBalancePasswordLessRequest();
         request.setIsWallet(true);
         SingletonService.getInstance().getBalancePasswordLessService().GetBalancePasswordLessService(new OnServiceStatus<WebServiceClass<GetBalancePasswordLessResponse>>()
@@ -205,7 +217,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
             @Override
             public void onReady(WebServiceClass<GetBalancePasswordLessResponse> response)
             {
-                mainView.hideLoading();
+                mainView.hidePaymentParentLoading();
                 try
                 {
                     if (response.info.statusCode == 200)
@@ -215,12 +227,12 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
                     } else
                     {
 
-                        mainView.showError(response.info.message);
+                        showAlertFailure(context, response.info.message, getString(R.string.error), true);
 
                     }
                 } catch (Exception e)
                 {
-                    mainView.showError(e.getMessage());
+                    showAlertFailure(context, e.getMessage(), getString(R.string.error), true);
 
                 }
 
@@ -232,7 +244,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
             {
 
 
-                mainView.showError(message);
+                showAlertFailure(context, message, getString(R.string.error), true);
 
             }
         }, request);
@@ -266,7 +278,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
             if (etPin2.getText().toString() != null && etPin2.getText().toString().length() > 3)
             {
 
-                mainView.showLoading();
+                mainView.showPaymentParentLoading();
 
                // if (simChargePaymentInstance.getPAYMENT_STATUS()== TrapConfig.PAYMENT_STAUS_ChargeSimCard){
                 if (simChargePaymentInstance!=null){
@@ -289,7 +301,8 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
         }
         else if (v.getId() == R.id.btnBack)
         {
-            mainView.onBackToChargFragment(PAYMENT_STATUS, idBill);
+//            mainView.onBackToChargFragment(PAYMENT_STATUS, idBill);
+            getActivity().onBackPressed();
         }
     };
 
@@ -311,7 +324,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
     private void callPaymentWalletRequest()
     {
-        mainView.showLoading();
+        mainView.showPaymentParentLoading();
 
         //paymentWallet.paymentWalletRequest(this, paymentMatchRequest);
     }
@@ -327,24 +340,24 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
 
         rootView = inflater.inflate(R.layout.fragment_payment_wallet, container, false);
 
-        listener = new MessageAlertDialog.OnConfirmListener()
-        {
-
-
-            @Override
-            public void onConfirmClick()
-            {
-                mainView.backToMainFragment();
-
-            }
-
-            @Override
-            public void onCancelClick()
-            {
-
-               // mainView.backToMainFragment();
-            }
-        };
+//        listener = new MessageAlertDialog.OnConfirmListener()
+//        {
+//
+//
+//            @Override
+//            public void onConfirmClick()
+//            {
+//                mainView.backToMainFragment();
+//
+//            }
+//
+//            @Override
+//            public void onCancelClick()
+//            {
+//
+//               // mainView.backToMainFragment();
+//            }
+//        };
         initView();
         paymentWallet = new PaymentWalletImpl();
         buyChargeWallet=new BuyChargeWalletImpl();
@@ -409,7 +422,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     @Override
     public void onFinishedPaymentWallet(ResponsePaymentWallet response)
     {
-        mainView.hideLoading();
+        mainView.hidePaymentParentLoading();
         if (response.getMessage().contains("خطا"))
         {
             showAlertFailure(getContext(),response.getMessage(),"",true);
@@ -430,14 +443,14 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     @Override
     public void onErrorPaymentWallet(String error)
     {
-        mainView.hideLoading();
+        mainView.hidePaymentParentLoading();
         showAlertFailure(getContext(),error,"",true);
     }
 
     @Override
     public void onSuccessBuyChargeWallet(WebServiceClass<BuyChargeWalletResponse> response)
     {
-        mainView.hideLoading();
+        mainView.hidePaymentParentLoading();
 
         Intent intent = new Intent(getContext(), PaymentResultChargeActivity.class);
         intent.putExtra("RefrenceNumber", response.data.getRefNumber());
@@ -450,7 +463,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     @Override
     public void onErrorBuyChargeWallet(String error)
     {
-        mainView.hideLoading();
+        mainView.hidePaymentParentLoading();
 
         showAlertFailure(getContext(),error,"",true);
 
@@ -459,7 +472,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     @Override
     public void onSuccessBuyPackageWallet(WebServiceClass<BuyPackageWalletResponse> response)
     {
-        mainView.hideLoading();
+        mainView.hidePaymentParentLoading();
 
         Intent intent = new Intent(getContext(), PaymentResultChargeActivity.class);
         intent.putExtra("RefrenceNumber", response.data.getRefNumber());
@@ -471,7 +484,7 @@ public class PaymentWalletFragment extends BaseFragment implements OnAnimationEn
     @Override
     public void onErrorBuyPackageWallet(String error)
     {
-        mainView.hideLoading();
+        mainView.hidePaymentParentLoading();
 
         showAlertFailure(getContext(),error,"",true);
 

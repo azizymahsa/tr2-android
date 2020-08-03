@@ -1,9 +1,8 @@
-package com.traap.traapapp.ui.fragments.simcardPack.imp;
+package com.traap.traapapp.ui.fragments.payment;
 
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.buyChargeCard.BuyChargeCardRequest;
 import com.traap.traapapp.apiServices.model.buyChargeWallet.BuyChargeWalletResponse;
 import com.traap.traapapp.apiServices.model.buyPackage.response.BuyPackageWalletResponse;
 import com.traap.traapapp.apiServices.model.buyPackageCard.request.BuyPackageCardRequest;
@@ -11,16 +10,17 @@ import com.traap.traapapp.utilities.Logger;
 
 public class BuyPackCardImpl
 {
-    public static void BuyPackCard(String operatorType, int amount, String mobile, String pin2, String pan, String cvv2, String exDate,
+    public static void BuyPackCard(String operatorType, int amount, String mobile, String pin2, int cardId, String cvv2, String expMonth, String expYear,
                                    String titlePackage, String bundleId, String requestId, onBuyPackCardListener listener)
     {
         BuyPackageCardRequest request = new BuyPackageCardRequest();
         request.setAmount(amount);
         request.setCvv2(cvv2);
-        request.setExpDate(exDate);
+        request.setExpMonth(expMonth);
+        request.setExpYear(expYear);
         request.setMobile(mobile);
         request.setOperatorType(operatorType);
-        request.setPan(pan);
+        request.setCardId(cardId);
         request.setPin2(pin2);
         request.setBundleId(bundleId);
         request.setRequestId(requestId);

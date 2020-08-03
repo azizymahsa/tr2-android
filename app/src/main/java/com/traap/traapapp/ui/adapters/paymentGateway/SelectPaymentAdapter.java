@@ -167,12 +167,12 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
         {
             case 2:
             {
-                PaymentWalletFragment tab2 = PaymentWalletFragment.newInstance(mainActionView, imageDrawable, simChargePaymentInstance, amount, mobile, title, simPackPaymentInstance, PAYMENT_STATUS, idBill);
+                PaymentWalletFragment tab2 = PaymentWalletFragment.newInstance(this, imageDrawable, simChargePaymentInstance, amount, mobile, title, simPackPaymentInstance, PAYMENT_STATUS, idBill);
                 return tab2;
             }
             case 0:
             {
-                PaymentGatewayFragment tab1 = PaymentGatewayFragment.newInstance(mainActionView, url, imageDrawable, amount, title, PAYMENT_STATUS, idBill);
+                PaymentGatewayFragment tab1 = PaymentGatewayFragment.newInstance(this, url, imageDrawable, amount, title, PAYMENT_STATUS, idBill);
                 return tab1;
             }
             case 1:
@@ -197,13 +197,13 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
     @Override
     public void showPaymentParentLoading()
     {
-
+        mainActionView.showLoading();
     }
 
     @Override
     public void hidePaymentParentLoading()
     {
-
+        mainActionView.hideLoading();
     }
 
     @Override
