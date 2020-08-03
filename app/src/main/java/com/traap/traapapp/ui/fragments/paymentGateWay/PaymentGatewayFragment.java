@@ -26,6 +26,7 @@ import com.traap.traapapp.singleton.SingletonPaymentPlace;
 import com.traap.traapapp.ui.adapters.leagues.DataBean;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
+import com.traap.traapapp.ui.fragments.payment.PaymentParentActionView;
 import com.traap.traapapp.utilities.Utility;
 import com.uncopt.android.widget.text.justify.JustifiedTextView;
 
@@ -36,7 +37,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
 {
     private View rootView;
 
-    private MainActionView mainView;
+    private PaymentParentActionView mainView;
 
     /*scroll view*/
     public List<DataBean> data = new ArrayList<>();
@@ -82,7 +83,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     }
 
 
-    public static PaymentGatewayFragment newInstance(MainActionView mainActionView, String url, int imageDrawable, String amount, String title, int PAYMENT_STATUS,int idBill)
+    public static PaymentGatewayFragment newInstance(PaymentParentActionView mainActionView, String url, int imageDrawable, String amount, String title, int PAYMENT_STATUS,int idBill)
     {
         PaymentGatewayFragment fragment = new PaymentGatewayFragment();
         fragment.setIdBill(idBill);
@@ -98,7 +99,7 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     }
 
 
-    private void setMainView(MainActionView mainView, String url, int imageDrawable, String amount, String title, int PAYMENT_STATUS)
+    private void setMainView(PaymentParentActionView mainView, String url, int imageDrawable, String amount, String title, int PAYMENT_STATUS)
     {
         this.imageDrawable = imageDrawable;
         this.title = title;
@@ -126,24 +127,24 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
 
         rootView = inflater.inflate(R.layout.fragment_payment_gateway, container, false);
 
-        listener = new MessageAlertDialog.OnConfirmListener()
-        {
-
-
-            @Override
-            public void onConfirmClick()
-            {
-                mainView.backToMainFragment();
-
-            }
-
-            @Override
-            public void onCancelClick()
-            {
-
-                //   mainView.backToMainFragment();
-            }
-        };
+//        listener = new MessageAlertDialog.OnConfirmListener()
+//        {
+//
+//
+//            @Override
+//            public void onConfirmClick()
+//            {
+//                mainView.backToMainFragment();
+//
+//            }
+//
+//            @Override
+//            public void onCancelClick()
+//            {
+//
+//                //   mainView.backToMainFragment();
+//            }
+//        };
         initView();
         setContent();
         addDataRecyclerList();
@@ -197,11 +198,11 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
             tvTitlePay.setTextSize(getResources().getDimension(R.dimen.textSize_14dp));
 */
 
-            FrameLayout flLogoToolbar = rootView.findViewById(R.id.flLogoToolbar);
-            flLogoToolbar.setOnClickListener(v -> {
-                mainView.backToMainFragment();
-
-            });
+//            FrameLayout flLogoToolbar = rootView.findViewById(R.id.flLogoToolbar);
+//            flLogoToolbar.setOnClickListener(v -> {
+//                mainView.backToMainFragment();
+//
+//            });
 
         } catch (Exception e)
         {
@@ -239,7 +240,8 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
         } else if (v.getId() == R.id.btnBack)
         {
 
-            mainView.onBackToChargFragment(PAYMENT_STATUS, idBill);
+//            mainView.onBackToChargFragment(PAYMENT_STATUS, idBill);
+            getActivity().onBackPressed();
            /* MessageAlertDialog dialog = new MessageAlertDialog(getActivity(), "بازگشت به خانه", "آیا از بستن این صفحه مطمئن هستید؟",
                     true, "بله", "خیر", listener);
             dialog.show(getActivity().getFragmentManager(), "dialog");*/
@@ -278,18 +280,18 @@ public class PaymentGatewayFragment extends Fragment implements OnAnimationEndLi
     public void onResume()
     {
         super.onResume();
-        if (SingletonPaymentPlace.getInstance().getPaymentPlace()==1){
-            mainView.backToMainFragment();
-            mainView.onChargeSimCard(0);
-
-            SingletonPaymentPlace.getInstance().setPaymentPlace(0);
-
-        }else if (SingletonPaymentPlace.getInstance().getPaymentPlace()==2){
-            mainView.backToMainFragment();
-            mainView.onPackSimCard(0);
-
-            SingletonPaymentPlace.getInstance().setPaymentPlace(0);
-        }
+//        if (SingletonPaymentPlace.getInstance().getPaymentPlace()==1){
+//            mainView.backToMainFragment();
+//            mainView.onChargeSimCard(0);
+//
+//            SingletonPaymentPlace.getInstance().setPaymentPlace(0);
+//
+//        }else if (SingletonPaymentPlace.getInstance().getPaymentPlace()==2){
+//            mainView.backToMainFragment();
+//            mainView.onPackSimCard(0);
+//
+//            SingletonPaymentPlace.getInstance().setPaymentPlace(0);
+//        }
 
     }
 

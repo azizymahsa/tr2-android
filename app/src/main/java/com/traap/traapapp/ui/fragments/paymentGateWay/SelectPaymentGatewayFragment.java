@@ -374,8 +374,8 @@ public class SelectPaymentGatewayFragment extends BaseFragment implements OnAnim
             imgBack = rootView.findViewById(R.id.imgBack);
             imgBack.setOnClickListener(v ->
             {
-                //getActivity().onBackPressed();
-                mainView.onBackToChargFragment(PAYMENT_STATUS, idBill);
+                getActivity().onBackPressed();
+//                mainView.onBackToChargFragment(PAYMENT_STATUS, idBill);
 
                 // pActionView.onPaymentCancelAndBack();
 

@@ -2,9 +2,11 @@ package com.traap.traapapp.ui.fragments.payment;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -49,8 +51,11 @@ import com.traap.traapapp.ui.fragments.simcardPack.imp.BuyPackageImpl;
 import com.traap.traapapp.utilities.ClearableEditText;
 
 public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseFragment implements FavoriteCardParentActionView,
-        PaymentParentActionView, PaymentActionView
+        PaymentParentActionView, BuyChargeCardImpl.onBuyChargeCardListener, BuyPackCardImpl.onBuyPackCardListener,
+        BuyMatchTicketCardImpl.onBuyMatchTicketCardListener
+//        ,PaymentActionView
 {
+    private Context context;
     private Fragment cardFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
@@ -271,38 +276,38 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
             mobile = getArguments().getString("MOBILE", "");
 
             response = getArguments().getParcelable("response");
-
-            if (response instanceof SimChargePaymentInstance)
-            {
-                simChargePaymentInstance = (SimChargePaymentInstance) response;
-
-                PAYMENT_STATUS = simChargePaymentInstance.getPAYMENT_STATUS();
-                operatorType = simChargePaymentInstance.getOperatorType();
-                typeCharge = simChargePaymentInstance.getTypeCharge();
-                simcardType = simChargePaymentInstance.getSimcardType();
-
-//                PAYMENT_STATUS = getArguments().getInt("PAYMENT_STATUS", 0);
-//                operatorType = getArguments().getInt("OPERATOR_TYPE", 0);
-//                typeCharge = getArguments().getInt("TYPE_CHARGE", 0);
-//                simcardType = getArguments().getInt("SIMCARD_TYPE", 0);
-            }
-            else if (response instanceof TicketPaymentInstance)
-            {
-                ticketPaymentInstance = (TicketPaymentInstance) response;
-
-            }
-            else if (response instanceof SimPackPaymentInstance)
-            {
-                simPackPaymentInstance = (SimPackPaymentInstance) response;
-
-                profileId = simPackPaymentInstance.getProfileId();
-                titlePackageType = simPackPaymentInstance.getTitlePackageType();
-                requestId = simPackPaymentInstance.getRequestId();
-
-//                profileId = getArguments().getInt("PROFILE_ID", 0);
-//                titlePackageType = getArguments().getString("TITLE_PACKAGE_TYPE", "");
-//                requestId = getArguments().getString("REQUEST_ID", "");
-            }
+//
+//            if (response instanceof SimChargePaymentInstance)
+//            {
+//                simChargePaymentInstance = (SimChargePaymentInstance) response;
+//
+//                PAYMENT_STATUS = simChargePaymentInstance.getPAYMENT_STATUS();
+//                operatorType = simChargePaymentInstance.getOperatorType();
+//                typeCharge = simChargePaymentInstance.getTypeCharge();
+//                simcardType = simChargePaymentInstance.getSimcardType();
+//
+////                PAYMENT_STATUS = getArguments().getInt("PAYMENT_STATUS", 0);
+////                operatorType = getArguments().getInt("OPERATOR_TYPE", 0);
+////                typeCharge = getArguments().getInt("TYPE_CHARGE", 0);
+////                simcardType = getArguments().getInt("SIMCARD_TYPE", 0);
+//            }
+//            else if (response instanceof TicketPaymentInstance)
+//            {
+//                ticketPaymentInstance = (TicketPaymentInstance) response;
+//
+//            }
+//            else if (response instanceof SimPackPaymentInstance)
+//            {
+//                simPackPaymentInstance = (SimPackPaymentInstance) response;
+//
+//                profileId = simPackPaymentInstance.getProfileId();
+//                titlePackageType = simPackPaymentInstance.getTitlePackageType();
+//                requestId = simPackPaymentInstance.getRequestId();
+//
+////                profileId = getArguments().getInt("PROFILE_ID", 0);
+////                titlePackageType = getArguments().getString("TITLE_PACKAGE_TYPE", "");
+////                requestId = getArguments().getString("REQUEST_ID", "");
+//            }
 
 
 //            getObjectTypeArg(response);
@@ -400,15 +405,38 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     {
         if (v.getId() == R.id.btnBack)
         {
-            pActionView.onPaymentCancelAndBack();
-        } else if (v.getId() == R.id.btnBuy)
+//            pActionView.onPaymentCancelAndBack();
+            getActivity().onBackPressed();
+        }
+        else if (v.getId() == R.id.btnBuy)
         {
             if (setError())
             {
-//                if (response instanceof )
-//                {
-//
-//                }
+                if (response instanceof SimChargePaymentInstance)
+                {
+                    simChargePaymentInstance = (SimChargePaymentInstance) response;
+
+                    PAYMENT_STATUS = simChargePaymentInstance.getPAYMENT_STATUS();
+                    operatorType = simChargePaymentInstance.getOperatorType();
+                    typeCharge = simChargePaymentInstance.getTypeCharge();
+                    simcardType = simChargePaymentInstance.getSimcardType();
+
+                }
+                else if (response instanceof TicketPaymentInstance)
+                {
+                    ticketPaymentInstance = (TicketPaymentInstance) response;
+
+                }
+                else if (response instanceof SimPackPaymentInstance)
+                {
+                    simPackPaymentInstance = (SimPackPaymentInstance) response;
+
+                    profileId = simPackPaymentInstance.getProfileId();
+                    titlePackageType = simPackPaymentInstance.getTitlePackageType();
+                    requestId = simPackPaymentInstance.getRequestId();
+
+                }
+
             }
         }
     };
@@ -422,6 +450,7 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     public void onAttach(Context context)
     {
         super.onAttach(context);
+        this.context = context;
 //        if (context instanceof OnFragmentInteractionListener)
 //        {
 //            mListener = (OnFragmentInteractionListener) context;
@@ -566,90 +595,118 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
         pActionView.hidePaymentParentLoading();
     }
 
-    @Override
-    public void onPaymentGDSFlight()
-    {
-
-    }
-
-    @Override
-    public void onPaymentGDSHotel()
-    {
-
-    }
-
-    @Override
-    public void onPaymentGDSBus()
-    {
-
-    }
-
-    @Override
-    public void onPaymentChargeSimCard(MobileChargeResponse data, String mobile)
-    {
-        showToast(getActivity(), "خرید شارژ برای شماره " + mobile + "با موفقیت انجام شد", R.color.green);
-        getActivity().onBackPressed();
-    }
-
-    @Override
-    public void onPaymentPackSimCard(PackageBuyResponse response, String mobile)
-    {
-        showToast(getActivity(), "خرید بسته برای شماره " + mobile + "با موفقیت انجام شد", R.color.green);
-        getActivity().onBackPressed();
-    }
-
-    @Override
-    public void onErrorPackSimcard(String message)
-    {
-        showToast(getActivity(), message, R.color.red);
-    }
-
-    @Override
-    public void onPaymentTransferMoney()
-    {
-
-    }
-
-    @Override
-    public void onShowPaymentWithoutCardFragment(@Nullable QrModel model)
-    {
-
-    }
-
-    @Override
-    public void onPaymentBill()
-    {
-
-    }
-
-    @Override
-    public void onPaymentTicket()
-    {
-
-    }
-
-    @Override
-    public void onErrorCharge(String message)
-    {
-        showToast(getActivity(), message, R.color.red);
-    }
+//    @Override
+//    public void onPaymentGDSFlight()
+//    {
+//
+//    }
+//
+//    @Override
+//    public void onPaymentGDSHotel()
+//    {
+//
+//    }
+//
+//    @Override
+//    public void onPaymentGDSBus()
+//    {
+//
+//    }
+//
+//    @Override
+//    public void onPaymentChargeSimCard(MobileChargeResponse data, String mobile)
+//    {
+//        showToast(getActivity(), "خرید شارژ برای شماره " + mobile + "با موفقیت انجام شد", R.color.green);
+//        getActivity().onBackPressed();
+//    }
+//
+//    @Override
+//    public void onPaymentPackSimCard(PackageBuyResponse response, String mobile)
+//    {
+//        showToast(getActivity(), "خرید بسته برای شماره " + mobile + "با موفقیت انجام شد", R.color.green);
+//        getActivity().onBackPressed();
+//    }
+//
+//    @Override
+//    public void onErrorPackSimcard(String message)
+//    {
+//        showToast(getActivity(), message, R.color.red);
+//    }
+//
+//    @Override
+//    public void onPaymentTransferMoney()
+//    {
+//
+//    }
+//
+//    @Override
+//    public void onShowPaymentWithoutCardFragment(@Nullable QrModel model)
+//    {
+//
+//    }
+//
+//    @Override
+//    public void onPaymentBill()
+//    {
+//
+//    }
+//
+//    @Override
+//    public void onPaymentTicket()
+//    {
+//
+//    }
+//
+//    @Override
+//    public void onErrorCharge(String message)
+//    {
+//        showToast(getActivity(), message, R.color.red);
+//    }
 
     @Override
     public void onPaymentCancelAndBack()
     {
-
+        getActivity().onBackPressed();
     }
-//
-//    @Subscribe
-//    public void getHeaderContent(HeaderModel headerModel)
-//    {
-//        if (headerModel.getPopularNo() != 0)
-//        {
-//            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
-//        }
-//        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
-//    }
 
+
+    @Override
+    public void onBuyChargeCardCompleted(String message)
+    {
+        showAlertSuccess(context, message, "", true);
+    }
+
+    @Override
+    public void onBuyChargeCardError(String message)
+    {
+        showAlertFailure(context, message, getString(R.string.error), false);
+    }
+
+    @Override
+    public void onBuyMatchTicketCardCompleted(String message)
+    {
+        showAlertSuccess(context, message, "", true);
+    }
+
+    @Override
+    public void onBuyMatchTicketCardError(String message)
+    {
+        showAlertFailure(context, message, getString(R.string.error), false);
+    }
+
+    @Override
+    public void onBuyPackCardCompleted(String message)
+    {
+        showAlertSuccess(context, message, "", true);
+//        showToast(getActivity(), "خرید بسته برای شماره " + mobile + "با موفقیت انجام شد", R.color.green);
+//        getActivity().onBackPressed();
+    }
+
+    @Override
+    public void onBuyPackCardError(String message)
+    {
+        showAlertFailure(context, message, getString(R.string.error), false);
+    }
 
     @Override
     public void onDestroy()
