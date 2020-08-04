@@ -183,7 +183,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     private int PAYMENT_STATUS = 0;
     private boolean hasPaymentIncreaseWallet = false;
     private boolean hasPaymentBill = false;
-    private ArrayList<PersonEvent> personEvents=null;
+    private ArrayList<PersonEvent> personEvents = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -272,26 +272,21 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_ChargeSimCard)
                 {
                     hasPaymentCharge = true;
-                }
-                else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_PackSimCard)
+                } else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STAUS_PackSimCard)
                 {
                     hasPaymentPackageSimcard = true;
-                }
-                else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_STADIUM_TICKET)
+                } else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_STADIUM_TICKET)
                 {
                     hasPaymentTicket = true;
-                }
-                else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_INCREASE_WALLET)
+                } else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_INCREASE_WALLET)
                 {
                     hasPaymentIncreaseWallet = true;
-                }
-                else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_BILL)
+                } else if (Integer.valueOf(typeTransaction) == TrapConfig.PAYMENT_STATUS_BILL)
                 {
                     hasPaymentBill = true;
                 }
 
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 showToast(MainActivity.this, "شماره پیگیری: " + refrenceNumber, 0);
             }
@@ -310,8 +305,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         if (!Prefs.getString("FULLName", "").trim().replace(" ", "").equalsIgnoreCase(""))
         {
             TrapConfig.HEADER_USER_NAME = Prefs.getString("FULLName", "");
-        }
-        else
+        } else
         {
             TrapConfig.HEADER_USER_NAME = Prefs.getString("mobile", "");
         }
@@ -573,8 +567,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 }
             }
 
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
 //            showError("Error " );
         }
@@ -602,8 +595,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             if (i == index)
             {
                 bottomNavigationView.getMenu().getItem(index).setChecked(true);
-            }
-            else
+            } else
             {
                 bottomNavigationView.getMenu().getItem(index).setChecked(false);
             }
@@ -622,36 +614,31 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             if (drawer.isDrawerOpen(GravityCompat.END))
             {
                 drawer.closeDrawer(GravityCompat.END);
-            }
-            else if (getFragment() instanceof WalletFragment && !Prefs.getBoolean("isMainWalletFragment", true))
+            } else if (getFragment() instanceof WalletFragment && !Prefs.getBoolean("isMainWalletFragment", true))
             {
                 fragmentList.remove(fragmentList.size() - 1); //remove WalletFragment
 //                fragmentList.remove(fragmentList.size()-1); //remove child Fragment and add it again.
                 setFragment(WalletFragment.newInstance(this, 0));
                 replaceFragment(getFragment(), "DetailsCartFragment");
-            }
-            else if ((getFragment() instanceof PastResultFragment) &&
+            } else if ((getFragment() instanceof PastResultFragment) &&
                     Prefs.getInt("LeagueTableParent", 0) == LeagueTableParent.MatchScheduleFragment.ordinal())
             {
                 Logger.e("-PastResultFragment back-", "-onBackToMatch-");
                 onBackToMatch();
-            }
-            else if (getFragment() instanceof Last5PastMatchFragment || getFragment() instanceof LeagueTableMainFragment)
+            } else if (getFragment() instanceof Last5PastMatchFragment || getFragment() instanceof LeagueTableMainFragment)
             {
                 onBackToPredict(SingletonLastPredictItem.getInstance().getPredictPosition(),
                         SingletonLastPredictItem.getInstance().getMatchId(),
                         SingletonLastPredictItem.getInstance().getIsPredictable(),
                         SingletonLastPredictItem.getInstance().getIsFormationPredict()
                 );
-            }
-            else if (fragmentList.get(fragmentList.size() - 2) instanceof SelectPaymentGatewayFragment)
+            } else if (fragmentList.get(fragmentList.size() - 2) instanceof SelectPaymentGatewayFragment)
             {
                 fragmentList.remove(fragmentList.size() - 1); //remove current to remove SelectPaymentGatewayFragment after back pressed.
 
                 backToParentFragment();
                 onBackToChargFragment(PAYMENT_STATUS, Prefs.getInt("PAYMENT_STATUS", PAYMENT_STATUS), Prefs.getInt("ID_BILL", 0), personEvents);
-            }
-            else if (getFragment() instanceof ChargeFragment && backState == 2 || getFragment() instanceof PackFragment && backState == 2)
+            } else if (getFragment() instanceof ChargeFragment && backState == 2 || getFragment() instanceof PackFragment && backState == 2)
             {
 //                        setCheckedBNV(bottomNavigationView, 3);
                 setCheckedBNV(bottomNavigationView, 2);
@@ -664,8 +651,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 setFragment(AllMenuFragment.newInstance(this, allServiceList, backState, 4));
                 replaceFragment(getFragment(), "allMenuFragment");
 
-            }
-            else if (getFragment() instanceof BillFragment)
+            } else if (getFragment() instanceof BillFragment)
             {
 //                        setCheckedBNV(bottomNavigationView, 3);
                 setCheckedBNV(bottomNavigationView, 2);
@@ -697,8 +683,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                                     {
                                         finishAndRemoveTask();
-                                    }
-                                    else
+                                    } else
                                     {
                                         Intent intent = new Intent(Intent.ACTION_MAIN);
                                         intent.addCategory(Intent.CATEGORY_HOME);
@@ -719,8 +704,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                                 }
                             });
                     exitDialog.show(getFragmentManager(), "exitDialog");
-                }
-                else
+                } else
                 {
 //                    setCheckedBNV(bottomNavigationView, 2);
 
@@ -728,16 +712,14 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                     {
                         Logger.e("-OnBackPressed-", "backToParentFragment");
                         backToParentFragment();
-                    }
-                    else
+                    } else
                     {
                         Logger.e("-OnBackPressed-", "backToMainFragment");
                         backToMainFragment();
                     }
                 }
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.getMessage();
             Logger.e("--OnBackPressed Exception--", e.getMessage());
@@ -862,10 +844,9 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
                 isMainFragment = false;
 
-               setFragment(EventsFragment.newInstance(this));
-                replaceFragment(getFragment(), "EventsFragment");
-               /* setFragment(SurveyFragment.newInstance(this));
-                replaceFragment(getFragment(), "QuestionCompationFragment");*/
+
+                setFragment(SurveyFragment.newInstance(this));
+                replaceFragment(getFragment(), "QuestionCompationFragment");
                 break;
             }
 
@@ -881,8 +862,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 if (getFragment() instanceof MainFragment)
                 {
                     ((MainFragment) getFragment()).requestGetHelpMenu();
-                }
-                else
+                } else
                 {
                     backToMainFragment();
                     ((MainFragment) getMainFragment()).requestGetHelpMenu();
@@ -970,8 +950,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             {
                 isFirst = false;
                 new Handler().postDelayed(() -> findViewById(R.id.rlLoading).setVisibility(View.GONE), 1200);
-            }
-            else
+            } else
             {
                 findViewById(R.id.rlLoading).setVisibility(View.GONE);
             }
@@ -1151,8 +1130,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                         try
                         {
                             onBarcodReader(barcodeType);
-                        }
-                        catch (Exception e)
+                        } catch (Exception e)
                         {
                             e.getMessage();
                         }
@@ -1187,8 +1165,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         {
             setFragment(BarcodeReaderFragment.newInstance(this, barcodeType));
             replaceFragment(getFragment(), "barcodeReaderFragment");
-        }
-        else
+        } else
         {
             setFragment(QrCodeReader.newInstance(this));
             replaceFragment(getFragment(), "QrCodeReader");
@@ -1376,8 +1353,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 if (hasPhone.equalsIgnoreCase("1"))
                 {
                     hasPhone = "true";
-                }
-                else
+                } else
                 {
                     hasPhone = "false";
                 }
@@ -1395,16 +1371,13 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                         {
                             ((ChargeFragment) getFragment()).onSelectContact(onSelectContact);
 
-                        }
-                        else if (getFragment() instanceof PackFragment)
+                        } else if (getFragment() instanceof PackFragment)
                         {
                             ((PackFragment) getFragment()).onSelectContact(onSelectContact);
-                        }
-                        else if (getFragment() instanceof BillFragment)
+                        } else if (getFragment() instanceof BillFragment)
                         {
                             ((BillFragment) getFragment()).onSelectContact(onSelectContact);
-                        }
-                        else if (getFragment() instanceof WalletFragment)
+                        } else if (getFragment() instanceof WalletFragment)
                         {
                             ((WalletFragment) getFragment()).onSelectContact(onSelectContact);
 
@@ -1418,8 +1391,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             }
             cursor.close();
 
-        }
-        else if (resultCode == Activity.RESULT_OK && requestCode == 22)
+        } else if (resultCode == Activity.RESULT_OK && requestCode == 22)
         {
             showToast(this, "کارت جدید با موفقیت ذخیره شد.", R.color.green);
 
@@ -1427,20 +1399,17 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         {
             fragmentList.remove(fragmentList.size() - 1); //remove SelectPaymentGatewayFragment
             fragmentList.remove(fragmentList.size() - 1); //remove ChargeFragment and add it again.
-        }*/
-        else if (resultCode == Activity.RESULT_OK && requestCode == 33)
+        }*/ else if (resultCode == Activity.RESULT_OK && requestCode == 33)
         {
             fragmentList.remove(fragmentList.size() - 1); //remove SelectPaymentGatewayFragment
             fragmentList.remove(fragmentList.size() - 1); //remove ChargeFragment and add it again.
             int PAYMENTstatus = data.getIntExtra("PaymentStatus", 0);
 
             onBackToChargFragment(PAYMENT_STATUS, PAYMENTstatus, 0, personEvents);
-        }
-        else if (resultCode == Activity.RESULT_OK && requestCode == 44)
+        } else if (resultCode == Activity.RESULT_OK && requestCode == 44)
         {
             onBackToHomeWallet(0);
-        }
-        else if (resultCode == Activity.RESULT_OK)
+        } else if (resultCode == Activity.RESULT_OK)
         {
             backToMainFragment();
         }
@@ -1458,8 +1427,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         try
         {
             showToast(this, message, R.color.red);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
 
         }
@@ -2352,19 +2320,16 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                         if (response.data != null)
                         {
                             onBuyTicketClick(response.data);
-                        }
-                        else
+                        } else
                         {
                             showAlert(MainActivity.this, response.info.message, 0);
                         }
-                    }
-                    else
+                    } else
                     {
                         showAlert(MainActivity.this, response.info.message, 0);
                     }
                     buyTicketAction.onEndListener();
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
                 }
 
@@ -2379,8 +2344,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 {
                     showAlert(MainActivity.this, "درحال حاضر مسابقه ای جهت خرید بلیت موجود نیست.", 0);
                     Logger.e("--showErrorMessage--", message);
-                }
-                else
+                } else
                 {
                     showAlert(MainActivity.this, R.string.networkErrorMessage, R.string.networkError);
                 }
@@ -2416,7 +2380,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     }
 
     @Override
-    public void onBackToChargFragment(int PAYMENT_STATUS, int idBill,int count, ArrayList<PersonEvent> personEvents)
+    public void onBackToChargFragment(int PAYMENT_STATUS, int idBill, int count, ArrayList<PersonEvent> personEvents)
     {
 
         if (PAYMENT_STATUS == 3)
@@ -2424,38 +2388,34 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             isMainFragment = false;
             setFragment(ChargeFragment.newInstance(this, backState));
             replaceFragment(getFragment(), "ChargeFragment");
-        }
-        else if (PAYMENT_STATUS == 4)
+        } else if (PAYMENT_STATUS == 4)
         {
             isMainFragment = false;
             setFragment(PackFragment.newInstance(this, backState));
             replaceFragment(getFragment(), "PackFragment");
-        }
-        else if (PAYMENT_STATUS == 13)
+        } else if (PAYMENT_STATUS == 13)
         {
             isMainFragment = false;
             setFragment(WalletFragment.newInstance(this, 1));//IncreaseInventoryFragment
             replaceFragment(getFragment(), "IncreaseInventoryFragment");
-        }
-        else if (PAYMENT_STATUS == 15)
+        } else if (PAYMENT_STATUS == 15)
         {
             isMainFragment = false;
             setFragment(PayBillCarMotorFragment.newInstance(this, idBill));//IncreaseInventoryFragment
             replaceFragment(getFragment(), "PayBillCarMotorFragment");
-        }
-        else if (PAYMENT_STATUS == TrapConfig.PAYMENT_STATUS_BILL)
+        } else if (PAYMENT_STATUS == TrapConfig.PAYMENT_STATUS_BILL)
         {
             //  fragmentList.remove(fragmentList.size() - 1); //remove SelectPaymentGatewayFragment
             //fragmentList.remove(fragmentList.size() - 1); //remove ChargeFragment and add it again.
             isMainFragment = false;
             setFragment(BillFragment.newInstance(this, idBill));
             replaceFragment(getFragment(), "BillFragment");
-        }else if (PAYMENT_STATUS == TrapConfig.PAYMENT_STATUS_EVENT)
+        } else if (PAYMENT_STATUS == TrapConfig.PAYMENT_STATUS_EVENT)
         {
             //  fragmentList.remove(fragmentList.size() - 1); //remove SelectPaymentGatewayFragment
             //fragmentList.remove(fragmentList.size() - 1); //remove ChargeFragment and add it again.
             isMainFragment = false;
-            setFragment(RegisterEventFragment.newInstance(this, count,personEvents));
+            setFragment(RegisterEventFragment.newInstance(this, count, personEvents));
             replaceFragment(getFragment(), "BillFragment");
         }
     }
@@ -2472,8 +2432,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
             setFragment(AllMenuFragment.newInstance(this, allServiceList, backState, idMenuClicked));
             replaceFragment(getFragment(), "allMenuFragment");
-        }
-        else
+        } else
         {
             backToMainFragment();
         }
@@ -2584,8 +2543,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 dialog.setCancelable(false);
                 dialog.show(getFragmentManager(), "dialogAlert");
 
-            }
-            else
+            } else
             {
                 drawerMenu = response.data.getDrawerMenu();
                 chosenServiceList = response.data.getChosenServiceList();
@@ -2598,8 +2556,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
                 getBankList();
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             //    onError(e.getMessage());
 
@@ -2638,8 +2595,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 //                    finish();
 
                         return;
-                    }
-                    else
+                    } else
                     {
                         matchList = (ArrayList<MatchItem>) responseMatchList.data.getMatchList();
 
@@ -2651,16 +2607,14 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                         if (mSavedInstanceState == null)
                         {
                             addFragment(getFragment(), "mainFragment");
-                        }
-                        else
+                        } else
                         {
                             replaceFragment(getFragment(), "mainFragment");
                         }
 
                     }
                     showPymentResults();
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
                     //onError(e.getMessage());
                 }
@@ -2699,16 +2653,14 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
             startActivity(intent);*/
 
-        }
-        else if (hasPaymentCharge || hasPaymentPackageSimcard)
+        } else if (hasPaymentCharge || hasPaymentPackageSimcard)
         {
             Intent intent = new Intent(this, PaymentResultChargeActivity.class);
             Log.d("refrencee", refrenceNumber);
             intent.putExtra("RefrenceNumber", refrenceNumber);
             //intent.putExtra("StatusPayment", true);
             startActivity(intent);
-        }
-        else if (hasPaymentIncreaseWallet)
+        } else if (hasPaymentIncreaseWallet)
         {
             Intent intent = new Intent(this, PaymentResultIncreaseInventoryActivity.class);
             intent.putExtra("RefrenceNumber", refrenceNumber);
@@ -2780,8 +2732,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                     finish();*/
 
                         return;
-                    }
-                    else
+                    } else
                     {
                         Logger.e("--BankDB size before delete--", "size: " + realm.where(BankDB.class).findAll().size());
 
@@ -2791,8 +2742,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                             {
                                 realm1.delete(BankDB.class);
                             });
-                        }
-                        catch (RealmException ex)
+                        } catch (RealmException ex)
                         {
                             Logger.e("--BankDB Delete--", "false");
 
@@ -2820,8 +2770,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                                     bankDB.setImageCard(bank.getImageCard());
                                     bankDB.setImageCardBack(bank.getImageCardBack());
                                     bankDB.setOrderItem(bank.getOrderItem());
-                                }
-                                catch (RealmException e)
+                                } catch (RealmException e)
                                 {
                                     e.printStackTrace();
                                 }
@@ -2834,8 +2783,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                         getAllServicesList();
 //                        getNewsMainContent();
                     }
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
                     //  onError(e.getMessage());
                 }
@@ -2852,8 +2800,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
-                }
-                else
+                } else
                 {
                     showError(MainActivity.this, getString(R.string.networkErrorMessage));
 
@@ -2884,8 +2831,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                     {
                         allServiceList = response.data.getResults();
                     }
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
 //                    mainView.showError(e.getMessage());
                     e.printStackTrace();
@@ -2905,8 +2851,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                 {
                     Logger.e("-OnError-", "Error: " + message);
                     showError(MainActivity.this, "خطا در دریافت اطلاعات از سرور!");
-                }
-                else
+                } else
                 {
                     showError(MainActivity.this, getString(R.string.networkErrorMessage));
 
@@ -2929,8 +2874,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
         if (Tools.isNetworkAvailable(this))
         {
             error = "خطا در دریافت اطلاعات از سرور!";
-        }
-        else
+        } else
         {
             error = getString(R.string.networkErrorMessage);
         }
@@ -2955,8 +2899,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                     });
             dialog.setCancelable(false);
             dialog.show(getFragmentManager(), "messageDialog");
-        }
-        catch (IllegalStateException e)
+        } catch (IllegalStateException e)
         {
 
         }
@@ -3000,8 +2943,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             //   Animation animation = AnimationUtils.loadAnimation(this, R.anim.movedown);
             //    findViewById(R.id.llBottomNavigation).startAnimation(animation);
             findViewById(R.id.llBottomNavigation).setVisibility(View.GONE);
-        }
-        else
+        } else
         {
             //  Animation animation = AnimationUtils.loadAnimation(this, R.anim.moveup);
             //   findViewById(R.id.llBottomNavigation).startAnimation(animation);
