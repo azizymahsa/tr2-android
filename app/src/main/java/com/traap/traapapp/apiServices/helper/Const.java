@@ -39,15 +39,17 @@ public class Const
     public final static String GetSpectatorList = SubBASEURL + "v1/match/spectator";
 
     //Mobile
-    public final static String GET_BOUGHT_FOR = SubBASEURL + "v1/topupcharge/bought_for/";
-    public final static String BUY_MOBILE_CHARGE = SubBASEURL + "v1/topupcharge/buy_charge/";
-    public final static String BUY_CHARGE_WALLET = SubBASEURL + "v1/topupcharge/buy_charge_wallet/";
+    public final static String GET_BOUGHT_FOR_IN_CHARGE = SubBASEURL + "v1/topupcharge/bought_for/";
+    public final static String BUY_MOBILE_CHARGE_IPG = SubBASEURL + "v1/topupcharge/buy_charge/";
+    public final static String BUY_MOBILE_CHARGE_WALLET = SubBASEURL + "v1/topupcharge/buy_charge_wallet/";
     public final static String AvailableAmount = SubBASEURL + "v1/topupcharge/available_amount/";
-    public final static String BUY_PACKAGE_WALLET = SubBASEURL + "v1/internetpackage/package_buy_wallet/";
-    public final static String BUY_MOBILE_PACKAGE = SubBASEURL + "v1/internetpackage/package_buy/";
+    public final static String BUY_PACKAGE_IPG = SubBASEURL + "v2/internetpackage/bought_for/";
+    public final static String BUY_PACKAGE_WALLET = SubBASEURL + "v2/internetpackage/package_buy_wallet/";
+    public final static String BUY_MOBILE_PACKAGE = SubBASEURL + "v2/internetpackage/package_buy/";
     public final static String GET_PACKAGE_RIGHTEL = SubBASEURL + "v1/internetpackage/get_package_rightel/";
     public final static String GET_PACKAGE_MCI = SubBASEURL + "v1/internetpackage/get_package_mci/";
     public final static String GET_PACKAGE_IRANCELL = SubBASEURL + "v1/internetpackage/get_package_irancell/";
+    public final static String GET_INTERNET_PACKAGE_LIST = SubBASEURL + "v2/internetpackage/get_list_packages/";
 
     //Bill
     public final static String GetMyBills = SubBASEURL + "v1/bill/";
@@ -62,6 +64,12 @@ public class Const
     public final static String GetHappyCardInfo = SubBASEURL + "Happy/v1/GetCardInfo";
     public final static String GetShetabCardInfo = SubBASEURL + "Shetab/v1/GetCardInfo";
     public final static String DoTransferCard = SubBASEURL + "Shetab/v1/DoTransfer";
+
+    //cardPayment
+    public final static String BUY_MOBILE_CHARGE_CARD = SubBASEURL + "v1/topupcharge/buy_charge_card/";
+    public final static String BUY_PACKAGE_CARD = SubBASEURL + "v2/internetpackage/package_buy_card/";
+    public final static String BUY_Match_TICKET_CARD = SubBASEURL + "v1/match/card/payment/";
+//    public final static String CARD_PAYMENT_CHARITY = SubBASEURL + "v1/charity/payment/";
 
     //wallet
     public final static String GetInfoWallet = SubBASEURL + "v1/shetac/get_info/";
@@ -95,8 +103,8 @@ public class Const
     public final static String PAYMENT_PRINT_pOS = SubBASEURL + "v1/payment/payment_print_pos/";
 
     //payment
-    public final static String PaymentMatch = SubBASEURL + "v1/match/ipg/payment/";//"v1/match/payment_ipg/";
-    public final static String PaymentWallet = SubBASEURL + "v1/match/wallet/payment/";
+    public final static String BUY_Match_TICKET_IPG = SubBASEURL + "v1/match/ipg/payment/";
+    public final static String BUY_Match_TICKET_Wallet = SubBASEURL + "v1/match/wallet/payment/";
     public final static String GetBalancePasswordLess = SubBASEURL + "v1/shetac/get_balance_password_less/";
     public final static String ForgetPasswordWallet = SubBASEURL + "v1/shetac/forget_password_tow/";
     public final static String ChangePasswordWallet = SubBASEURL + "v1/shetac/change_password_tow/";
@@ -252,8 +260,8 @@ public class Const
     public final static String GET_MAIN_PERFORMANCE_EVALUATION = SubBASEURL + "v1/match/{id}/formation/";
     public final static String GET_PERFORMANCE_EVALUATION_SUBSTITUTION = SubBASEURL + "v1/match/{id}/substitution/";
     public final static String GET_PERFORMANCE_EVALUATION_QUESTION = SubBASEURL + "v1/evaluation/{id}/polls";
-    public final static String SET_PLAYER_PERFORMANCE_EVALUATION = SubBASEURL + "v1/evaluation/poll_result/";
-    public final static String GET_PLAYER_PERFORMANCE_EVALUATION_RESULT = SubBASEURL + "v1/evaluation/poll_result/user_polls/";
+    public final static String SET_PLAYER_PERFORMANCE_EVALUATION = SubBASEURL + "v1/evaluation/{match_id}/polls/";
+    public final static String GET_PLAYER_PERFORMANCE_EVALUATION_RESULT = SubBASEURL + "v1/evaluation/{match_id}/user/polls/";
     //event
     public final static String Get_events=SubBASEURL+"v1/event/" ;
     public final static String Get_event_id=SubBASEURL+"v1/event/{id}/" ;

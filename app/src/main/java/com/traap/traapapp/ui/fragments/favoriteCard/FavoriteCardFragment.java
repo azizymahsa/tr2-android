@@ -30,9 +30,9 @@ import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.card.CardBankItem;
 import com.traap.traapapp.apiServices.model.card.editCard.request.EditCardRequest;
 import com.traap.traapapp.apiServices.model.card.getCardList.GetCardListResponse;
-import com.traap.traapapp.apiServices.model.card.Result;
 import com.traap.traapapp.apiServices.model.shetacChangePass2.request.ShetacChangePass2Request;
 import com.traap.traapapp.apiServices.model.shetacForgotPass2.request.ShetacForgotPass2Request;
 import com.traap.traapapp.models.otherModels.addCard.AddCardModel;
@@ -42,8 +42,8 @@ import com.traap.traapapp.ui.base.GoToActivity;
 import com.traap.traapapp.ui.dialogs.ChangePasswordDialog;
 import com.traap.traapapp.ui.dialogs.DialogDeleteCard;
 import com.traap.traapapp.ui.dialogs.DialogEditCard;
-import com.traap.traapapp.ui.fragments.transaction.TransactionsListFragment;
 import com.traap.traapapp.utilities.LinearLayoutManagerWithSmoothScroller;
+import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.ScreenShot;
 import com.traap.traapapp.utilities.Tools;
 
@@ -64,7 +64,7 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
 
     private FavoriteCardParentActionView parentView;
 
-    private List<Result> cardList = new ArrayList<>();;
+    private List<CardBankItem> cardList = new ArrayList<>();;
 
     public FavoriteCardFragment()
     {
@@ -181,7 +181,7 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
     {
         parentView.showFavoriteCardParentLoading();
 
-        SingletonService.getInstance().getCardListService().getMenu(this);
+        SingletonService.getInstance().getCardListService().getCardList(this);
     }
 
     View.OnClickListener clickListener = view ->
@@ -199,7 +199,8 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
     @Override
     public void onReady(WebServiceClass<GetCardListResponse> response)
     {
-        try{
+        try
+        {
             parentView.hideFavoriteCardParentLoading();
 
             progress.setVisibility(View.GONE);
@@ -209,41 +210,58 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
             //fill adapter
             if (response.info.statusCode == 200)
             {
-                Result result = new Result();
-                result.setBankBin("");
-                cardList.add(result);
-                cardList.addAll(response.data.getResults());
-//            adapter = new CardViewPagerAdapter(cardList, this, this);
-                adapter.notifyDataSetChanged();
-
-                rvListCard.setAdapter(adapter);
-                indicator.attachToRecyclerView(rvListCard);
-
-                if (cardList.size() > 2)
+                if (response.data.getCardBankItems() != null)
                 {
-                    int favorittePos = 0;
-                    for (int i = 1 ; i <= response.data.getResults().size() ; i++)
+                    if (!response.data.getCardBankItems().isEmpty())
                     {
-                        if (response.data.getResults().get(i-1).getIsFavorite())
+//                Result result = new Result();
+//                result.setBankBin("");
+//                cardList.add(result);
+                        cardList.addAll(response.data.getCardBankItems());
+//            adapter = new CardViewPagerAdapter(cardList, this, this);
+                        adapter.notifyDataSetChanged();
+
+                        rvListCard.setAdapter(adapter);
+                        indicator.attachToRecyclerView(rvListCard);
+
+                        if (cardList.size() > 2)
                         {
-                            favorittePos = i;
+                            int favorittePos = 0;
+                            for (int i = 1; i <= response.data.getCardBankItems().size(); i++)
+                            {
+                                if (response.data.getCardBankItems().get(i - 1).getIsFavorite())
+                                {
+                                    favorittePos = i;
+                                }
+                            }
+                            rvListCard.smoothScrollToPosition(favorittePos == 0 ? 1 : favorittePos);
+                        }
+                        else
+                        {
+                            rvListCard.smoothScrollToPosition(1);
                         }
                     }
-                    rvListCard.smoothScrollToPosition(favorittePos == 0 ? 1 : favorittePos);
+                    else
+                    {
+                        parentView.onEmptyCard();
+                    }
                 }
                 else
                 {
-                    rvListCard.smoothScrollToPosition(1);
+                    parentView.onEmptyCard();
                 }
             }
             else
             {
-
+                parentView.onEmptyCard();
             }
 
-        }catch (Exception e){}
-
-
+        }
+        catch (Exception e)
+        {
+            parentView.onEmptyCard();
+            Logger.e("","message: " + e.getMessage());
+        }
     }
 
     @Override
@@ -255,15 +273,14 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
 
         if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
         {
-            showAlert(getActivity(), "خطای ارتباط با سرور!", R.string.error);
+            showAlert(getActivity(), "خطای جستجوی کارت از سرور!", R.string.error);
         }
         else
         {
             showAlert(getActivity(), R.string.networkErrorMessage, R.string.networkError);
         }
 
-
-
+        parentView.onEmptyCard();
     }
 
     @Override
@@ -308,41 +325,39 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
     }
 
     @Override
-    public void onShowEditDialog(Result result, int position)
+    public void onShowEditDialog(CardBankItem cardBankItem, int position)
     {
-        DialogEditCard editCardDialog = new DialogEditCard(getActivity(), result, this, position);
+        DialogEditCard editCardDialog = new DialogEditCard(getActivity(), cardBankItem, this, position);
         editCardDialog.show(getActivity().getSupportFragmentManager(), "editCard");
     }
 
     @Override
-    public void onShowChangePasswordDialog(Result result, int Position)
+    public void onShowChangePasswordDialog(CardBankItem cardBankItem, int Position)
     {
-        ChangePasswordDialog dialog = new ChangePasswordDialog(getActivity(), this, result);
+        ChangePasswordDialog dialog = new ChangePasswordDialog(getActivity(), this, cardBankItem);
         dialog.show(getActivity().getSupportFragmentManager(), "changePasswordDialog");
     }
 
     @Override
-    public void onShowConfirmDeleteDialog(Result result, int position)
+    public void onShowConfirmDeleteDialog(CardBankItem cardBankItem, int position)
     {
-        new DialogDeleteCard(getActivity(), "آیا از حذف کارت " + result.getCardNumber() + " اطمینان دارید؟",
-                this, result.getCardId(), position).show(getActivity().getSupportFragmentManager(), "deleteCard");
+        new DialogDeleteCard(getActivity(), "آیا از حذف کارت " + cardBankItem.getCardNumber() + " اطمینان دارید؟",
+                this, cardBankItem.getCardId(), position).show(getActivity().getSupportFragmentManager(), "deleteCard");
     }
 
     @Override
-    public void onEditCard(Result cardDetail, int position)
+    public void onEditCard(CardBankItem cardDetail, int position)
     {
         parentView.showFavoriteCardParentLoading();
 
         EditCardRequest request = new EditCardRequest();
         request.setCardNumber(cardDetail.getCardNumber());
         request.setFullName(cardDetail.getFullName());
-        request.setIsMainCard(false);
-        request.setOrderList(2);
 
-        SingletonService.getInstance().editCardService().editCardService(cardDetail.getCardId(), request, new OnServiceStatus<WebServiceClass<Result>>()
+        SingletonService.getInstance().editCardService().editCardService(cardDetail.getCardId(), request, new OnServiceStatus<WebServiceClass<CardBankItem>>()
         {
             @Override
-            public void onReady(WebServiceClass<Result> response)
+            public void onReady(WebServiceClass<CardBankItem> response)
             {
                 try{
                     parentView.hideFavoriteCardParentLoading();
@@ -361,7 +376,8 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
                     showToast(getActivity(), "کارت با موفقیت ویرایش و بروزرسانی شد.", R.color.green);
                     cardList.set(position, cardDetail);
                     adapter.notifyDataSetChanged();
-                }catch (Exception e){}
+                }
+                catch (Exception e){}
 
             }
 
@@ -371,7 +387,7 @@ public class FavoriteCardFragment extends BaseFragment implements FavoriteCardAc
                 parentView.hideFavoriteCardParentLoading();
                 if (Tools.isNetworkAvailable(Objects.requireNonNull(getActivity())))
                 {
-                    showAlert(getActivity(), "خطای ارتباط با سرور!", R.string.error);
+                    showAlert(getActivity(), "خطای دریافت اطلاعات کارت از سرور!", R.string.error);
                 }
                 else
                 {

@@ -133,6 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_10dp"
+            android:visibility="gone"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -148,7 +149,6 @@
                 android:layout_weight="5"
                 android:gravity="center"
                 android:orientation="vertical">
-
 
                 <LinearLayout
                     android:id="@+id/llFullInfo"
@@ -170,8 +170,7 @@
                         android:text="درگاه پرداخت"
                         android:textColor="@color/borderColorRed"
                         android:textSize="@dimen/textSize_14dp"
-                        android:background="@drawable/background_border_a"
-                        />
+                        android:background="@drawable/background_border_a" />
 
                     <TextView
                         android:id="@+id/tvCardsShetab"
@@ -182,9 +181,8 @@
                         android:gravity="center"
                         android:singleLine="true"
                         android:text="کارت های شتابی"
-                        android:textColor="@color/gray"
+                        android:textColor="@color/returnButtonColor"
                         android:textSize="@dimen/textSize_14dp" />
-
 
                     <TextView
                         android:id="@+id/tvWallet"
@@ -214,11 +212,21 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
+            style="@style/TabLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layoutDirection="rtl"
-            android:visibility="gone"
-            app:tabMode="fixed" />
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10dp"
+            android:background="@drawable/background_border_gray"
+            app:tabBackground="@drawable/tab_background"
+            app:tabGravity="fill"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorHeight="0dp"
+            app:tabMaxWidth="0dp"
+            app:tabMode="fixed"
+            app:tabTextColor="@drawable/tab_text_color"/>
 
         <com.traap.traapapp.utilities.CustomViewPager
             android:id="@+id/pager"

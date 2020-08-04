@@ -78,6 +78,8 @@ import com.traap.traapapp.ui.fragments.barcodeReader.QrCodeReader;
 import com.traap.traapapp.ui.fragments.billCarAndMotor.PayBillCarMotorFragment;
 import com.traap.traapapp.ui.fragments.billPay.BillFragment;
 import com.traap.traapapp.ui.fragments.billTollAndTraficPlan.PayTollTraficPlanFragment;
+import com.traap.traapapp.ui.fragments.cardManagement.CardManagementFragment;
+import com.traap.traapapp.ui.fragments.charity.CharityFragment;
 import com.traap.traapapp.ui.fragments.competitions.CompationsFragment;
 import com.traap.traapapp.ui.fragments.competitions.QuestionCompationFragment;
 import com.traap.traapapp.ui.fragments.events.EventsFragment;
@@ -88,6 +90,9 @@ import com.traap.traapapp.ui.fragments.headCoach.HeadCoachFragment;
 import com.traap.traapapp.ui.fragments.inviteFriend.InviteFriendsFragment;
 import com.traap.traapapp.ui.fragments.lastPast5Match.Last5PastMatchFragment;
 import com.traap.traapapp.ui.fragments.leagueTable.LeagueTableMainFragment;
+import com.traap.traapapp.ui.fragments.lotteryPrimary.LotteryPrimaryFragment;
+import com.traap.traapapp.ui.fragments.lotteryPrimary.activeList.LotteryPrimaryActiveDetailsFragment;
+import com.traap.traapapp.ui.fragments.lotteryPrimary.history.LotteryHistoryWinnersFragment;
 import com.traap.traapapp.ui.fragments.lotteryWinnerList.LotteryWinnerDetailsFragment;
 import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
@@ -639,11 +644,11 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
                         SingletonLastPredictItem.getInstance().getIsFormationPredict()
                 );
             }
-            else if (getFragment() instanceof SelectPaymentGatewayFragment)
+            else if (fragmentList.get(fragmentList.size() - 2) instanceof SelectPaymentGatewayFragment)
             {
-                fragmentList.remove(fragmentList.size() - 1); //remove SelectPaymentGatewayFragment
-                fragmentList.remove(fragmentList.size() - 1); //remove ChargeFragment and add it again.
+                fragmentList.remove(fragmentList.size() - 1); //remove current to remove SelectPaymentGatewayFragment after back pressed.
 
+                backToParentFragment();
                 onBackToChargFragment(PAYMENT_STATUS, Prefs.getInt("PAYMENT_STATUS", PAYMENT_STATUS), Prefs.getInt("ID_BILL", 0), personEvents);
             }
             else if (getFragment() instanceof ChargeFragment && backState == 2 || getFragment() instanceof PackFragment && backState == 2)
@@ -805,7 +810,7 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
             case 85: //مدیریت کارت ها
             {
 //                showToast(this, "مدیریت کارت ها", R.color.green);
-                isMainFragment = false;
+                onCardManagement();
 
                 break;
             }
@@ -857,10 +862,10 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
                 isMainFragment = false;
 
-                setFragment(EventsFragment.newInstance(this));
-                replaceFragment(getFragment(), "EventsFragment");
-               /* setFragment(SurveyFragment.newInstance(this));
-                replaceFragment(getFragment(), "QuestionCompationFragment");*/
+               /* setFragment(EventsFragment.newInstance(this));
+                replaceFragment(getFragment(), "EventsFragment");*/
+                setFragment(SurveyFragment.newInstance(this));
+                replaceFragment(getFragment(), "QuestionCompationFragment");
                 break;
             }
 
@@ -1113,6 +1118,15 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     {
         setFragment(PlayerEvaluationResultFragment.newInstance(this, matchId, playerId, name, imageURL));
         replaceFragment(getFragment(), "PlayerEvaluationResultFragment");
+    }
+
+    @Override
+    public void onCardManagement()
+    {
+        isMainFragment = false;
+
+        setFragment(CardManagementFragment.newInstance(this));
+        replaceFragment(getFragment(), "CardManagementFragment");
     }
 
     public void onPackSimCard(Integer status)
@@ -1771,6 +1785,34 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
     public void onFootBallServiceSix()
     {
 
+    }
+
+    @Override
+    public void onFootBallServiceLottery()
+    {
+        setFragment(LotteryPrimaryFragment.newInstance(this));
+        replaceFragment(getFragment(), "LotteryPrimaryFragment");
+    }
+
+    @Override
+    public void onFootBallServiceCharity()
+    {
+        setFragment(CharityFragment.newInstance(this));
+        replaceFragment(getFragment(), "CharityFragment");
+    }
+
+    @Override
+    public void onLotteryPrimaryResultDetails(int id)
+    {
+        setFragment(LotteryPrimaryActiveDetailsFragment.newInstance(this));
+        replaceFragment(getFragment(), "LotteryPrimaryActiveDetailsFragment");
+    }
+
+    @Override
+    public void onLotteryPrimaryHistoryWinnerList(int lotteryId)
+    {
+        setFragment(LotteryHistoryWinnersFragment.newInstance(this, lotteryId));
+        replaceFragment(getFragment(), "LotteryHistoryWinnersFragment");
     }
 
     @Override

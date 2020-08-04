@@ -9,6 +9,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 import com.traap.traapapp.apiServices.model.allService.response.SubMenu;
+
+import javax.annotation.Nullable;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,30 +44,30 @@ public class GetMenuItemResponse implements Parcelable
     @SerializedName("order_item")
     @Expose @Getter @Setter
     private Integer orderItem;
+
     @SerializedName("logo")
     @Expose @Getter @Setter
     private String logo_;
 
-
     @SerializedName("sub_menu")
     @Expose @Getter @Setter
+    @Nullable
     private List<SubMenu> subMenu = null;
+
     @SerializedName("cupLogo")
     @Expose @Getter @Setter
     private String logo;
+
     @SerializedName("logo_selected")
     @Expose @Getter @Setter
     private String logoSelected;
+
     @SerializedName("base_url")
-    @Expose
-    @Getter
-    @Setter
+    @Expose @Getter @Setter
     private String baseUrl;
 
     @SerializedName("login_url")
-    @Expose
-    @Getter
-    @Setter
+    @Expose @Getter @Setter
     private String loginUrl;
 
     protected GetMenuItemResponse(Parcel in)

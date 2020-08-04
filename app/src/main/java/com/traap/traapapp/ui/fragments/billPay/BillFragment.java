@@ -1258,6 +1258,30 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
     }
 
     @Override
+    public void onFootBallServiceLottery()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceCharity()
+    {
+
+    }
+
+    @Override
+    public void onLotteryPrimaryResultDetails(int id)
+    {
+
+    }
+
+    @Override
+    public void onLotteryPrimaryHistoryWinnerList(int id)
+    {
+
+    }
+
+    @Override
     public void onNewsArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
 
@@ -1442,6 +1466,12 @@ public class BillFragment extends BaseFragment implements MainActionView, OnAnim
 
     @Override
     public void openEventPaymentFragment(String url, String textEventPayment, Integer count, ArrayList<PersonEvent> personEvents, String amount, int PAYMENT_STATUS_BILL)
+    {
+
+    }
+
+    @Override
+    public void onCardManagement()
     {
 
     }

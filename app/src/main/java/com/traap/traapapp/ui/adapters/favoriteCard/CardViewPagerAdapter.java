@@ -15,16 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.traap.traapapp.apiServices.model.card.CardBankItem;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.List;
 
 import com.traap.traapapp.R;
-import com.traap.traapapp.apiServices.model.card.Result;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.base.GoToActivity;
 import com.traap.traapapp.ui.fragments.favoriteCard.FavoriteCardActionView;
-import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
 
@@ -34,12 +33,12 @@ import com.traap.traapapp.utilities.Utility;
 public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdapter.MyViewHolder>
 {
 
-    private List<Result> cardList;
+    private List<CardBankItem> cardList;
     private Context context;
     private FavoriteCardActionView actionView;
 
 
-    public CardViewPagerAdapter(List<Result> models, FavoriteCardActionView actionView)
+    public CardViewPagerAdapter(List<CardBankItem> models, FavoriteCardActionView actionView)
     {
         this.cardList = models;
         this.actionView = actionView;
@@ -60,16 +59,16 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position)
     {
-        Result item = cardList.get(position);
+        CardBankItem item = cardList.get(position);
 
-        if (position == 0)
-        {
-            holder.cvAddCard.setVisibility(View.VISIBLE);
-            holder.cvContent.setVisibility(View.INVISIBLE);
-            holder.rlBackView.setVisibility(View.INVISIBLE);
-        }
-        else
-        {
+//        if (position == 0)
+//        {
+//            holder.cvAddCard.setVisibility(View.VISIBLE);
+//            holder.cvContent.setVisibility(View.INVISIBLE);
+//            holder.rlBackView.setVisibility(View.INVISIBLE);
+//        }
+//        else
+//        {
             holder.cvAddCard.setVisibility(View.INVISIBLE);
             holder.cvContent.setVisibility(View.VISIBLE);
             holder.rlBackView.setVisibility(View.VISIBLE);
@@ -125,7 +124,7 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 //            }
 
 
-        }
+//        }
 
 
         holder.imgEdit.setOnClickListener(view ->
@@ -143,7 +142,6 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
         holder.imgDelete.setOnClickListener(view ->
         {
             actionView.onShowConfirmDeleteDialog(item, position);
-
         });
 
 
@@ -164,21 +162,21 @@ public class CardViewPagerAdapter extends RecyclerView.Adapter<CardViewPagerAdap
 //
 //        });
 
-        holder.cvContent.setOnClickListener(view ->
-        {
-            if (position != 0)
-            {
-                holder.myEasyFlipView.flipTheView();
-            }
-        });
+//        holder.cvContent.setOnClickListener(view ->
+//        {
+//            if (position != 0)
+//            {
+//                holder.myEasyFlipView.flipTheView();
+//            }
+//        });
 
-        holder.rlBackView.setOnClickListener(view ->
-        {
-            if (position != 0)
-            {
-                holder.myEasyFlipView.flipTheView();
-            }
-        });
+//        holder.rlBackView.setOnClickListener(view ->
+//        {
+//            if (position != 0)
+//            {
+//                holder.myEasyFlipView.flipTheView();
+//            }
+//        });
 
         holder.cvAddCard.setOnClickListener(view ->
         {

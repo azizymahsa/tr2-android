@@ -2,7 +2,6 @@ package com.traap.traapapp.ui.adapters.pack;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,42 +17,40 @@ import com.github.aakira.expandablelayout.ExpandableLayout;
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.github.aakira.expandablelayout.ExpandableLinearLayout;
 import com.github.aakira.expandablelayout.Utils;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.traap.traapapp.R;
-import com.traap.traapapp.apiServices.model.getRightelPack.response.Detail;
-import com.traap.traapapp.models.otherModels.pack.RightelPackModel;
+import com.traap.traapapp.apiServices.model.getSimPackageList.response.SimContentItem;
+import com.traap.traapapp.apiServices.model.getSimPackageList.response.SimPackage;
+import com.traap.traapapp.conf.TrapConfig;
+import com.traap.traapapp.ui.fragments.simcardPack.imp.GetSimContentListByTypeImp;
 import com.traap.traapapp.utilities.SimpleDividerItemDecoration;
+
+import java.util.List;
 
 /**
  * Created by Javad.Abadi on 8/13/2018.
  */
 public class TitlePackAdapter extends RecyclerView.Adapter<TitlePackAdapter.ViewHolder>
 {
-
-    private final List<RightelPackModel> data;
-
     private Context context;
-    private DetailPackAdapter detailPackAdapter;
+    private DetailPackAdapter adapter;
     private SparseBooleanArray expandState = new SparseBooleanArray();
-    private DetailPackAdapter.GetPackInAdapter getPackInAdapter;
+    private DetailPackAdapter.GetPackFromAdapterListener listener;
     private String type;
-    private Integer operatorType;
+    private int operatorType, simType;
+    private List<SimPackage> packageList;
 
-    public TitlePackAdapter(final List<RightelPackModel> data, DetailPackAdapter.GetPackInAdapter getPackInAdapter, String type,Integer operatorType)
+    public TitlePackAdapter(int operatorType, int simType, List<SimPackage> packageList, DetailPackAdapter.GetPackFromAdapterListener listener)
     {
-        this.data = data;
-        this.getPackInAdapter = getPackInAdapter;
-        this.type = type;
+        this.packageList = packageList;
         this.operatorType = operatorType;
-        for (int i = 0; i < data.size(); i++)
+        this.simType = simType;
+        this.listener = listener;
+
+        for (int i = 0; i < packageList.size(); i++)
         {
             expandState.append(i, false);
         }
     }
-
 
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType)
@@ -67,42 +64,21 @@ public class TitlePackAdapter extends RecyclerView.Adapter<TitlePackAdapter.View
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position)
     {
+        SimPackage simPackage = packageList.get(position);
 
-        final RightelPackModel item = data.get(position);
+        List<SimContentItem> contentList = GetSimContentListByTypeImp.getSimContentListByType(simPackage.getContentList(), simType);
 
-        holder.tvTitle.setText(item.getTitle());
-        List<Detail> details = new ArrayList<>();
-
-        if (!TextUtils.isEmpty(type))
-        {
-           /* if (type.equals("all"))
-            {
-                detailPackAdapter = new DetailPackAdapter(item.getDetail(), getPackInAdapter);
-                holder.tvTitle.setText(item.getTitle() + " (" + item.getDetail().size() + ")");
-            } else
-            {*/
-                for (int i = 0; i < item.getDetail().size(); i++)
-                {
-                    if (item.getDetail().get(i).getPackageType().equals(type))
-                        details.add(item.getDetail().get(i));
-
-                }
-                detailPackAdapter = new DetailPackAdapter(details, getPackInAdapter,operatorType);
-                holder.tvTitle.setText(item.getTitle() + " (" + details.size() + ")");
-
-
-        } else
-        {
-            detailPackAdapter = new DetailPackAdapter(item.getDetail(), getPackInAdapter,operatorType);
-            holder.tvTitle.setText(item.getTitle() + " (" + item.getDetail().size() + ")");
-
-
-        }
-
-
+        adapter = new DetailPackAdapter(operatorType, contentList, listener);
         holder.expandableLayout.setInRecyclerView(true);
-        holder.detailRecycler.setAdapter(detailPackAdapter);
+        holder.detailRecycler.setAdapter(adapter);
 
+        holder.tvTitle.setText(new StringBuilder(
+                simPackage.getDurationPackage())
+                .append(" (")
+//                .append(simPackage.getContentList().size())
+                .append(contentList.size())
+                .append(")")
+        );
 
         holder.detailRecycler.addItemDecoration(new SimpleDividerItemDecoration(context));
 
@@ -125,31 +101,26 @@ public class TitlePackAdapter extends RecyclerView.Adapter<TitlePackAdapter.View
         });
 
         holder.imgArrow.setRotation(expandState.get(position) ? 180f : 0f);
-        holder.buttonLayout.setOnClickListener(new View.OnClickListener()
+        holder.buttonLayout.setOnClickListener(v -> onClickButton(holder.expandableLayout));
+
+        switch (operatorType)
         {
-            @Override
-            public void onClick(final View v)
+            case TrapConfig.OPERATOR_TYPE_MTN:
             {
-                onClickButton(holder.expandableLayout);
+                holder.llImage.setBackground(context.getResources().getDrawable(R.drawable.circle_background_1));
+                break;
             }
-        });
-
-
-
-
-        if (operatorType==1){
-            holder.llImage.setBackground(context.getResources().getDrawable(R.drawable.circle_background_1));
-
-
-        }else if (operatorType==2){
-            holder.llImage.setBackground(context.getResources().getDrawable(R.drawable.circle_background_2));
-
-        }else{
-            holder.llImage.setBackground(context.getResources().getDrawable(R.drawable.circle_background_3));
-
+            case TrapConfig.OPERATOR_TYPE_MCI:
+            {
+                holder.llImage.setBackground(context.getResources().getDrawable(R.drawable.circle_background_2));
+                break;
+            }
+            case TrapConfig.OPERATOR_TYPE_RIGHTELL:
+            {
+                holder.llImage.setBackground(context.getResources().getDrawable(R.drawable.circle_background_3));
+                break;
+            }
         }
-
-
     }
 
     private void onClickButton(final ExpandableLayout expandableLayout)
@@ -160,7 +131,7 @@ public class TitlePackAdapter extends RecyclerView.Adapter<TitlePackAdapter.View
     @Override
     public int getItemCount()
     {
-        return data.size();
+        return packageList.size();
     }
 
     public ObjectAnimator createRotateAnimator(final View target, final float from, final float to)
@@ -179,8 +150,7 @@ public class TitlePackAdapter extends RecyclerView.Adapter<TitlePackAdapter.View
         public LinearLayout llImage;
 
         public ExpandableLinearLayout expandableLayout;
-        //  public RelativeLayout tvArrow;
-        RelativeLayout buttonLayout;
+        private RelativeLayout buttonLayout;
 
         public ViewHolder(View v)
         {
@@ -193,6 +163,4 @@ public class TitlePackAdapter extends RecyclerView.Adapter<TitlePackAdapter.View
             llImage = v.findViewById(R.id.llImage);
         }
     }
-
-
 }

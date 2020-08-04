@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Parcelable;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,6 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,10 +34,9 @@ import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
-import com.traap.traapapp.apiServices.model.card.Result;
+import com.traap.traapapp.apiServices.model.card.CardBankItem;
 import com.traap.traapapp.apiServices.model.mobileCharge.response.MobileChargeResponse;
 import com.traap.traapapp.conf.TrapConfig;
-import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.TicketPaymentInstance;
@@ -48,7 +47,6 @@ import com.traap.traapapp.ui.fragments.favoriteCard.FavoriteCardParentActionView
 import com.traap.traapapp.ui.fragments.simcardCharge.imp.irancell.IrancellBuyImpl;
 import com.traap.traapapp.ui.fragments.simcardPack.imp.BuyPackageImpl;
 import com.traap.traapapp.utilities.ClearableEditText;
-import com.traap.traapapp.utilities.Tools;
 
 public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseFragment implements FavoriteCardParentActionView,
         PaymentParentActionView, PaymentActionView
@@ -56,12 +54,15 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     private Fragment cardFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
+    private TextView tvEmpty;
 
-    private TextView tvUserName, tvHeaderPopularNo;
+    private LinearLayout llContent;
+
+//    private TextView tvUserName, tvHeaderPopularNo;
 
     private Toolbar mToolbar;
 
-    private Result mCard;
+    private CardBankItem mCard;
 
     private TextView tvAmount, tvTitle;
     private ImageView imgLogo;
@@ -260,7 +261,7 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     {
         super.onCreate(savedInstanceState);
 
-        mCard = new Result();
+        mCard = new CardBankItem();
 
         if (getArguments() != null)
         {
@@ -356,6 +357,8 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
         buyPackage = new BuyPackageImpl();
         tvAmount = rootView.findViewById(R.id.tvAmount);
         tvTitle = rootView.findViewById(R.id.tvTitle);
+        tvEmpty = rootView.findViewById(R.id.tvEmpty);
+        llContent = rootView.findViewById(R.id.llContent);
         imgLogo = rootView.findViewById(R.id.imgLogo);
         btnBack = rootView.findViewById(R.id.btnBack);
         btnConfirmPayment = rootView.findViewById(R.id.btnBuy);
@@ -367,6 +370,10 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
         llPass = rootView.findViewById(R.id.llPass);
         llExpireDate = rootView.findViewById(R.id.llExpireDate);
         rlTitle = rootView.findViewById(R.id.rlTitle);
+
+        etCvv2.setFilters(new InputFilter[] { new InputFilter.LengthFilter(4) });
+        edtExpMound.setFilters(new InputFilter[] { new InputFilter.LengthFilter(2) });
+        edtExpYear.setFilters(new InputFilter[] { new InputFilter.LengthFilter(2) });
 
         btnBack.setOnClickListener(clickListener);
         btnConfirmPayment.setOnClickListener(clickListener);
@@ -436,7 +443,7 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onGetCardDetails(Result card)
+    public void onGetCardDetails(CardBankItem card)
     {
         mCard = card;
         if (mCard.getBankBin().equals(""))
@@ -541,6 +548,13 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     }
 
     @Override
+    public void onEmptyCard()
+    {
+        llContent.setVisibility(View.INVISIBLE);
+        tvEmpty.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void showPaymentParentLoading()
     {
         pActionView.showPaymentParentLoading();
@@ -625,16 +639,16 @@ public class PaymentFragment<T, I extends PaymentParentActionView> extends BaseF
     {
 
     }
-
-    @Subscribe
-    public void getHeaderContent(HeaderModel headerModel)
-    {
-        if (headerModel.getPopularNo() != 0)
-        {
-            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
-        }
-        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
-    }
+//
+//    @Subscribe
+//    public void getHeaderContent(HeaderModel headerModel)
+//    {
+//        if (headerModel.getPopularNo() != 0)
+//        {
+//            tvHeaderPopularNo.setText(String.valueOf(headerModel.getPopularNo()));
+//        }
+//        tvUserName.setText(TrapConfig.HEADER_USER_NAME);
+//    }
 
 
     @Override

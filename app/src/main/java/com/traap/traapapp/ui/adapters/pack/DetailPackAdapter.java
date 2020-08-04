@@ -10,11 +10,12 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
-
 import com.traap.traapapp.R;
-import com.traap.traapapp.apiServices.model.getRightelPack.response.Detail;
+import com.traap.traapapp.apiServices.model.getSimPackageList.response.SimContentItem;
+import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.utilities.Utility;
+
+import java.util.List;
 
 /**
  * Created by Javad.Abadi on 8/13/2018.
@@ -22,17 +23,16 @@ import com.traap.traapapp.utilities.Utility;
 public class DetailPackAdapter extends RecyclerView.Adapter<DetailPackAdapter.ViewHolder>
 {
 
-    private final List<Detail> data;
+    private List<SimContentItem> contentList;
     private Context context;
-    private GetPackInAdapter getPackInAdapter;
+    private GetPackFromAdapterListener listener;
     private Integer operatorType;
 
-    public DetailPackAdapter(final List<Detail> data, GetPackInAdapter getPackInAdapter,Integer operatorType)
+    public DetailPackAdapter(int operatorType, List<SimContentItem> contentList, GetPackFromAdapterListener listener)
     {
-        this.data = data;
-        this.getPackInAdapter = getPackInAdapter;
+        this.contentList = contentList;
+        this.listener = listener;
         this.operatorType = operatorType;
-
     }
 
     @Override
@@ -47,58 +47,48 @@ public class DetailPackAdapter extends RecyclerView.Adapter<DetailPackAdapter.Vi
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position)
     {
-
-        final Detail item = data.get(position);
-        String type = "";
-/*        if (item.getPackageType() != null) {
-            if (item.getPackageType().equals("2"))
-                type = "دائمی";
-
-            else
-                type = "اعتباری";*/
+        final SimContentItem item = contentList.get(position);
 
         holder.tvTitle.setText(item.getTitle() + " ( " + item.getTitlePackageType() + " ) ");
 
-   /*     } else {
-            holder.tvTitle.setText(item.getTitle());
+        holder.tvAmount.setText("مبلغ با احتساب 9 درصد مالیات " + Utility.priceFormat(String.valueOf(item.getBillAmount())) + " ریال ");
+        holder.tvMainAmount.setText(Utility.priceFormat(String.valueOf(item.getAmount())) + " ریال ");
 
-        }*/
+        holder.container.setOnClickListener(view -> listener.getPackDetails(operatorType, item));
 
-
-        holder.tvAmount.setText("مبلغ با احتساب 9 درصد مالیات " + Utility.priceFormat(item.getBillAmount()) + " ریال ");
-        holder.tvMainAmount.setText(Utility.priceFormat(item.getAmount()) + " ریال ");
-        holder.container.setOnClickListener(view -> {
-            getPackInAdapter.getPackRightel(item,operatorType);
-        });
-
-        if (operatorType==1){
-            holder.imgArrow.setImageDrawable(context.getResources().getDrawable(R.drawable.left_arrow_irancell));
-
-
-        }else if (operatorType==2){
-            holder.imgArrow.setImageDrawable(context.getResources().getDrawable(R.drawable.left_arrow_mci));
-
-        }else{
-            holder.imgArrow.setImageDrawable(context.getResources().getDrawable(R.drawable.left_arrow_rightel));
-
+        switch (operatorType)
+        {
+            case TrapConfig.OPERATOR_TYPE_MTN:
+            {
+                holder.imgArrow.setImageDrawable(context.getResources().getDrawable(R.drawable.left_arrow_irancell));
+                break;
+            }
+            case TrapConfig.OPERATOR_TYPE_MCI:
+            {
+                holder.imgArrow.setImageDrawable(context.getResources().getDrawable(R.drawable.left_arrow_mci));
+                break;
+            }
+            case TrapConfig.OPERATOR_TYPE_RIGHTELL:
+            {
+                holder.imgArrow.setImageDrawable(context.getResources().getDrawable(R.drawable.left_arrow_rightel));
+                break;
+            }
         }
-
     }
 
 
     @Override
     public int getItemCount()
     {
-        return data.size();
+        return contentList.size();
     }
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        public TextView tvTitle, tvAmount,tvMainAmount;
+        public TextView tvTitle, tvAmount, tvMainAmount;
         public LinearLayout container;
         public ImageView imgArrow;
-
 
         public ViewHolder(View v)
         {
@@ -106,15 +96,14 @@ public class DetailPackAdapter extends RecyclerView.Adapter<DetailPackAdapter.Vi
             tvTitle = v.findViewById(R.id.tvTitle);
             tvAmount = v.findViewById(R.id.tvAmount);
             container = v.findViewById(R.id.container);
-            tvMainAmount=v.findViewById(R.id.tvMainAmount);
-            imgArrow=v.findViewById(R.id.imgArrow);
+            tvMainAmount = v.findViewById(R.id.tvMainAmount);
+            imgArrow = v.findViewById(R.id.imgArrow);
         }
     }
 
-    public interface GetPackInAdapter
+    public interface GetPackFromAdapterListener
     {
-        void getPackRightel(Detail o,Integer operatorType);
+//        void getPackRightel(Detail o, Integer operatorType);
+        void getPackDetails(int operatorType, SimContentItem simContentItem);
     }
-
-
 }

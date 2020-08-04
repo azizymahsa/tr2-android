@@ -16,13 +16,15 @@ import com.traap.traapapp.apiServices.model.billPayment.BillPaymentResponse;
 import com.traap.traapapp.apiServices.model.billPhone.BillPhoneRequest;
 import com.traap.traapapp.apiServices.model.billPhone.BillPhoneResponse;
 import com.traap.traapapp.apiServices.model.bookMarkPhoto.BookMarkPhotoResponse;
+import com.traap.traapapp.apiServices.model.buyChargeCard.BuyChargeCardRequest;
 import com.traap.traapapp.apiServices.model.buyChargeWallet.BuyChargeWalletRequest;
 import com.traap.traapapp.apiServices.model.buyChargeWallet.BuyChargeWalletResponse;
 import com.traap.traapapp.apiServices.model.buyPackage.request.BuyPackageWalletRequest;
 import com.traap.traapapp.apiServices.model.buyPackage.request.PackageBuyRequest;
 import com.traap.traapapp.apiServices.model.buyPackage.response.BuyPackageWalletResponse;
 import com.traap.traapapp.apiServices.model.buyPackage.response.PackageBuyResponse;
-import com.traap.traapapp.apiServices.model.card.Result;
+import com.traap.traapapp.apiServices.model.buyPackageCard.request.BuyPackageCardRequest;
+import com.traap.traapapp.apiServices.model.card.CardBankItem;
 import com.traap.traapapp.apiServices.model.card.addCard.request.AddCardRequest;
 import com.traap.traapapp.apiServices.model.card.editCard.request.EditCardRequest;
 import com.traap.traapapp.apiServices.model.card.getCardList.GetCardListResponse;
@@ -84,6 +86,8 @@ import com.traap.traapapp.apiServices.model.getReport.response.GetReportResponse
 import com.traap.traapapp.apiServices.model.getRightelPack.response.GetRightelPackRespone;
 import com.traap.traapapp.apiServices.model.getShetabCardInfo.reponse.ShetabCardInfoResponse;
 import com.traap.traapapp.apiServices.model.getShetabCardInfo.request.ShetabCardInfoRequest;
+import com.traap.traapapp.apiServices.model.getSimPackageList.request.GetSimPackageListRequest;
+import com.traap.traapapp.apiServices.model.getSimPackageList.response.GetSimPackageListResponse;
 import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoRequest;
 import com.traap.traapapp.apiServices.model.getTicketInfo.GetTicketInfoResponse;
 import com.traap.traapapp.apiServices.model.getTransaction.ResponseTransaction;
@@ -123,6 +127,7 @@ import com.traap.traapapp.apiServices.model.news.main.NewsMainResponse;
 import com.traap.traapapp.apiServices.model.payBillCar.RequestPayBillCar;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchResponse;
+import com.traap.traapapp.apiServices.model.paymentMatchCard.PaymentMatchCardRequest;
 import com.traap.traapapp.apiServices.model.paymentPrintPos.PaymentPrintPosRequest;
 import com.traap.traapapp.apiServices.model.paymentPrintPos.PaymentPrintPosResponse;
 import com.traap.traapapp.apiServices.model.paymentWallet.ResponsePaymentWallet;
@@ -348,14 +353,19 @@ public interface RetroClient
             @Body ReservationRequest request
     );
 
-    @POST(Const.PaymentMatch)
+    @POST(Const.BUY_Match_TICKET_IPG)
     Single<Response<WebServiceClass<PaymentMatchResponse>>> paymentMatch(
             @Body PaymentMatchRequest request
     );
 
-    @POST(Const.PaymentWallet)
+    @POST(Const.BUY_Match_TICKET_Wallet)
     Single<Response<WebServiceClass<ResponsePaymentWallet>>> paymentWallet(
             @Body PaymentMatchRequest request
+    );
+
+    @POST(Const.BUY_Match_TICKET_CARD)
+    Single<Response<WebServiceClass<ResponsePaymentWallet>>> buyMatchTicketByCard(
+            @Body PaymentMatchCardRequest request
     );
 
 
@@ -385,28 +395,48 @@ public interface RetroClient
     );
 
 
-    @GET(Const.GET_BOUGHT_FOR)
-    Single<Response<WebServiceClass<GetBoughtForResponse>>> getBoughtFor();
+    @GET(Const.GET_BOUGHT_FOR_IN_CHARGE)
+    Single<Response<WebServiceClass<GetBoughtForResponse>>> getBoughtFor_InCharge();
 
-    @POST(Const.BUY_MOBILE_CHARGE)
+
+    @GET(Const.BUY_PACKAGE_IPG)
+    Single<Response<WebServiceClass<GetBoughtForResponse>>> getBoughtFor_InPackage();
+
+
+    @POST(Const.BUY_MOBILE_CHARGE_IPG)
     Single<Response<WebServiceClass<MobileChargeResponse>>> getMobileCharge(
             @Body MobileChargeRequest request);
 
-    @POST(Const.BUY_CHARGE_WALLET)
+
+    @POST(Const.BUY_MOBILE_CHARGE_WALLET)
     Single<Response<WebServiceClass<BuyChargeWalletResponse>>> buyChargeWallet(
             @Body BuyChargeWalletRequest request);
+
+    @POST(Const.BUY_MOBILE_CHARGE_CARD)
+    Single<Response<WebServiceClass<BuyChargeWalletResponse>>> buyChargeCard(
+            @Body BuyChargeCardRequest request
+    );
+
 
     @POST(Const.BUY_PACKAGE_WALLET)
     Single<Response<WebServiceClass<BuyPackageWalletResponse>>> buyPackageWallet(
             @Body BuyPackageWalletRequest request);
 
+    @POST(Const.BUY_PACKAGE_CARD)
+    Single<Response<WebServiceClass<BuyPackageWalletResponse>>> buyPackageCard(
+            @Body BuyPackageCardRequest request
+    );
+
+
     @POST(Const.Get_Withdraw_Wallet)
     Single<Response<WebServiceClass<WithdrawWalletResponse>>> withdrawWallet(
             @Body WithdrawWalletRequest request);
 
+
     @POST(Const.GET_League)
     Single<Response<WebServiceClass<ResponseLeage>>> getLeage(
             @Body GetLeagueRequest request);
+
 
     @POST(Const.Get_Past_Result)
     Single<Response<WebServiceClass<ResponsePastResult>>> getPastResult(
@@ -441,7 +471,7 @@ public interface RetroClient
 
 
     @POST(Const.AddCard)
-    Single<Response<WebServiceClass<Result>>> addCard(
+    Single<Response<WebServiceClass<CardBankItem>>> addCard(
             @Body AddCardRequest request
     );
 
@@ -453,7 +483,7 @@ public interface RetroClient
 
 
     @PUT(Const.EditCard + "{id}/")
-    Single<Response<WebServiceClass<Result>>> editCard(
+    Single<Response<WebServiceClass<CardBankItem>>> editCard(
             @Path("id") Integer cardId,
             @Body EditCardRequest request
     );
@@ -472,8 +502,13 @@ public interface RetroClient
 
 
     @POST(Const.BUY_MOBILE_PACKAGE)
-    Single<Response<WebServiceClass<PackageBuyResponse>>> buySimcardPackage(
+    Single<Response<WebServiceClass<PackageBuyResponse>>> buySimCardPackage(
             @Body PackageBuyRequest mciPackageBuyRequest
+    );
+
+    @POST(Const.GET_INTERNET_PACKAGE_LIST)
+    Single<Response<WebServiceClass<GetSimPackageListResponse>>> getSimCardPackageList(
+            @Body GetSimPackageListRequest request
     );
 
 
@@ -886,8 +921,6 @@ public interface RetroClient
     Single<Response<WebServiceClass<ResponsePostComment>>> updateComment(
             @Path("comment_id") Integer surveyId,
             @Body RequestSendComment request);
-
-
     @GET(Const.TECHS_HISTORY)
     Single<Response<WebServiceClass<GetTechsHistoryResponse>>> getTechsHistory(
             @Path("id") Integer id);

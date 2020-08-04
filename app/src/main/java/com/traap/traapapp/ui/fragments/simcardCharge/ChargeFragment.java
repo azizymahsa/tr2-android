@@ -1149,7 +1149,7 @@ public class ChargeFragment extends BaseFragment
 
     private void getBoughtForRequest()
     {
-        SingletonService.getInstance().getBoughtForService().getBoughtFor(new OnServiceStatus<WebServiceClass<GetBoughtForResponse>>()
+        SingletonService.getInstance().getBoughtForService().getBoughtFor_InCharge(new OnServiceStatus<WebServiceClass<GetBoughtForResponse>>()
         {
             @Override
             public void onReady(WebServiceClass<GetBoughtForResponse> response)
@@ -1975,6 +1975,30 @@ public class ChargeFragment extends BaseFragment
     }
 
     @Override
+    public void onFootBallServiceLottery()
+    {
+
+    }
+
+    @Override
+    public void onFootBallServiceCharity()
+    {
+
+    }
+
+    @Override
+    public void onLotteryPrimaryResultDetails(int id)
+    {
+
+    }
+
+    @Override
+    public void onLotteryPrimaryHistoryWinnerList(int id)
+    {
+
+    }
+
+    @Override
     public void onNewsArchiveClick(SubMediaParent parent, MediaPosition mediaPosition)
     {
 
@@ -2164,6 +2188,12 @@ public class ChargeFragment extends BaseFragment
 
     @Override
     public void openEventPaymentFragment(String url, String textEventPayment, Integer count, ArrayList<PersonEvent> personEvents, String amount, int PAYMENT_STATUS_BILL)
+    {
+
+    }
+
+    @Override
+    public void onCardManagement()
     {
 
     }

@@ -91,6 +91,14 @@ public interface MainActionView extends BaseView
 
     void onFootBallServiceSix();
 
+    void onFootBallServiceLottery();
+
+    void onFootBallServiceCharity();
+
+    void onLotteryPrimaryResultDetails(int id);
+
+    void onLotteryPrimaryHistoryWinnerList(int id);
+
     void onNewsArchiveClick(SubMediaParent parent, MediaPosition mediaPosition);
 
     void onNewsFavoriteClick(SubMediaParent parent, MediaPosition mediaPosition);
@@ -150,6 +158,8 @@ public interface MainActionView extends BaseView
     void onSetPlayerPerformanceEvaluation(Integer matchId, Integer playerId, String name, String imageURL);
 
     void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId, String name, String imageURL);
+
+    void onCardManagement();
 
     void openEventPaymentFragment(String url, String textEventPayment, Integer count, ArrayList<PersonEvent> personEvents, String amount, int
             PAYMENT_STATUS_BILL);

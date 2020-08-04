@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import com.traap.traapapp.apiServices.model.card.Result;
+import com.traap.traapapp.apiServices.model.card.CardBankItem;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,5 +26,5 @@ public class GetCardListResponse
 
     @SerializedName("results")
     @Expose @Getter @Setter
-    private List<Result> results = null;
+    private List<CardBankItem> cardBankItems = null;
 }

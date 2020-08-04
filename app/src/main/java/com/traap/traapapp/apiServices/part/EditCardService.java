@@ -3,7 +3,7 @@ package com.traap.traapapp.apiServices.part;
 import com.traap.traapapp.apiServices.generator.ServiceGenerator;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.card.Result;
+import com.traap.traapapp.apiServices.model.card.CardBankItem;
 import com.traap.traapapp.apiServices.model.card.editCard.request.EditCardRequest;
 
 public class EditCardService extends BasePart
@@ -20,7 +20,7 @@ public class EditCardService extends BasePart
         return this;
     }
 
-    public void editCardService(Integer cardId, EditCardRequest request, OnServiceStatus<WebServiceClass<Result>> listener)
+    public void editCardService(Integer cardId, EditCardRequest request, OnServiceStatus<WebServiceClass<CardBankItem>> listener)
     {
         start(getServiceGenerator().createService().editCard(cardId, request), listener);
     }

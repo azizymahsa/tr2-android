@@ -3,8 +3,6 @@ package com.traap.traapapp.apiServices.part;
 import com.traap.traapapp.apiServices.generator.ServiceGenerator;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.card.Result;
-import com.traap.traapapp.apiServices.model.card.addCard.request.AddCardRequest;
 import com.traap.traapapp.apiServices.model.points.groupBy.PointsGroupByResponse;
 import com.traap.traapapp.apiServices.model.points.guide.PointsGuideResponse;
 import com.traap.traapapp.apiServices.model.points.records.PointsRecordResponse;

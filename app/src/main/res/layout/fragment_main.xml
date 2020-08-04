@@ -193,7 +193,6 @@
                             android:layout_height="@dimen/_75sdp"
                             android:layout_margin="4dp"
                             android:layout_weight="1">
-                            <!--                        android:background="@drawable/button_main_background_border">-->
 
                             <com.makeramen.roundedimageview.RoundedImageView
                                 android:id="@+id/imgF1"
@@ -203,12 +202,6 @@
                                 app:riv_corner_radius="15dp"
                                 app:riv_mutate_background="true"
                                 app:riv_oval="false" />
-
-                            <!--                        <ImageView-->
-                            <!--                            android:id="@+id/imgF1"-->
-                            <!--                            android:layout_width="match_parent"-->
-                            <!--                            android:layout_height="match_parent"-->
-                            <!--                            android:scaleType="fitXY"/>-->
 
                             <TextView
                                 android:id="@+id/tvF1"
@@ -220,21 +213,6 @@
                                 android:textColor="@color/textColorTitle"
                                 android:textStyle="bold" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginEnd="4dp"
-                                android:layout_marginBottom="4dp"
-                                android:gravity="start"
-                                android:text="بزودی..."
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                                android:textColor="@color/textColorTitle"
-                                android:textStyle="bold"
-                                android:visibility="gone" />
-
-
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -243,7 +221,6 @@
                             android:layout_height="@dimen/_75sdp"
                             android:layout_margin="4dp"
                             android:layout_weight="2">
-                            <!--                        android:background="@drawable/button_main_background_border">-->
 
                             <com.makeramen.roundedimageview.RoundedImageView
                                 android:id="@+id/imgF2"
@@ -253,12 +230,6 @@
                                 app:riv_corner_radius="15dp"
                                 app:riv_mutate_background="true"
                                 app:riv_oval="false" />
-
-                            <!--                        <ImageView-->
-                            <!--                            android:id="@+id/imgF2"-->
-                            <!--                            android:layout_width="match_parent"-->
-                            <!--                            android:layout_height="match_parent"-->
-                            <!--                            android:scaleType="fitXY"/>-->
 
                             <TextView
                                 android:id="@+id/tvF2"
@@ -270,20 +241,99 @@
                                 android:textColor="@color/textColorTitle"
                                 android:textStyle="bold" />
 
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+                        <!--مسابقات-->
+                        <RelativeLayout
+                            android:id="@+id/rlF3"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_75sdp"
+                            android:layout_margin="4dp"
+                            android:layout_weight="2">
+
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/imgF3"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/test_photo"
+                                app:riv_corner_radius="15dp"
+                                app:riv_mutate_background="true"
+                                app:riv_oval="false" />
+
                             <TextView
+                                android:id="@+id/tvF3"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/textColorTitle"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentBottom="true"
                                 android:layout_marginEnd="4dp"
                                 android:layout_marginBottom="4dp"
-                                android:gravity="start"
-                                android:text="بزودی..."
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/textColorTitle"
                                 android:textStyle="bold"
-                                android:visibility="gone" />
+                                android:text="مسابقات" />
 
+                        </RelativeLayout>
+                        <!--معرفی تیم-->
+                        <RelativeLayout
+                            android:id="@+id/rlF4"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_75sdp"
+                            android:layout_margin="4dp"
+                            android:layout_weight="1">
+
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/imgF4"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/test_photo"
+                                app:riv_corner_radius="15dp"
+                                app:riv_mutate_background="true"
+                                app:riv_oval="false" />
+
+                            <TextView
+                                android:id="@+id/tvF4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/textColorTitle"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginEnd="4dp"
+                                android:layout_marginBottom="4dp"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="@color/textColorTitle"
+                                android:textStyle="bold"
+                                android:text="معرفی تیم" />
 
                         </RelativeLayout>
 
@@ -302,7 +352,6 @@
                             android:layout_height="@dimen/_75sdp"
                             android:layout_margin="4dp"
                             android:layout_weight="1">
-                            <!--                        android:background="@drawable/button_main_background_border">-->
 
                             <com.makeramen.roundedimageview.RoundedImageView
                                 android:id="@+id/imgF5"
@@ -312,12 +361,6 @@
                                 app:riv_corner_radius="15dp"
                                 app:riv_mutate_background="true"
                                 app:riv_oval="false" />
-
-                            <!--                        <ImageView-->
-                            <!--                            android:id="@+id/imgF5"-->
-                            <!--                            android:layout_width="match_parent"-->
-                            <!--                            android:layout_height="match_parent"-->
-                            <!--                            android:scaleType="fitXY"/>-->
 
                             <TextView
                                 android:id="@+id/tvF5"
@@ -342,7 +385,6 @@
                                 android:textColor="@color/textColorTitle"
                                 android:textStyle="bold" />
 
-
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -351,7 +393,6 @@
                             android:layout_height="@dimen/_75sdp"
                             android:layout_margin="4dp"
                             android:layout_weight="2">
-                            <!--                        android:background="@drawable/button_main_background_border">-->
 
                             <com.makeramen.roundedimageview.RoundedImageView
                                 android:id="@+id/imgF6"
@@ -361,12 +402,6 @@
                                 app:riv_corner_radius="15dp"
                                 app:riv_mutate_background="true"
                                 app:riv_oval="false" />
-
-                            <!--                        <ImageView-->
-                            <!--                            android:id="@+id/imgF6"-->
-                            <!--                            android:layout_width="match_parent"-->
-                            <!--                            android:layout_height="match_parent"-->
-                            <!--                            android:scaleType="fitXY"/>-->
 
                             <TextView
                                 android:id="@+id/tvF6"
@@ -378,20 +413,6 @@
                                 android:textColor="@color/textColorTitle"
                                 android:textStyle="bold" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginEnd="4dp"
-                                android:layout_marginBottom="4dp"
-                                android:gravity="start"
-                                android:text="بزودی..."
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                                android:textColor="@color/textColorTitle"
-                                android:textStyle="bold" />
-
-
                         </RelativeLayout>
 
                     </LinearLayout>
@@ -400,111 +421,63 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:visibility="gone">
-                        <!--مسابقات-->
+                        android:visibility="visible">
+                        <!--قرعه کشی-->
                         <RelativeLayout
-                            android:id="@+id/rlF3"
+                            android:id="@+id/rlF7"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_75sdp"
                             android:layout_margin="4dp"
                             android:layout_weight="2">
-                            <!--                        android:background="@drawable/button_main_background_border">-->
 
                             <com.makeramen.roundedimageview.RoundedImageView
-                                android:id="@+id/imgF3"
+                                android:id="@+id/imgF7"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/test_photo"
                                 app:riv_corner_radius="15dp"
                                 app:riv_mutate_background="true"
                                 app:riv_oval="false" />
 
-                            <!--                        <ImageView-->
-                            <!--                            android:id="@+id/imgF3"-->
-                            <!--                            android:layout_width="match_parent"-->
-                            <!--                            android:layout_height="match_parent"-->
-                            <!--                            android:scaleType="fitXY"/>-->
-
                             <TextView
-                                android:id="@+id/tvF3"
+                                android:id="@+id/tvF7"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:gravity="center"
+                                android:text="قرعه کشی"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/textColorTitle"
                                 android:textStyle="bold" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginEnd="4dp"
-                                android:layout_marginBottom="4dp"
-                                android:layout_centerInParent="true"
-                                android:gravity="center"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                                android:textColor="@color/textColorTitle"
-                                android:textStyle="bold"
-                                android:text="مسابقات"
-                                />
-
-
                         </RelativeLayout>
-                        <!--معرفی تیم-->
+                        <!--نیکوکاری-->
                         <RelativeLayout
-                            android:id="@+id/rlF4"
+                            android:id="@+id/rlF8"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_75sdp"
                             android:layout_margin="4dp"
-                            android:layout_weight="1"
-                            >
-                            <!--                        android:background="@drawable/button_main_background_border">-->
+                            android:layout_weight="1">
 
                             <com.makeramen.roundedimageview.RoundedImageView
-                                android:id="@+id/imgF4"
+                                android:id="@+id/imgF8"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/test_photo"
                                 app:riv_corner_radius="15dp"
                                 app:riv_mutate_background="true"
                                 app:riv_oval="false" />
 
-
-                            <!--                        <ImageView-->
-                            <!--                            android:id="@+id/imgF4"-->
-                            <!--                            android:layout_width="match_parent"-->
-                            <!--                            android:layout_height="match_parent"-->
-                            <!--                            android:scaleType="fitXY"/>-->
-
                             <TextView
-                                android:id="@+id/tvF4"
+                                android:id="@+id/tvF8"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:gravity="center"
+                                android:text="نیکوکاری"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/textColorTitle"
                                 android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginEnd="4dp"
-                                android:layout_marginBottom="4dp"
-                                android:layout_centerInParent="true"
-                                android:gravity="center"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                                android:textColor="@color/textColorTitle"
-                                android:textStyle="bold"
-                                android:text="معرفی تیم"
-                                 />
-
 
                         </RelativeLayout>
 

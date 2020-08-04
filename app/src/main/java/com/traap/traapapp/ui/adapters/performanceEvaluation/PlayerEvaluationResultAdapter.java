@@ -62,11 +62,18 @@ public class PlayerEvaluationResultAdapter extends RecyclerView.Adapter<PlayerEv
             holder.tvAvgEvaluation.setTextColor(ContextCompat.getColor(context, R.color.textColorPrimary));
             holder.tvEvaluationIndex.setTextColor(ContextCompat.getColor(context, R.color.textColorPrimary));
             holder.tvMyEvaluation.setTextColor(ContextCompat.getColor(context, R.color.textColorPrimary));
+
+            holder.tvAvgEvaluation.setText(String.valueOf(item.getAverageScore()));
+            holder.tvEvaluationIndex.setText(item.getTitle());
+            holder.tvMyEvaluation.setText(String.valueOf(item.getScore()));
+        }
+        else
+        {
+            holder.tvAvgEvaluation.setText(String.valueOf(Math.round(item.getAverageScore())));
+            holder.tvEvaluationIndex.setText(item.getTitle());
+            holder.tvMyEvaluation.setText(String.valueOf(Math.round(item.getScore())));
         }
 
-        holder.tvAvgEvaluation.setText(String.valueOf(item.getAverageScore()));
-        holder.tvEvaluationIndex.setText(item.getTitle());
-        holder.tvMyEvaluation.setText(String.valueOf(item.getScore()));
     }
 
     @Override

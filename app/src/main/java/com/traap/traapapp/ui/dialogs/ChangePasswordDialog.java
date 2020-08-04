@@ -27,10 +27,9 @@ import com.pixplicity.easyprefs.library.Prefs;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import com.traap.traapapp.R;
-import com.traap.traapapp.apiServices.model.card.Result;
+import com.traap.traapapp.apiServices.model.card.CardBankItem;
 import com.traap.traapapp.singleton.SingletonContext;
 import com.traap.traapapp.ui.fragments.favoriteCard.FavoriteCardActionView;
-import com.traap.traapapp.utilities.Tools;
 import com.traap.traapapp.utilities.Utility;
 
 /**
@@ -46,7 +45,7 @@ public class ChangePasswordDialog extends DialogFragment implements View.OnClick
     private TextView tvForgetPassword, tvConfirmForget;
     private TextInputLayout etLayoutPass, etLayoutNewPass, etLayoutRepeatNewPass;
     private FavoriteCardActionView mainView;
-    private Result item;
+    private CardBankItem item;
     private LinearLayout llPass;
 
     private static final int TYPE_CHANGE_PASSWORD = 1;
@@ -55,7 +54,7 @@ public class ChangePasswordDialog extends DialogFragment implements View.OnClick
     private int type = TYPE_CHANGE_PASSWORD;
 
 
-    public ChangePasswordDialog(Activity activity, FavoriteCardActionView mainView, Result item)
+    public ChangePasswordDialog(Activity activity, FavoriteCardActionView mainView, CardBankItem item)
     {
         this.activity = activity;
         this.mainView = mainView;

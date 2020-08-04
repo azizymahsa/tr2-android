@@ -10,6 +10,7 @@ import com.traap.traapapp.apiServices.part.BankListService;
 import com.traap.traapapp.apiServices.part.BillCodePayCodeService;
 import com.traap.traapapp.apiServices.part.BillService;
 import com.traap.traapapp.apiServices.part.BusService;
+import com.traap.traapapp.apiServices.part.BuyCardService;
 import com.traap.traapapp.apiServices.part.BuyChargeWalletService;
 import com.traap.traapapp.apiServices.part.BuyPackageWalletService;
 import com.traap.traapapp.apiServices.part.CategoryByIdVideosService;
@@ -278,6 +279,11 @@ public class SingletonService
     public BuyChargeWalletService buyChargeWalletService()
     {
         return new BuyChargeWalletService(serviceGenerator);
+    }
+
+    public BuyCardService buyCardService()
+    {
+        return new BuyCardService(serviceGenerator);
     }
 
     public BuyPackageWalletService buyPackageWalletService(){

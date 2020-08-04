@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:layoutDirection="ltr"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
+
+        <LinearLayout
+            android:layout_toLeftOf="@+id/rlImage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_80dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/textColorSecondary"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:gravity="right"
+                android:textSize="@dimen/textSize_14dp"
+                android:text="عنوان"/>
+
+            <TextView
+                android:id="@+id/tvSubTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/textColorSecondary"
+                android:gravity="right"
+                android:textSize="@dimen/textSize_12dp"
+                android:text="محتوا"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="8dp"
+            android:layout_alignParentRight="true">
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"/>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_80dp"
+                android:scaleType="fitXY"
+                app:riv_corner_radius="15dp"
+                app:riv_border_width="1dp"
+                app:riv_border_color="@color/imageColorBorder"
+                app:riv_mutate_background="true"
+                app:riv_oval="false" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="2dp"
+        android:background="@color/drawerSepratorColor"/>
+
+</LinearLayout>

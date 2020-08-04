@@ -7,29 +7,36 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 
-public class SubMenu {
-
+public class SubMenu
+{
     @SerializedName("id")
     @Expose
     private Integer id;
+
     @SerializedName("image_name")
     @Expose
     private String imageName;
+
     @SerializedName("title")
     @Expose
     private String title;
+
     @SerializedName("is_visible")
     @Expose
     private Boolean isVisible;
+
     @SerializedName("key_id")
     @Expose
     private Integer keyId;
+
     @SerializedName("key_name")
     @Expose
     private String keyName;
+
     @SerializedName("order_item")
     @Expose
     private Integer orderItem;
+
     @SerializedName("base_url")
     @Expose
     private String baseUrl;
@@ -51,59 +58,73 @@ public class SubMenu {
         this.baseUrl = baseUrl;
     }
 
-    public Integer getId() {
+    public Integer getId()
+    {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Integer id)
+    {
         this.id = id;
     }
 
-    public String getImageName() {
+    public String getImageName()
+    {
         return imageName;
     }
 
-    public void setImageName(String imageName) {
+    public void setImageName(String imageName)
+    {
         this.imageName = imageName;
     }
 
-    public String getTitle() {
+    public String getTitle()
+    {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title)
+    {
         this.title = title;
     }
 
-    public Boolean getIsVisible() {
+    public Boolean getIsVisible()
+    {
         return isVisible;
     }
 
-    public void setIsVisible(Boolean isVisible) {
+    public void setIsVisible(Boolean isVisible)
+    {
         this.isVisible = isVisible;
     }
 
-    public Integer getKeyId() {
+    public Integer getKeyId()
+    {
         return keyId;
     }
 
-    public void setKeyId(Integer keyId) {
+    public void setKeyId(Integer keyId)
+    {
         this.keyId = keyId;
     }
 
-    public String getKeyName() {
+    public String getKeyName()
+    {
         return keyName;
     }
 
-    public void setKeyName(String keyName) {
+    public void setKeyName(String keyName)
+    {
         this.keyName = keyName;
     }
 
-    public Integer getOrderItem() {
+    public Integer getOrderItem()
+    {
         return orderItem;
     }
 
-    public void setOrderItem(Integer orderItem) {
+    public void setOrderItem(Integer orderItem)
+    {
         this.orderItem = orderItem;
     }
 

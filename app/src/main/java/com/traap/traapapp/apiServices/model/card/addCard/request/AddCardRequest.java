@@ -9,7 +9,6 @@ import lombok.Setter;
 
 public class AddCardRequest
 {
-
     @SerializedName("card_number")
     @Expose @Getter @Setter
     private String cardNumber;
@@ -17,13 +16,4 @@ public class AddCardRequest
     @SerializedName("full_name")
     @Expose @Getter @Setter
     private String fullName;
-
-    @SerializedName("order_list")
-    @Expose @Getter @Setter
-    private Integer orderList;
-
-    @SerializedName("is_main_card")
-    @Expose @Getter @Setter
-    private Boolean isMainCard = false;
-
 }

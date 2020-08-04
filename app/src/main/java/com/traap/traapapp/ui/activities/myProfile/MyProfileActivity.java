@@ -3,7 +3,6 @@ package com.traap.traapapp.ui.activities.myProfile;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -15,13 +14,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import com.pixplicity.easyprefs.library.Prefs;
-
 import com.squareup.picasso.Picasso;
 import com.traap.traapapp.R;
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
-import com.traap.traapapp.apiServices.model.categoryByIdVideo.CategoryByIdVideosRequest;
 import com.traap.traapapp.apiServices.model.invite.InviteResponse;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.models.otherModels.headerModel.HeaderModel;
@@ -33,7 +30,6 @@ import com.traap.traapapp.ui.activities.userProfile.UserProfileActivity;
 import com.traap.traapapp.ui.base.BaseActivity;
 import com.traap.traapapp.ui.dialogs.MessageAlertDialog;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
-import com.traap.traapapp.ui.fragments.suggestions.SuggestionsFragment;
 import com.traap.traapapp.utilities.Logger;
 import com.traap.traapapp.utilities.Tools;
 
@@ -52,7 +48,7 @@ public class MyProfileActivity extends BaseActivity
 
     private ImageView imgProfile;
 
-    private RelativeLayout rlEditProfile, rlMyPredict, rlMyFavorite, rlExit,rlMySupport,rlDeleteProfile;
+    private RelativeLayout rlEditProfile, rlMyPredict, rlMyFavorite, rlExit, rlMySupport, rlDeleteProfile;
 
 
     @Override
@@ -107,7 +103,8 @@ public class MyProfileActivity extends BaseActivity
                 {
                     Picasso.with(this).load(R.drawable.ic_user_default).into(imgProfile);
                 }
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Logger.e("-Exception photo-", e.getMessage());
                 e.printStackTrace();
@@ -117,14 +114,14 @@ public class MyProfileActivity extends BaseActivity
 
         if (Prefs.getString("FULLName", "").trim().equalsIgnoreCase(""))
         {
-            tvFullName.setText("+"+Prefs.getString("Country_Code","")+" "+Prefs.getString("mobile", ""));
+            tvFullName.setText("+" + Prefs.getString("Country_Code", "") + " " + Prefs.getString("mobile", ""));
             tvMobile.setVisibility(View.GONE);
         }
         else
         {
             tvFullName.setText(Prefs.getString("FULLName", ""));
         }
-        tvMobile.setText("+"+Prefs.getString("Country_Code","")+" "+ Prefs.getString("mobile", ""));
+        tvMobile.setText("+" + Prefs.getString("Country_Code", "") + " " + Prefs.getString("mobile", ""));
         tvInviteCode.setText(Prefs.getString("keyInvite", ""));
 
         tvHeaderPopularNo.setText(String.valueOf(Prefs.getInt("popularPlayer", 12)));
@@ -149,7 +146,7 @@ public class MyProfileActivity extends BaseActivity
 
         rlMyFavorite.setOnClickListener(v ->
         {
-          //  startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), SuggestionsFragment.class), 100);
+            //  startActivityForResult(new Intent(SingletonContext.getInstance().getContext(), SuggestionsFragment.class), 100);
 
         });
         tvInviteCode.setOnClickListener(v ->
@@ -221,7 +218,8 @@ public class MyProfileActivity extends BaseActivity
                             showAlert(MyProfileActivity.this, R.string.networkErrorMessage, R.string.networkError);
                         }
                     }
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     if (Tools.isNetworkAvailable(MyProfileActivity.this))
                     {
@@ -289,7 +287,8 @@ public class MyProfileActivity extends BaseActivity
                     Picasso.with(this).load(R.drawable.ic_user_default).into(imgProfile);
                 }
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             Logger.e("-Exception photo-", e.getMessage());
             e.printStackTrace();

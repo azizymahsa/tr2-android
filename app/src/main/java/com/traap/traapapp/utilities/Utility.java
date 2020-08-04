@@ -34,6 +34,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.traap.traapapp.R;
 import com.traap.traapapp.conf.TrapConfig;
 import com.traap.traapapp.singleton.SingletonContext;
@@ -58,9 +62,6 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import androidx.browser.customtabs.CustomTabsIntent;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 import saman.zamani.persiandate.PersianDate;
 import saman.zamani.persiandate.PersianDateFormat;
 import uk.co.chrisjenx.calligraphy.CalligraphyUtils;
@@ -116,7 +117,8 @@ public class Utility
         {
             InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
             Objects.requireNonNull(imm).hideSoftInputFromWindow(input.getWindowToken(), 0);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
         }
 
@@ -180,7 +182,8 @@ public class Utility
                 sb.append(Character.forDigit(a[i] & 0x0f, 16));
             }
             return sb.toString();
-        } catch (NoSuchAlgorithmException e)
+        }
+        catch (NoSuchAlgorithmException e)
         {
             e.printStackTrace();
         }
@@ -230,16 +233,21 @@ public class Utility
                 year = Integer.parseInt(yearStr);
                 month = Integer.parseInt(monthStr);
                 day = Integer.parseInt(dayStr);
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 return -1;
             }
             int BaseYear = 1300;
             if (year == 0 || month == 0 || day == 0)
+            {
                 return -999999;
+            }
             if (year < BaseYear || month < 1 || month > 12 || day < 1
                     || (month <= 6 && day > 31) || (month > 6 && day > 30))
+            {
                 return -1;
+            }
             int year_dist;
             year_dist = year - BaseYear;
             num = year_dist * 365;
@@ -248,11 +256,17 @@ public class Utility
             {
                 int x;
                 if (i <= 6)
+                {
                     x = 31;
+                }
                 else if (i <= 11)
+                {
                     x = 30;
+                }
                 else
+                {
                     x = 29;
+                }
                 num = num + x;
                 i++;
             }
@@ -261,11 +275,14 @@ public class Utility
             while (i < year)
             {
                 if (IsSolHejLeap(i))
+                {
                     num++;
+                }
                 i++;
             }
             return num - 18262;
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             return 0;
         }
@@ -288,7 +305,8 @@ public class Utility
                     Uri.parse("tel:" + message));
             startIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mContext.startActivity(startIntent);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -307,13 +325,16 @@ public class Utility
             if (mynumber.equals("43211"))
             {
                 Operator = "MCI";
-            } else if (mynumber.equals("43235"))
+            }
+            else if (mynumber.equals("43235"))
             {
                 Operator = "IRANCELL";
-            } else if (mynumber.equals("43232"))
+            }
+            else if (mynumber.equals("43232"))
             {
                 Operator = "TALIYA";
-            } else if (mynumber.equals("43220"))
+            }
+            else if (mynumber.equals("43220"))
             {
                 Operator = "RAITEL";
             }
@@ -354,7 +375,8 @@ public class Utility
         if (month < 10)
         {
             return "0" + month;
-        } else
+        }
+        else
         {
             return String.valueOf(month);
         }
@@ -381,7 +403,8 @@ public class Utility
         try
         {
             return in.isReachable(5000);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
             return false;
@@ -418,7 +441,8 @@ public class Utility
             setMobileDataEnabledMethod.setAccessible(true);
 
             setMobileDataEnabledMethod.invoke(connectivityManager, enabled);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -477,7 +501,9 @@ public class Utility
         {
             View child = vg.getChildAt(i);
             if (child.isClickable())
+            {
                 child.setEnabled(enable);
+            }
             if (child instanceof ViewGroup)
             {
                 disableEnableClickableViews(enable, (ViewGroup) child);
@@ -489,7 +515,9 @@ public class Utility
     {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null)
+        {
             return;
+        }
 
         int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
         int totalHeight = 0;
@@ -498,7 +526,9 @@ public class Utility
         {
             view = listAdapter.getView(i, view, listView);
             if (i == 0)
+            {
                 view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+            }
 
             view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
             totalHeight += view.getMeasuredHeight();
@@ -547,7 +577,8 @@ public class Utility
         {
             date = inputFormat.parse(time);
             str = outputFormat.format(date);
-        } catch (ParseException e)
+        }
+        catch (ParseException e)
         {
             e.printStackTrace();
         }
@@ -577,7 +608,8 @@ public class Utility
         {
             date = inputFormat.parse(time);
             str = outputFormat.format(date);
-        } catch (ParseException e)
+        }
+        catch (ParseException e)
         {
             e.printStackTrace();
         }
@@ -625,7 +657,8 @@ public class Utility
         {
             date = inputFormat.parse(time);
             str = outputFormat.format(date);
-        } catch (ParseException e)
+        }
+        catch (ParseException e)
         {
             e.printStackTrace();
         }
@@ -684,7 +717,8 @@ public class Utility
         {
             date = inputFormat.parse(time);
             str = outputFormat.format(date);
-        } catch (ParseException e)
+        }
+        catch (ParseException e)
         {
             e.printStackTrace();
         }
@@ -739,7 +773,8 @@ public class Utility
             cal.setTime(date);
             return date2.getTime() < date.getTime();
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             return false;
         }
@@ -796,7 +831,9 @@ public class Utility
         int cardNumberLength = cardNumber.length();
         if (cardNumberLength < 16 || Integer.valueOf(cardNumber.substring(1, 10)) == 0 ||
                 Integer.valueOf(cardNumber.substring(1, 10)) == 0)
+        {
             return false;
+        }
         long s = 0;
 //        Log.e("teeeest111", cardNumber);
 
@@ -824,7 +861,8 @@ public class Utility
             CustomTabsIntent customTabsIntent = intentBuilder.build();
             customTabsIntent.launchUrl(context, uri);
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             Log.e("errr", e.getMessage());
             e.getMessage();
@@ -846,7 +884,8 @@ public class Utility
             customTabsIntent.launchUrl(context, uri);
 
 
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             Log.e("errr", e.getMessage());
             e.getMessage();
@@ -873,7 +912,23 @@ public class Utility
             List<String> strings;
             strings = Utility.splite(number, 4);
             return strings.get(0) + "-" + strings.get(1) + "-" + strings.get(2) + "-" + strings.get(3);
-        } catch (Exception e)
+        }
+        catch (Exception e)
+        {
+            return number;
+        }
+
+    }
+
+    public static String cardFormatWithoutStar(String number)
+    {
+        try
+        {
+            List<String> strings;
+            strings = Utility.splite(number, 4);
+            return strings.get(0) + "-" + strings.get(1) + "-" + strings.get(2) + "-" + strings.get(3);
+        }
+        catch (Exception e)
         {
             return number;
         }
@@ -888,7 +943,8 @@ public class Utility
             List<String> strings;
             strings = Utility.splite(number, 4);
             return strings.get(0) + "-" + strings.get(1).substring(0, 2) + "** -" + "****" + "-" + strings.get(3);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             return number;
 
@@ -970,7 +1026,8 @@ public class Utility
         if (Arrays.asList(typePhone_No).contains(startPhoneNo))
         {
             phoneNumberValidation = true;
-        } else
+        }
+        else
         {
             phoneNumberValidation = false;
         }
@@ -987,7 +1044,8 @@ public class Utility
         if (Arrays.asList(typePhone_No).contains(startPhoneNo))
         {
             return true;
-        } else
+        }
+        else
         {
             return false;
         }
@@ -1006,16 +1064,19 @@ public class Utility
 
         if (Arrays.asList(typeMCI_No).contains(startPhoneNo))
         {
-            return TrapConfig.SIM_TYPE_MCI;
-        } else if (Arrays.asList(typeMTN_No).contains(startPhoneNo))
+            return TrapConfig.OPERATOR_TYPE_MCI;
+        }
+        else if (Arrays.asList(typeMTN_No).contains(startPhoneNo))
         {
-            return TrapConfig.SIM_TYPE_MTN;
-        } else if (Arrays.asList(typeRightel_No).contains(startPhoneNo))
+            return TrapConfig.OPERATOR_TYPE_MTN;
+        }
+        else if (Arrays.asList(typeRightel_No).contains(startPhoneNo))
         {
-            return TrapConfig.SIM_TYPE_RIGHTELL;
-        } else
+            return TrapConfig.OPERATOR_TYPE_RIGHTELL;
+        }
+        else
         {
-            return TrapConfig.SIM_TYPE_OTHERS;
+            return TrapConfig.OPERATOR_TYPE_OTHERS;
         }
 
     }
@@ -1074,7 +1135,8 @@ public class Utility
             System.err.println("Date specified [" + dateSpecified + "] is before today [" + today + "]");
             return false;
 
-        } else
+        }
+        else
         {
             System.err.println("Date specified [" + dateSpecified + "] is NOT before today [" + today + "]");
             return true;
@@ -1120,7 +1182,8 @@ public class Utility
             Date today = new Date();
 
             todayWithZeroTime = dateFormat.parse(dateFormat.format(today));
-        } catch (ParseException e)
+        }
+        catch (ParseException e)
         {
             e.printStackTrace();
         }
@@ -1135,7 +1198,8 @@ public class Utility
             cMonth = cCal.get(Calendar.MONTH);
             cDay = cCal.get(Calendar.DAY_OF_MONTH);
 
-        } else
+        }
+        else
         {
             Calendar cCal = Calendar.getInstance();
             cCal.setTime(todayWithZeroTime);
@@ -1191,7 +1255,8 @@ public class Utility
                     return true;
                 }
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
         }
 
@@ -1217,7 +1282,8 @@ public class Utility
             if (TextView.class.isAssignableFrom(child.getClass()))
             {
                 CalligraphyUtils.applyFontToTextView(child.getContext(), (TextView) child, fontPath);
-            } else if (ViewGroup.class.isAssignableFrom(child.getClass()))
+            }
+            else if (ViewGroup.class.isAssignableFrom(child.getClass()))
             {
                 changeFontInViewGroup((ViewGroup) viewGroup.getChildAt(i), fontPath);
             }
