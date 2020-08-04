@@ -193,13 +193,13 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
     @Override
     public void showPaymentParentLoading()
     {
-
+        mainActionView.showLoading();
     }
 
     @Override
     public void hidePaymentParentLoading()
     {
-
+        mainActionView.hideLoading();
     }
 
     @Override

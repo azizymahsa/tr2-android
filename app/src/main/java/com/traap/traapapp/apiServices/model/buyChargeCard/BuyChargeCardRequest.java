@@ -31,17 +31,21 @@ public class BuyChargeCardRequest
     @Expose @Setter @Getter
     private String pin2;
 
-    @SerializedName("pan")
+    @SerializedName("card_id")
     @Expose @Setter @Getter
-    private String pan;
+    private int cardId;
 
     @SerializedName("cvv2")
     @Expose @Setter @Getter
     private String cvv2;
 
-    @SerializedName("exp_date")
+    @SerializedName("exp_year")
     @Expose @Setter @Getter
-    private String exDate;
+    private String expYear;
+
+    @SerializedName("exp_month")
+    @Expose @Setter @Getter
+    private String expMonth;
 
     @SerializedName("type_charge")
     @Expose @Setter @Getter

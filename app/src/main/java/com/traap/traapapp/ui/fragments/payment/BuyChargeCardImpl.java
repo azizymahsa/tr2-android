@@ -1,4 +1,4 @@
-package com.traap.traapapp.ui.fragments.simcardCharge.imp;
+package com.traap.traapapp.ui.fragments.payment;
 
 import com.traap.traapapp.apiServices.generator.SingletonService;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
@@ -13,16 +13,17 @@ import java.util.List;
 
 public class BuyChargeCardImpl
 {
-    public static void BuyChargeCard(int operatorType, int simCardType, int typeCharge, int amount,
-                                     String mobile, String pin2, String pan, String cvv2, String exDate, onBuyChargeCardListener listener)
+    public static void BuyChargeCard(int operatorType, int simCardType, int typeCharge, int amount, String mobile, String pin2,
+                                     int cardId, String cvv2, String expMonth, String expYear, onBuyChargeCardListener listener)
     {
         BuyChargeCardRequest request = new BuyChargeCardRequest();
         request.setAmount(amount);
         request.setCvv2(cvv2);
-        request.setExDate(exDate);
+        request.setExpMonth(expMonth);
+        request.setExpYear(expYear);
         request.setMobile(mobile);
         request.setOperatorType(operatorType);
-        request.setPan(pan);
+        request.setCardId(cardId);
         request.setPin2(pin2);
         request.setSimCardType(simCardType);
         request.setTypeCharge(typeCharge);

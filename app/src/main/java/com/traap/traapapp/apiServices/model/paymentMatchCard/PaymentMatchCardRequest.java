@@ -18,10 +18,6 @@ public class PaymentMatchCardRequest
     @Expose @Getter @Setter
     private Integer amount;
 
-    @SerializedName("pan")
-    @Expose @Getter @Setter
-    private String pan;
-
     @SerializedName("pin2")
     @Expose @Getter @Setter
     private String pin2;
@@ -34,12 +30,16 @@ public class PaymentMatchCardRequest
     @Expose @Getter @Setter
     private String cvv2;
 
-    @SerializedName("exp_date")
+    @SerializedName("exp_month")
     @Expose @Getter @Setter
-    private String expDate;
+    private String expMonth;
 
-//    @SerializedName("card_id")
-//    @Expose @Getter @Setter
-//    private Integer cardId;
+    @SerializedName("exp_year")
+    @Expose @Getter @Setter
+    private String expYear;
+
+    @SerializedName("card_id")
+    @Expose @Getter @Setter
+    private Integer cardId;
 
 }
