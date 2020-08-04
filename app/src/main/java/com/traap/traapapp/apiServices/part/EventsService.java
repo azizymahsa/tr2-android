@@ -3,10 +3,16 @@ package com.traap.traapapp.apiServices.part;
 import com.traap.traapapp.apiServices.generator.ServiceGenerator;
 import com.traap.traapapp.apiServices.listener.OnServiceStatus;
 import com.traap.traapapp.apiServices.model.WebServiceClass;
+import com.traap.traapapp.apiServices.model.billPayment.BillPaymentResponse;
 import com.traap.traapapp.apiServices.model.event.GetAllEventResponse;
 import com.traap.traapapp.apiServices.model.event.getEventByid.GetEventByIdResponse;
 import com.traap.traapapp.apiServices.model.event.getWorkshopById.GetWorkShopByIdResponse;
 import com.traap.traapapp.apiServices.model.event.participant.ParticipantEventIdResponse;
+import com.traap.traapapp.apiServices.model.event.payment.RequestEventPay;
+import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.getEvaluationResult.request.GetPlayerEvaluationResultRequest;
+import com.traap.traapapp.apiServices.model.formation.performanceEvaluation.getEvaluationResult.response.GetPlayerEvaluationRequestResponse;
+
+import java.util.List;
 
 
 /**
@@ -45,5 +51,11 @@ public class EventsService extends BasePart
     {
         start(getServiceGenerator().createService().getWorkshopsById(id), response);
     }
+
+    public void postWorkshopPay(RequestEventPay request,OnServiceStatus<WebServiceClass<BillPaymentResponse>> listener )
+    {
+        start(getServiceGenerator().createService().postWorkshopPay(request), listener);
+    }
+
 
 }

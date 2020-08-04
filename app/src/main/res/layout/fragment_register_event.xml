@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
-    >
+    android:background="@android:color/transparent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,75 +22,91 @@
             <include layout="@layout/toolbar_back" />
 
         </androidx.appcompat.widget.Toolbar>
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            >
+            android:background="@android:color/transparent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="vertical"
-                        android:layout_height="@dimen/_200dp"
-                        android:gravity="center|right|top"
-                        android:layout_margin="@dimen/_10dp"
-                        android:paddingRight="@dimen/_10dp"
-                        android:background="@drawable/background_event"
-                        >
-                        <TextView
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200dp"
+                    android:layout_margin="@dimen/_10dp"
+                    android:background="@drawable/background_event"
+                    android:gravity="center|right|top"
+                    android:orientation="vertical"
+                    android:paddingRight="@dimen/_10dp">
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/textSize_16dp"
+                        android:layout_marginTop="@dimen/_20dp"
                         android:text="اﻃﻼﻋﺎت روﯾﺪادی ﮐﻪ ﺛﺒﺖ ﻧﺎم ﮐﺮده اﯾﺪ: "
                         android:textAppearance="@style/IranSansBold"
                         android:textColor="@color/black"
-                        android:layout_marginTop="@dimen/_20dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/textSize_14dp"
-                            android:text="◄ ﻣﻌﺮﻓﯽ ﮐﻤﭗ اﺳﺘﺎرﺗﺎﭘﯽ ﻫﻮش ﻣﺼﻨﻮﻋﯽ"
-                            android:textAppearance="@style/IranSansBold"
-                            android:textColor="@color/team_text_color"
-                            android:layout_marginTop="@dimen/_20dp"/>
+                        android:textSize="@dimen/textSize_16dp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/textSize_12dp"
-                            android:text="پنجشنبه 29 خرداد 1399"
-                            android:layout_marginTop="20dp"
-                            android:textAppearance="@style/IranSansBold"
-                            android:textColor="@color/team_text_color"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_20dp"
+                        android:text="◄ ﻣﻌﺮﻓﯽ ﮐﻤﭗ اﺳﺘﺎرﺗﺎﭘﯽ ﻫﻮش ﻣﺼﻨﻮﻋﯽ"
+                        android:textAppearance="@style/IranSansBold"
+                        android:textColor="@color/team_text_color"
+                        android:textSize="@dimen/textSize_14dp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/textSize_12dp"
-                            android:text="ﻣﺪرس: ﺷﯿﺮﯾﻦ ﺷﻤﺲ"
-                            android:layout_marginTop="5dp"
-                            android:textAppearance="@style/IranSansBold"
-                            android:textColor="@color/team_text_color"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/textSize_12dp"
-                            android:text="راﯾﮕﺎن"
-                            android:textAppearance="@style/IranSansBold"
-                            android:textColor="@color/faded_Red"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="پنجشنبه 29 خرداد 1399"
+                        android:textAppearance="@style/IranSansBold"
+                        android:textColor="@color/team_text_color"
+                        android:textSize="@dimen/textSize_12dp" />
 
-                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="ﻣﺪرس: ﺷﯿﺮﯾﻦ ﺷﻤﺲ"
+                        android:textAppearance="@style/IranSansBold"
+                        android:textColor="@color/team_text_color"
+                        android:textSize="@dimen/textSize_12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="راﯾﮕﺎن"
+                        android:textAppearance="@style/IranSansBold"
+                        android:textColor="@color/faded_Red"
+                        android:textSize="@dimen/textSize_12dp" />
+
+                </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvRegister"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_margin="@dimen/_20dp">
+
+                    <include
+                        android:id="@+id/btnBuy"
+                        layout="@layout/circular_progress_button_peyment" />
+                </LinearLayout>
             </LinearLayout>
+
+
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 </RelativeLayout>

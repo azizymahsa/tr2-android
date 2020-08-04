@@ -17,6 +17,7 @@ import com.traap.traapapp.apiServices.model.matchList.MatchItem;
 import com.traap.traapapp.apiServices.model.paymentMatch.PaymentMatchRequest;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimChargePaymentInstance;
 import com.traap.traapapp.models.otherModels.paymentInstance.SimPackPaymentInstance;
+import com.traap.traapapp.ui.fragments.events.PersonEvent;
 import com.traap.traapapp.models.otherModels.predict.PredictTabModel;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.payment.PaymentFragment;
@@ -37,8 +38,10 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
     private List<PredictTabModel> tabList;
     private final String amount;
     private final String title;
-    private int idBill = 0;
-    private String url;
+    private ArrayList<PersonEvent> personEvents=new ArrayList<>();
+    private  int idBill=0;
+    private  String url;
+
     private final int imageDrawable;
     private final String mobile;
     private PaymentMatchRequest paymentMatchRequest;
@@ -87,20 +90,9 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
 //    }
 
 
-    public SelectPaymentAdapter(Context context,
-                                FragmentManager fragmentManager,
-                                List<PredictTabModel> tabList,
-                                MainActionView mainView,
-                                String amount,
-                                String title,
-                                int imageDrawable,
-                                String mobile,
-                                String url,
-                                SimChargePaymentInstance simChargePaymentInstance,
-                                SimPackPaymentInstance simPackPaymentInstance,
-                                int payment_status,
-                                int idBill
-    )
+
+    public SelectPaymentAdapter(Context context,FragmentManager fragmentManager  ,   List<PredictTabModel> tabList
+            , MainActionView mainView, String amount, String title, int imageDrawable, String mobile, String url, SimChargePaymentInstance simChargePaymentInstance, SimPackPaymentInstance simPackPaymentInstance, int payment_status, int idBill, ArrayList<PersonEvent> personEvents)
     {
         super(fragmentManager);
         this.url = url;
@@ -112,6 +104,10 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
         this.imageDrawable = imageDrawable;
         this.mobile = mobile;
         this.simChargePaymentInstance = simChargePaymentInstance;
+        this.simPackPaymentInstance=simPackPaymentInstance;
+        this.PAYMENT_STATUS=payment_status;
+        this.idBill=idBill;
+        this.personEvents=personEvents;
         this.simPackPaymentInstance = simPackPaymentInstance;
         this.PAYMENT_STATUS = payment_status;
         this.idBill = idBill;
@@ -166,21 +162,21 @@ public class SelectPaymentAdapter extends FragmentStatePagerAdapter implements P
         switch (position)
         {
             case 2:
-            {
-                PaymentWalletFragment tab2 = PaymentWalletFragment.newInstance(this, imageDrawable, simChargePaymentInstance, amount, mobile, title, simPackPaymentInstance, PAYMENT_STATUS, idBill);
+                PaymentWalletFragment tab2 = PaymentWalletFragment.newInstance(this,imageDrawable, simChargePaymentInstance,amount,mobile,title ,simPackPaymentInstance,PAYMENT_STATUS,idBill,personEvents);
+
                 return tab2;
-            }
             case 0:
-            {
-                PaymentGatewayFragment tab1 = PaymentGatewayFragment.newInstance(this, url, imageDrawable, amount, title, PAYMENT_STATUS, idBill);
+
+                PaymentGatewayFragment tab1 = PaymentGatewayFragment.newInstance(this,url,imageDrawable,amount,title,PAYMENT_STATUS,idBill,personEvents);
+
                 return tab1;
-            }
+
             case 1:
-            {
-                PaymentFragment tab3 = PaymentFragment.newInstance(this, amount, title, imageDrawable, mobile, paymentInstance, idBill);
+                PaymentFragment tab3 = PaymentFragment.newInstance(this, amount, title, imageDrawable,
+                        mobile, paymentInstance,idBill);
 
                 return tab3;
-            }
+
             default:
                 throw new RuntimeException("Tab position invalid " + position);
         }

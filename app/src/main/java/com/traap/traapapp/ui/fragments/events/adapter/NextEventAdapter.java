@@ -92,7 +92,7 @@ public class NextEventAdapter extends RecyclerView.Adapter<NextEventAdapter.View
             String[] splitsDateP = gorgianDate.split("-");
 
             PersianCalendar mPersianCalendar = new PersianCalendar();
-             mPersianCalendar.setPersianDate(Integer.valueOf(splitsDateP[0]),Integer.valueOf(splitsDateP[1]), Integer.valueOf(splitsDateP[2]));
+            mPersianCalendar.setPersianDate(Integer.valueOf(splitsDateP[0]),Integer.valueOf(splitsDateP[1]), Integer.valueOf(splitsDateP[2]));
 
            // holder.txtDate.setText(mPersianCalendar.getPersianLongDate()+" - "+splitsDateP[3]);
             holder.txtDate.setText(persianDate.toString());
@@ -124,7 +124,7 @@ public class NextEventAdapter extends RecyclerView.Adapter<NextEventAdapter.View
         }
         holder.llRoot.setOnClickListener(v ->
         {
-            event.onNextEventClick(results.get(position).getId());
+            event.onNextEventClick(results.get(position).getId(),results.get(position).getTitle(),results.get(position).getDescription());
 
         });
 
@@ -172,7 +172,7 @@ public class NextEventAdapter extends RecyclerView.Adapter<NextEventAdapter.View
     {
 
 
-        public void onNextEventClick(Integer id);
+        public void onNextEventClick(Integer id,String title,String desc);
     }
 
 

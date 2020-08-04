@@ -61,9 +61,9 @@ public class EventsFragment extends BaseFragment implements View.OnClickListener
     }
 
 
-    public static AboutFragment newInstance()
+    public static EventsFragment newInstance()
     {
-        AboutFragment fragment = new AboutFragment();
+        EventsFragment fragment = new EventsFragment();
 
 
         return fragment;
