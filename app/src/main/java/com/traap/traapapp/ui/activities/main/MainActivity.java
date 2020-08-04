@@ -862,10 +862,10 @@ public class MainActivity extends BaseMainActivity implements MainActionView, Me
 
                 isMainFragment = false;
 
-               /* setFragment(EventsFragment.newInstance(this));
-                replaceFragment(getFragment(), "EventsFragment");*/
-                setFragment(SurveyFragment.newInstance(this));
-                replaceFragment(getFragment(), "QuestionCompationFragment");
+               setFragment(EventsFragment.newInstance(this));
+                replaceFragment(getFragment(), "EventsFragment");
+               /* setFragment(SurveyFragment.newInstance(this));
+                replaceFragment(getFragment(), "QuestionCompationFragment");*/
                 break;
             }
 
