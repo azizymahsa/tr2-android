@@ -193,6 +193,7 @@
                     android:layout_marginBottom="2dp"
                     android:layout_marginTop="@dimen/_20dp" />
                 <TextView
+                    android:id="@+id/txtTitleHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/textSize_16dp"
@@ -202,7 +203,7 @@
                     android:layout_marginTop="@dimen/_10dp"
                     android:layout_marginRight="@dimen/_10dp"/>
                 <com.uncopt.android.widget.text.justify.JustifiedTextView
-                    android:id="@+id/tvBody"
+                    android:id="@+id/txtDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_10dp"

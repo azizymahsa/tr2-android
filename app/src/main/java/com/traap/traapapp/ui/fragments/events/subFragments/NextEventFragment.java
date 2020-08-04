@@ -143,9 +143,9 @@ public class NextEventFragment extends BaseFragment implements View.OnClickListe
     }
 
     @Override
-    public void onNextEventClick(Integer id)
+    public void onNextEventClick(Integer id,String title,String desc)
     {
-        ((MainActivity) getActivity()).setFragment(EventDetailFragment.newInstance(mainView,id));
+        ((MainActivity) getActivity()).setFragment(EventDetailFragment.newInstance(mainView,id,title,desc));
         ((MainActivity) getActivity()).replaceFragment(((MainActivity) getActivity()).getFragment(), "EventDetailFragment");
        // getWorkshopsById(id);
        // getParticipantRetrieve(id);

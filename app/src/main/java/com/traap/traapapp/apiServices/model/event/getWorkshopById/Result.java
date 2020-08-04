@@ -22,7 +22,7 @@ public class Result implements Serializable
     private String name;
     @SerializedName("price")
     @Expose
-    private Integer price;
+    private Double price;
     @SerializedName("available_capacity")
     @Expose
     private Integer availableCapacity;
@@ -30,6 +30,16 @@ public class Result implements Serializable
     @Expose
     private Integer event;
     private final static long serialVersionUID = -8138985867328885035L;
+
+    public Double getPrice()
+    {
+        return price;
+    }
+
+    public void setPrice(Double price)
+    {
+        this.price = price;
+    }
 
     public Integer getId() {
         return id;
@@ -63,13 +73,6 @@ public class Result implements Serializable
         this.name = name;
     }
 
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
 
     public Integer getAvailableCapacity() {
         return availableCapacity;

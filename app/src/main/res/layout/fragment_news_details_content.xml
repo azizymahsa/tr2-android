@@ -161,7 +161,7 @@
             android:layout_width="@dimen/_35dp"
             android:layout_height="@dimen/_35dp"
             android:layout_marginLeft="16dp"
-            android:background="@drawable/background_rectangle_border_color_8dp"
+            android:background="@drawable/background_rectangle_border_gray_8dp"
             android:padding="3dp"
             android:tint="@color/borderBackgroundColor"
             app:srcCompat="@drawable/ic_bookmark_border" />

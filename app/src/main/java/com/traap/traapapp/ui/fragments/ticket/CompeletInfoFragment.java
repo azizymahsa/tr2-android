@@ -2683,11 +2683,12 @@ public class CompeletInfoFragment
         paymentInstance.setPAYMENT_STATUS(TrapConfig.PAYMENT_STAUS_ChargeSimCard);
         paymentInstance.setOperatorType(12);
         paymentInstance.setSimcardType(12);
-        paymentInstance.setTypeCharge(Integer.valueOf(1));*/
+        paymentInstance.setTypeChar
+        ge(Integer.valueOf(1));*/
 
         final SelectPaymentAdapter adapter = new SelectPaymentAdapter
-                (context, getFragmentManager(), tabList, null, amount, title, imageDrawable, mobile,
-                        url, this.simChargePaymentInstance, simPackPaymentInstance, PAYMENT_STATUS,0);
+                (getContext(),getFragmentManager(),tabList, null, amount, title, imageDrawable, mobile,
+                        url, this.simChargePaymentInstance, simPackPaymentInstance, PAYMENT_STATUS,0,null);
 
         viewPager.setAdapter(adapter);
         //viewPager.beginFakeDrag();

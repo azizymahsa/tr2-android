@@ -82,6 +82,7 @@ import com.traap.traapapp.models.otherModels.qrModel.QrModel;
 import com.traap.traapapp.ui.activities.main.OnContactClick;
 import com.traap.traapapp.ui.adapters.charge.ChargeAdapter;
 import com.traap.traapapp.ui.base.BaseFragment;
+import com.traap.traapapp.ui.fragments.events.PersonEvent;
 import com.traap.traapapp.ui.fragments.main.BuyTicketAction;
 import com.traap.traapapp.ui.fragments.main.MainActionView;
 import com.traap.traapapp.ui.fragments.payment.PaymentActionView;
@@ -107,6 +108,7 @@ public class ChargeFragment extends BaseFragment
         RightelBuyImpl.OnFinishedRightelBuyListener, PaymentParentActionView,
         MciBuyInteractor.OnFinishedMciBuyInListener, TextWatcher, MainActionView, PaymentActionView
         , OnClickContinueSelectPayment, ChargeAdapter.ChargeAdapterEvent
+
 {
 
     private Context context;
@@ -2089,12 +2091,14 @@ public class ChargeFragment extends BaseFragment
 
     }
 
-
     @Override
-    public void onBackToChargFragment(int PAYMENT_STATUS, Integer idBill)
+    public void onBackToChargFragment(int payment_status, int PAYMENT_STATUS, int idBill, ArrayList<PersonEvent> personEvents)
     {
 
     }
+
+
+
 
     @Override
     public void backToAllServicePackage(Integer backState,Integer idMenuClicked)
@@ -2178,6 +2182,12 @@ public class ChargeFragment extends BaseFragment
 
     @Override
     public void onPlayerPerformanceEvaluationResult(Integer matchId, Integer playerId, String name, String imageURL)
+    {
+
+    }
+
+    @Override
+    public void openEventPaymentFragment(String url, String textEventPayment, Integer count, ArrayList<PersonEvent> personEvents, String amount, int PAYMENT_STATUS_BILL)
     {
 
     }
